@@ -18,6 +18,14 @@ config/icon="res://icon.svg"
 
 project/assembly_name="project-thaumaturgy"
 
+[layer_names]
+
+2d_physics/layer_1="Walls"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemies"
+2d_physics/layer_4="Pick-ups"
+2d_physics/layer_5="Interactables"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
