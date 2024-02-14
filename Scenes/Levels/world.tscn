@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://dtexuskfs00a0" path="res://Graphics/Sprites/ph_world_tileset.png" id="1_dicju"]
 [ext_resource type="Script" path="res://Scenes/Levels/world.gd" id="1_dmqvc"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_2o5t0"]
-vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_y5ui6"]
+vertices = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66re4"]
 texture = ExtResource("1_dicju")
@@ -15,17 +15,17 @@ texture = ExtResource("1_dicju")
 0:0/0/terrain = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_y5ui6")
 1:0/0 = 0
 1:0/0/terrain_set = 0
 1:0/0/terrain = 1
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_2o5t0")
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_oapsg"]
 physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 0
+physics_layer_0/collision_mask = 2
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Walls"
 terrain_set_0/terrain_0/color = Color(0.266667, 0.443137, 0, 1)
@@ -38,6 +38,7 @@ sources/0 = SubResource("TileSetAtlasSource_66re4")
 script = ExtResource("1_dmqvc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4.425, 4.425)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_oapsg")

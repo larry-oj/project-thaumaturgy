@@ -11,7 +11,9 @@ config_version=5
 [application]
 
 config/name="project-thaumaturgy"
+run/main_scene="res://Scenes/Levels/world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [dotnet]
@@ -22,9 +24,11 @@ project/assembly_name="project-thaumaturgy"
 
 2d_physics/layer_1="Walls"
 2d_physics/layer_2="Player"
-2d_physics/layer_3="Enemies"
-2d_physics/layer_4="Pick-ups"
-2d_physics/layer_5="Interactables"
+2d_physics/layer_3="Player Attacks"
+2d_physics/layer_4="Enemies"
+2d_physics/layer_5="Enemy Attacks"
+2d_physics/layer_6="Pick-ups"
+2d_physics/layer_7="Interactables"
 
 [rendering]
 
