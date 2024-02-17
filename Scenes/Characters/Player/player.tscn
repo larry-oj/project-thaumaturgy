@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=18 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Sprites/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="10_5gkgd"]
 
 [sub_resource type="Animation" id="Animation_esx43"]
 length = 0.001
@@ -321,3 +322,9 @@ position = Vector2(0, 4.5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_d3126")
 debug_color = Color(0, 0.623529, 0.52549, 0.419608)
+
+[node name="Weapon" type="Node2D" parent="."]
+position = Vector2(0, 2.5)
+
+[node name="Pistol" parent="Weapon" node_paths=PackedStringArray("inputComponent") instance=ExtResource("10_5gkgd")]
+inputComponent = NodePath("../../InputComponent")

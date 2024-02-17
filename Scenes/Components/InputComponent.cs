@@ -6,7 +6,7 @@ public partial class InputComponent : Node2D
 {
 	[Export] private CanvasGroup _animatedSprites;
 	
-	public Vector2 MovementDirection
+	public virtual Vector2 MovementDirection
 	{
 		get
 		{
@@ -16,6 +16,8 @@ public partial class InputComponent : Node2D
 			return dir.Normalized();
 		}
 	}
+
+	public virtual bool IsAttacking => Input.IsActionPressed("player_attack");
 
 	public override void _Process(double delta)
 	{

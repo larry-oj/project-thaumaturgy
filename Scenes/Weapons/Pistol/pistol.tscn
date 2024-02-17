@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://057rmsbyqtqh"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Pistol/Pistol.cs" id="1_jerm7"]
+[ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_l7ssc"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="2_ecuxd"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolIdle.cs" id="3_mj6hb"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolShoot.cs" id="4_b6krq"]
+
+[sub_resource type="Animation" id="Animation_8jo3m"]
+resource_name = "shooting"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.015, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.488692, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_joev8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j7b8h"]
+_data = {
+"RESET": SubResource("Animation_joev8"),
+"shooting": SubResource("Animation_8jo3m")
+}
+
+[node name="Pistol" type="Node2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
+script = ExtResource("1_jerm7")
+_stateMachine = NodePath("StateMachine")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="Sprites" type="CanvasGroup" parent="."]
+
+[node name="Outline" type="Sprite2D" parent="Sprites"]
+position = Vector2(2, 0)
+texture = ExtResource("1_l7ssc")
+region_enabled = true
+region_rect = Rect2(20, 0, 10, 5)
+
+[node name="Color" type="Sprite2D" parent="Sprites"]
+self_modulate = Color(1, 0, 0, 1)
+position = Vector2(2, 0)
+texture = ExtResource("1_l7ssc")
+region_enabled = true
+region_rect = Rect2(30, 0, 10, 5)
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("2_ecuxd")]
+_initialState = NodePath("PistolIdle")
+
+[node name="PistolIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_pistolShoot")]
+script = ExtResource("3_mj6hb")
+_pistolShoot = NodePath("../PistolShoot")
+
+[node name="PistolShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_pistolIdle", "_timer")]
+script = ExtResource("4_b6krq")
+_pistolIdle = NodePath("../PistolIdle")
+_timer = NodePath("../../Timer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j7b8h")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="StateMachine/PistolShoot" method="OnTimerTimeout"]

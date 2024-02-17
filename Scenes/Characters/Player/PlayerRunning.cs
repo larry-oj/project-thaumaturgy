@@ -30,7 +30,7 @@ public partial class PlayerRunning : State
     
     public override void PhysicsProcess(double delta)
     {
-        _character.Velocity = _inputComponent.MovementDirection * _velocityComponent.MaxSpeed;
+        ((CharacterBody2D)_parent).Velocity = _inputComponent.MovementDirection * _velocityComponent.MaxSpeed;
         base.PhysicsProcess(delta);
     }
 }
