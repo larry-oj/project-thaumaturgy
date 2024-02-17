@@ -290,8 +290,9 @@ libraries = {
 [node name="VelocityComponent" parent="." instance=ExtResource("3_2n4k3")]
 MaxSpeed = 100.0
 
-[node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites") instance=ExtResource("3_6nmd5")]
+[node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_weapon") instance=ExtResource("3_6nmd5")]
 _animatedSprites = NodePath("../AnimatedSprites")
+_weapon = NodePath("../Weapon")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
 maxHealth = 10.0

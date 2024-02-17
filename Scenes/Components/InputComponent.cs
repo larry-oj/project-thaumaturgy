@@ -1,10 +1,12 @@
 using Godot;
+using projectthaumaturgy.Scenes.Weapons;
 
 namespace projectthaumaturgy.Scenes.Components;
 
 public partial class InputComponent : Node2D
 {
 	[Export] private CanvasGroup _animatedSprites;
+	[Export] private Node2D _weapon;
 	
 	public virtual Vector2 MovementDirection
 	{
@@ -22,6 +24,7 @@ public partial class InputComponent : Node2D
 	public override void _Process(double delta)
 	{
 		RotateSpriteToMouse();
+		RotateWeaponToMouse();
 	}
 
 	private void RotateSpriteToMouse()
@@ -33,5 +36,17 @@ public partial class InputComponent : Node2D
 		var scale = _animatedSprites.Scale;
 		scale.X = angle.X < 0 ? -1 : 1;
 		_animatedSprites.Scale = scale;
+	}
+	
+	private void RotateWeaponToMouse()
+	{
+		var mousePos = GetGlobalMousePosition();
+		var selfPos = GlobalPosition;
+		var angle = mousePos - selfPos;
+
+		var scale = _weapon.Scale;
+		scale.Y = angle.X < 0 ? -1 : 1;
+		_weapon.Scale = scale;
+		_weapon.Rotation = angle.Angle();
 	}
 }
