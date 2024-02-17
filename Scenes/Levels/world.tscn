@@ -1,45 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://doaq66rpyy2ss"]
+[gd_scene load_steps=3 format=3 uid="uid://dso3ffoitymk"]
 
-[ext_resource type="Texture2D" uid="uid://dtexuskfs00a0" path="res://Graphics/Sprites/ph_world_tileset.png" id="1_dicju"]
-[ext_resource type="Script" path="res://Scenes/Levels/world.gd" id="1_dmqvc"]
+[ext_resource type="Script" path="res://Scenes/Levels/World.cs" id="1_fxom5"]
+[ext_resource type="TileSet" uid="uid://b6skrro0qj8fe" path="res://Graphics/Sprites/ph_world_tileset.tres" id="2_ev2xy"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_y5ui6"]
-vertices = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)])
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66re4"]
-texture = ExtResource("1_dicju")
-0:0/0 = 0
-0:0/0/terrain_set = 0
-0:0/0/terrain = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_y5ui6")
-1:0/0 = 0
-1:0/0/terrain_set = 0
-1:0/0/terrain = 1
-1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-
-[sub_resource type="TileSet" id="TileSet_oapsg"]
-physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 2
-terrain_set_0/mode = 0
-terrain_set_0/terrain_0/name = "Walls"
-terrain_set_0/terrain_0/color = Color(0.266667, 0.443137, 0, 1)
-terrain_set_0/terrain_1/name = "Floor"
-terrain_set_0/terrain_1/color = Color(0.670588, 0, 0.823529, 1)
-navigation_layer_0/layers = 1
-sources/0 = SubResource("TileSetAtlasSource_66re4")
-
-[node name="World" type="Node2D"]
-script = ExtResource("1_dmqvc")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4.425, 4.425)
+[node name="World" type="Node2D" node_paths=PackedStringArray("_tileMap")]
+script = ExtResource("1_fxom5")
+_tileMap = NodePath("TileMap")
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_oapsg")
+tile_set = ExtResource("2_ev2xy")
 format = 2
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)

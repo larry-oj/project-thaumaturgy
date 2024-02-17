@@ -1,0 +1,323 @@
+[gd_scene load_steps=17 format=3 uid="uid://cabn78p4558rd"]
+
+[ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Sprites/player_sprite_frames.tres" id="1_jxsqx"]
+[ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
+[ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="3_2n4k3"]
+[ext_resource type="PackedScene" uid="uid://wln6mruo3b8p" path="res://Scenes/Components/input_component.tscn" id="3_6nmd5"]
+[ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="3_rav62"]
+[ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="4_crpsg"]
+[ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
+[ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
+
+[sub_resource type="Animation" id="Animation_esx43"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprites/Outline:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idling"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprites/Color:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idling"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprites/Color:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprites/Color:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2jbvl"]
+resource_name = "hurting"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprites/Outline:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"hurting"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 2, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprites/Color:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"hurting"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprites/Color:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprites/Color:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_sv6my"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprites/Outline:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idling"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 4, 6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprites/Color:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idling"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprites/Color:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 3, 5, 7]
+}
+
+[sub_resource type="Animation" id="Animation_xh62l"]
+resource_name = "running"
+length = 0.75
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprites/Outline:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"running"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 4, 6, 8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprites/Color:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"running"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprites/Color:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 3, 5, 7, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5wpls"]
+_data = {
+"RESET": SubResource("Animation_esx43"),
+"hurting": SubResource("Animation_2jbvl"),
+"idle": SubResource("Animation_sv6my"),
+"running": SubResource("Animation_xh62l")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e5c3n"]
+radius = 6.0
+height = 15.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
+radius = 3.5
+height = 14.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_tdxyb")
+_stateMachine = NodePath("StateMachine")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimatedSprites" type="CanvasGroup" parent="."]
+
+[node name="Outline" type="AnimatedSprite2D" parent="AnimatedSprites"]
+sprite_frames = ExtResource("1_jxsqx")
+animation = &"idling"
+
+[node name="Color" type="AnimatedSprite2D" parent="AnimatedSprites"]
+self_modulate = Color(1, 0, 0, 1)
+sprite_frames = ExtResource("1_jxsqx")
+animation = &"idling"
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5wpls")
+}
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_2n4k3")]
+MaxSpeed = 100.0
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites") instance=ExtResource("3_6nmd5")]
+_animatedSprites = NodePath("../AnimatedSprites")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
+maxHealth = 10.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("4_crpsg")]
+_healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 0.5)
+shape = SubResource("CapsuleShape2D_e5c3n")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
+_initialState = NodePath("PlayerIdle")
+
+[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_runningState", "_inputComponent")]
+script = ExtResource("4_x53oe")
+_runningState = NodePath("../PlayerRunning")
+_inputComponent = NodePath("../../InputComponent")
+
+[node name="PlayerRunning" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idleState", "_velocityComponent", "_inputComponent")]
+script = ExtResource("5_7lo8p")
+_idleState = NodePath("../PlayerIdle")
+_velocityComponent = NodePath("../../VelocityComponent")
+_inputComponent = NodePath("../../InputComponent")
+
+[node name="FeetCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_d3126")
+debug_color = Color(0, 0.623529, 0.52549, 0.419608)
