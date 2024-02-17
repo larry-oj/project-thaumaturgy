@@ -277,7 +277,7 @@ sprite_frames = ExtResource("1_jxsqx")
 animation = &"idling"
 
 [node name="Color" type="AnimatedSprite2D" parent="AnimatedSprites"]
-self_modulate = Color(1, 0, 0, 1)
+self_modulate = Color(0, 0, 1, 1)
 sprite_frames = ExtResource("1_jxsqx")
 animation = &"idling"
 frame = 1
@@ -292,7 +292,7 @@ MaxSpeed = 100.0
 
 [node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_weapon") instance=ExtResource("3_6nmd5")]
 _animatedSprites = NodePath("../AnimatedSprites")
-_weapon = NodePath("../Weapon")
+_weapon = NodePath("../Pistol")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
 maxHealth = 10.0
@@ -324,8 +324,6 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_d3126")
 debug_color = Color(0, 0.623529, 0.52549, 0.419608)
 
-[node name="Weapon" type="Node2D" parent="."]
+[node name="Pistol" parent="." node_paths=PackedStringArray("inputComponent") instance=ExtResource("10_5gkgd")]
 position = Vector2(0, 2.5)
-
-[node name="Pistol" parent="Weapon" node_paths=PackedStringArray("inputComponent") instance=ExtResource("10_5gkgd")]
-inputComponent = NodePath("../../InputComponent")
+inputComponent = NodePath("../InputComponent")
