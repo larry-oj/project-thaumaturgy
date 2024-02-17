@@ -18,7 +18,7 @@ public partial class Player : CharacterBody2D
 	
 	public override void _Process(double delta)
 	{
-		_stateMachine.Process((float)delta);
+		_stateMachine.Process(delta);
 	}
 	
 	public override void _PhysicsProcess(double delta)
