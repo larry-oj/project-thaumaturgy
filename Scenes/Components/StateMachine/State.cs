@@ -8,12 +8,12 @@ public partial class State : Node
     [Signal]
     public delegate void TransitionedEventHandler(State state, State newState);
     
-    protected CharacterBody2D _character;
+    protected Node2D _parent;
     protected AnimationPlayer _animationPlayer;
 
-    public void Init(CharacterBody2D character, AnimationPlayer animationPlayer)
+    public void Init(Node2D parent, AnimationPlayer animationPlayer)
     {
-        _character = character;
+        _parent = parent;
         _animationPlayer = animationPlayer;
     }
 

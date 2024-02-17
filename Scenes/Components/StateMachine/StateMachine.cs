@@ -10,14 +10,14 @@ public partial class StateMachine : Node
     private State _initialState;
     private State _currentState;
 
-    public void Init(CharacterBody2D character, AnimationPlayer animationPlayer)
+    public void Init(Node2D parent, AnimationPlayer animationPlayer)
     {
         foreach (var child in GetChildren())
         {
             if (child is not State state) continue;
             
             state.Transitioned += OnChildTransition;
-            state.Init(character, animationPlayer);
+            state.Init(parent, animationPlayer);
         }
         
         _currentState = _initialState;
