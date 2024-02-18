@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bukfkdymypi2i"]
+
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="1_n23pg"]
+[ext_resource type="Script" path="res://Resources/Weapons/PistolResource.cs" id="1_ngu5t"]
+
+[resource]
+script = ExtResource("1_ngu5t")
+Scene = ExtResource("1_n23pg")

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bchvl8hm4qc66"]
+
+[ext_resource type="PackedScene" uid="uid://c6uj58wrq4b4x" path="res://Scenes/Weapons/CreatedObjects/bullet.tscn" id="1_m6eg1"]
+[ext_resource type="Script" path="res://Resources/Weapons/CreatedObjects/BulletResource.cs" id="1_wd6ah"]
+
+[resource]
+script = ExtResource("1_wd6ah")
+Scene = ExtResource("1_m6eg1")

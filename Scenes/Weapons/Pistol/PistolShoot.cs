@@ -1,4 +1,5 @@
 ﻿using Godot;
+using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons.CreatedObjects;
 
@@ -8,13 +9,13 @@ public partial class PistolShoot : State
 {
     [Export] private PistolIdle _pistolIdle;
     [Export] private Timer _timer;
-    [Export] private Node2D _projectileSpawner;
-    
-    private PackedScene _projectile;
+    [Export] private Marker2D _projectileSpawner;
+    [Export] private BulletResource _bulletResource;
+    private PackedScene _bulletProjectile;
 
     public override void _Ready()
     {
-        _projectile = ResourceLoader.Load("res://Scenes/Weapons/CreatedObjects/bullet.tscn") as PackedScene;
+        _bulletProjectile = _bulletResource.Scene;
     }
     
     public override void Enter()
@@ -23,7 +24,7 @@ public partial class PistolShoot : State
         _animationPlayer.Play(animationName);
         _timer.Start(_animationPlayer.GetAnimation(animationName).Length);
         
-        var bullet = _projectile.Instantiate() as Bullet;
+        var bullet = _bulletProjectile.Instantiate() as Bullet;
         bullet!.Position = new Vector2(_projectileSpawner.GlobalPosition.X, _projectileSpawner.GlobalPosition.Y);
         bullet!.Rotation = _projectileSpawner.GlobalRotation;
         GetNode("/root/World").AddChild(bullet);
