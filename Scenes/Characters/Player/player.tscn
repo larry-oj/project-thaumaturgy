@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
-[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="10_5gkgd"]
+[ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="10_x8iuj"]
 
 [sub_resource type="Animation" id="Animation_esx43"]
 length = 0.001
@@ -265,6 +265,7 @@ height = 14.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
 collision_layer = 2
+collision_mask = 25
 motion_mode = 1
 script = ExtResource("1_tdxyb")
 _stateMachine = NodePath("StateMachine")
@@ -287,17 +288,20 @@ libraries = {
 "": SubResource("AnimationLibrary_5wpls")
 }
 
-[node name="VelocityComponent" parent="." instance=ExtResource("3_2n4k3")]
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("3_2n4k3")]
 MaxSpeed = 100.0
+_body = NodePath("..")
 
-[node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_weapon") instance=ExtResource("3_6nmd5")]
+[node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_weaponPivot", "_weapon") instance=ExtResource("3_6nmd5")]
 _animatedSprites = NodePath("../AnimatedSprites")
-_weapon = NodePath("../Pistol")
+_weaponPivot = NodePath("../Pivot")
+_weapon = NodePath("../Pivot/Rifle")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
 maxHealth = 10.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("4_crpsg")]
+collision_mask = 16
 _healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
@@ -324,6 +328,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_d3126")
 debug_color = Color(0, 0.623529, 0.52549, 0.419608)
 
-[node name="Pistol" parent="." node_paths=PackedStringArray("inputComponent") instance=ExtResource("10_5gkgd")]
-position = Vector2(0, 2.5)
-inputComponent = NodePath("../InputComponent")
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(0, 3)
+
+[node name="Rifle" parent="Pivot" instance=ExtResource("10_x8iuj")]

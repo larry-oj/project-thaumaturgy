@@ -7,18 +7,25 @@ namespace projectthaumaturgy.Scenes.Weapons.Pistol;
 public partial class PistolIdle : State
 {
     [Export] private PistolShoot _pistolShoot;
-    private InputComponent _inputComponent;
+    private Pistol _pistol;
 
     public override void _Ready()
     {
-        _inputComponent = GetNode<Pistol>("../..").inputComponent;
+        _pistol = GetNode<Pistol>("../..");
     }
-    
-    public override void Process(double delta)
+
+    public override void Enter()
     {
-        if (_inputComponent.IsAttacking)
-        {
-            EmitSignal(nameof(Transitioned), this, _pistolShoot);
-        }
+        _pistol.OnAttack += OnAttacked;
+    }
+
+    public override void Exit()
+    {
+        _pistol.OnAttack -= OnAttacked;
+    }
+
+    private void OnAttacked()
+    {
+        EmitSignal(nameof(Transitioned), this, _pistolShoot);
     }
 }

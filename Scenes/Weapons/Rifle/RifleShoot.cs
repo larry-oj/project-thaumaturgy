@@ -2,23 +2,25 @@
 using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons.CreatedObjects;
+using projectthaumaturgy.Scenes.Weapons.Pistol;
 
-namespace projectthaumaturgy.Scenes.Weapons.Pistol;
+namespace projectthaumaturgy.Scenes.Weapons.Rifle;
 
-public partial class PistolShoot : State
+public partial class RifleShoot : State
 {
-    [Export] private PistolIdle _pistolIdle;
+    [Export] private RifleIdle _rifleIdle;
     [Export] private Timer _timer;
     [Export] private Marker2D _projectileSpawner;
     private BulletResource _bulletResource;
     private PackedScene _bulletProjectile;
-
+    
     public override void _Ready()
     {
-        _bulletResource = GetNode<Pistol>("../..").BulletResource;
+        _bulletResource = GetNode<Rifle>("../..").BulletResource;
         _bulletProjectile = _bulletResource.Scene;
+        _timer.Timeout += OnTimerTimeout;
     }
-    
+
     public override void Enter()
     {
         const string animationName = "shooting";
@@ -30,14 +32,14 @@ public partial class PistolShoot : State
         bullet!.Rotation = _projectileSpawner.GlobalRotation;
         GetNode("/root/World").AddChild(bullet);
     }
-    
+
     public override void Exit()
     {
-        
+        _animationPlayer.Stop();
     }
     
     private void OnTimerTimeout()
     {
-        EmitSignal(nameof(Transitioned), this, _pistolIdle);
+        EmitSignal(nameof(Transitioned), this, _rifleIdle);
     }
 }

@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://057rmsbyqtqh"]
+[gd_scene load_steps=9 format=3 uid="uid://057rmsbyqtqh"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/Pistol.cs" id="1_jerm7"]
 [ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_l7ssc"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="2_ecuxd"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolIdle.cs" id="3_mj6hb"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolShoot.cs" id="4_b6krq"]
-[ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="6_3s2kt"]
 
 [sub_resource type="Animation" id="Animation_joev8"]
 length = 0.001
@@ -25,7 +24,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_8jo3m"]
 resource_name = "shooting"
 length = 0.2
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -45,10 +43,8 @@ _data = {
 "shooting": SubResource("Animation_8jo3m")
 }
 
-[node name="Pistol" type="Node2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
+[node name="Pistol" type="Node2D"]
 script = ExtResource("1_jerm7")
-_stateMachine = NodePath("StateMachine")
-_animationPlayer = NodePath("AnimationPlayer")
 
 [node name="Sprites" type="CanvasGroup" parent="."]
 
@@ -65,6 +61,15 @@ texture = ExtResource("1_l7ssc")
 region_enabled = true
 region_rect = Rect2(30, 0, 10, 5)
 
+[node name="ProjectileSpawner" type="Marker2D" parent="."]
+position = Vector2(5, -0.5)
+gizmo_extents = 1.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j7b8h")
+}
+
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("2_ecuxd")]
 _initialState = NodePath("PistolIdle")
 
@@ -75,20 +80,10 @@ _pistolShoot = NodePath("../PistolShoot")
 [node name="PistolShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_pistolIdle", "_timer", "_projectileSpawner")]
 script = ExtResource("4_b6krq")
 _pistolIdle = NodePath("../PistolIdle")
-_timer = NodePath("../../Timer")
+_timer = NodePath("Timer")
 _projectileSpawner = NodePath("../../ProjectileSpawner")
-_bulletResource = ExtResource("6_3s2kt")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_j7b8h")
-}
-
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="StateMachine/PistolShoot"]
 one_shot = true
 
-[node name="ProjectileSpawner" type="Marker2D" parent="."]
-position = Vector2(5, -0.5)
-gizmo_extents = 1.5
-
-[connection signal="timeout" from="Timer" to="StateMachine/PistolShoot" method="OnTimerTimeout"]
+[connection signal="timeout" from="StateMachine/PistolShoot/Timer" to="StateMachine/PistolShoot" method="OnTimerTimeout"]

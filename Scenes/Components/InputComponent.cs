@@ -6,7 +6,8 @@ namespace projectthaumaturgy.Scenes.Components;
 public partial class InputComponent : Node2D
 {
 	[Export] private CanvasGroup _animatedSprites;
-	[Export] private Node2D _weapon;
+	[Export] private Node2D _weaponPivot;
+	[Export] private Weapon _weapon;
 	
 	public virtual Vector2 MovementDirection
 	{
@@ -25,6 +26,9 @@ public partial class InputComponent : Node2D
 	{
 		RotateSpriteToMouse();
 		RotateWeaponToMouse();
+		
+		if (IsAttacking)
+			_weapon.Attack();
 	}
 
 	private void RotateSpriteToMouse()
@@ -44,9 +48,9 @@ public partial class InputComponent : Node2D
 		var selfPos = GlobalPosition;
 		var angle = mousePos - selfPos;
 
-		var scale = _weapon.Scale;
+		var scale = _weaponPivot.Scale;
 		scale.Y = angle.X < 0 ? -1 : 1;
-		_weapon.Scale = scale;
-		_weapon.Rotation = angle.Angle();
+		_weaponPivot.Scale = scale;
+		_weaponPivot.Rotation = angle.Angle();
 	}
 }

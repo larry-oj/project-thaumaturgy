@@ -1,0 +1,119 @@
+[gd_scene load_steps=15 format=3 uid="uid://blb8ir4affwuf"]
+
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_7ejue"]
+[ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="1_dpilp"]
+[ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="2_pe08a"]
+[ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="3_re2n2"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="4_yx3ol"]
+[ext_resource type="PackedScene" uid="uid://delpi1w48hmeo" path="res://Scenes/Components/detector_comonent.tscn" id="6_2nmy3"]
+[ext_resource type="PackedScene" uid="uid://d0foud0se2uis" path="res://Scenes/Components/navigation_component.tscn" id="6_pvd51"]
+[ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="7_7bstn"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerIdle.cs" id="7_bdqaj"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerWander.cs" id="9_wsqky"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerAlert.cs" id="10_ueuvy"]
+[ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="12_k5yc8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x2b2m"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ughsc"]
+radius = 5.0
+height = 15.0
+
+[node name="Gunner" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine")]
+collision_layer = 8
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_7ejue")
+_stateMachine = NodePath("StateMachine")
+
+[node name="AnimatedSprites" type="CanvasGroup" parent="."]
+
+[node name="Outline" type="Sprite2D" parent="AnimatedSprites"]
+texture = ExtResource("1_dpilp")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Color" type="Sprite2D" parent="AnimatedSprites"]
+self_modulate = Color(1, 0, 0, 1)
+texture = ExtResource("1_dpilp")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
+
+[node name="FeetCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_x2b2m")
+debug_color = Color(0, 0.631373, 0.45098, 0.419608)
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("2_pe08a")]
+collision_layer = 8
+collision_mask = 4
+_healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 0.5)
+shape = SubResource("CapsuleShape2D_ughsc")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_re2n2")]
+maxHealth = 10.0
+
+[node name="NavigationComponent" parent="." instance=ExtResource("6_pvd51")]
+path_desired_distance = 5.0
+target_desired_distance = 7.0
+debug_enabled = true
+_timerInterval = 0.25
+
+[node name="DetectorComonent" parent="." instance=ExtResource("6_2nmy3")]
+_detectionInterval = 0.1
+detectionRange = 60.0
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("7_7bstn")]
+MaxSpeed = 65.0
+_body = NodePath("..")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("4_yx3ol")]
+_initialState = NodePath("GunnerIdle")
+
+[node name="GunnerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_gunnerWander", "_gunnerAlert")]
+script = ExtResource("7_bdqaj")
+_wanderChance = 0.5
+_detectorComponent = NodePath("../../DetectorComonent")
+_gunnerWander = NodePath("../GunnerWander")
+_gunnerAlert = NodePath("../GunnerAlert")
+
+[node name="Timer" type="Timer" parent="StateMachine/GunnerIdle"]
+wait_time = 2.0
+
+[node name="GunnerWander" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_velocityComponent", "_navigationComponent", "_gunnerIdle", "_gunnerAlert")]
+script = ExtResource("9_wsqky")
+_wanderRadius = 50.0
+_detectorComponent = NodePath("../../DetectorComonent")
+_velocityComponent = NodePath("../../VelocityComponent")
+_navigationComponent = NodePath("../../NavigationComponent")
+_gunnerIdle = NodePath("../GunnerIdle")
+_gunnerAlert = NodePath("../GunnerAlert")
+
+[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_navigationComponent", "_detectorComponent", "_velocityComponent", "_gunnerIdle", "_weaponPivot", "_weapon")]
+script = ExtResource("10_ueuvy")
+_upperBoundary = 100.0
+_lowerBoundary = 60.0
+_navigationComponent = NodePath("../../NavigationComponent")
+_detectorComponent = NodePath("../../DetectorComonent")
+_velocityComponent = NodePath("../../VelocityComponent")
+_gunnerIdle = NodePath("../GunnerIdle")
+_weaponPivot = NodePath("../../Pivot")
+_weapon = NodePath("../../Pivot/Rifle")
+
+[node name="Timer" type="Timer" parent="StateMachine/GunnerAlert"]
+
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(0, 3)
+rotation = -0.00292828
+
+[node name="Rifle" parent="Pivot" instance=ExtResource("12_k5yc8")]
+
+[connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerIdle" method="OnPlayerDetected"]
+[connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerWander" method="OnPlayerDetected"]
+[connection signal="timeout" from="StateMachine/GunnerIdle/Timer" to="StateMachine/GunnerIdle" method="OnTimerTimeout"]

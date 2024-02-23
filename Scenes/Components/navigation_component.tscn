@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0foud0se2uis"]
+
+[ext_resource type="Script" path="res://Scenes/Components/NavigationComponent.cs" id="1_mya0g"]
+
+[node name="NavigationComponent" type="NavigationAgent2D"]
+script = ExtResource("1_mya0g")
+_timerInterval = 0.5
+
+[node name="NavigationTimer" type="Timer" parent="."]

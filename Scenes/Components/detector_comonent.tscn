@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://delpi1w48hmeo"]
+
+[ext_resource type="Script" path="res://Scenes/Components/DetectorComponent.cs" id="1_x7amg"]
+
+[node name="DetectorComponent" type="RayCast2D"]
+target_position = Vector2(0, 0)
+collision_mask = 3
+collide_with_areas = true
+script = ExtResource("1_x7amg")
+_detectionInterval = 0.5
+_detectionRange = 60.0
+
+[node name="IntervalTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="IntervalTimer" to="." method="OnTimerTimeout"]
