@@ -3,6 +3,7 @@ using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Weapons.Pistol;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Weapons.Rifle;
 
@@ -13,12 +14,14 @@ public partial class RifleShoot : State
     [Export] private Marker2D _projectileSpawner;
     private BulletResource _bulletResource;
     private PackedScene _bulletProjectile;
+    private Rifle _rifle;
     
     public override void _Ready()
     {
         _bulletResource = GetNode<Rifle>("../..").BulletResource;
         _bulletProjectile = _bulletResource.Scene;
         _timer.Timeout += OnTimerTimeout;
+        _rifle = GetNode<Rifle>("../..");
     }
 
     public override void Enter()
@@ -30,6 +33,7 @@ public partial class RifleShoot : State
         var bullet = _bulletProjectile.Instantiate() as Bullet;
         bullet!.Position = new Vector2(_projectileSpawner.GlobalPosition.X, _projectileSpawner.GlobalPosition.Y);
         bullet!.Rotation = _projectileSpawner.GlobalRotation;
+        bullet!.Attack = _rifle.WeaponAttack;
         GetNode("/root/World").AddChild(bullet);
     }
 

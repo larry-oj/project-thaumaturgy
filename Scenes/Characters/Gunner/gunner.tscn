@@ -22,8 +22,8 @@ radius = 5.0
 height = 15.0
 
 [node name="Gunner" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine")]
-collision_layer = 8
-collision_mask = 7
+collision_layer = 16
+collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_7ejue")
 _stateMachine = NodePath("StateMachine")
@@ -48,7 +48,7 @@ shape = SubResource("CapsuleShape2D_x2b2m")
 debug_color = Color(0, 0.631373, 0.45098, 0.419608)
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("2_pe08a")]
-collision_layer = 8
+collision_layer = 64
 collision_mask = 4
 _healthComponent = NodePath("../HealthComponent")
 
@@ -66,6 +66,7 @@ debug_enabled = true
 _timerInterval = 0.25
 
 [node name="DetectorComonent" parent="." instance=ExtResource("6_2nmy3")]
+collision_mask = 9
 _detectionInterval = 0.1
 detectionRange = 60.0
 

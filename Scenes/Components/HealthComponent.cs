@@ -5,25 +5,45 @@ namespace projectthaumaturgy.Scenes.Components;
 
 public partial class HealthComponent : Node2D
 {
-    [Export] public float maxHealth = 100;
+    [Export] public float maxHealth;
+    [Export] public Attack.AttackElement resistance = Attack.AttackElement.Absolute;
+    [Export] public float ResistanceMultiplier = 1.0f;
+    [Export] public Attack.AttackElement weakness = Attack.AttackElement.Absolute;
+    [Export] public float WeaknessMultiplier = 1.0f;
+
+    public float Health => _health;
     private float _health;
     
-    [Signal] public delegate void HealthChangedEventHandler();
+    [Signal] public delegate void HealthChangedEventHandler(HealthChange healthChange);
     [Signal] public delegate void HealthDepletedEventHandler();
-    
-    public HealthComponent()
+
+    public override void _Ready()
     {
         _health = maxHealth;
     }
-    
-    public void TakeDamage(Attack damage)
+
+    public void TakeDamage(Attack attack)
     {
-        _health -= damage.attackDamage;
-        EmitSignal(nameof(HealthChanged));
+        var healthChange = new HealthChange();
+        healthChange.BeforeHealth = Health;
         
-        if (_health <= 0)
+        if (resistance == attack.Element)
         {
-            EmitSignal(nameof(HealthDepleted));
+            _health -= attack.Damage * ResistanceMultiplier;
         }
+        else if (weakness == attack.Element)
+        {
+            _health -= attack.Damage * WeaknessMultiplier;
+        }
+        else
+        {
+            _health -= attack.Damage;
+        }
+
+        healthChange.AfterHealth = Health;
+
+        EmitSignal(nameof(HealthChanged), healthChange);
+        if (_health <= 0)
+            EmitSignal(nameof(HealthDepleted));
     }
 }

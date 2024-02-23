@@ -60,10 +60,12 @@ player_attack={
 2d_navigation/layer_1="Enemies"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Player Attacks"
-2d_physics/layer_4="Enemies"
-2d_physics/layer_5="Enemy Attacks"
-2d_physics/layer_6="Pick-ups"
-2d_physics/layer_7="Interactables"
+2d_physics/layer_4="Player Hitboxes"
+2d_physics/layer_5="Enemies"
+2d_physics/layer_6="Enemy Attacks"
+2d_physics/layer_7="Enemy Hitboxes"
+2d_physics/layer_8="Pick-ups"
+2d_physics/layer_9="Interactables"
 
 [navigation]
 

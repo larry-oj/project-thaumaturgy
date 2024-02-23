@@ -11,6 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
 [ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="10_x8iuj"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
+radius = 3.5
+height = 14.0
+
 [sub_resource type="Animation" id="Animation_esx43"]
 length = 0.001
 tracks/0/type = "value"
@@ -259,17 +263,19 @@ _data = {
 radius = 6.0
 height = 15.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
-radius = 3.5
-height = 14.0
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
 collision_layer = 2
-collision_mask = 25
+collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_tdxyb")
 _stateMachine = NodePath("StateMachine")
 _animationPlayer = NodePath("AnimationPlayer")
+
+[node name="FeetCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_d3126")
+debug_color = Color(0, 0.623529, 0.52549, 0.419608)
 
 [node name="AnimatedSprites" type="CanvasGroup" parent="."]
 
@@ -301,7 +307,8 @@ _weapon = NodePath("../Pivot/Rifle")
 maxHealth = 10.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("4_crpsg")]
-collision_mask = 16
+collision_layer = 8
+collision_mask = 32
 _healthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
@@ -321,12 +328,6 @@ script = ExtResource("5_7lo8p")
 _idleState = NodePath("../PlayerIdle")
 _velocityComponent = NodePath("../../VelocityComponent")
 _inputComponent = NodePath("../../InputComponent")
-
-[node name="FeetCollider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.5)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_d3126")
-debug_color = Color(0, 0.623529, 0.52549, 0.419608)
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)

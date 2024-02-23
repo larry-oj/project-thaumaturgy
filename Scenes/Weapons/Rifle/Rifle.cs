@@ -1,6 +1,7 @@
 using Godot;
 using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Components.StateMachine;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Weapons.Rifle;
 
