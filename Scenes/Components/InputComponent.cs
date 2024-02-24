@@ -29,6 +29,8 @@ public partial class InputComponent : Node2D
 	
 	public override void _Process(double delta)
 	{
+		if (_weapon.IsInAttackAnimation) return;
+		
 		RotateSpriteToMouse();
 		RotateWeaponToMouse();
 		
@@ -52,10 +54,12 @@ public partial class InputComponent : Node2D
 		var mousePos = GetGlobalMousePosition();
 		var selfPos = GlobalPosition;
 		var angle = mousePos - selfPos;
+		_weaponPivot.Rotation = angle.Angle();
 
+		if (_weapon.IsMelee) return;
+		
 		var scale = _weaponPivot.Scale;
 		scale.Y = angle.X < 0 ? -1 : 1;
 		_weaponPivot.Scale = scale;
-		_weaponPivot.Rotation = angle.Angle();
 	}
 }

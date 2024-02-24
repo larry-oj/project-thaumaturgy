@@ -1,4 +1,4 @@
-using Godot;
+	using Godot;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons;

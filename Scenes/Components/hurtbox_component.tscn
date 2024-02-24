@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxh8qmhaixvwr"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/HurtboxComponent.cs" id="1_gthrx"]
+
+[node name="HurtboxComponent" type="Area2D"]
+monitoring = false
+script = ExtResource("1_gthrx")

@@ -7,6 +7,8 @@ public partial class Weapon : Node2D
 {
     [Signal] public delegate void OnAttackEventHandler();
     public Attack WeaponAttack;
+    public bool IsMelee => WeaponAttack.Type == Scripts.Attack.AttackType.Melee;
+    public bool IsInAttackAnimation { get; set; }
     
     internal CanvasItem _colorSprite;
     internal CanvasItem _characterSprite;

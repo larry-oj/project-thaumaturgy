@@ -1,0 +1,341 @@
+[gd_scene load_steps=19 format=3 uid="uid://di0576ye1qco8"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/Broadsword.cs" id="1_8ojm5"]
+[ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_hfd2y"]
+[ext_resource type="Texture2D" uid="uid://8lsuv4hsjqta" path="res://Graphics/Sprites/ph_sword_slash.png" id="3_65wcw"]
+[ext_resource type="PackedScene" uid="uid://bxh8qmhaixvwr" path="res://Scenes/Components/hurtbox_component.tscn" id="3_bwxyg"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="3_wintt"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/BroadswordIdle.cs" id="4_7kpib"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/BroadswordAttack.cs" id="5_fkbcf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dih1c"]
+atlas = ExtResource("3_65wcw")
+region = Rect2(0, 0, 9, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdqq2"]
+atlas = ExtResource("3_65wcw")
+region = Rect2(9, 0, 9, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74ht8"]
+atlas = ExtResource("3_65wcw")
+region = Rect2(18, 0, 9, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qpc8"]
+atlas = ExtResource("3_65wcw")
+region = Rect2(27, 0, 9, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgirp"]
+atlas = ExtResource("3_65wcw")
+region = Rect2(36, 0, 9, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a2npe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dih1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdqq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74ht8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qpc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgirp")
+}],
+"loop": true,
+"name": &"slashing",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_3pb5u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-2.26893]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwordSlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordSlash:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SwordSlash:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jeelf"]
+resource_name = "attacking_from_top"
+length = 0.65
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-2.26893, 0.0, 2.26893]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, -2), Vector2(5, 0), Vector2(-2, 2)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StateMachine/BroadswordAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.125),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnAnimationAttack"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordSlash:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.105, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SwordSlash:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.105, 0.14, 0.165, 0.5, 0.575),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SwordSlash:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q03dk"]
+resource_name = "attacking_from_bottom"
+length = 0.65
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [2.26893, 0.0, -2.26893]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, 2), Vector2(5, 0), Vector2(-2, -2)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StateMachine/BroadswordAttack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.125),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnAnimationAttack"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordSlash:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.105, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SwordSlash:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.105, 0.14, 0.165, 0.5, 0.575),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SwordSlash:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ljjsx"]
+_data = {
+"RESET": SubResource("Animation_3pb5u"),
+"attacking_from_bottom": SubResource("Animation_q03dk"),
+"attacking_from_top": SubResource("Animation_jeelf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4woey"]
+size = Vector2(14.5, 26)
+
+[node name="Broadsword" type="Node2D"]
+script = ExtResource("1_8ojm5")
+
+[node name="Sprites" type="CanvasGroup" parent="."]
+position = Vector2(-2, -2)
+rotation = -2.26893
+
+[node name="Outline" type="Sprite2D" parent="Sprites"]
+position = Vector2(7.5, 0)
+texture = ExtResource("1_hfd2y")
+region_enabled = true
+region_rect = Rect2(40, 0, 15, 5)
+
+[node name="Color" type="Sprite2D" parent="Sprites"]
+self_modulate = Color(0, 0, 1, 1)
+position = Vector2(7.5, 0)
+texture = ExtResource("1_hfd2y")
+region_enabled = true
+region_rect = Rect2(55, 0, 15, 5)
+
+[node name="SwordSlash" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(18, 0)
+sprite_frames = SubResource("SpriteFrames_a2npe")
+animation = &"slashing"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ljjsx")
+}
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("3_bwxyg")]
+collision_layer = 36
+collision_mask = 72
+monitoring = true
+IsActiveDetection = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(15.75, 0)
+shape = SubResource("RectangleShape2D_4woey")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("3_wintt")]
+_initialState = NodePath("BroadswordIdle")
+
+[node name="BroadswordIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_broadswordAttack")]
+script = ExtResource("4_7kpib")
+_broadswordAttack = NodePath("../BroadswordAttack")
+
+[node name="BroadswordAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("_broadswordIdle", "_timer", "_hurtboxComponent", "_broadsword")]
+script = ExtResource("5_fkbcf")
+_broadswordIdle = NodePath("../BroadswordIdle")
+_timer = NodePath("Timer")
+_hurtboxComponent = NodePath("../../HurtboxComponent")
+_broadsword = NodePath("../..")
+
+[node name="Timer" type="Timer" parent="StateMachine/BroadswordAttack"]
+one_shot = true
