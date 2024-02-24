@@ -11,7 +11,19 @@ public partial class HealthComponent : Node2D
     [Export] public Attack.AttackElement weakness = Attack.AttackElement.Absolute;
     [Export] public float WeaknessMultiplier = 1.0f;
 
-    public float Health => _health;
+    public bool IsImmune { get; private set; }
+    public float Health
+    {
+        get => _health;
+        private set
+        {
+            var healthChange = new HealthChange();
+            healthChange.BeforeHealth = _health;
+            _health = value;
+            healthChange.AfterHealth = _health;
+            EmitSignal(nameof(HealthChanged), healthChange);
+        }
+    }
     private float _health;
     
     [Signal] public delegate void HealthChangedEventHandler(HealthChange healthChange);
@@ -24,26 +36,27 @@ public partial class HealthComponent : Node2D
 
     public void TakeDamage(Attack attack)
     {
-        var healthChange = new HealthChange();
-        healthChange.BeforeHealth = Health;
+        if (IsImmune) return;
         
         if (resistance == attack.Element)
         {
-            _health -= attack.Damage * ResistanceMultiplier;
+            Health -= attack.Damage * ResistanceMultiplier;
         }
         else if (weakness == attack.Element)
         {
-            _health -= attack.Damage * WeaknessMultiplier;
+            Health -= attack.Damage * WeaknessMultiplier;
         }
         else
         {
-            _health -= attack.Damage;
+            Health -= attack.Damage;
         }
-
-        healthChange.AfterHealth = Health;
-
-        EmitSignal(nameof(HealthChanged), healthChange);
-        if (_health <= 0)
+        
+        if (Health <= 0)
             EmitSignal(nameof(HealthDepleted));
+    }
+    
+    public void SetImmune(bool immune)
+    {
+        IsImmune = immune;
     }
 }
