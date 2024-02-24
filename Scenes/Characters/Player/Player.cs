@@ -11,8 +11,8 @@ public partial class Player : Character
 	public override void _Ready()
 	{
 		_stateMachine.Init(this, _animationPlayer);
-		GetNode("Pivot").GetChild<Weapon>(0).WeaponAttack =
-			new Attack(5f, Attack.AttackType.Ranged, Attack.AttackElement.Absolute);
+		CurrentWeapon = GetNode("Pivot").GetChild<Weapon>(0);
+		CurrentWeapon.SetAttack(new Attack(2f, Attack.AttackType.Ranged, Attack.AttackElement.Fire));
 	}
 	
 	public override void _Process(double delta)

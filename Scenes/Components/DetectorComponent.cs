@@ -1,11 +1,12 @@
 using Godot;
 using Godot.Collections;
+using projectthaumaturgy.Scenes.Characters;
 
 namespace projectthaumaturgy.Scenes.Components;
 
 public partial class DetectorComponent : RayCast2D
 {
-	private Character _character;
+	private Characters.Character _character;
 	private Timer _intervalTimer;
 	[Export] private float _detectionInterval;
 	[Export] public float detectionRange;
@@ -19,7 +20,7 @@ public partial class DetectorComponent : RayCast2D
 	{
 		BodyToDetect = GetParent<Enemy>().BodyToDetect;
 		_intervalTimer = GetNode<Timer>("IntervalTimer");
-		_character = GetParent<Character>();
+		_character = GetParent<Characters.Character>();
 
 		_intervalTimer.WaitTime = _detectionInterval;
 	}

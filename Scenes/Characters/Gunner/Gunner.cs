@@ -10,9 +10,8 @@ public partial class Gunner : Enemy
     public override void _Ready()
     {
         _stateMachine.Init(this, _animationPlayer);
-        GetNode<HealthComponent>("HealthComponent").HealthDepleted += OnHealthDepleted;
-        GetNode("Pivot").GetChild<Weapon>(0).WeaponAttack =
-            new Attack(2f, Attack.AttackType.Ranged, Attack.AttackElement.Absolute);
+        CurrentWeapon = GetNode("Pivot").GetChild<Weapon>(0);
+        CurrentWeapon.SetAttack(new Attack(5f, Attack.AttackType.Ranged, Attack.AttackElement.Water));
     }
 	
     public override void _Process(double delta)

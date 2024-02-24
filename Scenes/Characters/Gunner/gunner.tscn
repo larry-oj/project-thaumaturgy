@@ -115,6 +115,7 @@ rotation = -0.00292828
 
 [node name="Rifle" parent="Pivot" instance=ExtResource("12_k5yc8")]
 
+[connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]
 [connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerIdle" method="OnPlayerDetected"]
 [connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerWander" method="OnPlayerDetected"]
 [connection signal="timeout" from="StateMachine/GunnerIdle/Timer" to="StateMachine/GunnerIdle" method="OnTimerTimeout"]

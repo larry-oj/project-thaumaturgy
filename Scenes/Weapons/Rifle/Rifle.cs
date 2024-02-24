@@ -9,10 +9,13 @@ public partial class Rifle : Weapon
 {
 	private StateMachine _stateMachine;
 	private AnimationPlayer _animationPlayer;
+	
 	[Export] public BulletResource BulletResource { get; private set; }
 
 	public override void _Ready()
 	{
+		base._Ready();
+		
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_stateMachine = GetNode<StateMachine>("StateMachine");
 		_stateMachine.Init(this, _animationPlayer);

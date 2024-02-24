@@ -7,7 +7,7 @@ public partial class InputComponent : Node2D
 {
 	[Export] private CanvasGroup _animatedSprites;
 	[Export] private Node2D _weaponPivot;
-	[Export] private Weapon _weapon;
+	private Weapon _weapon;
 	
 	public virtual Vector2 MovementDirection
 	{
@@ -22,6 +22,11 @@ public partial class InputComponent : Node2D
 
 	public virtual bool IsAttacking => Input.IsActionPressed("player_attack");
 
+	public override void _Ready()
+	{
+		_weapon = GetNode<Node2D>("../Pivot").GetChild<Weapon>(0);
+	}
+	
 	public override void _Process(double delta)
 	{
 		RotateSpriteToMouse();

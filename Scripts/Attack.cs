@@ -41,4 +41,16 @@ public partial class Attack : GodotObject
         Element = element;
         Infusion = infusion;
     }
+    
+    public static Color GetElementColor(AttackElement element)
+    {
+        return element switch
+        {
+            AttackElement.Fire => Colors.Red,
+            AttackElement.Water => Colors.Blue,
+            AttackElement.Earth => Colors.ForestGreen,
+            AttackElement.Air => Colors.LightBlue,
+            _ => Colors.White,
+        };
+    }
 }

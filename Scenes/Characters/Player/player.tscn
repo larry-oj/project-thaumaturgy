@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
-[ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="10_x8iuj"]
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="10_66kf8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 3.5
@@ -298,10 +298,9 @@ libraries = {
 MaxSpeed = 100.0
 _body = NodePath("..")
 
-[node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_weaponPivot", "_weapon") instance=ExtResource("3_6nmd5")]
+[node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_weaponPivot") instance=ExtResource("3_6nmd5")]
 _animatedSprites = NodePath("../AnimatedSprites")
 _weaponPivot = NodePath("../Pivot")
-_weapon = NodePath("../Pivot/Rifle")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
 maxHealth = 10.0
@@ -332,4 +331,4 @@ _inputComponent = NodePath("../../InputComponent")
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
-[node name="Rifle" parent="Pivot" instance=ExtResource("10_x8iuj")]
+[node name="Pistol" parent="Pivot" instance=ExtResource("10_66kf8")]

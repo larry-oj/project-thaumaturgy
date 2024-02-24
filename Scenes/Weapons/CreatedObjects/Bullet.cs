@@ -9,6 +9,7 @@ public partial class Bullet : Projectile
 	public override void _Ready()
 	{
 		base._Ready();
+		AreaEntered += OnHitboxAreaEntered;
 		BodyEntered += OnHitboxAreaEntered;
 	}
 
@@ -23,11 +24,22 @@ public partial class Bullet : Projectile
 
 	private void OnHitboxAreaEntered(GodotObject body)
 	{
+		if (body == AttackOwner) return;
+
 		if (body is HitboxComponent hitbox)
 		{
+			if (hitbox.Owner == AttackOwner) return;
+			
 			hitbox.Damage(Attack);
 		}
 		
 		QueueFree();
+	}
+
+	public override void SetAttack(Attack attack)
+	{
+		base.SetAttack(attack);
+
+		GetNode<CanvasItem>("Sprites/Color").SelfModulate = Attack.GetElementColor(attack.Element);
 	}
 }
