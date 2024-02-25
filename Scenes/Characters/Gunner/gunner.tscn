@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://blb8ir4affwuf"]
+[gd_scene load_steps=16 format=3 uid="uid://blb8ir4affwuf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_7ejue"]
 [ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="1_dpilp"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerWander.cs" id="9_wsqky"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerAlert.cs" id="10_ueuvy"]
 [ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="12_k5yc8"]
+[ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="13_wsgy1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x2b2m"]
 radius = 3.0
@@ -57,7 +58,7 @@ position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_ughsc")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_re2n2")]
-maxHealth = 10.0
+MaxHealth = 10.0
 
 [node name="NavigationComponent" parent="." instance=ExtResource("6_pvd51")]
 path_desired_distance = 5.0
@@ -114,6 +115,10 @@ position = Vector2(0, 3)
 rotation = -0.00292828
 
 [node name="Rifle" parent="Pivot" instance=ExtResource("12_k5yc8")]
+
+[node name="MiniHealthBarComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("13_wsgy1")]
+tint_progress = Color(1, 0, 0, 1)
+_healthComponent = NodePath("../HealthComponent")
 
 [connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]
 [connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerIdle" method="OnPlayerDetected"]

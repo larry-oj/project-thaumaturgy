@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7fm4xq6qmdbh"]
+
+[ext_resource type="Texture2D" uid="uid://bfm258inrdlrl" path="res://Graphics/Sprites/ph_enemy_health_bar.png" id="1_vubhq"]
+[ext_resource type="Script" path="res://Scenes/Components/UI/MiniHealthBarComponent.cs" id="2_ip0bv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqa0u"]
+atlas = ExtResource("1_vubhq")
+region = Rect2(0, 6, 16, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xci7q"]
+atlas = ExtResource("1_vubhq")
+region = Rect2(0, 0, 16, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hfo2"]
+atlas = ExtResource("1_vubhq")
+region = Rect2(0, 3, 16, 3)
+
+[node name="MiniHealthBarComponent" type="TextureProgressBar" node_paths=PackedStringArray("_healthComponent")]
+offset_left = -8.0
+offset_top = 9.0
+offset_right = 8.0
+offset_bottom = 12.0
+max_value = 10.0
+value = 10.0
+texture_under = SubResource("AtlasTexture_iqa0u")
+texture_over = SubResource("AtlasTexture_xci7q")
+texture_progress = SubResource("AtlasTexture_8hfo2")
+script = ExtResource("2_ip0bv")
+_healthComponent = NodePath("")
