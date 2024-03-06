@@ -38,7 +38,7 @@ public partial class PistolShoot : State
         bullet!.SetAttack(_pistol.WeaponAttack);
         bullet!.AttackOwner = _character;
         
-        GetNode("/root/World").AddChild(bullet);
+        GetNode("/root/Game/World").AddChild(bullet);
     }
     
     public override void Exit()

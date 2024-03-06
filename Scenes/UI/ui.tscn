@@ -1,0 +1,121 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk2rsb8np72r6"]
+
+[ext_resource type="Texture2D" uid="uid://cs8l0aqo7p5cc" path="res://Graphics/Sprites/player.png" id="1_oerj6"]
+[ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
+[ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usfnq"]
+atlas = ExtResource("1_oerj6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcsxo"]
+atlas = ExtResource("1_oerj6")
+region = Rect2(0, 16, 16, 16)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_ttyjk")
+
+[node name="Menus" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="GameOverScreen" type="VBoxContainer" parent="Menus"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+offset_left = 20.0
+offset_top = 299.0
+offset_right = 1260.0
+offset_bottom = 421.0
+size_flags_vertical = 4
+
+[node name="GameOverPanel" type="PanelContainer" parent="Menus/GameOverScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/GameOverScreen/GameOverPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="GameOverText" type="Label" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+
+[node name="Interface" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Sections" type="VBoxContainer" parent="Interface/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TopSection" type="HBoxContainer" parent="Interface/MarginContainer/Sections"]
+layout_mode = 2
+
+[node name="PlayerHealthPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="PlayerIcon" type="AspectRatioContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+
+[node name="Outline" type="TextureRect" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer/HBoxContainer/PlayerIcon"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_usfnq")
+
+[node name="Color" type="TextureRect" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer/HBoxContainer/PlayerIcon"]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_vcsxo")
+
+[node name="PlayerHealthbar" type="ProgressBar" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+value = 30.0
+script = ExtResource("2_dmueb")

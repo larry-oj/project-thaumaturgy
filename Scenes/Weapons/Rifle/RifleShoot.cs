@@ -39,7 +39,7 @@ public partial class RifleShoot : State
         bullet!.Rotation = _projectileSpawner.GlobalRotation;
         bullet!.SetAttack(_rifle.WeaponAttack);
         bullet!.AttackOwner = _character;
-        GetNode("/root/World").AddChild(bullet);
+        GetNode("/root/Game/World").AddChild(bullet);
     }
 
     public override void Exit()

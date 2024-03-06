@@ -63,7 +63,6 @@ MaxHealth = 10.0
 [node name="NavigationComponent" parent="." instance=ExtResource("6_pvd51")]
 path_desired_distance = 5.0
 target_desired_distance = 7.0
-debug_enabled = true
 _timerInterval = 0.25
 
 [node name="DetectorComonent" parent="." instance=ExtResource("6_2nmy3")]

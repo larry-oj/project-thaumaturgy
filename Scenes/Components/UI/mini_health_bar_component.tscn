@@ -15,7 +15,7 @@ region = Rect2(0, 0, 16, 3)
 atlas = ExtResource("1_vubhq")
 region = Rect2(0, 3, 16, 3)
 
-[node name="MiniHealthBarComponent" type="TextureProgressBar" node_paths=PackedStringArray("_healthComponent")]
+[node name="MiniHealthBarComponent" type="TextureProgressBar"]
 offset_left = -8.0
 offset_top = 9.0
 offset_right = 8.0
@@ -26,4 +26,3 @@ texture_under = SubResource("AtlasTexture_iqa0u")
 texture_over = SubResource("AtlasTexture_xci7q")
 texture_progress = SubResource("AtlasTexture_8hfo2")
 script = ExtResource("2_ip0bv")
-_healthComponent = NodePath("")

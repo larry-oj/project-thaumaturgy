@@ -12,7 +12,7 @@ public partial class Player : Character
 	{
 		_stateMachine.Init(this, _animationPlayer);
 		CurrentWeapon = GetNode("Pivot").GetChild<Weapon>(0);
-		CurrentWeapon.SetAttack(new Attack(5f, Attack.AttackType.Melee, Attack.AttackElement.Water));
+		CurrentWeapon.SetAttack(new Attack(5f, Attack.AttackType.Ranged, Attack.AttackElement.Earth));
 	}
 	
 	public override void _Process(double delta)

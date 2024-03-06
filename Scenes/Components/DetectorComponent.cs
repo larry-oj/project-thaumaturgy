@@ -10,6 +10,7 @@ public partial class DetectorComponent : RayCast2D
 	private Timer _intervalTimer;
 	[Export] private float _detectionInterval;
 	[Export] public float detectionRange;
+	[Export] private bool _isDebugging;
 
 	public CharacterBody2D BodyToDetect;
 	public Vector2 VectorToDetectedBody => BodyToDetect.GlobalPosition - _character.GlobalPosition;
@@ -37,6 +38,7 @@ public partial class DetectorComponent : RayCast2D
 
 	public override void _Draw()
 	{
+		if (!_isDebugging) return;
 		var from = ToLocal(_character.GlobalPosition);
 		var to = ToLocal(BodyToDetect.GlobalPosition);
 		var target = detectionRange > 0 ? from.DirectionTo(to) * detectionRange : to;
@@ -45,7 +47,7 @@ public partial class DetectorComponent : RayCast2D
 	
 	public bool TryDetect()
 	{
-		QueueRedraw();
+		if (_isDebugging) QueueRedraw();
 		
 		var from = ToLocal(_character.GlobalPosition);
 		var to = ToLocal(BodyToDetect.GlobalPosition);
