@@ -11,35 +11,43 @@ public partial class World : Node2D
     private TileMap _tileMap;
     private PackedScene _player = ResourceLoader.Load("res://Scenes/Characters/Player/player.tscn") as PackedScene;
     
+    public Player Player { get; private set; }
+    
     public override void _Ready()
     {
         GD.Randomize();
-        GenerateLevel();
+        // GenerateLevel();
+        Player = GetNode<Player>("%Player");
     }
 
     private void GenerateLevel()
     {
-        var level = new Level(150);
+        var level = new Level(350);
 
         var walkerOrch = new WalkerOrchestrator(level, Vector2I.Zero);
-        walkerOrch.Walk(0.15f, new [] {2, 2}, new [] {0.25f, 0.25f, 0.25f, 0.25f}, 2, 0.15f);
+        walkerOrch.Walk(0.50f, new [] {3, 3}, new [] {0.33f, 0.34f, 0.33f, 0f}, 3, 0.15f);
 
         _tileMap.SetCellsTerrainConnect(0, level.walkableTiles, 0, 0, false);
         _tileMap.SetCellsTerrainConnect(0, level.wallTiles, 0, 1, false);
         
         var player = _player.Instantiate() as Player;
-        player!.Position = ToGlobal(level.walkableTiles[0]);
+        player!.Position = _tileMap.ToGlobal(level.walkableTiles[0]);
         AddChild(player);
 
         level.QueueFree();
         walkerOrch.QueueFree();
     }
     
-    public override void _Input(InputEvent @event)
+    // public override void _Input(InputEvent @event)
+    // {
+    //     if (@event.IsActionPressed("ui_accept"))
+    //     {
+    //         GetTree().ReloadCurrentScene();
+    //     }
+    // }
+    
+    public void Reload()
     {
-        if (@event.IsActionPressed("ui_accept"))
-        {
-            GetTree().ReloadCurrentScene();
-        }
+        GetTree().ReloadCurrentScene();
     }
 }

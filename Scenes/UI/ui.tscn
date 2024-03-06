@@ -1,18 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dk2rsb8np72r6"]
+[gd_scene load_steps=3 format=3 uid="uid://dk2rsb8np72r6"]
 
-[ext_resource type="Texture2D" uid="uid://cs8l0aqo7p5cc" path="res://Graphics/Sprites/player.png" id="1_oerj6"]
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_usfnq"]
-atlas = ExtResource("1_oerj6")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vcsxo"]
-atlas = ExtResource("1_oerj6")
-region = Rect2(0, 16, 16, 16)
-
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_ttyjk")
 
 [node name="Menus" type="Control" parent="."]
@@ -27,11 +19,18 @@ size_flags_horizontal = 3
 [node name="GameOverScreen" type="VBoxContainer" parent="Menus"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 2
-offset_left = 20.0
-offset_top = 299.0
-offset_right = 1260.0
-offset_bottom = 421.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -161.0
+offset_top = -76.0
+offset_right = 161.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 4
 
 [node name="GameOverPanel" type="PanelContainer" parent="Menus/GameOverScreen"]
@@ -46,11 +45,19 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="GameOverText" type="Label" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOverText" type="Label" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Game Over"
+
+[node name="GameOverSubtext" type="Label" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press {KEY} to restart"
 
 [node name="Interface" type="Control" parent="."]
 unique_name_in_owner = true
@@ -87,31 +94,17 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel"]
+[node name="PlayerHealthMargin" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer"]
-layout_mode = 2
-
-[node name="PlayerIcon" type="AspectRatioContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(55, 55)
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/PlayerHealthMargin"]
 layout_mode = 2
 
-[node name="Outline" type="TextureRect" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer/HBoxContainer/PlayerIcon"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_usfnq")
-
-[node name="Color" type="TextureRect" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer/HBoxContainer/PlayerIcon"]
-self_modulate = Color(1, 0, 0, 1)
-layout_mode = 2
-texture = SubResource("AtlasTexture_vcsxo")
-
-[node name="PlayerHealthbar" type="ProgressBar" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/MarginContainer/HBoxContainer"]
+[node name="PlayerHealthbar" type="ProgressBar" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/PlayerHealthMargin/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

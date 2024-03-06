@@ -24,4 +24,10 @@ public partial class Player : Character
 	{
 		_stateMachine.PhysicsProcess(delta);
 	}
+	
+	private void OnHealthDepleted()
+	{
+		EmitSignal(nameof(Died));
+		QueueFree();
+	}
 }
