@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://057rmsbyqtqh"]
+[gd_scene load_steps=11 format=3 uid="uid://057rmsbyqtqh"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/Pistol.cs" id="1_jerm7"]
 [ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_l7ssc"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="2_ecuxd"]
 [ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_fc2c6"]
+[ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="3_dlku4"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolIdle.cs" id="3_mj6hb"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolShoot.cs" id="4_b6krq"]
 
@@ -47,6 +48,10 @@ _data = {
 [node name="Pistol" type="Node2D"]
 script = ExtResource("1_jerm7")
 BulletResource = ExtResource("2_fc2c6")
+
+[node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dlku4")]
+Damage = 3.0
+Type = 1
 
 [node name="Sprites" type="CanvasGroup" parent="."]
 

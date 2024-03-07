@@ -22,6 +22,8 @@ public partial class Broadsword : Weapon
 		_stateMachine.Init(this, _animationPlayer);
 		_hurtboxComponent = GetNode<HurtboxComponent>("HurtboxComponent");
 		_character = GetNode<Character>("../..");
+		
+		_hurtboxComponent.attackOwner = _character;
 	}
 	
 	public override void _Process(double delta)
@@ -34,13 +36,6 @@ public partial class Broadsword : Weapon
 		_stateMachine.PhysicsProcess(delta);
 	}
 	
-	public override void SetAttack(Attack attack)
-	{
-		base.SetAttack(attack);
-		
-		_hurtboxComponent.Attack = attack;
-		_hurtboxComponent.AttackOwner = _character;
-	}
 
 	public override void Attack()
 	{

@@ -1,14 +1,18 @@
 using Godot;
-using System;
+using projectthaumaturgy.Resources.Weapons;
 using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scripts;
+using WeaponStatsComponent = projectthaumaturgy.Scenes.Components.WeaponStatsComponent;
+
+namespace projectthaumaturgy.Scenes.Weapons.Broadsword;
 
 public partial class HurtboxComponent : Area2D
 {
-	public Attack Attack;
-	public Character AttackOwner;
+	public Character attackOwner;
+	
 	[Export] public bool IsActiveDetection = true;
+	[Export] private WeaponStatsComponent _weaponStatsComponent;
 	
 	public override void _Ready()
 	{
@@ -26,9 +30,9 @@ public partial class HurtboxComponent : Area2D
 	
 	private void OnHitboxAreaEntered(Area2D area)
 	{
-		if (area.Owner == AttackOwner) return;
+		if (area.Owner == attackOwner) return;
 		if (area is not HitboxComponent hitbox) return;
 		
-		hitbox.Damage(Attack);
+		hitbox.Damage(_weaponStatsComponent.CreateAttack(attackOwner));
 	}
 }

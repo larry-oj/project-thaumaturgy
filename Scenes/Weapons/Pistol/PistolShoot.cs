@@ -13,14 +13,12 @@ public partial class PistolShoot : State
     [Export] private Marker2D _projectileSpawner;
     
     private BulletResource _bulletResource;
-    private PackedScene _bulletProjectile;
     private Pistol _pistol;
     private Character _character;
 
     public override void _Ready()
     {
         _bulletResource = GetNode<Pistol>("../..").BulletResource;
-        _bulletProjectile = _bulletResource.Scene;
         _timer.Timeout += OnTimerTimeout;
         _pistol = GetNode<Pistol>("../..");
         _character = GetNode<Character>("../../../.."); // bruhhh
@@ -29,15 +27,10 @@ public partial class PistolShoot : State
     public override void Enter()
     {
         const string animationName = "shooting";
-        _animationPlayer.Play(animationName);
-        _timer.Start(_animationPlayer.GetAnimation(animationName).Length);
+        _animationPlayer.Play(animationName, customSpeed: _pistol.WeaponStatsComponent.FireRate);
+        _timer.Start(_animationPlayer.GetAnimation(animationName).Length / _pistol.WeaponStatsComponent.FireRate);
         
-        var bullet = _bulletProjectile.Instantiate() as Bullet;
-        bullet!.Position = new Vector2(_projectileSpawner.GlobalPosition.X, _projectileSpawner.GlobalPosition.Y);
-        bullet!.Rotation = _projectileSpawner.GlobalRotation;
-        bullet!.SetAttack(_pistol.WeaponAttack);
-        bullet!.AttackOwner = _character;
-        
+        var bullet = _bulletResource.Instantiate(_projectileSpawner, _pistol.WeaponStatsComponent.CreateAttack(_character));
         GetNode("/root/Game/World").AddChild(bullet);
     }
     

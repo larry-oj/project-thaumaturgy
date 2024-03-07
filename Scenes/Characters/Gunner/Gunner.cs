@@ -11,7 +11,8 @@ public partial class Gunner : Enemy
     {
         _stateMachine.Init(this, _animationPlayer);
         CurrentWeapon = GetNode("Pivot").GetChild<Weapon>(0);
-        CurrentWeapon.SetAttack(new Attack(5f, Attack.AttackType.Ranged, Attack.AttackElement.Water));
+
+        CurrentWeapon.WeaponStatsComponent.SetElement(Attack.AttackElement.Water);
     }
 	
     public override void _Process(double delta)

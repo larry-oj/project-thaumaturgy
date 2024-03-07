@@ -50,8 +50,11 @@ public partial class HealthComponent : Node2D
         {
             Health -= attack.Damage;
         }
+        
         if (Health <= 0)
             EmitSignal(nameof(HealthDepleted));
+        
+        attack.Free(); // memory leak prevention
     }
     
     public void SetImmune(bool immune)

@@ -1,4 +1,6 @@
-﻿using Godot;
+﻿using System;
+using Godot;
+using projectthaumaturgy.Scenes.Characters;
 
 namespace projectthaumaturgy.Scripts;
 
@@ -34,12 +36,18 @@ public partial class Attack : GodotObject
     public AttackElement Element { get; private set; }
     public AttackInfusion Infusion { get; private set; }
     
-    public Attack(float damage, AttackType type, AttackElement element, AttackInfusion infusion = AttackInfusion.None)
+    public Character Owner { get; private set; }
+
+    public Attack(float damage, 
+        AttackType type, AttackElement element, 
+        AttackInfusion infusion = AttackInfusion.None,
+        Character owner = default)
     {
         Damage = damage;
         Type = type;
         Element = element;
         Infusion = infusion;
+        Owner = owner;
     }
     
     public static Color GetElementColor(AttackElement element)

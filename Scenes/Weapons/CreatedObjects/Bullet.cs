@@ -24,11 +24,11 @@ public partial class Bullet : Projectile
 
 	private void OnHitboxAreaEntered(GodotObject body)
 	{
-		if (body == AttackOwner) return;
+		if (body == Attack.Owner) return;
 
 		if (body is HitboxComponent hitbox)
 		{
-			if (hitbox.Owner == AttackOwner) return;
+			if (hitbox.Owner == Attack.Owner) return;
 			
 			hitbox.Damage(Attack);
 		}

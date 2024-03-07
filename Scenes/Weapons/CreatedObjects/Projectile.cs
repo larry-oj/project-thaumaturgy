@@ -8,7 +8,6 @@ namespace projectthaumaturgy.Scenes.Weapons.CreatedObjects;
 public partial class Projectile : Area2D
 {
     public Attack Attack;
-    public Character AttackOwner;
     internal VelocityComponent _velocityComponent;
     internal RayCast2D _rayCast2D;
 

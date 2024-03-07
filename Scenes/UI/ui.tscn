@@ -91,7 +91,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 2
 size_flags_vertical = 4
 
 [node name="PlayerHealthMargin" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel"]

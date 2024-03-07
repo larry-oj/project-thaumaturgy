@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://u1ij2gjgmbdo"]
+
+[ext_resource type="Script" path="res://Resources/Weapons/Rifle/RifleResource.cs" id="1_c2mlk"]
+[ext_resource type="Texture2D" uid="uid://voxrdwof5j64" path="res://Graphics/Sprites/ph_guns.png" id="1_wfiht"]
+[ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="2_vlr2u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ingty"]
+atlas = ExtResource("1_wfiht")
+region = Rect2(13, 0, 13, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mokki"]
+atlas = ExtResource("1_wfiht")
+region = Rect2(0, 0, 13, 4)
+
+[resource]
+script = ExtResource("1_c2mlk")
+Scene = ExtResource("2_vlr2u")
+IconOutline = SubResource("AtlasTexture_mokki")
+IconColor = SubResource("AtlasTexture_ingty")

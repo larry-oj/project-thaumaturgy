@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://di0576ye1qco8"]
+[gd_scene load_steps=20 format=3 uid="uid://di0576ye1qco8"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/Broadsword.cs" id="1_8ojm5"]
 [ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_hfd2y"]
+[ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="2_3reb6"]
 [ext_resource type="Texture2D" uid="uid://8lsuv4hsjqta" path="res://Graphics/Sprites/ph_sword_slash.png" id="3_65wcw"]
 [ext_resource type="PackedScene" uid="uid://bxh8qmhaixvwr" path="res://Scenes/Components/hurtbox_component.tscn" id="3_bwxyg"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="3_wintt"]
@@ -285,6 +286,9 @@ size = Vector2(14.5, 26)
 [node name="Broadsword" type="Node2D"]
 script = ExtResource("1_8ojm5")
 
+[node name="WeaponStatsComponent" parent="." instance=ExtResource("2_3reb6")]
+Damage = 6.0
+
 [node name="Sprites" type="CanvasGroup" parent="."]
 position = Vector2(-2, -2)
 rotation = -2.26893
@@ -313,11 +317,12 @@ libraries = {
 "": SubResource("AnimationLibrary_ljjsx")
 }
 
-[node name="HurtboxComponent" parent="." instance=ExtResource("3_bwxyg")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_weaponStatsComponent") instance=ExtResource("3_bwxyg")]
 collision_layer = 36
 collision_mask = 72
 monitoring = true
 IsActiveDetection = false
+_weaponStatsComponent = NodePath("../WeaponStatsComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(15.75, 0)
