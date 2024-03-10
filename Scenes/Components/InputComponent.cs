@@ -1,5 +1,6 @@
 using Godot;
 using projectthaumaturgy.Scenes.Weapons;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Components;
 
@@ -24,7 +25,7 @@ public partial class InputComponent : Node2D
 
 	public override void _Ready()
 	{
-		_weapon = GetNode<Node2D>("../Pivot").GetChild<Weapon>(0);
+		_weapon = GetNode<Node2D>(Options.PathOptions.CharacterComponentToPivot).GetChild<Weapon>(0);
 	}
 	
 	public override void _Process(double delta)

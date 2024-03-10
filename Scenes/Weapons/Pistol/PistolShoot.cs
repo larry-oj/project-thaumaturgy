@@ -3,6 +3,7 @@ using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons.CreatedObjects;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Weapons.Pistol;
 
@@ -18,19 +19,19 @@ public partial class PistolShoot : State
 
     public override void _Ready()
     {
-        _bulletResource = GetNode<Pistol>("../..").BulletResource;
+        _pistol = GetNode<Pistol>(Options.PathOptions.WeaponStateToWeapon);
+        _bulletResource = _pistol.BulletResource;
         _timer.Timeout += OnTimerTimeout;
-        _pistol = GetNode<Pistol>("../..");
-        _character = GetNode<Character>("../../../.."); // bruhhh
+        _character = GetNode<Character>(Options.PathOptions.WeaponStateToCharacter);
     }
     
     public override void Enter()
     {
         const string animationName = "shooting";
-        _animationPlayer.Play(animationName, customSpeed: _pistol.WeaponStatsComponent.FireRate);
-        _timer.Start(_animationPlayer.GetAnimation(animationName).Length / _pistol.WeaponStatsComponent.FireRate);
+        _animationPlayer.Play(animationName, customSpeed: _pistol.StatsComponent.FireRate);
+        _timer.Start(_animationPlayer.GetAnimation(animationName).Length / _pistol.StatsComponent.FireRate);
         
-        var bullet = _bulletResource.Instantiate(_projectileSpawner, _pistol.WeaponStatsComponent.CreateAttack(_character));
+        var bullet = _bulletResource.Instantiate(_projectileSpawner, _pistol.StatsComponent.CreateAttack(_character));
         GetNode("/root/Game/World").AddChild(bullet);
     }
     

@@ -300,7 +300,6 @@ region_enabled = true
 region_rect = Rect2(40, 0, 15, 5)
 
 [node name="Color" type="Sprite2D" parent="Sprites"]
-self_modulate = Color(0, 0, 1, 1)
 position = Vector2(7.5, 0)
 texture = ExtResource("1_hfd2y")
 region_enabled = true

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbdxn425v6ayk"]
+
+[ext_resource type="Script" path="res://Scenes/GameManager/GameManager.cs" id="1_yd1od"]
+[ext_resource type="Script" path="res://Scenes/GameManager/PlayerData.cs" id="2_simvy"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_yd1od")
+
+[node name="PlayerData" type="Node" parent="."]
+script = ExtResource("2_simvy")

@@ -21,7 +21,7 @@ public partial class Broadsword : Weapon
 		_stateMachine = GetNode<StateMachine>("StateMachine");
 		_stateMachine.Init(this, _animationPlayer);
 		_hurtboxComponent = GetNode<HurtboxComponent>("HurtboxComponent");
-		_character = GetNode<Character>("../..");
+		_character = GetNode<Character>(Options.PathOptions.WeaponToCharacter);
 		
 		_hurtboxComponent.attackOwner = _character;
 	}

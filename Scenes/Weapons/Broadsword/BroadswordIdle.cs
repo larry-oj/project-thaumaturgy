@@ -1,5 +1,6 @@
 using Godot;
 using projectthaumaturgy.Scenes.Components.StateMachine;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Weapons.Broadsword;
 
@@ -10,7 +11,7 @@ public partial class BroadswordIdle : State
 
 	public override void _Ready()
 	{
-		_sword = GetNode<Broadsword>("../..");
+		_sword = GetNode<Broadsword>(Options.PathOptions.WeaponStateToWeapon);
 		_sword.OnAttack += OnAttacked;
 	}
 	

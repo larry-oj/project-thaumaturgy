@@ -1,4 +1,5 @@
 ﻿using Godot;
+using Godot.Collections;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons;
 
@@ -12,4 +13,5 @@ public partial class Character : CharacterBody2D
     [Signal] public delegate void DiedEventHandler();
     
     public Weapon CurrentWeapon { get; internal set; }
+    public Array<Weapon> Weapons { get; internal set; } = new Array<Weapon>();
 }

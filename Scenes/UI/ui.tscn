@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk2rsb8np72r6"]
+[gd_scene load_steps=4 format=3 uid="uid://dk2rsb8np72r6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
+[ext_resource type="PackedScene" uid="uid://b48byjhqn7tcm" path="res://Scenes/UI/weapon_container.tscn" id="2_iq6jy"]
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_ttyjk")
+_weaponContainerScene = ExtResource("2_iq6jy")
 
 [node name="Menus" type="Control" parent="."]
 layout_mode = 3
@@ -16,48 +18,59 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="GameOverScreen" type="VBoxContainer" parent="Menus"]
-unique_name_in_owner = true
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="Menus"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -161.0
-offset_top = -76.0
-offset_right = 161.0
-offset_bottom = 76.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GameOverScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 size_flags_vertical = 4
 
-[node name="GameOverPanel" type="PanelContainer" parent="Menus/GameOverScreen"]
+[node name="GameOverPanel" type="PanelContainer" parent="Menus/MarginContainer/GameOverScreen"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="Menus/GameOverScreen/GameOverPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="GameOverText" type="Label" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+[node name="GameOverText" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Game Over"
 
-[node name="GameOverSubtext" type="Label" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Press {KEY} to restart"
+
+[node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(650, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+tab_alignment = 1
 
 [node name="Interface" type="Control" parent="."]
 unique_name_in_owner = true
@@ -91,8 +104,8 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="PlayerHealthMargin" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel"]
 layout_mode = 2
@@ -112,3 +125,64 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 25
 value = 30.0
 script = ExtResource("2_dmueb")
+
+[node name="spacer" type="Control" parent="Interface/MarginContainer/Sections/TopSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="GridContainer" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="FireCoinsLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fire:
+"
+horizontal_alignment = 2
+
+[node name="FireCoinsCount" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 1
+
+[node name="WaterCoinsLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Water:"
+horizontal_alignment = 2
+
+[node name="WaterCoinsCount" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 1
+
+[node name="AirCounsLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Air:"
+horizontal_alignment = 2
+
+[node name="AirCoinsCount" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 1
+
+[node name="EarthCoinsLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Earth:"
+horizontal_alignment = 2
+
+[node name="EarthCoinsCount" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 1

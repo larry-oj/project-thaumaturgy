@@ -1,5 +1,6 @@
 ﻿using Godot;
 using projectthaumaturgy.Scenes.Components.StateMachine;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Weapons.Rifle;
 
@@ -10,7 +11,7 @@ public partial class RifleIdle : State
     
     public override void _Ready()
     {
-        _rifle = GetNode<Rifle>("../..");
+        _rifle = GetNode<Rifle>(Options.PathOptions.WeaponStateToWeapon);
         _rifle.OnAttack += OnAttacked;
     }
 

@@ -2,8 +2,9 @@
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons;
+	using projectthaumaturgy.Scripts;
 
-namespace projectthaumaturgy.Scenes.Characters.Gunner;
+	namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
 public partial class GunnerAlert : State
 {
@@ -27,7 +28,7 @@ public partial class GunnerAlert : State
 
 	public override void _Ready()
 	{
-		_gunner = GetNode<Gunner>("../..");
+		_gunner = GetNode<Gunner>(Options.PathOptions.CharacterStateToCharacter);
 		_player = _gunner.BodyToDetect;
 		_timer = GetNode<Timer>("Timer");
 		_defaultDetectorRadius = _detectorComponent.detectionRange;

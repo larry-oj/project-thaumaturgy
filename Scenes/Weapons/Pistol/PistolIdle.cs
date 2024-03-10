@@ -1,6 +1,7 @@
 ﻿using Godot;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Weapons.Pistol;
 
@@ -11,7 +12,7 @@ public partial class PistolIdle : State
 
     public override void _Ready()
     {
-        _pistol = GetNode<Pistol>("../..");
+        _pistol = GetNode<Pistol>(Options.PathOptions.WeaponStateToWeapon);
     }
 
     public override void Enter()

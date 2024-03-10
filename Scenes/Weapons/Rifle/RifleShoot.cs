@@ -20,20 +20,21 @@ public partial class RifleShoot : State
     
     public override void _Ready()
     {
-        _bulletResource = GetNode<Rifle>("../..").BulletResource;
+        _rifle = GetNode<Rifle>(Options.PathOptions.WeaponStateToWeapon);
+        _bulletResource = _rifle.BulletResource;
         _timer.Timeout += OnTimerTimeout;
-        _rifle = GetNode<Rifle>("../..");
-        _character = GetNode<Character>("../../../.."); // bruhhh
+        
+        _character = GetNode<Character>(Options.PathOptions.WeaponStateToCharacter);
     }
 
     public override void Enter()
     {
         const string animationName = "shooting";
-        var attackSpeed = _animationPlayer.GetAnimation(animationName).Length / _rifle.WeaponStatsComponent.FireRate;
-        _animationPlayer.Play(animationName, customSpeed: _rifle.WeaponStatsComponent.FireRate);
+        var attackSpeed = _animationPlayer.GetAnimation(animationName).Length / _rifle.StatsComponent.FireRate;
+        _animationPlayer.Play(animationName, customSpeed: _rifle.StatsComponent.FireRate);
         _timer.Start(attackSpeed);
 
-        var bullet = _bulletResource.Instantiate(_projectileSpawner, _rifle.WeaponStatsComponent.CreateAttack(_character));
+        var bullet = _bulletResource.Instantiate(_projectileSpawner, _rifle.StatsComponent.CreateAttack(_character));
         GetNode("/root/Game/World").AddChild(bullet);
     }
 
