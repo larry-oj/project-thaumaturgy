@@ -11,10 +11,14 @@ namespace projectthaumaturgy.Scenes.UI;
 public partial class WeaponContainer : MarginContainer
 {
 	[Export] private Control _weaponSprite;
+	private TextureRect _outline;
+	private TextureRect _color;
+
 	[Export] private Control _elementPicker;
 	private Array<ElementPickerButton> _elementPickerButtons = new();
-	[Export] private Label _damageStatLabel;
-	[Export] private Label _speedStatLabel;
+
+	[Export] private StatChangeContainer _damageStatContainer;
+	[Export] private StatChangeContainer _speedStatContainer;
 
 	private Weapon _weapon;
 	private WeaponStatsComponent _weaponStats;
@@ -29,11 +33,12 @@ public partial class WeaponContainer : MarginContainer
 		}
 	}
 
-	private TextureRect _outline;
-	private TextureRect _color;
-
 	public override void _Ready()
 	{
+		_outline = _weaponSprite.GetNode<TextureRect>("Outline");
+		_color = _weaponSprite.GetNode<TextureRect>("Color");
+
+		// find buttons in the element picker
 		foreach (var child in _elementPicker.GetChildren())
 		{
 			if (child is ElementPickerButton button)
@@ -42,8 +47,8 @@ public partial class WeaponContainer : MarginContainer
 			}
 		}
 
-		_outline = _weaponSprite.GetNode<TextureRect>("Outline");
-		_color = _weaponSprite.GetNode<TextureRect>("Color");
+		_damageStatContainer.StatChanged += OnDamageStatChanged;
+		_speedStatContainer.StatChanged += OnSpeedStatChanged;
 	}
 
 	// find buttons in the element picker
@@ -92,8 +97,8 @@ public partial class WeaponContainer : MarginContainer
 		}
 
 		// set weapon stats
-		_damageStatLabel.Text = _weapon.StatsComponent.Damage.ToString(CultureInfo.InvariantCulture);   // 💊
-		_speedStatLabel.Text = _weapon.StatsComponent.FireRate.ToString(CultureInfo.InvariantCulture);  // 💊
+		_damageStatContainer.StatLabel.Text = _weapon.StatsComponent.Damage.ToString(CultureInfo.InvariantCulture);   	// 💊
+		_speedStatContainer.StatLabel.Text = _weapon.StatsComponent.FireRate.ToString(CultureInfo.InvariantCulture);  		// 💊
 	}
 
 	private void OnElementButtonPressed(Attack.AttackElement element)
@@ -117,5 +122,17 @@ public partial class WeaponContainer : MarginContainer
 			
 			button.ElementPicked -= OnElementButtonPressed;
 		}
+	}
+
+	private void OnDamageStatChanged(bool isIncrease)
+	{
+		_weaponStats.Damage += isIncrease ? 1 : -1;
+		_damageStatContainer.StatLabel.Text = _weaponStats.Damage.ToString(CultureInfo.InvariantCulture);
+	}
+
+	private void OnSpeedStatChanged(bool isIncrease)
+	{
+		_weaponStats.FireRate += isIncrease ? 1 : -1;
+		_speedStatContainer.StatLabel.Text = _weaponStats.FireRate.ToString(CultureInfo.InvariantCulture);
 	}
 }

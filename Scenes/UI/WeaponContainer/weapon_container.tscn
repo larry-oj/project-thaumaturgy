@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b48byjhqn7tcm"]
+[gd_scene load_steps=7 format=3 uid="uid://b48byjhqn7tcm"]
 
 [ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/WeaponContainer.cs" id="1_01lo4"]
 [ext_resource type="Texture2D" uid="uid://voxrdwof5j64" path="res://Graphics/Sprites/ph_guns.png" id="2_haa7m"]
 [ext_resource type="PackedScene" uid="uid://8u3q4m0etgvm" path="res://Scenes/UI/WeaponContainer/ElementPickerButton.tscn" id="3_e7acy"]
+[ext_resource type="PackedScene" uid="uid://dkxqps31i0j2i" path="res://Scenes/UI/WeaponContainer/stat_change_container.tscn" id="4_x4fl1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xuc0c"]
 atlas = ExtResource("2_haa7m")
@@ -12,7 +13,7 @@ region = Rect2(0, 0, 13, 4)
 atlas = ExtResource("2_haa7m")
 region = Rect2(13, 0, 13, 4)
 
-[node name="WeaponContainer" type="MarginContainer" node_paths=PackedStringArray("_weaponSprite", "_elementPicker", "_damageStatLabel", "_speedStatLabel")]
+[node name="WeaponContainer" type="MarginContainer" node_paths=PackedStringArray("_weaponSprite", "_elementPicker", "_damageStatContainer", "_speedStatContainer")]
 process_mode = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
@@ -21,8 +22,8 @@ theme_override_constants/margin_bottom = 20
 script = ExtResource("1_01lo4")
 _weaponSprite = NodePath("VBoxContainer/WeaponSprite")
 _elementPicker = NodePath("VBoxContainer/ElementPicker")
-_damageStatLabel = NodePath("VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer/DamageStat")
-_speedStatLabel = NodePath("VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer/SpeedStat")
+_damageStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer")
+_speedStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -131,60 +132,24 @@ theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 40
 columns = 3
 
-[node name="DamageChangeContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer"]
+[node name="DamageChangeContainer" parent="VBoxContainer/CenterContainer/GridContainer" instance=ExtResource("4_x4fl1")]
 layout_mode = 2
-alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
-layout_mode = 2
-size_flags_vertical = 1
+[node name="Label" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer" index="0"]
 text = "DMG"
-vertical_alignment = 1
 
-[node name="Minus" type="Button" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
-layout_mode = 2
-disabled = true
-text = "<
-"
+[node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer" index="3"]
+disabled = false
 
-[node name="DamageStat" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
-unique_name_in_owner = true
+[node name="SpeedChangeContainer" parent="VBoxContainer/CenterContainer/GridContainer" instance=ExtResource("4_x4fl1")]
 layout_mode = 2
-size_flags_vertical = 1
-text = "5"
-vertical_alignment = 1
 
-[node name="Plus" type="Button" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
-layout_mode = 2
-text = ">"
-
-[node name="SpeedChangeContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]
-layout_mode = 2
+[node name="Label" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer" index="0"]
 text = "SPD
 "
-vertical_alignment = 1
 
-[node name="Minus" type="Button" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]
-layout_mode = 2
-disabled = true
-text = "<
-"
-
-[node name="SpeedStat" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 1
-text = "1
-"
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]
-layout_mode = 2
-text = ">"
+[node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer" index="3"]
+disabled = false
 
 [node name="InfusionContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer"]
 layout_mode = 2
@@ -200,3 +165,6 @@ vertical_alignment = 1
 layout_mode = 2
 disabled = true
 text = "Infuse"
+
+[editable path="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
+[editable path="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]
