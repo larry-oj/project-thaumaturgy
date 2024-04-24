@@ -38,7 +38,7 @@ public partial class WalkerOrchestrator : Node
         
         foreach (var walker in walkers)
         {
-            walker.QueueFree();
+            walker.Free();
         }
         
         foreach (var tile in level.walkableTiles)
