@@ -97,8 +97,10 @@ public partial class WeaponContainer : MarginContainer
 		}
 
 		// set weapon stats
-		_damageStatContainer.StatLabel.Text = _weapon.StatsComponent.Damage.ToString(CultureInfo.InvariantCulture);   	// 💊
-		_speedStatContainer.StatLabel.Text = _weapon.StatsComponent.FireRate.ToString(CultureInfo.InvariantCulture);  		// 💊
+		_damageStatContainer.StatLabel.Text = _weapon.StatsComponent.Damage.ToString(CultureInfo.InvariantCulture);
+		_damageStatContainer.CostLabel.Text = _weapon.StatsComponent.DamageUpgradeCost.ToString(CultureInfo.InvariantCulture);
+		_speedStatContainer.StatLabel.Text = _weapon.StatsComponent.FireRate.ToString(CultureInfo.InvariantCulture);
+		_speedStatContainer.CostLabel.Text = _weapon.StatsComponent.FireRateUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 
 	private void OnElementButtonPressed(Attack.AttackElement element)
@@ -124,15 +126,17 @@ public partial class WeaponContainer : MarginContainer
 		}
 	}
 
-	private void OnDamageStatChanged(bool isIncrease)
+	private void OnDamageStatChanged()
 	{
-		_weaponStats.Damage += isIncrease ? 1 : -1;
+		_weaponStats.IncrementDamage(1f);
 		_damageStatContainer.StatLabel.Text = _weaponStats.Damage.ToString(CultureInfo.InvariantCulture);
+		_damageStatContainer.CostLabel.Text = _weaponStats.DamageUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 
-	private void OnSpeedStatChanged(bool isIncrease)
+	private void OnSpeedStatChanged()
 	{
-		_weaponStats.FireRate += isIncrease ? 1 : -1;
+		_weaponStats.IncrementFireRate(0.5f);
 		_speedStatContainer.StatLabel.Text = _weaponStats.FireRate.ToString(CultureInfo.InvariantCulture);
+		_speedStatContainer.CostLabel.Text = _weaponStats.FireRateUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 }

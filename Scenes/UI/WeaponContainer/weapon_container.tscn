@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b48byjhqn7tcm"]
+[gd_scene load_steps=8 format=3 uid="uid://b48byjhqn7tcm"]
 
 [ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/WeaponContainer.cs" id="1_01lo4"]
 [ext_resource type="Texture2D" uid="uid://voxrdwof5j64" path="res://Graphics/Sprites/ph_guns.png" id="2_haa7m"]
@@ -12,6 +12,9 @@ region = Rect2(0, 0, 13, 4)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ifky7"]
 atlas = ExtResource("2_haa7m")
 region = Rect2(13, 0, 13, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ubfwt"]
+font_size = 13
 
 [node name="WeaponContainer" type="MarginContainer" node_paths=PackedStringArray("_weaponSprite", "_elementPicker", "_damageStatContainer", "_speedStatContainer")]
 process_mode = 3
@@ -27,30 +30,6 @@ _speedStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/Spee
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
-
-[node name="ElementCoins" type="HBoxContainer" parent="VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="FireCoins" type="Label" parent="VBoxContainer/ElementCoins"]
-layout_mode = 2
-text = "Fire: 000"
-
-[node name="WaterCoins" type="Label" parent="VBoxContainer/ElementCoins"]
-layout_mode = 2
-text = "Water: 000
-"
-
-[node name="AirCoins" type="Label" parent="VBoxContainer/ElementCoins"]
-layout_mode = 2
-text = "Air: 000"
-
-[node name="EarthCoins" type="Label" parent="VBoxContainer/ElementCoins"]
-layout_mode = 2
-text = "Earth: 000"
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
 layout_mode = 2
@@ -135,36 +114,53 @@ columns = 3
 [node name="DamageChangeContainer" parent="VBoxContainer/CenterContainer/GridContainer" instance=ExtResource("4_x4fl1")]
 layout_mode = 2
 
-[node name="Label" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer" index="0"]
-text = "DMG"
+[node name="Label" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer/HBoxContainer" index="0"]
+text = "DMG:"
 
-[node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer" index="3"]
+[node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer/HBoxContainer" index="2"]
 disabled = false
 
 [node name="SpeedChangeContainer" parent="VBoxContainer/CenterContainer/GridContainer" instance=ExtResource("4_x4fl1")]
 layout_mode = 2
 
-[node name="Label" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer" index="0"]
-text = "SPD
-"
+[node name="Label" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer/HBoxContainer" index="0"]
+text = "SPD:"
 
-[node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer" index="3"]
+[node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer/HBoxContainer" index="2"]
 disabled = false
+text = "+0.5"
 
-[node name="InfusionContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer"]
+[node name="InfusionContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Infusion"
 vertical_alignment = 1
 
-[node name="Infuse" type="Button" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer"]
+[node name="Infuse" type="Button" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer"]
 layout_mode = 2
 disabled = true
-text = "Infuse"
+text = "{NAME}"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer2"]
+layout_mode = 2
+text = "cost: 50"
+label_settings = SubResource("LabelSettings_ubfwt")
+horizontal_alignment = 1
+
+[node name="Spacer4" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [editable path="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
 [editable path="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]

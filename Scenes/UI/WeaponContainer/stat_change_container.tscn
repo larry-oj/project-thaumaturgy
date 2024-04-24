@@ -1,31 +1,52 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkxqps31i0j2i"]
+[gd_scene load_steps=3 format=3 uid="uid://dkxqps31i0j2i"]
 
 [ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/StatChangeContainer.cs" id="1_qvrs0"]
 
-[node name="StatChangeContainer" type="HBoxContainer"]
+[sub_resource type="LabelSettings" id="LabelSettings_dj6eo"]
+line_spacing = 0.0
+font_size = 13
+
+[node name="StatChangeContainer" type="VBoxContainer"]
 alignment = 1
 script = ExtResource("1_qvrs0")
 
-[node name="Label" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
-text = "STAT"
+text = "STAT:"
 vertical_alignment = 1
 
-[node name="DecreaseButton" type="Button" parent="."]
-layout_mode = 2
-disabled = true
-text = "<
-"
-
-[node name="StatLabel" type="Label" parent="."]
+[node name="StatLabel" type="Label" parent="HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 text = "0"
 vertical_alignment = 1
 
-[node name="IncreaseButton" type="Button" parent="."]
+[node name="IncreaseButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 disabled = true
-text = ">"
+text = "+1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CostLabel" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+text = "cost:"
+label_settings = SubResource("LabelSettings_dj6eo")
+horizontal_alignment = 1
+
+[node name="CostLabelValue" type="Label" parent="HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_dj6eo")
+horizontal_alignment = 1

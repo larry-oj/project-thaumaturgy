@@ -1,23 +1,22 @@
 using Godot;
 using System;
 
-public partial class StatChangeContainer : HBoxContainer
+public partial class StatChangeContainer : VBoxContainer
 {	
 	public Label Label { get; private set; }
 	public Button IncreaseButton { get; private set; }
-	public Button DecreaseButton { get; private set; }
 	public Label StatLabel { get; private set; }
+	public Label CostLabel { get; private set; }
 
-	[Signal] public delegate void StatChangedEventHandler(bool isIncrease);
+	[Signal] public delegate void StatChangedEventHandler();
 
 	public override void _Ready()
 	{
-		Label = GetNode<Label>("Label");
-		IncreaseButton = GetNode<Button>("IncreaseButton");
-		DecreaseButton = GetNode<Button>("DecreaseButton");
-		StatLabel = GetNode<Label>("StatLabel");
+		Label = GetNode<Label>("%Label");
+		IncreaseButton = GetNode<Button>("%IncreaseButton");
+		StatLabel = GetNode<Label>("%StatLabel");
+		CostLabel = GetNode<Label>("%CostLabelValue");
 
-		DecreaseButton.Pressed += () => EmitSignal(nameof(StatChanged), false);
-		IncreaseButton.Pressed += () => EmitSignal(nameof(StatChanged), true);
+		IncreaseButton.Pressed += () => EmitSignal(nameof(StatChanged));
 	}
 }

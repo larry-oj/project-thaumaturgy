@@ -7,7 +7,17 @@ namespace projectthaumaturgy.Scenes.Components;
 public partial class WeaponStatsComponent : Node
 {
     [Export] public float Damage { get; set; } = 0;
+    [Export] public float DamageCostIncrease { get; set; } = 1;
+    [Export] public float DamageBaseCost { get; set; } = 5;
+    public int DamageUpgradeCount { get; private set; } = 0;
+    public float DamageUpgradeCost => DamageBaseCost + DamageCostIncrease * DamageUpgradeCount;
+
     [Export] public float FireRate { get; set; } = 1;
+    [Export] public float FireRateCostIncrease { get; set; } = 1;
+    [Export] public float FireRateBaseCost { get; set; } = 5;
+    public int FireRateUpgradeCount { get; private set; } = 0;
+    public float FireRateUpgradeCost => FireRateBaseCost + FireRateCostIncrease * FireRateUpgradeCount;
+
     [Export] public Attack.AttackType Type { get; set; } = Attack.AttackType.Melee;
     [Export] public Attack.AttackElement Element { get; set; } = Attack.AttackElement.None;
     [Export] public Attack.AttackInfusion Infusion { get; set; } = Attack.AttackInfusion.None;
@@ -28,6 +38,7 @@ public partial class WeaponStatsComponent : Node
     public WeaponStatsComponent IncrementDamage(float damage)
     {
         Damage += damage;
+        DamageUpgradeCount++;
         return this;
     }
     
@@ -40,6 +51,7 @@ public partial class WeaponStatsComponent : Node
     public WeaponStatsComponent IncrementFireRate(float fireRate)
     {
         FireRate += fireRate;
+        FireRateUpgradeCount++;
         return this;
     }
     

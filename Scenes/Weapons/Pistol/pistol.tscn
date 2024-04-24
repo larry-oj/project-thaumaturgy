@@ -51,6 +51,8 @@ BulletResource = ExtResource("2_fc2c6")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dlku4")]
 Damage = 3.0
+DamageCostIncrease = 2.0
+DamageBaseCost = 4.0
 Type = 1
 
 [node name="Sprites" type="CanvasGroup" parent="."]
