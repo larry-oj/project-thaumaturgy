@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkxqps31i0j2i"]
+
+[ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/StatChangeContainer.cs" id="1_qvrs0"]
+
+[node name="StatChangeContainer" type="HBoxContainer"]
+alignment = 1
+script = ExtResource("1_qvrs0")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "STAT"
+vertical_alignment = 1
+
+[node name="DecreaseButton" type="Button" parent="."]
+layout_mode = 2
+disabled = true
+text = "<
+"
+
+[node name="StatLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "0"
+vertical_alignment = 1
+
+[node name="IncreaseButton" type="Button" parent="."]
+layout_mode = 2
+disabled = true
+text = ">"
