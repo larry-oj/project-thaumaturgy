@@ -11,7 +11,9 @@ public partial class World : Node2D
     private TileMap _tileMap;
     private PackedScene _player = ResourceLoader.Load("res://Scenes/Characters/Player/player.tscn") as PackedScene;
     
-    public Player Player { get; private set; }
+    #nullable enable
+    public Player? Player { get; private set; }
+    #nullable disable
     
     public override void _Ready()
     {

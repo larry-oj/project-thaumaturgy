@@ -2,75 +2,12 @@
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
-[ext_resource type="PackedScene" uid="uid://b48byjhqn7tcm" path="res://Scenes/UI/weapon_container.tscn" id="2_iq6jy"]
+[ext_resource type="PackedScene" uid="uid://b48byjhqn7tcm" path="res://Scenes/UI/WeaponContainer/weapon_container.tscn" id="2_iq6jy"]
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_ttyjk")
 _weaponContainerScene = ExtResource("2_iq6jy")
-
-[node name="Menus" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="Menus"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="GameOverScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="GameOverPanel" type="PanelContainer" parent="Menus/MarginContainer/GameOverScreen"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer"]
-layout_mode = 2
-
-[node name="GameOverText" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
-text = "Game Over"
-
-[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Press {KEY} to restart"
-
-[node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(650, 500)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 30
-tab_alignment = 1
 
 [node name="Interface" type="Control" parent="."]
 unique_name_in_owner = true
@@ -186,3 +123,66 @@ horizontal_alignment = 2
 layout_mode = 2
 text = "000"
 horizontal_alignment = 1
+
+[node name="Menus" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GameOverScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GameOverPanel" type="PanelContainer" parent="Menus/MarginContainer/GameOverScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOverText" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+
+[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press {KEY} to restart"
+
+[node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(650, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+tab_alignment = 1

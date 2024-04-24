@@ -13,6 +13,6 @@ public partial class GameManager : Node
         _ui = GetNode<UI.UI>("../Game/UI");
         _world = GetNode<World>("../Game/World");
         
-        _ui.world = _world;
+        _ui.World = _world;
     }
 }

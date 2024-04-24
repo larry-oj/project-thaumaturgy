@@ -11,11 +11,28 @@ public partial class UI : CanvasLayer
 	private PlayerHealthbar _playerHealthbar;
 	private Player _player;
 	
-	public World world;
+	private World _world;
+	public World World
+	{
+		get => _world;
+		set
+		{
+			_world = value;
+			_player = _world.Player;
+			_playerHealthbar.HealthComponent = _player.GetNode<HealthComponent>("HealthComponent");
+			_player.Died += OnPlayerDied;
+
+			foreach (var weapon in _player.Weapons)
+			{
+				var weaponContainer = _weaponContainerScene.Instantiate() as WeaponContainer;
+				_weaponTabsContainer.AddChild(weaponContainer);
+				weaponContainer!.Weapon = weapon;
+			}
+		}
+	}
 	
 	private Control _interface;
 	private Control _gameOverScreen;
-
 	private Control _weaponTabsContainer;
 	[Export] private PackedScene _weaponContainerScene;
 	
@@ -25,13 +42,9 @@ public partial class UI : CanvasLayer
 	public override void _Ready()
 	{
 		_playerHealthbar = GetNode<PlayerHealthbar>("%PlayerHealthbar");
-		_player = world.Player;
 		_interface = GetNode<Control>("%Interface");
 		_gameOverScreen = GetNode<VBoxContainer>("%GameOverScreen");
 		_weaponTabsContainer = GetNode<Control>("%WeaponTabsContainer");
-
-		_playerHealthbar.HealthComponent = _player.GetNode<HealthComponent>("HealthComponent");
-		_player.Died += OnPlayerDied;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -65,7 +78,7 @@ public partial class UI : CanvasLayer
 		
 		_interface.Visible = !isOver;
 		_gameOverScreen.Visible = isOver;
-		world.GetTree().Paused = isOver;
+		World.GetTree().Paused = isOver;
 	}
 
 	private void OnPlayerDied()
@@ -78,13 +91,6 @@ public partial class UI : CanvasLayer
 		GetTree().Paused = true;
 		_weaponTabsContainer.Visible = true;
 		_isWeaponTabsOpen = true;
-		
-		foreach (var weapon in _player.Weapons)
-		{
-			var weaponContainer = _weaponContainerScene.Instantiate() as WeaponContainer;
-			weaponContainer!.Weapon = weapon;
-			_weaponTabsContainer.AddChild(weaponContainer);
-		}
 	}
 	
 	private void OnWeaponTabsClose()
@@ -92,9 +98,5 @@ public partial class UI : CanvasLayer
 		GetTree().Paused = false;
 		_weaponTabsContainer.Visible = false;
 		_isWeaponTabsOpen = false;
-		foreach (var child in _weaponTabsContainer.GetChildren())
-		{
-			child.QueueFree();
-		}
 	}
 }

@@ -13,8 +13,8 @@ public partial class Player : Character
 		_stateMachine.Init(this, _animationPlayer);
 		CurrentWeapon = GetNode("Pivot").GetChild<Weapon>(0);
 
-		CurrentWeapon.StatsComponent
-			.SetElement(Attack.AttackElement.Earth);
+		// CurrentWeapon.StatsComponent
+		// 	.SetElement(Attack.AttackElement.Water);
 		
 		Weapons.Add(CurrentWeapon);
 	}

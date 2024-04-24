@@ -9,7 +9,7 @@ public partial class WeaponStatsComponent : Node
     [Export] public float Damage { get; set; } = 0;
     [Export] public float FireRate { get; set; } = 1;
     [Export] public Attack.AttackType Type { get; set; } = Attack.AttackType.Melee;
-    [Export] public Attack.AttackElement Element { get; set; } = Attack.AttackElement.Absolute;
+    [Export] public Attack.AttackElement Element { get; set; } = Attack.AttackElement.None;
     [Export] public Attack.AttackInfusion Infusion { get; set; } = Attack.AttackInfusion.None;
 
     [Signal] public delegate void UpdatedEventHandler();
