@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Linq;
+using Godot;
 using Godot.Collections;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scripts;
@@ -7,46 +8,41 @@ namespace projectthaumaturgy.Scenes.Levels;
 
 public partial class World : Node2D
 {
-    [Export]
-    private TileMap _tileMap;
-    private PackedScene _player = ResourceLoader.Load("res://Scenes/Characters/Player/player.tscn") as PackedScene;
-    
+    [Export] private TileMap _tileMap;
+    [Export] private Camera2D _camera;
+
+    private PackedScene _playerScene = ResourceLoader.Load("res://Scenes/Characters/Player/player.tscn") as PackedScene;
     #nullable enable
-    public Player? Player { get; private set; }
+    public Player? Player { get; set; }
     #nullable disable
+    [Signal] public delegate void PlayerFoundEventHandler();
+
+    public Level Level { get; set; }
     
     public override void _Ready()
     {
         GD.Randomize();
-        // GenerateLevel();
-        Player = GetNode<Player>("%Player");
-    }
+        Level = new Level()
+            .SetSize(350)
+            .SetPlayerScene(_playerScene)
+            .SetTileMap(_tileMap)
+            .SetCamera(_camera);
 
-    private void GenerateLevel()
-    {
-        var level = new Level(350);
+        Level.GenerateBase()
+            .PlacePlayer(this, out var player);
 
-        var walkerOrch = new WalkerOrchestrator(level, Vector2I.Zero);
-        walkerOrch.Walk(0.50f, new [] {3, 3}, new [] {0.33f, 0.34f, 0.33f, 0f}, 3, 0.15f);
-
-        _tileMap.SetCellsTerrainConnect(0, level.walkableTiles, 0, 0, false);
-        _tileMap.SetCellsTerrainConnect(0, level.wallTiles, 0, 1, false);
-        
-        var player = _player.Instantiate() as Player;
-        player!.Position = _tileMap.ToGlobal(level.walkableTiles[0]);
-        AddChild(player);
-
-        level.QueueFree();
-        walkerOrch.QueueFree();
+        Player = player;
+        EmitSignal(nameof(PlayerFound));
     }
     
-    // public override void _Input(InputEvent @event)
-    // {
-    //     if (@event.IsActionPressed("ui_accept"))
-    //     {
-    //         GetTree().ReloadCurrentScene();
-    //     }
-    // }
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_accept"))
+        {
+            Level.QueueFree();
+            GetTree().ReloadCurrentScene();
+        }
+    }
     
     public void Reload()
     {

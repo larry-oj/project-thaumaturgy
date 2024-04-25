@@ -9,7 +9,6 @@ namespace projectthaumaturgy.Scenes.UI;
 public partial class UI : CanvasLayer
 {
 	private PlayerHealthbar _playerHealthbar;
-	private Player _player;
 	
 	private World _world;
 	public World World
@@ -18,7 +17,16 @@ public partial class UI : CanvasLayer
 		set
 		{
 			_world = value;
-			_player = _world.Player;
+		}
+	}
+
+	private Player _player;
+	public Player Player
+	{
+		get => _player;
+		set
+		{
+			_player = value;
 			_playerHealthbar.HealthComponent = _player.GetNode<HealthComponent>("HealthComponent");
 			_player.Died += OnPlayerDied;
 

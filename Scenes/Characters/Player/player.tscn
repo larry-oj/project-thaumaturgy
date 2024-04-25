@@ -313,6 +313,7 @@ _healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_e5c3n")
+disabled = true
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
 _initialState = NodePath("PlayerIdle")

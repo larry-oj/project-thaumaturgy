@@ -20,4 +20,10 @@ public static class Options
         public static string PlayerAttack => "player_attack";
         public static string PlayerCraftWeapon => "player_craft_weapon";
     }
+
+    public static class Sizes
+    {
+        public static int TilesetSize => 16;
+        public static int TilesetHalfsize => 8;
+    }
 }

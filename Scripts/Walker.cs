@@ -79,9 +79,9 @@ public partial class Walker : GodotObject
 
         foreach (var tile in walkedOn)
         {
-            if (!_level.walkableTiles.Contains(tile))
+            if (!_level.walkableTiles.Select(x => x.Position).Contains(tile))
             {
-                _level.walkableTiles.Add(tile);
+                _level.walkableTiles.Add(new WalkableTile(tile));
             }
         }
     }

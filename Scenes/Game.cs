@@ -12,6 +12,8 @@ public partial class Game : Node2D
 	{
 		Ui = GetNode<UI.UI>("%UI");
 		World = GetNode<World>("%World");
+
 		Ui.World = World;
+		Ui.Player = World.Player;
 	}
 }
