@@ -37,7 +37,6 @@ region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Color" type="Sprite2D" parent="AnimatedSprites"]
-self_modulate = Color(1, 0, 0, 1)
 texture = ExtResource("1_dpilp")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
@@ -63,6 +62,7 @@ MaxHealth = 10.0
 [node name="NavigationComponent" parent="." instance=ExtResource("6_pvd51")]
 path_desired_distance = 5.0
 target_desired_distance = 7.0
+debug_enabled = true
 _timerInterval = 0.25
 
 [node name="DetectorComonent" parent="." instance=ExtResource("6_2nmy3")]
