@@ -2,20 +2,16 @@
 
 [ext_resource type="Script" path="res://Scenes/Levels/World.cs" id="1_fxom5"]
 [ext_resource type="TileSet" uid="uid://b6skrro0qj8fe" path="res://Graphics/Sprites/ph_world_tileset.tres" id="2_ev2xy"]
-[ext_resource type="Script" path="res://Scenes/Levels/PlayerCamera.cs" id="3_if4ay"]
+[ext_resource type="PackedScene" uid="uid://ciyodh8ntlc5o" path="res://Scenes/player_camera.tscn" id="3_6prls"]
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("_tileMap", "_camera")]
 process_mode = 1
 script = ExtResource("1_fxom5")
 _tileMap = NodePath("TileMap")
-_camera = NodePath("PlayerCamera")
+_camera = NodePath("")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_ev2xy")
 format = 2
 
-[node name="PlayerCamera" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
-script = ExtResource("3_if4ay")
-targetWidth = 352
+[node name="PlayerCamera" parent="." instance=ExtResource("3_6prls")]
