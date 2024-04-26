@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Level.cs" id="1_211fy"]
 [ext_resource type="TileSet" uid="uid://b6skrro0qj8fe" path="res://Graphics/Sprites/ph_world_tileset.tres" id="2_ev2xy"]
-[ext_resource type="PackedScene" uid="uid://ciyodh8ntlc5o" path="res://Scenes/player_camera.tscn" id="3_6prls"]
+[ext_resource type="PackedScene" uid="uid://ciyodh8ntlc5o" path="res://Scenes/Levels/player_camera.tscn" id="3_6prls"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("TileMap", "PlayerCamera")]
 process_mode = 1
