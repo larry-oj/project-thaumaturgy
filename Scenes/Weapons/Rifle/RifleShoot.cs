@@ -35,7 +35,7 @@ public partial class RifleShoot : State
         _timer.Start(attackSpeed);
 
         var bullet = _bulletResource.Instantiate(_projectileSpawner, _rifle.StatsComponent.CreateAttack(_character));
-        GetNode("/root/Game/World").AddChild(bullet);
+        GetNode(Options.PathOptions.Level).AddChild(bullet);
     }
 
     public override void Exit()

@@ -10,16 +10,6 @@ public partial class UI : CanvasLayer
 {
 	private PlayerHealthbar _playerHealthbar;
 	
-	private World _world;
-	public World World
-	{
-		get => _world;
-		set
-		{
-			_world = value;
-		}
-	}
-
 	private Player _player;
 	public Player Player
 	{
@@ -86,7 +76,7 @@ public partial class UI : CanvasLayer
 		
 		_interface.Visible = !isOver;
 		_gameOverScreen.Visible = isOver;
-		World.GetTree().Paused = isOver;
+		GetTree().Paused = isOver;
 	}
 
 	private void OnPlayerDied()

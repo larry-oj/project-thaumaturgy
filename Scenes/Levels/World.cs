@@ -21,6 +21,7 @@ public partial class World : Node2D
     
     public override void _Ready()
     {
+        /*
         GD.Randomize();
         Level = new Level()
             .SetSize(350)
@@ -33,6 +34,7 @@ public partial class World : Node2D
 
         Player = player;
         EmitSignal(nameof(PlayerFound));
+        */
     }
     
     public override void _Input(InputEvent @event)

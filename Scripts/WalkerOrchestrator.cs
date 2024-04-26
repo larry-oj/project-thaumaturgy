@@ -22,6 +22,10 @@ public partial class WalkerOrchestrator : Node
         _currentPos = position;
     }
 
+    public WalkerOrchestrator AddRooms(int[] heightWidth, float walkerRoomChance)
+    {
+        return AddRooms(heightWidth[0], heightWidth[1], walkerRoomChance);
+    }
     public WalkerOrchestrator AddRooms(int height, int width, float walkerRoomChance)
     {
         _walkerRoomSize = new[] {height, width};
@@ -29,6 +33,10 @@ public partial class WalkerOrchestrator : Node
         return this;
     }
 
+    public WalkerOrchestrator AddTurnChance(float[] walkerTurnChance)
+    {
+        return AddTurnChance(walkerTurnChance[0], walkerTurnChance[1], walkerTurnChance[2], walkerTurnChance[3]);
+    }
     public WalkerOrchestrator AddTurnChance(float left, float forward, float right, float backward)
     {
         _walkerTurnChance = new[] {left, forward, right, backward};
@@ -41,6 +49,17 @@ public partial class WalkerOrchestrator : Node
         _walkerMax = walkerMax;
         return this;
     }
+
+    public WalkerOrchestrator AddProperties(WalkerProperties properties)
+    {
+        this.AddRooms(properties.RoomSize, properties.RoomChance)
+            .AddTurnChance(properties.TurnChance)
+            .AddMult(properties.WalkerMax, properties.WalkerChance);
+        
+        properties.Free(); // !!!
+
+        return this;
+    }
     
     public WalkerOrchestrator Walk()
     {
@@ -49,7 +68,7 @@ public partial class WalkerOrchestrator : Node
             new(level, _currentPos, _walkerTurnChance, _walkerRoomChance, _walkerRoomSize)
         };
 
-        while (level.walkableTiles.Count < level.size)
+        while (level.walkableTiles.Count < level.Size)
         {
             for (var i = 0; i < walkers.Count; i++)
             {

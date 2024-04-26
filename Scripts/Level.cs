@@ -9,12 +9,24 @@ namespace projectthaumaturgy.Scripts;
 
 public partial class Level : Node
 {
-    public int size;
+    /// <summary>
+    /// Size of the level in walkable tiles.
+    /// </summary>
+    public int Size;
+    /// <summary>
+    /// Tiles that are walkable by the player.
+    /// </summary>
     public Array<WalkableTile> walkableTiles;
+    /// <summary>
+    /// Wall tiles (surrounding the walkable tiles)
+    /// </summary>
     public Array<Vector2I> wallTiles;
-    private PackedScene _playerScene;
-    private TileMap _tileMap;
-    private Camera2D _camera;
+    public PackedScene PlayerScene { get; private set;}
+
+    [Export] public TileMap TileMap { get; private set; }
+    [Export] public Camera2D PlayerCamera { get; private set; }
+
+    private WalkerProperties _walkerProperties;
 
     public Level()
     {
@@ -24,53 +36,46 @@ public partial class Level : Node
 
     public Level SetSize(int size)
     {
-        this.size = size;
+        this.Size = size;
         return this;
     }
 
     public Level SetPlayerScene(PackedScene _playerScene)
     {
-        this._playerScene = _playerScene;
+        this.PlayerScene = _playerScene;
         return this;
     }
 
-    public Level SetTileMap(TileMap tileMap)
+    public Level SetWalkerProperties(WalkerProperties walkerProperties)
     {
-        _tileMap = tileMap;
-        return this;
-    }
-
-    public Level SetCamera(Camera2D camera)
-    {
-        _camera = camera;
+        _walkerProperties?.Free(); // !!!
+        _walkerProperties = walkerProperties;
         return this;
     }
 
     public Level GenerateBase()
     {
         new WalkerOrchestrator(this, Vector2I.Zero)
-            .AddRooms(3, 3, 0.5f)
-            .AddTurnChance(0.33f, 0.34f, 0.33f, 0f)
-            .AddMult(3, 0.15f)
+            .AddProperties(_walkerProperties)
             .Walk()
-            .QueueFree();
+            .QueueFree(); // !!!
 
-        _tileMap.SetCellsTerrainConnect(0, new Array<Vector2I>(walkableTiles.Select(x => x.Position)), 0, 0, false);
-        _tileMap.SetCellsTerrainConnect(0, wallTiles, 0, 1, false);
+        TileMap.SetCellsTerrainConnect(0, new Array<Vector2I>(walkableTiles.Select(x => x.Position)), 0, 0, false);
+        TileMap.SetCellsTerrainConnect(0, wallTiles, 0, 1, false);
 
         return this;
     }
 
-    public Level PlacePlayer(World world, out Player player)
+    public Level PlacePlayer(out Player player)
     {
-        player = _playerScene.Instantiate() as Player;
+        player = PlayerScene.Instantiate() as Player;
         player!.Position = new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize);
         player.UniqueNameInOwner = true;
-        world.AddChild(player);
+        this.AddChild(player);
 
         // camera follow
-        _camera.GetParent().RemoveChild(_camera);
-        player.AddChild(_camera);
+        PlayerCamera.GetParent().RemoveChild(PlayerCamera);
+        player.AddChild(PlayerCamera);
 
         return this;
     }

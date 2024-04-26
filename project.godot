@@ -17,6 +17,10 @@ config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://Scenes/game_manager.tscn"
+
 [display]
 
 window/size/viewport_width=1280

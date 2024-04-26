@@ -32,7 +32,7 @@ public partial class PistolShoot : State
         _timer.Start(_animationPlayer.GetAnimation(animationName).Length / _pistol.StatsComponent.FireRate);
         
         var bullet = _bulletResource.Instantiate(_projectileSpawner, _pistol.StatsComponent.CreateAttack(_character));
-        GetNode("/root/Game/World").AddChild(bullet);
+        GetNode(Options.PathOptions.Level).AddChild(bullet);
     }
     
     public override void Exit()
