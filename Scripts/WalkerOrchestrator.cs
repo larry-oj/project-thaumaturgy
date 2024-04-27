@@ -57,7 +57,7 @@ public partial class WalkerOrchestrator : Node
             .AddTurnChance(properties.TurnChance)
             .AddMult(properties.WalkerMax, properties.WalkerChance);
         
-        properties.Free(); // !!!
+        //properties.Free(); // !!! // yeah, this is not needed
 
         return this;
     }

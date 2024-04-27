@@ -22,6 +22,7 @@ public partial class UI : CanvasLayer
 
 			foreach (var weapon in _player.Weapons)
 			{
+				GD.Print("Weapon found");
 				var weaponContainer = _weaponContainerScene.Instantiate() as WeaponContainer;
 				_weaponTabsContainer.AddChild(weaponContainer);
 				weaponContainer!.Weapon = weapon;

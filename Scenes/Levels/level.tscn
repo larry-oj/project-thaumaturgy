@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://dso3ffoitymk"]
 
-[ext_resource type="Script" path="res://Scenes/Levels/Level.cs" id="1_211fy"]
+[ext_resource type="Script" path="res://Scenes/Levels/Level.cs" id="1_3cupq"]
 [ext_resource type="TileSet" uid="uid://b6skrro0qj8fe" path="res://Graphics/Sprites/ph_world_tileset.tres" id="2_ev2xy"]
 [ext_resource type="PackedScene" uid="uid://ciyodh8ntlc5o" path="res://Scenes/Levels/player_camera.tscn" id="3_6prls"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("TileMap", "PlayerCamera")]
 process_mode = 1
-script = ExtResource("1_211fy")
+script = ExtResource("1_3cupq")
 TileMap = NodePath("TileMap")
 PlayerCamera = NodePath("PlayerCamera")
 

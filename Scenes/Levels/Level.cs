@@ -22,7 +22,7 @@ public partial class Level : Node
     /// Wall tiles (surrounding the walkable tiles)
     /// </summary>
     public Array<Vector2I> wallTiles;
-    public PackedScene PlayerScene { get; private set;}
+    public Player Player { get; private set; }
 
     [Export] public TileMap TileMap { get; private set; }
     [Export] public Camera2D PlayerCamera { get; private set; }
@@ -41,9 +41,9 @@ public partial class Level : Node
         return this;
     }
 
-    public Level SetPlayerScene(PackedScene _playerScene)
+    public Level SetPlayer(Player _player)
     {
-        this.PlayerScene = _playerScene;
+        this.Player = _player;
         return this;
     }
 
@@ -51,6 +51,24 @@ public partial class Level : Node
     {
         _walkerProperties?.Free(); // !!!
         _walkerProperties = walkerProperties;
+        return this;
+    }
+
+    public Level Clear()
+    {
+        walkableTiles.Clear();
+        wallTiles.Clear();
+        TileMap.Clear();
+
+        // ✨🌈 kill all "wrong" children 🌈✨
+        foreach (var child in GetChildren())
+        {
+            if (!(child is Player || child is Camera2D || child is TileMap))
+            {
+                child.QueueFree();
+            }
+        }
+
         return this;
     }
 
@@ -67,16 +85,13 @@ public partial class Level : Node
         return this;
     }
 
-    public Level PlacePlayer(out Player player)
+    public Level PlacePlayer()
     {
-        player = PlayerScene.Instantiate() as Player;
-        player!.Position = new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize);
-        player.UniqueNameInOwner = true;
-        this.AddChild(player);
+        Player.Position = new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize);
 
         // camera follow
-        PlayerCamera.GetParent().RemoveChild(PlayerCamera);
-        player.AddChild(PlayerCamera);
+        PlayerCamera.GetParent()?.RemoveChild(PlayerCamera);
+        Player.AddChild(PlayerCamera);
 
         return this;
     }

@@ -8,21 +8,23 @@ namespace projectthaumaturgy.Scenes;
 public partial class Game : Node2D
 {
 	[Export] public PackedScene PlayerScene { get; private set; }
-	[Export] public PackedScene LevelScene { get; private set; }
 
 	[Export] public UI.UI UI { get; private set; }
-	
-#nullable enable
-	private Level? _level;
-	private Player? _player;
-#nullable disable
+	[Export] public Level Level { get; private set; }
+
+	private Player _player;
 
 	private GameManager _gameManager;
-	
+
 	public override void _Ready()
 	{
-		_gameManager = GetNode<GameManager>("/root/GameManager");
-		
+		_player = PlayerScene.Instantiate() as Player;
+		this.AddChild(_player);
+
+		Level.SetPlayer(_player);
+		UI.Player = _player;
+
+		_gameManager = GetNode<GameManager>(Options.PathOptions.GameManager);
 		_gameManager.LevelLoaded += OnLevelLoaded;
 		if (_gameManager.IsNodeReady())
 		{
@@ -32,9 +34,7 @@ public partial class Game : Node2D
 
 	private void OnLevelLoaded(LevelResource levelResource)
 	{
-		_level = LevelScene.Instantiate() as Level;
-		_level!.SetSize(levelResource.Size)
-			.SetPlayerScene(PlayerScene)
+		Level.SetSize(levelResource.Size)
 			.SetWalkerProperties(new WalkerProperties
 			{
 				RoomChance = levelResource.RoomChance,
@@ -43,11 +43,19 @@ public partial class Game : Node2D
 				WalkerMax = levelResource.WalkerMax,
 				WalkerChance = levelResource.WalkerChance
 			});
-		this.AddChild(_level);
-		_level.GenerateBase()
-			.PlacePlayer(out var player);
-		
-		_player = player;
-		UI.Player = _player;
+		Level.GenerateBase()
+			.PlacePlayer();
 	}
+
+/*
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("ui_accept"))
+		{
+			Level.Clear()
+				.GenerateBase()
+				.PlacePlayer();
+		}
+	}
+*/
 }

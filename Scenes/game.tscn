@@ -5,11 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://cabn78p4558rd" path="res://Scenes/Characters/Player/player.tscn" id="2_qnov2"]
 [ext_resource type="PackedScene" uid="uid://dk2rsb8np72r6" path="res://Scenes/UI/ui.tscn" id="2_x22sx"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("UI")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("UI", "Level")]
 script = ExtResource("1_rc2bw")
 PlayerScene = ExtResource("2_qnov2")
-LevelScene = ExtResource("1_usil2")
 UI = NodePath("UI")
+Level = NodePath("Level")
+
+[node name="Level" parent="." instance=ExtResource("1_usil2")]
 
 [node name="UI" parent="." instance=ExtResource("2_x22sx")]
 unique_name_in_owner = true
