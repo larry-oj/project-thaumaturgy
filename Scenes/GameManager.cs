@@ -4,7 +4,7 @@ using Godot;
 using Godot.Collections;
 using projectthaumaturgy.Scripts;
 
-namespace projectthaumaturgy;
+namespace projectthaumaturgy.Scenes;
 
 public partial class GameManager : Node
 {
@@ -13,7 +13,7 @@ public partial class GameManager : Node
     public int Stage { get; private set; } = 1;
     public int Substage { get; private set; } = 1;
 
-    [Export] private Array<LevelResource> _levelResources = new Array<LevelResource>();
+    [Export] private Array<LevelResource> _levelResources = new();
     private LevelResource _currentLevelResource;
     public LevelResource CurrentLevelResource 
     {

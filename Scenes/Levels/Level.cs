@@ -4,8 +4,9 @@ using Godot;
 using Godot.Collections;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Levels;
+using projectthaumaturgy.Scripts;
 
-namespace projectthaumaturgy.Scripts;
+namespace projectthaumaturgy.Scenes.Levels;
 
 public partial class Level : Node
 {
