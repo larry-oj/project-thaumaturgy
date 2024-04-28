@@ -12,6 +12,9 @@ namespace projectthaumaturgy.Scenes.Levels;
 public partial class Level : Node
 {
     public int Size;
+    public int Stage;
+    public int Substage;
+    public int MaxSubstage;
     public Array<WalkableTile> walkableTiles;
     public Array<Vector2I> wallTiles;
 
@@ -45,6 +48,14 @@ public partial class Level : Node
     public Level SetSize(int size)
     {
         this.Size = size;
+        return this;
+    }
+
+    public Level SetStage(int stage, int maxSubstage)
+    {
+        this.Stage = stage;
+        this.MaxSubstage = maxSubstage;
+        this.Substage = 1;
         return this;
     }
 
