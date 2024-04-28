@@ -2,6 +2,7 @@
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Levels;
 using projectthaumaturgy.Scripts;
@@ -22,12 +23,24 @@ public partial class Level : Node
     /// Wall tiles (surrounding the walkable tiles)
     /// </summary>
     public Array<Vector2I> wallTiles;
-    public Player Player { get; private set; }
+
+    private Player _player;
+    public Player Player 
+    {
+        get => _player;
+        set
+        {
+            _player = value;
+            _player.GetParent()?.RemoveChild(_player);
+            this.AddChild(_player);
+        }
+    }
 
     [Export] public TileMap TileMap { get; private set; }
     [Export] public Camera2D PlayerCamera { get; private set; }
 
     private WalkerProperties _walkerProperties;
+    private EnemyProperties _enemyProperties;
 
     public Level()
     {
@@ -41,16 +54,25 @@ public partial class Level : Node
         return this;
     }
 
-    public Level SetPlayer(Player _player)
-    {
-        this.Player = _player;
-        return this;
-    }
-
     public Level SetWalkerProperties(WalkerProperties walkerProperties)
     {
         _walkerProperties?.Free(); // !!!
         _walkerProperties = walkerProperties;
+        return this;
+    }
+
+    public Level SetEnemyProperties(EnemyProperties enemyProperties)
+    {
+        _enemyProperties?.Free(); // !!!
+        _enemyProperties = enemyProperties;
+
+        var tmp = 0f;
+        foreach (var key in _enemyProperties.Enemies.Keys)
+        {
+            tmp += _enemyProperties.Enemies[key];
+            _enemyProperties.Enemies[key] = tmp;
+        }
+
         return this;
     }
 
@@ -92,6 +114,32 @@ public partial class Level : Node
         // camera follow
         PlayerCamera.GetParent()?.RemoveChild(PlayerCamera);
         Player.AddChild(PlayerCamera);
+
+        return this;
+    }
+
+    public Level PlaceEnemies()
+    {
+        // dont place enemies right next to the player
+        var eligibleTiles = walkableTiles
+            .Where(x => x.DijkstraValue > 4)
+            .Select(x => (x, GD.Randf()))
+            .OrderBy(x => x.Item2)
+            .Select(x => x.Item1)
+            .Take(_enemyProperties.MaxEnemies)
+            .ToArray();
+
+        foreach (var tile in eligibleTiles)
+        {
+            var r = GD.Randf();
+            var winner = _enemyProperties.Enemies.Keys
+                .First(x => r < _enemyProperties.Enemies[x]);
+            
+            var enemy = winner.Instantiate() as Enemy;
+            enemy.Position = (tile.Position * Options.Sizes.TilesetSize) + new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize);
+            enemy.BodyToDetect = Player as CharacterBody2D;
+            this.AddChild(enemy);
+        }
 
         return this;
     }

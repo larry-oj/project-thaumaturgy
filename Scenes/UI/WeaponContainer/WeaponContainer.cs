@@ -135,7 +135,7 @@ public partial class WeaponContainer : MarginContainer
 
 	private void OnSpeedStatChanged()
 	{
-		_weaponStats.IncrementFireRate(0.5f);
+		_weaponStats.IncrementFireRate(0.25f);
 		_speedStatContainer.StatLabel.Text = _weaponStats.FireRate.ToString(CultureInfo.InvariantCulture);
 		_speedStatContainer.CostLabel.Text = _weaponStats.FireRateUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}

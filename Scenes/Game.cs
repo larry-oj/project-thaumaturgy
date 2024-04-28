@@ -19,17 +19,17 @@ public partial class Game : Node2D
 	public override void _Ready()
 	{
 		_player = PlayerScene.Instantiate() as Player;
+		_player.Name = "Player";
+		_player.UniqueNameInOwner = true;
 		this.AddChild(_player);
 
-		Level.SetPlayer(_player);
+		Level.Player = _player;
 		UI.Player = _player;
 
 		_gameManager = GetNode<GameManager>(Options.PathOptions.GameManager);
-		_gameManager.LevelLoaded += OnLevelLoaded;
-		if (_gameManager.IsNodeReady())
-		{
-			OnLevelLoaded(_gameManager.CurrentLevelResource);
-		}
+		// _gameManager.LevelLoaded += OnLevelLoaded;
+
+		OnLevelLoaded(_gameManager.InitialLevelResource);
 	}
 
 	private void OnLevelLoaded(LevelResource levelResource)
@@ -42,20 +42,25 @@ public partial class Game : Node2D
 				TurnChance = levelResource.TurnChance,
 				WalkerMax = levelResource.WalkerMax,
 				WalkerChance = levelResource.WalkerChance
-			});
-		Level.GenerateBase()
-			.PlacePlayer();
+			})
+			.SetEnemyProperties(new EnemyProperties
+			{
+				MaxEnemies = levelResource.MaxEnemies,
+				Enemies = levelResource.Enemies
+			})
+			.GenerateBase()
+			.PlacePlayer()
+			.PlaceEnemies();
 	}
 
-/*
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		if (@event.IsActionPressed("ui_accept"))
 		{
 			Level.Clear()
 				.GenerateBase()
-				.PlacePlayer();
+				.PlacePlayer()
+				.PlaceEnemies();
 		}
 	}
-*/
 }

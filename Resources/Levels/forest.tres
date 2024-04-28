@@ -1,11 +1,10 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://bvl8bqqlvurl2"]
 
-[ext_resource type="PackedScene" uid="uid://dso3ffoitymk" path="res://Scenes/Levels/level.tscn" id="1_wovnl"]
+[ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_3runh"]
 [ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="2_yysi8"]
 
 [resource]
 script = ExtResource("2_yysi8")
-Scene = ExtResource("1_wovnl")
 Name = "Forest"
 StageNum = 1
 MaxSubstagesNum = 3
@@ -15,3 +14,7 @@ RoomSize = PackedInt32Array(3, 3)
 TurnChance = PackedFloat32Array(0.33, 0.34, 0.33, 0)
 WalkerMax = 3
 WalkerChance = 0.15
+MaxEnemies = 15
+Enemies = {
+ExtResource("1_3runh"): 1.0
+}

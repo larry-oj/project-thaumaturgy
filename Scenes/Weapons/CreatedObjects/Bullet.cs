@@ -1,4 +1,5 @@
 using Godot;
+using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scripts;
 
@@ -29,6 +30,7 @@ public partial class Bullet : Projectile
 		if (body is HitboxComponent hitbox)
 		{
 			if (hitbox.Owner == Attack.Owner) return;
+			if (Attack.Owner is Enemy && hitbox.Owner is Enemy) return;
 			
 			hitbox.Damage(Attack);
 		}

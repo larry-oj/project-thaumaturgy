@@ -128,7 +128,7 @@ text = "SPD:"
 
 [node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer/HBoxContainer" index="2"]
 disabled = false
-text = "+0.5"
+text = "+0.25"
 
 [node name="InfusionContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer"]
 layout_mode = 2

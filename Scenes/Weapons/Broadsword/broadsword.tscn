@@ -281,7 +281,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4woey"]
-size = Vector2(14.5, 26)
+size = Vector2(20.5, 26)
 
 [node name="Broadsword" type="Node2D"]
 script = ExtResource("1_8ojm5")
@@ -324,7 +324,7 @@ IsActiveDetection = false
 _weaponStatsComponent = NodePath("../WeaponStatsComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(15.75, 0)
+position = Vector2(18.75, 0)
 shape = SubResource("RectangleShape2D_4woey")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("3_wintt")]

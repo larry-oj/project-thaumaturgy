@@ -1,4 +1,5 @@
 using Godot;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Weapons;
 using projectthaumaturgy.Scripts;

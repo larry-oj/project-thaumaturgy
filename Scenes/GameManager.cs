@@ -24,6 +24,7 @@ public partial class GameManager : Node
             EmitSignal(nameof(LevelLoaded), _currentLevelResource);
         }
     }
+    public LevelResource InitialLevelResource => _levelResources[0];
     [Signal] public delegate void LevelLoadedEventHandler(LevelResource levelResource);
 
     public bool IsRunStarted { get; private set; } = false;

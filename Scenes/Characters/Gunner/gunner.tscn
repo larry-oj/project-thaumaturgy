@@ -62,14 +62,12 @@ MaxHealth = 10.0
 [node name="NavigationComponent" parent="." instance=ExtResource("6_pvd51")]
 path_desired_distance = 5.0
 target_desired_distance = 7.0
-debug_enabled = true
 _timerInterval = 0.25
 
 [node name="DetectorComonent" parent="." instance=ExtResource("6_2nmy3")]
 collision_mask = 9
 _detectionInterval = 0.1
 detectionRange = 60.0
-_isDebugging = true
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("7_7bstn")]
 MaxSpeed = 65.0

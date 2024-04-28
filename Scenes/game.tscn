@@ -14,5 +14,4 @@ Level = NodePath("Level")
 [node name="Level" parent="." instance=ExtResource("1_usil2")]
 
 [node name="UI" parent="." instance=ExtResource("2_x22sx")]
-unique_name_in_owner = true
 layer = 50
