@@ -16,6 +16,8 @@ public partial class Game : Node2D
 
 	private GameManager _gameManager;
 
+	public int EnemiesLeft { get; private set; }
+
 	public override void _Ready()
 	{
 		_player = PlayerScene.Instantiate() as Player;
@@ -24,17 +26,19 @@ public partial class Game : Node2D
 		this.AddChild(_player);
 
 		Level.Player = _player;
+		Level.LevelCompleted += OnLevelCompleted;
 		UI.Player = _player;
 
 		_gameManager = GetNode<GameManager>(Options.PathOptions.GameManager);
-		// _gameManager.LevelLoaded += OnLevelLoaded;
+		_gameManager.LevelLoaded += OnLevelLoaded;
 
 		OnLevelLoaded(_gameManager.InitialLevelResource);
 	}
 
 	private void OnLevelLoaded(LevelResource levelResource)
 	{
-		Level.SetSize(levelResource.Size)
+		Level.Clear()
+			.SetSize(levelResource.Size)
 			.SetWalkerProperties(new WalkerProperties
 			{
 				RoomChance = levelResource.RoomChance,
@@ -51,16 +55,23 @@ public partial class Game : Node2D
 			.GenerateBase()
 			.PlacePlayer()
 			.PlaceEnemies();
+
+		EnemiesLeft = levelResource.MaxEnemies;
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+	// public override void _UnhandledInput(InputEvent @event)
+	// {
+	// 	if (@event.IsActionPressed("ui_accept"))
+	// 	{
+	// 		Level.Clear()
+	// 			.GenerateBase()
+	// 			.PlacePlayer()
+	// 			.PlaceEnemies();
+	// 	}
+	// }
+
+	private void OnLevelCompleted()
 	{
-		if (@event.IsActionPressed("ui_accept"))
-		{
-			Level.Clear()
-				.GenerateBase()
-				.PlacePlayer()
-				.PlaceEnemies();
-		}
+		_gameManager.NextLevel();
 	}
 }

@@ -27,12 +27,32 @@ public partial class GameManager : Node
     public LevelResource InitialLevelResource => _levelResources[0];
     [Signal] public delegate void LevelLoadedEventHandler(LevelResource levelResource);
 
-    public bool IsRunStarted { get; private set; } = false;
-
     public override void _Ready()
     {
         _playerData = GetChild<PlayerData>(0);
 
         CurrentLevelResource = _levelResources.Where(x => x.StageNum == Stage).FirstOrDefault();
+    }
+
+    public void NextLevel()
+    {
+        if (Substage < _currentLevelResource.MaxSubstagesNum)
+        {
+            Substage++;
+            EmitSignal(nameof(LevelLoaded), _currentLevelResource);
+        }
+        else if (Stage != _levelResources.Last().StageNum)
+        {
+            Stage++;
+            Substage = 1;
+            CurrentLevelResource = _levelResources.First(x => x.StageNum == Stage);
+        }
+        else
+        {
+            Substage = 1;
+            CurrentLevelResource = _levelResources.First();
+        }
+
+        GD.Print($"Stage: {Stage}, Substage: {Substage}");
     }
 }

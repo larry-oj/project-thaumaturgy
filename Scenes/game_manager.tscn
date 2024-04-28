@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bu227lr2rccs6"]
+[gd_scene load_steps=5 format=3 uid="uid://bu227lr2rccs6"]
 
 [ext_resource type="Script" path="res://Scenes/GameManager.cs" id="1_n82ob"]
 [ext_resource type="Script" path="res://Scripts/PlayerData.cs" id="2_k761g"]
 [ext_resource type="Resource" uid="uid://bvl8bqqlvurl2" path="res://Resources/Levels/forest.tres" id="2_wwqre"]
+[ext_resource type="Resource" uid="uid://c4py6vspma1f8" path="res://Resources/Levels/caves.tres" id="3_fawbe"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_n82ob")
-_levelResources = [ExtResource("2_wwqre")]
+_levelResources = [ExtResource("2_wwqre"), ExtResource("3_fawbe")]
 
 [node name="PlayerData" type="Node" parent="."]
 script = ExtResource("2_k761g")

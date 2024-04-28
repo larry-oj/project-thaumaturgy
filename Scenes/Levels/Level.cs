@@ -11,17 +11,8 @@ namespace projectthaumaturgy.Scenes.Levels;
 
 public partial class Level : Node
 {
-    /// <summary>
-    /// Size of the level in walkable tiles.
-    /// </summary>
     public int Size;
-    /// <summary>
-    /// Tiles that are walkable by the player.
-    /// </summary>
     public Array<WalkableTile> walkableTiles;
-    /// <summary>
-    /// Wall tiles (surrounding the walkable tiles)
-    /// </summary>
     public Array<Vector2I> wallTiles;
 
     private Player _player;
@@ -41,6 +32,9 @@ public partial class Level : Node
 
     private WalkerProperties _walkerProperties;
     private EnemyProperties _enemyProperties;
+
+    public int EnemiesLeft { get; private set; }
+    [Signal] public delegate void LevelCompletedEventHandler();
 
     public Level()
     {
@@ -139,8 +133,18 @@ public partial class Level : Node
             enemy.Position = (tile.Position * Options.Sizes.TilesetSize) + new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize);
             enemy.BodyToDetect = Player as CharacterBody2D;
             this.AddChild(enemy);
+            enemy.Died += OnEnemyKilled;
         }
 
+        EnemiesLeft = _enemyProperties.MaxEnemies;
+
         return this;
+    }
+
+    private void OnEnemyKilled()
+    {
+        EnemiesLeft--;
+        if (EnemiesLeft == 0)
+            EmitSignal(nameof(LevelCompleted));
     }
 }

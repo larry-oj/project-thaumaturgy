@@ -284,6 +284,7 @@ sprite_frames = ExtResource("1_jxsqx")
 animation = &"idling"
 
 [node name="Color" type="AnimatedSprite2D" parent="AnimatedSprites"]
+self_modulate = Color(0.252028, 0.252028, 0.252028, 1)
 sprite_frames = ExtResource("1_jxsqx")
 animation = &"idling"
 frame = 1
@@ -302,7 +303,7 @@ _animatedSprites = NodePath("../AnimatedSprites")
 _weaponPivot = NodePath("../Pivot")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
-MaxHealth = 100000.0
+MaxHealth = 20.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("4_crpsg")]
 collision_layer = 8

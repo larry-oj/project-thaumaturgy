@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c4py6vspma1f8"]
+
+[ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_35ky2"]
+[ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="2_r4dia"]
+
+[resource]
+script = ExtResource("2_r4dia")
+Name = "Caves"
+StageNum = 2
+MaxSubstagesNum = 3
+Size = 300
+RoomChance = 0.5
+RoomSize = PackedInt32Array(2, 2)
+TurnChance = PackedFloat32Array(0.25, 0.5, 0.25, 0)
+WalkerMax = 3
+WalkerChance = 0.12
+MaxEnemies = 10
+Enemies = {
+ExtResource("1_35ky2"): 1.0
+}

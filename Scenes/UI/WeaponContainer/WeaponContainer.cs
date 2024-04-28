@@ -58,8 +58,6 @@ public partial class WeaponContainer : MarginContainer
 
 	private void SetWeapon()
 	{
-		GD.Print("Setting weapon");
-
 		base.Name = _weapon.Name;
 
 		// set weapon sprite
