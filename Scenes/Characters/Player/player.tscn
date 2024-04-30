@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=19 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Sprites/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
+[ext_resource type="Script" path="res://Scenes/Components/ManaComponent.cs" id="7_fqr0g"]
 [ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="10_l1qqo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
@@ -303,7 +304,6 @@ _animatedSprites = NodePath("../AnimatedSprites")
 _weaponPivot = NodePath("../Pivot")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
-MaxHealth = 20.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("4_crpsg")]
 collision_layer = 8
@@ -313,6 +313,9 @@ _healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_e5c3n")
+
+[node name="ManaComponent" type="Node2D" parent="."]
+script = ExtResource("7_fqr0g")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
 _initialState = NodePath("PlayerIdle")

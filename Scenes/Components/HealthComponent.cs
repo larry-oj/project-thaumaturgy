@@ -5,13 +5,13 @@ namespace projectthaumaturgy.Scenes.Components;
 
 public partial class HealthComponent : Node2D
 {
-    [Export] public float MaxHealth;
+    [Export] public float Max;
     [Export] public Attack.AttackElement Resistance = Attack.AttackElement.Absolute;
     [Export] public float ResistanceMultiplier = 1.0f;
     [Export] public Attack.AttackElement Weakness = Attack.AttackElement.Absolute;
     [Export] public float WeaknessMultiplier = 1.0f;
 
-    public bool IsImmune { get; private set; }
+    [Export] public bool IsImmune { get; set; }
     public float Health
     {
         get => _health;
@@ -31,7 +31,7 @@ public partial class HealthComponent : Node2D
 
     public override void _Ready()
     {
-        _health = MaxHealth;
+        _health = Max;
     }
 
     public void TakeDamage(Attack attack)
@@ -55,10 +55,5 @@ public partial class HealthComponent : Node2D
             EmitSignal(nameof(HealthDepleted));
         
         attack.Free(); // memory leak prevention
-    }
-    
-    public void SetImmune(bool immune)
-    {
-        IsImmune = immune;
     }
 }
