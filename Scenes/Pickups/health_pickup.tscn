@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://1xxln7kppcuw"]
+
+[ext_resource type="Script" path="res://Scenes/Pickups/HealthPickup.cs" id="1_dnwk5"]
+[ext_resource type="Texture2D" uid="uid://b6gavwpvunvsx" path="res://Graphics/Sprites/ph_pickups.png" id="1_msoar"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v108t"]
+atlas = ExtResource("1_msoar")
+region = Rect2(0, 0, 5, 5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5qeda"]
+radius = 6.0
+
+[node name="HealthPickup" type="CanvasGroup"]
+script = ExtResource("1_dnwk5")
+
+[node name="Color" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(1, 0, 0, 1)
+texture = SubResource("AtlasTexture_v108t")
+
+[node name="Hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_5qeda")
