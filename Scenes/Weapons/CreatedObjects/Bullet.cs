@@ -29,6 +29,7 @@ public partial class Bullet : Projectile
 
 		if (body is HitboxComponent hitbox)
 		{
+			if (!hitbox.Monitorable) return;
 			if (hitbox.Owner == Attack.Owner) return;
 			if (Attack.Owner is Enemy && hitbox.Owner is Enemy) return;
 			

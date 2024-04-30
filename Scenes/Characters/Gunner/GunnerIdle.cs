@@ -11,6 +11,7 @@ public partial class GunnerIdle : State
 	[Export] private DetectorComponent _detectorComponent;
 	[Export] private GunnerWander _gunnerWander;
 	[Export] private GunnerAlert _gunnerAlert;
+	[Export] private GunnerDead _gunnerDead;
 
 	public override void _Ready()
 	{
@@ -44,5 +45,10 @@ public partial class GunnerIdle : State
 	private void OnPlayerDetected()
 	{
 		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
+	}
+
+	private void OnHealthDepleted()
+	{
+		EmitSignal(nameof(Transitioned), this, _gunnerDead);
 	}
 }

@@ -15,6 +15,7 @@ public partial class GunnerWander : State
 	[Export] private NavigationComponent _navigationComponent;
 	[Export] private GunnerIdle _gunnerIdle;
 	[Export] private GunnerAlert _gunnerAlert;
+	[Export] private GunnerDead _gunnerDead;
 	
 	public override void _Ready()
 	{
@@ -56,5 +57,10 @@ public partial class GunnerWander : State
 	private void OnPlayerDetected()
 	{
 		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
+	}
+
+	private void OnHealthDepleted()
+	{
+		EmitSignal(nameof(Transitioned), this, _gunnerDead);
 	}
 }

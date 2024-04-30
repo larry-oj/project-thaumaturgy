@@ -30,6 +30,7 @@ public partial class HurtboxComponent : Area2D
 	
 	private void OnHitboxAreaEntered(Area2D area)
 	{
+		if (!area.Monitorable) return;
 		if (area.Owner == attackOwner) return;
 		if (area is not HitboxComponent hitbox) return;
 		

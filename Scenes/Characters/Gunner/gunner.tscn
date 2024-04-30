@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://blb8ir4affwuf"]
+[gd_scene load_steps=20 format=3 uid="uid://blb8ir4affwuf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_7ejue"]
 [ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="1_dpilp"]
@@ -11,8 +11,191 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerIdle.cs" id="7_bdqaj"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerWander.cs" id="9_wsqky"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerAlert.cs" id="10_ueuvy"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerDead.cs" id="12_flfg5"]
 [ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="12_k5yc8"]
 [ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="13_wsgy1"]
+
+[sub_resource type="Animation" id="Animation_isp4a"]
+resource_name = "dying"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprites/Outline:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprites/Outline:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprites/Color:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprites/Color:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -1.5708]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 3), Vector2(3, 3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.00292828, -1.5708]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MiniHealthBarComponent:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_efihd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprites/Outline:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprites/Outline:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprites/Color:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprites/Color:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.00292828]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MiniHealthBarComponent:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_el4o5"]
+_data = {
+"RESET": SubResource("Animation_efihd"),
+"dying": SubResource("Animation_isp4a")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x2b2m"]
 radius = 3.0
@@ -22,12 +205,13 @@ height = 10.0
 radius = 5.0
 height = 15.0
 
-[node name="Gunner" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine")]
+[node name="Gunner" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
 collision_layer = 16
 collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_7ejue")
 _stateMachine = NodePath("StateMachine")
+_animationPlayer = NodePath("AnimationPlayer")
 
 [node name="AnimatedSprites" type="CanvasGroup" parent="."]
 
@@ -40,6 +224,11 @@ region_rect = Rect2(0, 0, 16, 16)
 texture = ExtResource("1_dpilp")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_el4o5")
+}
 
 [node name="FeetCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
@@ -57,7 +246,9 @@ position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_ughsc")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_re2n2")]
-MaxHealth = 10.0
+Max = 10.0
+Resistance = 5
+Weakness = 5
 
 [node name="NavigationComponent" parent="." instance=ExtResource("6_pvd51")]
 path_desired_distance = 5.0
@@ -70,23 +261,25 @@ _detectionInterval = 0.1
 detectionRange = 60.0
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("7_7bstn")]
+position = Vector2(0, -1)
 MaxSpeed = 65.0
 _body = NodePath("..")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("4_yx3ol")]
 _initialState = NodePath("GunnerIdle")
 
-[node name="GunnerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_gunnerWander", "_gunnerAlert")]
+[node name="GunnerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_gunnerWander", "_gunnerAlert", "_gunnerDead")]
 script = ExtResource("7_bdqaj")
 _wanderChance = 0.5
 _detectorComponent = NodePath("../../DetectorComonent")
 _gunnerWander = NodePath("../GunnerWander")
 _gunnerAlert = NodePath("../GunnerAlert")
+_gunnerDead = NodePath("../GunnerDead")
 
 [node name="Timer" type="Timer" parent="StateMachine/GunnerIdle"]
 wait_time = 2.0
 
-[node name="GunnerWander" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_velocityComponent", "_navigationComponent", "_gunnerIdle", "_gunnerAlert")]
+[node name="GunnerWander" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_velocityComponent", "_navigationComponent", "_gunnerIdle", "_gunnerAlert", "_gunnerDead")]
 script = ExtResource("9_wsqky")
 _wanderRadius = 50.0
 _detectorComponent = NodePath("../../DetectorComonent")
@@ -94,8 +287,9 @@ _velocityComponent = NodePath("../../VelocityComponent")
 _navigationComponent = NodePath("../../NavigationComponent")
 _gunnerIdle = NodePath("../GunnerIdle")
 _gunnerAlert = NodePath("../GunnerAlert")
+_gunnerDead = NodePath("../GunnerDead")
 
-[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_navigationComponent", "_detectorComponent", "_velocityComponent", "_gunnerIdle", "_weaponPivot", "_weapon")]
+[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_navigationComponent", "_detectorComponent", "_velocityComponent", "_gunnerIdle", "_gunnerDead", "_weaponPivot", "_weapon")]
 script = ExtResource("10_ueuvy")
 _upperBoundary = 100.0
 _lowerBoundary = 60.0
@@ -103,10 +297,18 @@ _navigationComponent = NodePath("../../NavigationComponent")
 _detectorComponent = NodePath("../../DetectorComonent")
 _velocityComponent = NodePath("../../VelocityComponent")
 _gunnerIdle = NodePath("../GunnerIdle")
+_gunnerDead = NodePath("../GunnerDead")
 _weaponPivot = NodePath("../../Pivot")
 _weapon = NodePath("../../Pivot/Rifle")
 
 [node name="Timer" type="Timer" parent="StateMachine/GunnerAlert"]
+
+[node name="GunnerDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("_feetCollider", "_hitboxComponent", "_navigationComponent", "_detectorComponent")]
+script = ExtResource("12_flfg5")
+_feetCollider = NodePath("../../FeetCollider")
+_hitboxComponent = NodePath("../../HitboxComponent")
+_navigationComponent = NodePath("../../NavigationComponent")
+_detectorComponent = NodePath("../../DetectorComonent")
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
@@ -119,6 +321,9 @@ tint_progress = Color(1, 0, 0, 1)
 _healthComponent = NodePath("../HealthComponent")
 
 [connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerIdle" method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerWander" method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerAlert" method="OnHealthDepleted"]
 [connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerIdle" method="OnPlayerDetected"]
 [connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerWander" method="OnPlayerDetected"]
 [connection signal="timeout" from="StateMachine/GunnerIdle/Timer" to="StateMachine/GunnerIdle" method="OnTimerTimeout"]

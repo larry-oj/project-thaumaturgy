@@ -29,6 +29,5 @@ public partial class Gunner : Enemy
     private void OnHealthDepleted()
     {
         EmitSignal(nameof(Died));
-        QueueFree();
     }
 }

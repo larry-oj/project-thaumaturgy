@@ -14,6 +14,7 @@ public partial class GunnerAlert : State
 	[Export] private DetectorComponent _detectorComponent;
 	[Export] private VelocityComponent _velocityComponent;
 	[Export] private GunnerIdle _gunnerIdle;
+	[Export] private GunnerDead _gunnerDead;
 	[Export] private Node2D _weaponPivot;
 	[Export] private Weapon _weapon;
 	
@@ -100,5 +101,10 @@ public partial class GunnerAlert : State
 		var weaponScale = _weaponPivot.Scale;
 		weaponScale.Y = angle.X < 0 ? -1 : 1;
 		_weaponPivot.Scale = weaponScale;
+	}
+
+	private void OnHealthDepleted()
+	{
+		EmitSignal(nameof(Transitioned), this, _gunnerDead);
 	}
 }
