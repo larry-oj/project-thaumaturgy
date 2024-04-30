@@ -97,8 +97,10 @@ public partial class Pickup : CanvasGroup
 		_isInFreeFlow = false;
 	}
 
-	private void OnHitboxEntered(Area2D area)
+	private void OnHitboxEntered(GodotObject body)
 	{
+		_isInFreeFlow = false;
+		if (body is not Area2D area) return;
 		if (area.Owner is Player && area is HitboxComponent hitbox)
 		{
 			hitbox.TakePickup(this);
