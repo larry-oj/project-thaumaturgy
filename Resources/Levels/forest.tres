@@ -14,7 +14,7 @@ RoomSize = PackedInt32Array(3, 3)
 TurnChance = PackedFloat32Array(0.33, 0.34, 0.33, 0)
 WalkerMax = 3
 WalkerChance = 0.15
-MaxEnemies = 1
+MaxEnemies = 15
 Enemies = {
 ExtResource("1_3runh"): 1.0
 }

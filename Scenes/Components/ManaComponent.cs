@@ -2,6 +2,8 @@ using Godot;
 using projectthaumaturgy.Scripts;
 using System;
 
+namespace projectthaumaturgy.Scenes.Components;
+
 public partial class ManaComponent : Node2D
 {
 	[Export] public float Max { get; set; }

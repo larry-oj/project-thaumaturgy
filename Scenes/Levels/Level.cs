@@ -4,7 +4,9 @@ using Godot;
 using Godot.Collections;
 using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Characters.Player;
+using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Levels;
+using projectthaumaturgy.Scenes.Pickups;
 using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Levels;
@@ -90,7 +92,7 @@ public partial class Level : Node
         // ✨🌈 kill all "wrong" children 🌈✨
         foreach (var child in GetChildren())
         {
-            if (!(child is Player || child is Camera2D || child is TileMap))
+            if (child is Enemy || child is Pickup)
             {
                 child.QueueFree();
             }
@@ -143,10 +145,9 @@ public partial class Level : Node
             var enemy = winner.Instantiate() as Enemy;
             enemy.SetDeferred(Enemy.PropertyName.Position, (tile.Position * Options.Sizes.TilesetSize) + new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize));
             enemy.BodyToDetect = Player as CharacterBody2D;
-            // enemy.SetDeferred(Enemy.PropertyName.BodyToDetect, Player as CharacterBody2D);
             this.CallDeferred(Level.MethodName.AddChild, enemy);
-            // this.AddChild(enemy);
             enemy.Died += OnEnemyKilled;
+            enemy.Ready += () => enemy.CurrentWeapon.StatsComponent.SetElement((Attack.AttackElement)GD.RandRange(0, 3));
         }
 
         EnemiesLeft = _enemyProperties.MaxEnemies;
