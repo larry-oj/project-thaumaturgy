@@ -265,6 +265,7 @@ radius = 6.0
 height = 15.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
+z_index = 10
 collision_layer = 2
 collision_mask = 17
 motion_mode = 1
@@ -297,6 +298,7 @@ libraries = {
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("3_2n4k3")]
 MaxSpeed = 100.0
+Friction = 0.5
 _body = NodePath("..")
 
 [node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_weaponPivot") instance=ExtResource("3_6nmd5")]
@@ -304,11 +306,16 @@ _animatedSprites = NodePath("../AnimatedSprites")
 _weaponPivot = NodePath("../Pivot")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
+Max = 20.0
+Resistance = 5
+Weakness = 5
+IsImmune = true
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("4_crpsg")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_manaComponent") instance=ExtResource("4_crpsg")]
 collision_layer = 8
-collision_mask = 32
+collision_mask = 160
 _healthComponent = NodePath("../HealthComponent")
+_manaComponent = NodePath("../ManaComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)

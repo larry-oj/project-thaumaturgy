@@ -56,4 +56,10 @@ public partial class HealthComponent : Node2D
         
         attack.Free(); // memory leak prevention
     }
+
+    public void Heal(float amount)
+    {
+        var result = Health + amount;
+        Health = Mathf.Clamp(result, 0, Max);
+    }
 }
