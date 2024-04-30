@@ -10,7 +10,6 @@ public static class Options
         public static string WeaponStateToWeapon => "../..";
         public static string WeaponStateToCharacter => "../../../..";
         public static string Level => "/root/Game/Level";
-        public static string GameManager => "/root/GameManager";
     }
 
     public static class Controls

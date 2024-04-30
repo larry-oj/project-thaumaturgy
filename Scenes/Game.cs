@@ -66,6 +66,7 @@ public partial class Game : Node2D
 
 	private void OnLevelCompleted()
 	{
+		UI.SetLoadingScreen(true);
 		if (Level.Substage < Level.MaxSubstage)
 		{
 			Level.Substage++;
@@ -82,6 +83,7 @@ public partial class Game : Node2D
 		{
 			GD.Print("Game Over");
 		}
+		UI.SetLoadingScreen(false);
 	}
 
 	// public override void _UnhandledInput(InputEvent @event)

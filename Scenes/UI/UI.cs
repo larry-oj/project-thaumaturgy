@@ -33,6 +33,7 @@ public partial class UI : CanvasLayer
 	private Control _gameOverScreen;
 	private Control _weaponTabsContainer;
 	[Export] private PackedScene _weaponContainerScene;
+	private Control _loadingScreen;
 	
 	private bool _isGameOver;
 	private bool _isWeaponTabsOpen;
@@ -43,6 +44,7 @@ public partial class UI : CanvasLayer
 		_interface = GetNode<Control>("%Interface");
 		_gameOverScreen = GetNode<VBoxContainer>("%GameOverScreen");
 		_weaponTabsContainer = GetNode<Control>("%WeaponTabsContainer");
+		_loadingScreen = GetNode<Control>("%LoadingScreen");
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -96,5 +98,10 @@ public partial class UI : CanvasLayer
 		GetTree().Paused = false;
 		_weaponTabsContainer.Visible = false;
 		_isWeaponTabsOpen = false;
+	}
+
+	public void SetLoadingScreen(bool @bool)
+	{
+		_loadingScreen.Visible = @bool;
 	}
 }

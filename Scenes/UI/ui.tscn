@@ -186,3 +186,29 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 30
 tab_alignment = 1
+
+[node name="LoadingScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LoadingPanel" type="PanelContainer" parent="Menus/MarginContainer/LoadingScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="LoadingText" type="Label" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Loading..."
