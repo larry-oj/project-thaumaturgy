@@ -9,6 +9,7 @@ namespace projectthaumaturgy.Scenes.UI;
 public partial class UI : CanvasLayer
 {
 	private PlayerHealthbar _playerHealthbar;
+	private PlayerManabar _playerManabar;
 	
 	private Player _player;
 	public Player Player
@@ -18,6 +19,7 @@ public partial class UI : CanvasLayer
 		{
 			_player = value;
 			_playerHealthbar.HealthComponent = _player.GetNode<HealthComponent>("HealthComponent");
+			_playerManabar.ManaComponent = _player.GetNode<ManaComponent>("ManaComponent");
 			_player.Died += OnPlayerDied;
 
 			foreach (var weapon in _player.Weapons)
@@ -41,6 +43,7 @@ public partial class UI : CanvasLayer
 	public override void _Ready()
 	{
 		_playerHealthbar = GetNode<PlayerHealthbar>("%PlayerHealthbar");
+		_playerManabar = GetNode<PlayerManabar>("%PlayerManabar");
 		_interface = GetNode<Control>("%Interface");
 		_gameOverScreen = GetNode<VBoxContainer>("%GameOverScreen");
 		_weaponTabsContainer = GetNode<Control>("%WeaponTabsContainer");
