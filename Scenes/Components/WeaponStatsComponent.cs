@@ -18,6 +18,8 @@ public partial class WeaponStatsComponent : Node
     public int FireRateUpgradeCount { get; private set; } = 0;
     public float FireRateUpgradeCost => FireRateBaseCost + FireRateCostIncrease * FireRateUpgradeCount;
 
+    [Export] public float ManaCost { get; set; } = 1;
+
     [Export] public Attack.AttackType Type { get; set; } = Attack.AttackType.Melee;
     [Export] public Attack.AttackElement Element { get; set; } = Attack.AttackElement.None;
     [Export] public Attack.AttackInfusion Infusion { get; set; } = Attack.AttackInfusion.None;

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dk2rsb8np72r6"]
+[gd_scene load_steps=7 format=3 uid="uid://dk2rsb8np72r6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
 [ext_resource type="PackedScene" uid="uid://b48byjhqn7tcm" path="res://Scenes/UI/WeaponContainer/weapon_container.tscn" id="2_iq6jy"]
+[ext_resource type="Script" path="res://Scenes/UI/PlayerManabar.cs" id="4_vicfp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb13u"]
 bg_color = Color(1, 0, 0, 1)
@@ -91,6 +92,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="PlayerManabar" type="ProgressBar" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer/PlayerManaPanel/PlayerManaMargin/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -98,6 +100,7 @@ theme_override_font_sizes/font_size = 25
 theme_override_styles/fill = SubResource("StyleBoxFlat_ovnx2")
 value = 30.0
 show_percentage = false
+script = ExtResource("4_vicfp")
 
 [node name="spacer" type="Control" parent="Interface/MarginContainer/Sections/TopSection"]
 layout_mode = 2

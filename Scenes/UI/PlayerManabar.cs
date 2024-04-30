@@ -28,5 +28,6 @@ public partial class PlayerManabar : ProgressBar
 	private void OnManaChanged(ManaChange change)
 	{
 		Value = change.AfterMana;
+		change.Free();
 	}
 }

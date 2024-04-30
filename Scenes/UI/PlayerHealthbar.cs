@@ -27,5 +27,6 @@ public partial class PlayerHealthbar : ProgressBar
 	private void OnHealthChanged(HealthChange change)
 	{
 		Value = change.AfterHealth;
+		change.Free();
 	}
 }
