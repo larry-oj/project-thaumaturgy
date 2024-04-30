@@ -130,7 +130,7 @@ public partial class Level : Node
             .Where(x => x.DijkstraValue > 4)
             .Select(x => (x, GD.Randf()))
             .OrderBy(x => x.Item2)
-            .Select(x => x.Item1)
+            .Select(x => x.x)
             .Take(_enemyProperties.MaxEnemies)
             .ToArray();
 
@@ -141,9 +141,11 @@ public partial class Level : Node
                 .First(x => r < _enemyProperties.Enemies[x]);
             
             var enemy = winner.Instantiate() as Enemy;
-            enemy.Position = (tile.Position * Options.Sizes.TilesetSize) + new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize);
+            enemy.SetDeferred(Enemy.PropertyName.Position, (tile.Position * Options.Sizes.TilesetSize) + new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize));
             enemy.BodyToDetect = Player as CharacterBody2D;
-            this.AddChild(enemy);
+            // enemy.SetDeferred(Enemy.PropertyName.BodyToDetect, Player as CharacterBody2D);
+            this.CallDeferred(Level.MethodName.AddChild, enemy);
+            // this.AddChild(enemy);
             enemy.Died += OnEnemyKilled;
         }
 
