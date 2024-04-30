@@ -15,8 +15,9 @@ public partial class Pickup : CanvasGroup
 		Elemental
 	}
 
-	private Sprite2D _color;
+	[Export] private Sprite2D _color;
 
+	[ExportCategory("Textures")]
 	[Export] private AtlasTexture _healthTexture;
 	[Export] private AtlasTexture _manaTexture;
 	[Export] private AtlasTexture _elementalTexture;
@@ -35,10 +36,12 @@ public partial class Pickup : CanvasGroup
 				case PickupType.Health:
 					_color.Texture = _healthTexture;
 					Modulate = new Color(1, 0, 0);
+					Value = Options.Balance.HealthPickupValueDefault;
 					break;
 				case PickupType.Mana:
 					_color.Texture = _manaTexture;
 					Modulate = new Color(0, 0, 1);
+					Value = Options.Balance.ManaPickupValueDefault;
 					break;
 				case PickupType.Elemental:
 					_color.Texture = _elementalTexture;
@@ -58,21 +61,40 @@ public partial class Pickup : CanvasGroup
 		}
 	}
 
-	private Vector2? _playerPosition;
+#nullable enable
+	private Player? _player;
+#nullable disable
+	private bool _isInFreeFlow = true;
+	private Vector2 _freeFlowDirection;
+	private float _currFreeFlowSpeed = 80;
 
 	public override void _Ready()
 	{
-		_color = GetNode<Sprite2D>("%Color");
+		var randX = GD.Randf() * 2 - 1;
+		var randY = GD.Randf() * 2 - 1;
+		_freeFlowDirection = new Vector2(randX, randY).Normalized();
 	}
 
     public override void _Process(double delta)
     {
-		if (_playerPosition == null) return;
+		if (_isInFreeFlow) FreeFlow(delta);
 
-		Vector2 direction = _playerPosition.Value - Position;
-		direction = direction.Normalized();
+		if (_player == null) return;
+
+		var direction = (_player.Position - Position).Normalized();
 
 		Position += direction * Speed * (float)delta;
+	}
+
+	private void FreeFlow(double delta)
+	{
+		_currFreeFlowSpeed *= 0.9f; // friction
+		Position += _freeFlowDirection * _currFreeFlowSpeed * (float)delta;
+	}
+
+	private void OnTimerTimeout()
+	{
+		_isInFreeFlow = false;
 	}
 
 	private void OnHitboxEntered(Area2D area)
@@ -86,9 +108,11 @@ public partial class Pickup : CanvasGroup
 
 	private void OnMagetizeEntered(Area2D area)
 	{
+		_isInFreeFlow = false;
+
 		if (area.Owner is Player player)
 		{
-			_playerPosition = player.Position;
+			_player = player;
 		}
 	}
 
@@ -96,7 +120,7 @@ public partial class Pickup : CanvasGroup
 	{
 		if (area.Owner is Player)
 		{
-			_playerPosition = null;
+			_player = null;
 		}
 	}
 }

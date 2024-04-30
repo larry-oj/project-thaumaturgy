@@ -6,13 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://dbuuh6n13v8wp" path="res://Graphics/Sprites/elemental_pickup.tres" id="4_hm6v2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vdogw"]
-radius = 16.0
+radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8awxy"]
 radius = 6.0
 
-[node name="Pickup" type="CanvasGroup"]
+[node name="Pickup" type="CanvasGroup" node_paths=PackedStringArray("_color")]
+z_index = 5
 script = ExtResource("1_w3yii")
+_color = NodePath("Color")
 _healthTexture = ExtResource("2_8xt46")
 _manaTexture = ExtResource("3_65lrd")
 _elementalTexture = ExtResource("4_hm6v2")
@@ -22,7 +24,7 @@ unique_name_in_owner = true
 
 [node name="MagnetizeArea" type="Area2D" parent="."]
 collision_layer = 128
-collision_mask = 2
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MagnetizeArea"]
 shape = SubResource("CircleShape2D_vdogw")
@@ -30,11 +32,18 @@ debug_color = Color(0, 0.643137, 0.286275, 0.298039)
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 128
-collision_mask = 2
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_8awxy")
 
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.3
+one_shot = true
+autostart = true
+
 [connection signal="area_entered" from="MagnetizeArea" to="." method="OnMagetizeEntered"]
 [connection signal="area_exited" from="MagnetizeArea" to="." method="OnMagetizeExited"]
 [connection signal="area_entered" from="Hitbox" to="." method="OnHitboxEntered"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

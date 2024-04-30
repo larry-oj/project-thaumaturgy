@@ -27,4 +27,11 @@ public static class Options
         public static int TilesetSize => 16;
         public static int TilesetHalfsize => 8;
     }
+
+    public static class Balance
+    {
+        public static float HealthPickupValueDefault => 2;
+        public static float ManaPickupValueDefault => 2;
+        public static float ElementPickupAmountDefault => 1;
+    }
 }
