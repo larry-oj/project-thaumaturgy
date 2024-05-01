@@ -33,6 +33,11 @@ public partial class StateMachine : Node
     {
         _currentState?.PhysicsProcess(delta);
     }
+
+    public void ForceState(State state)
+    {
+        OnChildTransition(_currentState, state);
+    }
     
     private void OnChildTransition(State state, State newState)
     {
