@@ -31,7 +31,8 @@ public static class Options
     public static class Balance
     {
         public static int HealthPickupValueDefault => 6;
-        public static int ManaPickupValueDefault => 8;
+        public static int ManaPickupValueDefault => 6;
         public static int CurrencyPickupValueDefault => 1;
+        public static int ElementUpgradeCost => 10;
     }
 }

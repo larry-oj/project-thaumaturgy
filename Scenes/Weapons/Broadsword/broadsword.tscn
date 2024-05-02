@@ -287,7 +287,11 @@ size = Vector2(20.5, 26)
 script = ExtResource("1_8ojm5")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("2_3reb6")]
-Damage = 6.0
+Damage = 6
+ManaCost = 0.0
+DamageCostIncrease = 2
+FireRateStep = 0.5
+FireRateCostIncrease = 2
 
 [node name="Sprites" type="CanvasGroup" parent="."]
 position = Vector2(-2, -2)

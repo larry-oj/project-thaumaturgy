@@ -30,7 +30,6 @@ project/assembly_name="project-thaumaturgy"
 [editor]
 
 movie_writer/movie_file="C:/Users/Asus/Desktop/movie.avi"
-movie_writer/disable_vsync=true
 
 [input]
 

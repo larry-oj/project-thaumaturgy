@@ -21,7 +21,8 @@ public partial class UI : CanvasLayer
 			_player = value;
 			_playerHealthbar.HealthComponent = _player.GetNode<HealthComponent>("HealthComponent");
 			_playerManabar.ManaComponent = _player.GetNode<ManaComponent>("ManaComponent");
-			_playerCurrencyCounter.CurrencyComponent = _player.GetNode<CurrencyComponent>("CurrencyComponent");
+			var currencyComponent = _player.GetNode<CurrencyComponent>("CurrencyComponent");
+			_playerCurrencyCounter.CurrencyComponent = currencyComponent;
 			_player.Died += OnPlayerDied;
 
 			foreach (var weapon in _player.Weapons)
@@ -29,6 +30,7 @@ public partial class UI : CanvasLayer
 				var weaponContainer = _weaponContainerScene.Instantiate() as WeaponContainer;
 				_weaponTabsContainer.AddChild(weaponContainer);
 				weaponContainer!.Weapon = weapon;
+				weaponContainer.CurrencyComponent = currencyComponent;
 			}
 		}
 	}

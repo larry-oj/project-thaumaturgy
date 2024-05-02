@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Weapons;
 using projectthaumaturgy.Scripts;
@@ -20,6 +21,7 @@ public partial class WeaponContainer : MarginContainer
 	[Export] private StatChangeContainer _damageStatContainer;
 	[Export] private StatChangeContainer _speedStatContainer;
 
+	public CurrencyComponent CurrencyComponent { get; set; }
 	private Weapon _weapon;
 	private WeaponStatsComponent _weaponStats;
 	public Weapon Weapon
@@ -110,6 +112,9 @@ public partial class WeaponContainer : MarginContainer
 			return;
 		}
 
+		var success = CurrencyComponent.TryChangeCurrency(-Options.Balance.ElementUpgradeCost);
+		if (!success) return;
+		
 		_weapon.StatsComponent.SetElement(element);
 		_color.SelfModulate = Attack.GetElementColor(element);
 
@@ -126,14 +131,20 @@ public partial class WeaponContainer : MarginContainer
 
 	private void OnDamageStatChanged()
 	{
-		_weaponStats.IncrementDamage(1f);
+		var success = CurrencyComponent.TryChangeCurrency(-_weaponStats.DamageUpgradeCost);
+		if (!success) return;
+		
+		_weaponStats.IncrementDamage(_weaponStats.DamageStep);
 		_damageStatContainer.StatLabel.Text = _weaponStats.Damage.ToString(CultureInfo.InvariantCulture);
 		_damageStatContainer.CostLabel.Text = _weaponStats.DamageUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 
 	private void OnSpeedStatChanged()
 	{
-		_weaponStats.IncrementFireRate(0.25f);
+		var success = CurrencyComponent.TryChangeCurrency(-_weaponStats.FireRateUpgradeCost);
+		if (!success) return;
+		
+		_weaponStats.IncrementFireRate(_weaponStats.FireRateStep);
 		_speedStatContainer.StatLabel.Text = _weaponStats.FireRate.ToString(CultureInfo.InvariantCulture);
 		_speedStatContainer.CostLabel.Text = _weaponStats.FireRateUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
