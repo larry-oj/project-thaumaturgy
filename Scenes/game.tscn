@@ -1,12 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctblw5u8yys3m"]
+[gd_scene load_steps=8 format=3 uid="uid://ctblw5u8yys3m"]
 
-[ext_resource type="PackedScene" uid="uid://dso3ffoitymk" path="res://Scenes/Levels/world.tscn" id="1_usil2"]
+[ext_resource type="Script" path="res://Scenes/Game.cs" id="1_rc2bw"]
+[ext_resource type="PackedScene" uid="uid://dso3ffoitymk" path="res://Scenes/Levels/level.tscn" id="1_usil2"]
+[ext_resource type="PackedScene" uid="uid://cabn78p4558rd" path="res://Scenes/Characters/Player/player.tscn" id="2_qnov2"]
 [ext_resource type="PackedScene" uid="uid://dk2rsb8np72r6" path="res://Scenes/UI/ui.tscn" id="2_x22sx"]
+[ext_resource type="Resource" uid="uid://bvl8bqqlvurl2" path="res://Resources/Levels/forest.tres" id="3_kwhql"]
+[ext_resource type="Resource" uid="uid://c4py6vspma1f8" path="res://Resources/Levels/caves.tres" id="4_hksmi"]
+[ext_resource type="Script" path="res://Scripts/PlayerData.cs" id="5_bqi58"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("UI", "Level")]
+script = ExtResource("1_rc2bw")
+PlayerScene = ExtResource("2_qnov2")
+UI = NodePath("UI")
+Level = NodePath("Level")
+_levelResources = [ExtResource("3_kwhql"), ExtResource("4_hksmi")]
 
-[node name="World" parent="." instance=ExtResource("1_usil2")]
-unique_name_in_owner = true
+[node name="PlayerData" type="Node" parent="."]
+script = ExtResource("5_bqi58")
+
+[node name="Level" parent="." instance=ExtResource("1_usil2")]
 
 [node name="UI" parent="." instance=ExtResource("2_x22sx")]
-unique_name_in_owner = true
+layer = 50

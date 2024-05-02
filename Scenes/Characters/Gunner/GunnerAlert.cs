@@ -2,8 +2,9 @@
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons;
+	using projectthaumaturgy.Scripts;
 
-namespace projectthaumaturgy.Scenes.Characters.Gunner;
+	namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
 public partial class GunnerAlert : State
 {
@@ -13,6 +14,7 @@ public partial class GunnerAlert : State
 	[Export] private DetectorComponent _detectorComponent;
 	[Export] private VelocityComponent _velocityComponent;
 	[Export] private GunnerIdle _gunnerIdle;
+	[Export] private GunnerDead _gunnerDead;
 	[Export] private Node2D _weaponPivot;
 	[Export] private Weapon _weapon;
 	
@@ -27,7 +29,7 @@ public partial class GunnerAlert : State
 
 	public override void _Ready()
 	{
-		_gunner = GetNode<Gunner>("../..");
+		_gunner = GetNode<Gunner>(Options.PathOptions.CharacterStateToCharacter);
 		_player = _gunner.BodyToDetect;
 		_timer = GetNode<Timer>("Timer");
 		_defaultDetectorRadius = _detectorComponent.detectionRange;
@@ -99,5 +101,10 @@ public partial class GunnerAlert : State
 		var weaponScale = _weaponPivot.Scale;
 		weaponScale.Y = angle.X < 0 ? -1 : 1;
 		_weaponPivot.Scale = weaponScale;
+	}
+
+	private void OnHealthDepleted()
+	{
+		EmitSignal(nameof(Transitioned), this, _gunnerDead);
 	}
 }

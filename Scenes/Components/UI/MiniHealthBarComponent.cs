@@ -9,13 +9,13 @@ public partial class MiniHealthBarComponent : TextureProgressBar
 	
 	public override void _Ready()
 	{
-		MaxValue = _healthComponent.MaxHealth;
+		MaxValue = _healthComponent.Max;
 		Value = _healthComponent.Health;
 		_healthComponent.HealthChanged += OnHealthChanged;
 	}
 
 	private void OnHealthChanged(HealthChange change)
 	{
-		Value = change.AfterHealth;
+		Value = change.After;
 	}
 }

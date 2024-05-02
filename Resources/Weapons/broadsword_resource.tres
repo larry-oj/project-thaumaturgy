@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://c4o31nnii8pa1"]
+
+[ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_hlh0o"]
+[ext_resource type="PackedScene" uid="uid://di0576ye1qco8" path="res://Scenes/Weapons/Broadsword/broadsword.tscn" id="2_k1i2d"]
+[ext_resource type="Script" path="res://Resources/Weapons/WeaponResource.cs" id="3_p64q0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_putay"]
+atlas = ExtResource("1_hlh0o")
+region = Rect2(55, -1, 12, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8uce"]
+atlas = ExtResource("1_hlh0o")
+region = Rect2(40, 0, 15, 5)
+
+[resource]
+script = ExtResource("3_p64q0")
+Scene = ExtResource("2_k1i2d")
+IconOutline = SubResource("AtlasTexture_a8uce")
+IconColor = SubResource("AtlasTexture_putay")

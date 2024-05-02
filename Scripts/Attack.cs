@@ -20,6 +20,7 @@ public partial class Attack : GodotObject
         Earth,
         Air,
         Absolute, // true damage equivalent
+        None,
     }
     
     public enum AttackInfusion

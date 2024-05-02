@@ -281,13 +281,17 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4woey"]
-size = Vector2(14.5, 26)
+size = Vector2(20.5, 26)
 
 [node name="Broadsword" type="Node2D"]
 script = ExtResource("1_8ojm5")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("2_3reb6")]
-Damage = 6.0
+Damage = 6
+ManaCost = 0.0
+DamageCostIncrease = 2
+FireRateStep = 0.5
+FireRateCostIncrease = 2
 
 [node name="Sprites" type="CanvasGroup" parent="."]
 position = Vector2(-2, -2)
@@ -300,7 +304,6 @@ region_enabled = true
 region_rect = Rect2(40, 0, 15, 5)
 
 [node name="Color" type="Sprite2D" parent="Sprites"]
-self_modulate = Color(0, 0, 1, 1)
 position = Vector2(7.5, 0)
 texture = ExtResource("1_hfd2y")
 region_enabled = true
@@ -325,7 +328,7 @@ IsActiveDetection = false
 _weaponStatsComponent = NodePath("../WeaponStatsComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(15.75, 0)
+position = Vector2(18.75, 0)
 shape = SubResource("RectangleShape2D_4woey")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("3_wintt")]

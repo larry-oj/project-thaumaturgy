@@ -1,4 +1,5 @@
 using Godot;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Weapons;
 using projectthaumaturgy.Scripts;
@@ -12,7 +13,7 @@ public partial class Gunner : Enemy
         _stateMachine.Init(this, _animationPlayer);
         CurrentWeapon = GetNode("Pivot").GetChild<Weapon>(0);
 
-        CurrentWeapon.WeaponStatsComponent.SetElement(Attack.AttackElement.Water);
+        CurrentWeapon.StatsComponent.SetElement(Attack.AttackElement.Fire);
     }
 	
     public override void _Process(double delta)
@@ -27,6 +28,6 @@ public partial class Gunner : Enemy
     
     private void OnHealthDepleted()
     {
-        QueueFree();
+        EmitSignal(nameof(Died));
     }
 }

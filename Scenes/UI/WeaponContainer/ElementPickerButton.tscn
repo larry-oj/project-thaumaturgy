@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://8u3q4m0etgvm"]
+
+[ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/ElementPickerButton.cs" id="1_546d5"]
+
+[node name="Fire" type="Button"]
+process_mode = 3
+custom_minimum_size = Vector2(80, 0)
+disabled = true
+text = "Fire"
+script = ExtResource("1_546d5")

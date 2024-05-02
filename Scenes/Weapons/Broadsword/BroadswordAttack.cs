@@ -20,15 +20,15 @@ public partial class BroadswordAttack : State
 	public override void Enter()
 	{
 		const string animationName = "attacking";
-		_timer.Start(1 / _broadsword.WeaponStatsComponent.FireRate);
+		_timer.Start(1 / _broadsword.StatsComponent.FireRate);
 		
 		if (_isFirstAttack)
 		{
-			_animationPlayer.Play(animationName + "_from_top", customSpeed: _broadsword.WeaponStatsComponent.FireRate);
+			_animationPlayer.Play(animationName + "_from_top", customSpeed: _broadsword.StatsComponent.FireRate);
 		}
 		else
 		{
-			_animationPlayer.Play(animationName + "_from_bottom", customSpeed: _broadsword.WeaponStatsComponent.FireRate);
+			_animationPlayer.Play(animationName + "_from_bottom", customSpeed: _broadsword.StatsComponent.FireRate);
 		}
 
 		_isFirstAttack = !_isFirstAttack;

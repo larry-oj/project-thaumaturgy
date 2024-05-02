@@ -1,0 +1,15 @@
+<Project Sdk="Godot.NET.Sdk/4.2.2">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <CodeAnalysisRuleSet>e:\Code\Godot\project-thaumaturgy\.vscode\ruleset.xml</CodeAnalysisRuleSet>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>projectthaumaturgy</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="cloc.exe" />
+    <Content Include="Scenes\Characters\Player\player.tscn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scenes\UI\" />
+  </ItemGroup>
+</Project>

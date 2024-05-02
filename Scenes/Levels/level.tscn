@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dso3ffoitymk"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/Level.cs" id="1_3cupq"]
+[ext_resource type="PackedScene" uid="uid://b5ke1tax4fn3t" path="res://Scenes/Levels/world.tscn" id="2_ns8lr"]
+[ext_resource type="PackedScene" uid="uid://ciyodh8ntlc5o" path="res://Scenes/Levels/player_camera.tscn" id="3_6prls"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("PlayerCamera")]
+process_mode = 1
+script = ExtResource("1_3cupq")
+WorldScene = ExtResource("2_ns8lr")
+PlayerCamera = NodePath("PlayerCamera")
+
+[node name="PlayerCamera" parent="." instance=ExtResource("3_6prls")]

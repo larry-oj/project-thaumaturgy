@@ -19,13 +19,14 @@ public partial class PlayerHealthbar : ProgressBar
 
 	private void SetHealthSettings()
 	{
-		MaxValue = HealthComponent.MaxHealth;
+		MaxValue = HealthComponent.Max;
 		Value = HealthComponent.Health;
 		HealthComponent.HealthChanged += OnHealthChanged;
 	}
 
 	private void OnHealthChanged(HealthChange change)
 	{
-		Value = change.AfterHealth;
+		Value = change.After;
+		change.Free();
 	}
 }

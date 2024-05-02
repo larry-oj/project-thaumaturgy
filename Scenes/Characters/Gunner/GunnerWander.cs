@@ -1,6 +1,7 @@
 using Godot;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
@@ -14,10 +15,11 @@ public partial class GunnerWander : State
 	[Export] private NavigationComponent _navigationComponent;
 	[Export] private GunnerIdle _gunnerIdle;
 	[Export] private GunnerAlert _gunnerAlert;
+	[Export] private GunnerDead _gunnerDead;
 	
 	public override void _Ready()
 	{
-		_character = GetNode<Gunner>("../..");
+		_character = GetNode<Gunner>(Options.PathOptions.CharacterStateToCharacter);
 	}
 	
 	public override void Enter()
@@ -55,5 +57,10 @@ public partial class GunnerWander : State
 	private void OnPlayerDetected()
 	{
 		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
+	}
+
+	private void OnHealthDepleted()
+	{
+		EmitSignal(nameof(Transitioned), this, _gunnerDead);
 	}
 }

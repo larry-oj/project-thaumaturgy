@@ -1,13 +1,18 @@
 ﻿using System.Linq;
 using Godot;
 using Godot.Collections;
+using projectthaumaturgy.Scenes.Levels;
 using Vector2 = Godot.Vector2;
 
 namespace projectthaumaturgy.Scripts;
 
-public partial class Walker : Node
+/// <summary>
+/// A walker instance that walks around the level and creates a path.<br/>
+/// <b>Must be <see cref="GodotObject.Free"/>'d</b> after use.
+/// </summary>
+public partial class Walker : GodotObject
 {
-    private Level _level;
+    private World _world;
     private float[] _turnChance;
     private float[] _turnChanceFormatted;
     private float _roomChance;
@@ -16,14 +21,25 @@ public partial class Walker : Node
     [Export] public Vector2I position;
     [Export] public Vector2 direction;
 
-    public Walker(Level level,
+    /// <summary>
+    /// Initializes a new walker.
+    /// </summary>
+    /// <param name="world">A <see cref="Level"/> reference</param>
+    /// <param name="position">A relative position on the map</param>
+    /// <param name="turnChance">(optional) An array of turn chances for each direction<br/>
+    /// <i>[left, forward, right, backward]</i></param>
+    /// <param name="roomChance">(optional) A chance that a step will create a room</param>
+    /// <param name="roomSize">(optional) An array of width and height of a room<br/>
+    /// <i>[width, height]</i></param>
+    /// <param name="direction">(optional) A starting facing direction</param>
+    public Walker(World world,
         Vector2I position,
         float[] turnChance = null,
         float roomChance = 0.0f,
         int[] roomSize = null,
         Vector2 direction = default)
     {
-        _level = level;
+        _world = world;
         this.position = position;
         _turnChance = turnChance ?? new [] {0.25f, 0.25f, 0.25f, 0.25f};
         _roomChance = roomChance;
@@ -39,6 +55,9 @@ public partial class Walker : Node
         };
     }
 
+    /// <summary>
+    /// Walk 1 step
+    /// </summary>
     public void Walk()
     {
         direction = GetNewDirection();
@@ -61,9 +80,9 @@ public partial class Walker : Node
 
         foreach (var tile in walkedOn)
         {
-            if (!_level.walkableTiles.Contains(tile))
+            if (!_world.WalkableTiles.Select(x => x.Position).Contains(tile))
             {
-                _level.walkableTiles.Add(tile);
+                _world.WalkableTiles.Add(new WalkableTile(tile));
             }
         }
     }

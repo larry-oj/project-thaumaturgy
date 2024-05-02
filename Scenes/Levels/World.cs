@@ -1,53 +1,46 @@
-﻿using Godot;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Godot;
 using Godot.Collections;
-using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Levels;
 
-public partial class World : Node2D
+public partial class World : TileMap
 {
-    [Export]
-    private TileMap _tileMap;
-    private PackedScene _player = ResourceLoader.Load("res://Scenes/Characters/Player/player.tscn") as PackedScene;
-    
-    public Player Player { get; private set; }
-    
-    public override void _Ready()
-    {
-        GD.Randomize();
-        // GenerateLevel();
-        Player = GetNode<Player>("%Player");
-    }
+	public int Size { get; private set; }
+	
+	public Array<WalkableTile> WalkableTiles { get; private set; } = new();
+	public Array<Vector2I> WallTiles { get; private set; } = new();
+	
+	private WalkerProperties _walkerProperties;
 
-    private void GenerateLevel()
-    {
-        var level = new Level(350);
+#nullable enable
+	private Task? _worldLoading;
+#nullable disable
+	public bool IsLoadingFinished => _worldLoading?.IsCompleted ?? false;
 
-        var walkerOrch = new WalkerOrchestrator(level, Vector2I.Zero);
-        walkerOrch.Walk(0.50f, new [] {3, 3}, new [] {0.33f, 0.34f, 0.33f, 0f}, 3, 0.15f);
+	public delegate void WorldLoaded();
+	public WorldLoaded OnWorldLoaded;
+	
+	public void Init(int size, WalkerProperties walkerProperties)
+	{
+		Size = size;
+		_walkerProperties = walkerProperties;
+	}
 
-        _tileMap.SetCellsTerrainConnect(0, level.walkableTiles, 0, 0, false);
-        _tileMap.SetCellsTerrainConnect(0, level.wallTiles, 0, 1, false);
-        
-        var player = _player.Instantiate() as Player;
-        player!.Position = _tileMap.ToGlobal(level.walkableTiles[0]);
-        AddChild(player);
+	public void LoadWorld()
+	=> _worldLoading = Task.Run(() =>
+		{
+			new WalkerOrchestrator(this, Vector2I.Zero)
+				.AddProperties(_walkerProperties)
+				.Walk()
+				.QueueFree(); // !!!
 
-        level.QueueFree();
-        walkerOrch.QueueFree();
-    }
-    
-    // public override void _Input(InputEvent @event)
-    // {
-    //     if (@event.IsActionPressed("ui_accept"))
-    //     {
-    //         GetTree().ReloadCurrentScene();
-    //     }
-    // }
-    
-    public void Reload()
-    {
-        GetTree().ReloadCurrentScene();
-    }
+			base.SetCellsTerrainConnect(0, new Array<Vector2I>(WalkableTiles.Select(x => x.Position)), 0, 0, false);
+			base.SetCellsTerrainConnect(0, WallTiles, 0, 1, false);
+		});
+	
+	public void Wait() => _worldLoading?.Wait();
 }

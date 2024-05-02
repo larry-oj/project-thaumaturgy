@@ -1,63 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk2rsb8np72r6"]
+[gd_scene load_steps=8 format=3 uid="uid://dk2rsb8np72r6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
+[ext_resource type="PackedScene" uid="uid://b48byjhqn7tcm" path="res://Scenes/UI/WeaponContainer/weapon_container.tscn" id="2_iq6jy"]
+[ext_resource type="Script" path="res://Scenes/UI/PlayerManabar.cs" id="4_vicfp"]
+[ext_resource type="Script" path="res://Scenes/UI/PlayerCurrencyCounter.cs" id="5_urvci"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb13u"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovnx2"]
+bg_color = Color(0, 0, 1, 1)
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_ttyjk")
-
-[node name="Menus" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-
-[node name="GameOverScreen" type="VBoxContainer" parent="Menus"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -161.0
-offset_top = -76.0
-offset_right = 161.0
-offset_bottom = 76.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 4
-
-[node name="GameOverPanel" type="PanelContainer" parent="Menus/GameOverScreen"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="Menus/GameOverScreen/GameOverPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer"]
-layout_mode = 2
-
-[node name="GameOverText" type="Label" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
-text = "Game Over"
-
-[node name="GameOverSubtext" type="Label" parent="Menus/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Press {KEY} to restart"
+_weaponContainerScene = ExtResource("2_iq6jy")
 
 [node name="Interface" type="Control" parent="."]
 unique_name_in_owner = true
@@ -87,28 +45,181 @@ size_flags_vertical = 0
 [node name="TopSection" type="HBoxContainer" parent="Interface/MarginContainer/Sections"]
 layout_mode = 2
 
-[node name="PlayerHealthPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+layout_mode = 2
+
+[node name="PlayerHealthPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
-[node name="PlayerHealthMargin" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel"]
+[node name="PlayerHealthMargin" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer/PlayerHealthPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/PlayerHealthMargin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer/PlayerHealthPanel/PlayerHealthMargin"]
 layout_mode = 2
 
-[node name="PlayerHealthbar" type="ProgressBar" parent="Interface/MarginContainer/Sections/TopSection/PlayerHealthPanel/PlayerHealthMargin/HBoxContainer"]
+[node name="PlayerHealthbar" type="ProgressBar" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer/PlayerHealthPanel/PlayerHealthMargin/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 25
+theme_override_styles/fill = SubResource("StyleBoxFlat_vb13u")
 value = 30.0
 script = ExtResource("2_dmueb")
+
+[node name="PlayerManaPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="PlayerManaMargin" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer/PlayerManaPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer/PlayerManaPanel/PlayerManaMargin"]
+layout_mode = 2
+
+[node name="PlayerManabar" type="ProgressBar" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer/PlayerManaPanel/PlayerManaMargin/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 25
+theme_override_styles/fill = SubResource("StyleBoxFlat_ovnx2")
+value = 30.0
+show_percentage = false
+script = ExtResource("4_vicfp")
+
+[node name="spacer" type="Control" parent="Interface/MarginContainer/Sections/TopSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerCurrencyPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="CurrencyLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Essense:"
+horizontal_alignment = 2
+
+[node name="PlayerCurrencyCounter" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "000"
+horizontal_alignment = 1
+script = ExtResource("5_urvci")
+
+[node name="Menus" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GameOverScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GameOverPanel" type="PanelContainer" parent="Menus/MarginContainer/GameOverScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOverText" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+
+[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press {KEY} to restart"
+
+[node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(650, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+tab_alignment = 1
+
+[node name="LoadingScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LoadingPanel" type="PanelContainer" parent="Menus/MarginContainer/LoadingScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="LoadingText" type="Label" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Loading..."

@@ -12,9 +12,8 @@ public partial class Player : Character
 	{
 		_stateMachine.Init(this, _animationPlayer);
 		CurrentWeapon = GetNode("Pivot").GetChild<Weapon>(0);
-
-		CurrentWeapon.WeaponStatsComponent
-			.SetElement(Attack.AttackElement.Earth);
+		
+		Weapons.Add(CurrentWeapon);
 	}
 	
 	public override void _Process(double delta)

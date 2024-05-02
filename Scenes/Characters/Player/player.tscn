@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=20 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Sprites/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -9,7 +9,9 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
-[ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="10_d7ge6"]
+[ext_resource type="Script" path="res://Scenes/Components/ManaComponent.cs" id="7_fqr0g"]
+[ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="10_l1qqo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 3.5
@@ -264,6 +266,7 @@ radius = 6.0
 height = 15.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
+z_index = 10
 collision_layer = 2
 collision_mask = 17
 motion_mode = 1
@@ -284,7 +287,7 @@ sprite_frames = ExtResource("1_jxsqx")
 animation = &"idling"
 
 [node name="Color" type="AnimatedSprite2D" parent="AnimatedSprites"]
-self_modulate = Color(0, 0, 1, 1)
+self_modulate = Color(0.252028, 0.252028, 0.252028, 1)
 sprite_frames = ExtResource("1_jxsqx")
 animation = &"idling"
 frame = 1
@@ -303,16 +306,27 @@ _animatedSprites = NodePath("../AnimatedSprites")
 _weaponPivot = NodePath("../Pivot")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
-MaxHealth = 15.0
+Max = 30.0
+Resistance = 5
+Weakness = 5
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("4_crpsg")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_manaComponent", "_currencyComponent") instance=ExtResource("4_crpsg")]
 collision_layer = 8
-collision_mask = 32
+collision_mask = 160
 _healthComponent = NodePath("../HealthComponent")
+_manaComponent = NodePath("../ManaComponent")
+_currencyComponent = NodePath("../CurrencyComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_e5c3n")
+
+[node name="ManaComponent" type="Node2D" parent="."]
+script = ExtResource("7_fqr0g")
+Max = 30.0
+
+[node name="CurrencyComponent" type="Node2D" parent="."]
+script = ExtResource("8_fgtmp")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
 _initialState = NodePath("PlayerIdle")
@@ -331,6 +345,6 @@ _inputComponent = NodePath("../../InputComponent")
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
-[node name="Rifle" parent="Pivot" instance=ExtResource("10_d7ge6")]
+[node name="Pistol" parent="Pivot" instance=ExtResource("10_l1qqo")]
 
 [connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]

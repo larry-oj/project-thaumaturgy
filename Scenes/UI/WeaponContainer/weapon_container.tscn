@@ -1,0 +1,166 @@
+[gd_scene load_steps=8 format=3 uid="uid://b48byjhqn7tcm"]
+
+[ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/WeaponContainer.cs" id="1_01lo4"]
+[ext_resource type="Texture2D" uid="uid://voxrdwof5j64" path="res://Graphics/Sprites/ph_guns.png" id="2_haa7m"]
+[ext_resource type="PackedScene" uid="uid://8u3q4m0etgvm" path="res://Scenes/UI/WeaponContainer/ElementPickerButton.tscn" id="3_e7acy"]
+[ext_resource type="PackedScene" uid="uid://dkxqps31i0j2i" path="res://Scenes/UI/WeaponContainer/stat_change_container.tscn" id="4_x4fl1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuc0c"]
+atlas = ExtResource("2_haa7m")
+region = Rect2(0, 0, 13, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifky7"]
+atlas = ExtResource("2_haa7m")
+region = Rect2(13, 0, 13, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ubfwt"]
+font_size = 13
+
+[node name="WeaponContainer" type="MarginContainer" node_paths=PackedStringArray("_weaponSprite", "_elementPicker", "_damageStatContainer", "_speedStatContainer")]
+process_mode = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_01lo4")
+_weaponSprite = NodePath("VBoxContainer/WeaponSprite")
+_elementPicker = NodePath("VBoxContainer/ElementPicker")
+_damageStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer")
+_speedStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="WeaponSprite" type="CenterContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Outline" type="TextureRect" parent="VBoxContainer/WeaponSprite"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+texture = SubResource("AtlasTexture_xuc0c")
+expand_mode = 3
+
+[node name="Color" type="TextureRect" parent="VBoxContainer/WeaponSprite"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+texture = SubResource("AtlasTexture_ifky7")
+expand_mode = 3
+
+[node name="Spacer2" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ElementPicker" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Spacer5" type="Control" parent="VBoxContainer/ElementPicker"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Fire" parent="VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="VBoxContainer/ElementPicker"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Water" parent="VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
+layout_mode = 2
+text = "Water"
+Element = 1
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/ElementPicker"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Earth" parent="VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
+layout_mode = 2
+text = "Earth"
+Element = 2
+
+[node name="Spacer3" type="Control" parent="VBoxContainer/ElementPicker"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Air" parent="VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
+layout_mode = 2
+text = "Air
+"
+Element = 3
+
+[node name="Spacer4" type="Control" parent="VBoxContainer/ElementPicker"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer3" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 40
+columns = 3
+
+[node name="DamageChangeContainer" parent="VBoxContainer/CenterContainer/GridContainer" instance=ExtResource("4_x4fl1")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer/HBoxContainer" index="0"]
+text = "DMG:"
+
+[node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer/HBoxContainer" index="2"]
+disabled = false
+
+[node name="SpeedChangeContainer" parent="VBoxContainer/CenterContainer/GridContainer" instance=ExtResource("4_x4fl1")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer/HBoxContainer" index="0"]
+text = "SPD:"
+
+[node name="IncreaseButton" parent="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer/HBoxContainer" index="2"]
+disabled = false
+text = "+0.25"
+
+[node name="InfusionContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Infusion"
+vertical_alignment = 1
+
+[node name="Infuse" type="Button" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "{NAME}"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer2"]
+layout_mode = 2
+text = "cost: 50"
+label_settings = SubResource("LabelSettings_ubfwt")
+horizontal_alignment = 1
+
+[node name="Spacer4" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[editable path="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
+[editable path="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]
