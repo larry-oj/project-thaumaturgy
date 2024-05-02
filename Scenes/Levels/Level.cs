@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
+using projectthaumaturgy.Extensions;
 using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
@@ -133,7 +134,10 @@ public partial class Level : Node
 
     public Level PlacePlayer()
     {
-        Player.Position = new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize);
+        var c = _world.WalkableTiles.First().Position;
+        var s = Options.Sizes.TilesetSize;
+        var hs = Options.Sizes.TilesetHalfsize;
+        Player.Position = c * s + new Vector2(hs, hs);
 
         // camera follow
         PlayerCamera.GetParent()?.RemoveChild(PlayerCamera);
