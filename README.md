@@ -4,8 +4,7 @@ A procedurally-generated top-down bullet-hell roguelike made with [Godot 4](http
 
 _Also is my University Diploma project._
 
-# How to play
+# Play
+Find latest version in [Releases](https://github.com/larry-oj/project-thaumaturgy/releases)
 
-Currently, there is no playable prototypes available. Stay tuned.
-
-[Development branch](https://github.com/larry-oj/project-thaumaturgy/tree/dev)
+### Development branch - [dev](https://github.com/larry-oj/project-thaumaturgy/tree/dev)
