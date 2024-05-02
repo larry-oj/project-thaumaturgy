@@ -8,7 +8,7 @@ namespace projectthaumaturgy.Scripts;
 
 public partial class WalkerOrchestrator : Node
 {
-    public Level level;
+    public World World;
     private Vector2I _currentPos;
 
     private float _walkerRoomChance = 0.0f;
@@ -17,9 +17,9 @@ public partial class WalkerOrchestrator : Node
     private int _walkerMax = 1;
     private float _walkerChance = 0.0f;
 
-    public WalkerOrchestrator(Level level, Vector2I position)
+    public WalkerOrchestrator(World world, Vector2I position)
     {
-        this.level = level;
+        this.World = world;
         _currentPos = position;
     }
 
@@ -66,10 +66,10 @@ public partial class WalkerOrchestrator : Node
     {
         var walkers = new Array<Walker>
         {
-            new(level, _currentPos, _walkerTurnChance, _walkerRoomChance, _walkerRoomSize)
+            new(World, _currentPos, _walkerTurnChance, _walkerRoomChance, _walkerRoomSize)
         };
 
-        while (level.walkableTiles.Count < level.Size)
+        while (World.WalkableTiles.Count < World.Size)
         {
             for (var i = 0; i < walkers.Count; i++)
             {
@@ -79,7 +79,7 @@ public partial class WalkerOrchestrator : Node
                     _currentPos = walkers[i].position;
                 
                 if (GD.Randf() < _walkerChance && walkers.Count < _walkerMax)
-                    walkers.Add(new Walker(level, _currentPos, _walkerTurnChance, _walkerRoomChance, _walkerRoomSize, walkers[0].direction));
+                    walkers.Add(new Walker(World, _currentPos, _walkerTurnChance, _walkerRoomChance, _walkerRoomSize, walkers[0].direction));
             }
         }
         
@@ -88,16 +88,16 @@ public partial class WalkerOrchestrator : Node
             walker.Free();
         }
         
-        foreach (var tile in level.walkableTiles.Select(x => x.Position))
+        foreach (var tile in World.WalkableTiles.Select(x => x.Position))
         {
             foreach (int i in new[] { -1, 0, 1 })
             {
                 foreach (int j in new[] { -1, 0, 1 })
                 {
                     var tmp = tile + new Vector2I(i, j);
-                    if (!level.walkableTiles.Select(x => x.Position).Contains(tmp))
+                    if (!World.WalkableTiles.Select(x => x.Position).Contains(tmp))
                     {
-                        level.wallTiles.Add(tmp);
+                        World.WallTiles.Add(tmp);
                     }
                 }
             }

@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
 using projectthaumaturgy.Scenes.Characters.Player;
@@ -17,7 +18,8 @@ public partial class Game : Node2D
 	[ExportCategory("Levels")]
 	[Export] private Array<LevelResource> _levelResources = new();
 	private LevelResource _initialLevelResource => _levelResources[0];
-
+	private LevelResource _currentLevelResource;
+	
 	private Player _player;
 	private PlayerData _playerData;
 
@@ -25,24 +27,24 @@ public partial class Game : Node2D
 
 	public override void _Ready()
 	{
+		UI.SetLoadingScreen(true);
 		_playerData = GetNode<PlayerData>("PlayerData");
 
 		_player = PlayerScene.Instantiate() as Player;
 		_player.Name = "Player";
 		_player.UniqueNameInOwner = true;
-		this.AddChild(_player);
 
 		Level.Player = _player;
+		Level.UI = UI;
 		Level.LevelCompleted += OnLevelCompleted;
 		UI.Player = _player;
 
-		LoadLevel(_initialLevelResource);
+		LoadLevel(_initialLevelResource, true);
 	}
 
-	private void LoadLevel(LevelResource levelResource)
+	private void LoadLevel(LevelResource levelResource, bool isSync = false)
 	{
-		Level.Clear()
-			.SetSize(levelResource.Size)
+		Level.SetSize(levelResource.Size)
 			.SetStage(levelResource.StageNum, levelResource.MaxSubstagesNum)
 			.SetWalkerProperties(new WalkerProperties
 			{
@@ -56,10 +58,24 @@ public partial class Game : Node2D
 			{
 				MaxEnemies = levelResource.MaxEnemies,
 				Enemies = levelResource.Enemies
-			})
-			.GenerateBase()
-			.PlacePlayer()
-			.PlaceEnemies();
+			});
+		
+		if (!isSync)
+		{
+			Level.StartWorldGen(() =>
+            {
+            	Level.PlacePlayer()
+            		.PlaceEnemies();
+            	UI.SetLoadingScreen(false);
+            });
+		}
+		else
+		{
+			Level.StartWorldGenSync()
+				.PlacePlayer()
+				.PlaceEnemies();
+			UI.SetLoadingScreen(false);
+		}
 
 		EnemiesLeft = levelResource.MaxEnemies;
 	}
@@ -70,10 +86,12 @@ public partial class Game : Node2D
 		if (Level.Substage < Level.MaxSubstage)
 		{
 			Level.Substage++;
-			Level.Clear()
-				.GenerateBase()
-				.PlacePlayer()
-				.PlaceEnemies();
+			Level.StartWorldGen(() =>
+			{
+				Level.PlacePlayer()
+					.PlaceEnemies();
+				UI.SetLoadingScreen(false);
+			});
 		}
 		else if (Level.Stage < _levelResources.Count)
 		{
@@ -81,9 +99,9 @@ public partial class Game : Node2D
 		}
 		else
 		{
-			GD.Print("Game Over");
+			UI.SetLoadingScreen(false);
+			UI.GameOver(true);
 		}
-		UI.SetLoadingScreen(false);
 	}
 
 	// public override void _UnhandledInput(InputEvent @event)

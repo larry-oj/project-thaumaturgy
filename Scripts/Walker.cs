@@ -12,7 +12,7 @@ namespace projectthaumaturgy.Scripts;
 /// </summary>
 public partial class Walker : GodotObject
 {
-    private Level _level;
+    private World _world;
     private float[] _turnChance;
     private float[] _turnChanceFormatted;
     private float _roomChance;
@@ -24,7 +24,7 @@ public partial class Walker : GodotObject
     /// <summary>
     /// Initializes a new walker.
     /// </summary>
-    /// <param name="level">A <see cref="Level"/> reference</param>
+    /// <param name="world">A <see cref="Level"/> reference</param>
     /// <param name="position">A relative position on the map</param>
     /// <param name="turnChance">(optional) An array of turn chances for each direction<br/>
     /// <i>[left, forward, right, backward]</i></param>
@@ -32,14 +32,14 @@ public partial class Walker : GodotObject
     /// <param name="roomSize">(optional) An array of width and height of a room<br/>
     /// <i>[width, height]</i></param>
     /// <param name="direction">(optional) A starting facing direction</param>
-    public Walker(Level level,
+    public Walker(World world,
         Vector2I position,
         float[] turnChance = null,
         float roomChance = 0.0f,
         int[] roomSize = null,
         Vector2 direction = default)
     {
-        _level = level;
+        _world = world;
         this.position = position;
         _turnChance = turnChance ?? new [] {0.25f, 0.25f, 0.25f, 0.25f};
         _roomChance = roomChance;
@@ -80,9 +80,9 @@ public partial class Walker : GodotObject
 
         foreach (var tile in walkedOn)
         {
-            if (!_level.walkableTiles.Select(x => x.Position).Contains(tile))
+            if (!_world.WalkableTiles.Select(x => x.Position).Contains(tile))
             {
-                _level.walkableTiles.Add(new WalkableTile(tile));
+                _world.WalkableTiles.Add(new WalkableTile(tile));
             }
         }
     }

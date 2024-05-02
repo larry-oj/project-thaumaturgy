@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5ke1tax4fn3t"]
+
+[ext_resource type="TileSet" uid="uid://b6skrro0qj8fe" path="res://Graphics/Sprites/ph_world_tileset.tres" id="1_ova3e"]
+[ext_resource type="Script" path="res://Scenes/Levels/World.cs" id="2_ouulj"]
+
+[node name="World" type="TileMap"]
+tile_set = ExtResource("1_ova3e")
+format = 2
+script = ExtResource("2_ouulj")

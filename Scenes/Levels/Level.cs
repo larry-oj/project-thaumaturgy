@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
 using projectthaumaturgy.Scenes.Characters;
@@ -7,18 +8,17 @@ using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Levels;
 using projectthaumaturgy.Scenes.Pickups;
+using projectthaumaturgy.Scenes.Weapons.CreatedObjects;
 using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Levels;
 
 public partial class Level : Node
 {
-    public int Size;
+    public int Size { get; private set; }
     public int Stage;
     public int Substage;
     public int MaxSubstage;
-    public Array<WalkableTile> walkableTiles;
-    public Array<Vector2I> wallTiles;
 
     private Player _player;
     public Player Player 
@@ -32,8 +32,13 @@ public partial class Level : Node
         }
     }
 
-    [Export] public TileMap TileMap { get; private set; }
+    public UI.UI UI { get; set; }
+    
+    [Export] public PackedScene WorldScene { get; private set; }
     [Export] public Camera2D PlayerCamera { get; private set; }
+
+    private World _world;
+    private World _loadingWorld;
 
     private WalkerProperties _walkerProperties;
     private EnemyProperties _enemyProperties;
@@ -41,12 +46,19 @@ public partial class Level : Node
     public int EnemiesLeft { get; private set; }
     [Signal] public delegate void LevelCompletedEventHandler();
 
-    public Level()
+    public override void _Process(double delta)
     {
-        walkableTiles = new Array<WalkableTile>();
-        wallTiles = new Array<Vector2I>();
-    }
+        // await world generation
+        if (_loadingWorld == null) return;
+        if (!_loadingWorld.IsLoadingFinished) return;
+        _world = _loadingWorld;
+        _loadingWorld = null;
 
+        Clear();
+        AddChild(_world);
+        _world.OnWorldLoaded();
+    }
+    
     public Level SetSize(int size)
     {
         this.Size = size;
@@ -85,14 +97,10 @@ public partial class Level : Node
 
     public Level Clear()
     {
-        walkableTiles.Clear();
-        wallTiles.Clear();
-        TileMap.Clear();
-
         // ✨🌈 kill all "wrong" children 🌈✨
         foreach (var child in GetChildren())
         {
-            if (child is Enemy || child is Pickup)
+            if (child is Enemy or Pickup or Projectile or World)
             {
                 child.QueueFree();
             }
@@ -100,16 +108,25 @@ public partial class Level : Node
 
         return this;
     }
-
-    public Level GenerateBase()
+    
+    public Level StartWorldGen(World.WorldLoaded callback)
     {
-        new WalkerOrchestrator(this, Vector2I.Zero)
-            .AddProperties(_walkerProperties)
-            .Walk()
-            .QueueFree(); // !!!
+        _loadingWorld = WorldScene.Instantiate() as World;
+        _loadingWorld!.Init(Size, _walkerProperties);
+        _loadingWorld.OnWorldLoaded = callback;
+        _loadingWorld.LoadWorld();
+    
+        return this;
+    }
 
-        TileMap.SetCellsTerrainConnect(0, new Array<Vector2I>(walkableTiles.Select(x => x.Position)), 0, 0, false);
-        TileMap.SetCellsTerrainConnect(0, wallTiles, 0, 1, false);
+    public Level StartWorldGenSync()
+    {
+        _world = WorldScene.Instantiate() as World;
+        _world!.Init(Size, _walkerProperties);
+        _world.LoadWorld();
+        _world.Wait();
+        Clear();
+        AddChild(_world);
 
         return this;
     }
@@ -128,7 +145,7 @@ public partial class Level : Node
     public Level PlaceEnemies()
     {
         // dont place enemies right next to the player
-        var eligibleTiles = walkableTiles
+        var eligibleTiles = _world.WalkableTiles
             .Where(x => x.DijkstraValue > 4)
             .Select(x => (x, GD.Randf()))
             .OrderBy(x => x.Item2)
@@ -158,7 +175,8 @@ public partial class Level : Node
     private void OnEnemyKilled()
     {
         EnemiesLeft--;
-        if (EnemiesLeft == 0)
-            EmitSignal(nameof(LevelCompleted));
+        if (EnemiesLeft != 0) return;
+        
+        EmitSignal(nameof(LevelCompleted));
     }
 }
