@@ -30,8 +30,8 @@ public static class Options
 
     public static class Balance
     {
-        public static float HealthPickupValueDefault => 2;
-        public static float ManaPickupValueDefault => 2;
-        public static float ElementPickupAmountDefault => 1;
+        public static int HealthPickupValueDefault => 6;
+        public static int ManaPickupValueDefault => 8;
+        public static int CurrencyPickupValueDefault => 1;
     }
 }

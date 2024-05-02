@@ -2,7 +2,7 @@
 
 namespace projectthaumaturgy.Scripts;
 
-public partial class ManaChange : GodotObject
+public partial class CurrencyChange : GodotObject
 {
     public float Before { get; set; }
     public float After { get; set; }

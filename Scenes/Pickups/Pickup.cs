@@ -12,7 +12,7 @@ public partial class Pickup : CanvasGroup
 	{
 		Health,
 		Mana,
-		Elemental
+		Currency
 	}
 
 	[Export] private Sprite2D _color;
@@ -20,10 +20,10 @@ public partial class Pickup : CanvasGroup
 	[ExportCategory("Textures")]
 	[Export] private AtlasTexture _healthTexture;
 	[Export] private AtlasTexture _manaTexture;
-	[Export] private AtlasTexture _elementalTexture;
+	[Export] private AtlasTexture _currencyTexture;
 
-	public float Value { get; set; }
-	public int Speed { get; set; } = 100;
+	public int Value { get; set; }
+	public int Speed { get; set; } = 120;
 	private PickupType _type;
 	public PickupType Type 
 	{
@@ -43,22 +43,14 @@ public partial class Pickup : CanvasGroup
 					Modulate = new Color(0, 0, 1);
 					Value = Options.Balance.ManaPickupValueDefault;
 					break;
-				case PickupType.Elemental:
-					_color.Texture = _elementalTexture;
+				case PickupType.Currency:
+					_color.Texture = _currencyTexture;
+					Modulate = Colors.Gold;
+					Value = Options.Balance.CurrencyPickupValueDefault;
 					break;
 			}
 		}
 	
-	}
-	private Attack.AttackElement _element;
-	public Attack.AttackElement Element
-	{
-		get => _element;
-		set
-		{
-			_element = value;
-			Modulate = Attack.GetElementColor(_element);
-		}
 	}
 
 #nullable enable
@@ -73,6 +65,7 @@ public partial class Pickup : CanvasGroup
 		var randX = GD.Randf() * 2 - 1;
 		var randY = GD.Randf() * 2 - 1;
 		_freeFlowDirection = new Vector2(randX, randY).Normalized();
+		if (Type == PickupType.Currency) ZIndex = 4;
 	}
 
     public override void _Process(double delta)
@@ -101,11 +94,10 @@ public partial class Pickup : CanvasGroup
 	{
 		_isInFreeFlow = false;
 		if (body is not Area2D area) return;
-		if (area.Owner is Player && area is HitboxComponent hitbox)
-		{
-			hitbox.TakePickup(this);
-			QueueFree();
-		}
+		if (area.Owner is not Player || area is not HitboxComponent hitbox) return;
+		
+		hitbox.TakePickup(this);
+		QueueFree();
 	}
 
 	private void OnMagetizeEntered(Area2D area)

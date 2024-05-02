@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dk2rsb8np72r6"]
+[gd_scene load_steps=8 format=3 uid="uid://dk2rsb8np72r6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
 [ext_resource type="PackedScene" uid="uid://b48byjhqn7tcm" path="res://Scenes/UI/WeaponContainer/weapon_container.tscn" id="2_iq6jy"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerManabar.cs" id="4_vicfp"]
+[ext_resource type="Script" path="res://Scenes/UI/PlayerCurrencyCounter.cs" id="5_urvci"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb13u"]
 bg_color = Color(1, 0, 0, 1)
@@ -106,62 +107,32 @@ script = ExtResource("4_vicfp")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+[node name="PlayerCurrencyPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection"]
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 4
+size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="GridContainer" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer"]
 layout_mode = 2
-columns = 2
 
-[node name="FireCoinsLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="CurrencyLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Fire:
-"
+text = "Essense:"
 horizontal_alignment = 2
 
-[node name="FireCoinsCount" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PlayerCurrencyCounter" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "000"
 horizontal_alignment = 1
-
-[node name="WaterCoinsLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Water:"
-horizontal_alignment = 2
-
-[node name="WaterCoinsCount" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "000"
-horizontal_alignment = 1
-
-[node name="AirCounsLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Air:"
-horizontal_alignment = 2
-
-[node name="AirCoinsCount" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "000"
-horizontal_alignment = 1
-
-[node name="EarthCoinsLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Earth:"
-horizontal_alignment = 2
-
-[node name="EarthCoinsCount" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "000"
-horizontal_alignment = 1
+script = ExtResource("5_urvci")
 
 [node name="Menus" type="Control" parent="."]
 layout_mode = 3

@@ -36,21 +36,27 @@ public partial class GunnerDead : State
 		_detectorComponent.StopDetection();
 
 		_animationPlayer.Play("dying");
-
-		var pickupsAmount = GD.RandRange(5, 8);
-		var healthAmount = GD.RandRange(1, pickupsAmount);
+		
+		var healthAmount = GD.RandRange(0, 1);
+		var manaAmount = GD.RandRange(1, 2);
+		var pickupsAmount = healthAmount + manaAmount + GD.RandRange(2, 3);
 
 		for (var i = 0; i < pickupsAmount; i++)
 		{
 			var pickup = _pickupScene.Instantiate() as Pickup;
 			if (healthAmount > 0)
 			{
-				pickup.Type = Pickup.PickupType.Health;
+				pickup!.Type = Pickup.PickupType.Health;
 				healthAmount--;
+			}
+			else if (manaAmount > 0)
+			{
+				pickup!.Type = Pickup.PickupType.Mana;
+				manaAmount--;
 			}
 			else
 			{
-				pickup.Type = Pickup.PickupType.Mana;
+				pickup!.Type = Pickup.PickupType.Currency;
 			}
 			pickup.Position = _gunner.Position.Copy();
 			_level.CallDeferred(Level.MethodName.AddChild, pickup);

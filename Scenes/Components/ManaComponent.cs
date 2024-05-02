@@ -27,9 +27,9 @@ public partial class ManaComponent : Node2D
 		if (result < 0) return false;
 
 		var manaChange = new ManaChange();
-		manaChange.BeforeMana = Mana;
+		manaChange.Before = Mana;
 		Mana = Mathf.Clamp(result, 0, Max);
-		manaChange.AfterMana = Mana;
+		manaChange.After = Mana;
 
 		EmitSignal(nameof(ManaChanged), manaChange);
 

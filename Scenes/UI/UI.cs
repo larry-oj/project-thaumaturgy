@@ -10,6 +10,7 @@ public partial class UI : CanvasLayer
 {
 	private PlayerHealthbar _playerHealthbar;
 	private PlayerManabar _playerManabar;
+	private PlayerCurrencyCounter _playerCurrencyCounter;
 	
 	private Player _player;
 	public Player Player
@@ -20,6 +21,7 @@ public partial class UI : CanvasLayer
 			_player = value;
 			_playerHealthbar.HealthComponent = _player.GetNode<HealthComponent>("HealthComponent");
 			_playerManabar.ManaComponent = _player.GetNode<ManaComponent>("ManaComponent");
+			_playerCurrencyCounter.CurrencyComponent = _player.GetNode<CurrencyComponent>("CurrencyComponent");
 			_player.Died += OnPlayerDied;
 
 			foreach (var weapon in _player.Weapons)
@@ -44,6 +46,7 @@ public partial class UI : CanvasLayer
 	{
 		_playerHealthbar = GetNode<PlayerHealthbar>("%PlayerHealthbar");
 		_playerManabar = GetNode<PlayerManabar>("%PlayerManabar");
+		_playerCurrencyCounter = GetNode<PlayerCurrencyCounter>("%PlayerCurrencyCounter");
 		_interface = GetNode<Control>("%Interface");
 		_gameOverScreen = GetNode<VBoxContainer>("%GameOverScreen");
 		_weaponTabsContainer = GetNode<Control>("%WeaponTabsContainer");

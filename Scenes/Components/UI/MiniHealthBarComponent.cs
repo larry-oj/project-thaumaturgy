@@ -16,6 +16,6 @@ public partial class MiniHealthBarComponent : TextureProgressBar
 
 	private void OnHealthChanged(HealthChange change)
 	{
-		Value = change.AfterHealth;
+		Value = change.After;
 	}
 }

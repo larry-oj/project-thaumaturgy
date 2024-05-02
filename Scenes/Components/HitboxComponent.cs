@@ -10,6 +10,7 @@ public partial class HitboxComponent : Area2D
 {
     [Export] private HealthComponent _healthComponent;
     [Export] private ManaComponent _manaComponent;
+    [Export] private CurrencyComponent _currencyComponent;
 
     public void Damage(Attack attack)
     {
@@ -26,8 +27,9 @@ public partial class HitboxComponent : Area2D
             case Pickup.PickupType.Mana:
                 _manaComponent.TryChangeMana(@pickup.Value);
                 break;
-            case Pickup.PickupType.Elemental:
-                // todo
+            default:
+            case Pickup.PickupType.Currency:
+                _currencyComponent.TryChangeCurrency(@pickup.Value);
                 break;
         }
     }

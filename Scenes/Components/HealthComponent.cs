@@ -18,9 +18,9 @@ public partial class HealthComponent : Node2D
         private set
         {
             var healthChange = new HealthChange();
-            healthChange.BeforeHealth = _health;
+            healthChange.Before = _health;
             _health = value;
-            healthChange.AfterHealth = _health;
+            healthChange.After = _health;
             EmitSignal(nameof(HealthChanged), healthChange);
         }
     }

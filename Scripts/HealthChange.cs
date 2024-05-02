@@ -4,8 +4,8 @@ namespace projectthaumaturgy.Scripts;
 
 public partial class HealthChange : GodotObject
 {
-    public float BeforeHealth { get; set; }
-    public float AfterHealth { get; set; }
-    public float Change => Mathf.Abs(BeforeHealth - AfterHealth);
-    public bool IsHealing => BeforeHealth < AfterHealth;
+    public float Before { get; set; }
+    public float After { get; set; }
+    public float Change => Mathf.Abs(Before - After);
+    public bool IsHealing => Before < After;
 }

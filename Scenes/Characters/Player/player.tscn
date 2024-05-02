@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=20 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Sprites/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
 [ext_resource type="Script" path="res://Scenes/Components/ManaComponent.cs" id="7_fqr0g"]
+[ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
 [ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="10_l1qqo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
@@ -309,11 +310,12 @@ Max = 30.0
 Resistance = 5
 Weakness = 5
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_manaComponent") instance=ExtResource("4_crpsg")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_manaComponent", "_currencyComponent") instance=ExtResource("4_crpsg")]
 collision_layer = 8
 collision_mask = 160
 _healthComponent = NodePath("../HealthComponent")
 _manaComponent = NodePath("../ManaComponent")
+_currencyComponent = NodePath("../CurrencyComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)
@@ -322,6 +324,9 @@ shape = SubResource("CapsuleShape2D_e5c3n")
 [node name="ManaComponent" type="Node2D" parent="."]
 script = ExtResource("7_fqr0g")
 Max = 30.0
+
+[node name="CurrencyComponent" type="Node2D" parent="."]
+script = ExtResource("8_fgtmp")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
 _initialState = NodePath("PlayerIdle")
