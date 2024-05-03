@@ -59,7 +59,7 @@ public partial class Attack : GodotObject
             AttackElement.Water => Colors.Blue,
             AttackElement.Earth => Colors.ForestGreen,
             AttackElement.Air => Colors.LightBlue,
-            _ => Colors.White,
+            _ => Colors.DarkSlateGray,
         };
     }
 }

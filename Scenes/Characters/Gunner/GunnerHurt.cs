@@ -11,7 +11,17 @@ public partial class GunnerHurt : State
 	public override void Enter()
 	{
 		_animationPlayer.Play("hurting");
-		_animationPlayer.AnimationFinished += (_) => EmitSignal(nameof(Transitioned), this, _gunnerAlert);
+		_animationPlayer.AnimationFinished += OnHealthDepleted;
+	}
+	
+	public override void Exit()
+	{
+		_animationPlayer.AnimationFinished -= OnHealthDepleted;
+	}
+	
+	private void OnHealthDepleted(StringName _)
+	{
+		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
 	}
 	
 	private void OnHealthDepleted()

@@ -6,7 +6,7 @@ namespace projectthaumaturgy.Scenes.Components;
 
 public partial class InputComponent : Node2D
 {
-	[Export] private CanvasGroup _animatedSprites;
+	[Export] private Node2D _animatedSprites;
 	[Export] private Node2D _weaponPivot;
 	private Weapon _weapon;
 	

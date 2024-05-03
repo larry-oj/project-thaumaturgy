@@ -1,6 +1,7 @@
 ﻿using Godot;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters.Player;
 
@@ -28,8 +29,9 @@ public partial class PlayerIdle : State
         }
     }
 
-    private void OnDamageTaken(GodotObject _)
+    private void OnDamageTaken(HealthChange change)
     {
+        if (change.IsHealing) return;
         EmitSignal(nameof(Transitioned), this, _playerHurting);
     }
 }

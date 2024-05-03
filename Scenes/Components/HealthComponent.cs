@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Components;
@@ -17,17 +18,18 @@ public partial class HealthComponent : Node2D
         get => _health;
         private set
         {
+            var healthChange = new HealthChange
+            {
+                Before = _health,
+                After = value
+            };
             _health = value;
             if (_health <= 0)
             {
+                healthChange.Free();
                 EmitSignal(nameof(HealthDepleted));
                 return;
             }
-            var healthChange = new HealthChange
-            {
-                Before = value,
-                After = _health
-            };
             EmitSignal(nameof(HealthChanged), healthChange);
         }
     }
@@ -63,7 +65,8 @@ public partial class HealthComponent : Node2D
 
     public void Heal(float amount)
     {
+        if (Math.Abs(Health - Max) < 0.001) return;
         var result = Health + amount;
-        Health = Mathf.Clamp(result, 0, Max);
+        Health = result > Max ? Max : result;
     }
 }

@@ -14,7 +14,16 @@ public partial class PlayerHurting : State
 	public override void Enter()
 	{
 		_animationPlayer.Play("hurting");
-		_animationPlayer.AnimationFinished += (_) =>
+		_animationPlayer.AnimationFinished += OnAnimationFinished;
+	}
+	
+	public override void Exit()
+	{
+		_animationPlayer.AnimationFinished -= OnAnimationFinished;
+	}
+	
+	private void OnAnimationFinished(StringName _)
+	{
 		{
 			if (_inputComponent.MovementDirection != Vector2.Zero)
 			{
@@ -22,7 +31,7 @@ public partial class PlayerHurting : State
 				return;
 			}
 			EmitSignal(nameof(Transitioned), this, _playerIdle);
-		};
+		}
 	}
 	
 	public override void PhysicsProcess(double delta)
