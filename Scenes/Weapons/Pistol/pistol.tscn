@@ -54,6 +54,7 @@ Damage = 3.0
 Type = 1
 DamageCostIncrease = 2.0
 DamageBaseCost = 4.0
+FireRateStep = 0.1
 FireRateCostIncrease = 2
 FireRateBaseCost = 4
 

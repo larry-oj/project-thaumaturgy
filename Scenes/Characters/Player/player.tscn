@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=21 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Sprites/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scenes/Components/ManaComponent.cs" id="7_fqr0g"]
 [ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
 [ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="10_l1qqo"]
+[ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerHurting.cs" id="12_fddnq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 3.5
@@ -82,8 +83,8 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_2jbvl"]
 resource_name = "hurting"
-length = 0.3
-loop_mode = 1
+length = 0.15
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -103,7 +104,7 @@ tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.075, 0.15),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 2, 0]
@@ -139,7 +140,7 @@ tracks/4/path = NodePath("AnimatedSprites/Color:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.075, 0.15),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -331,20 +332,31 @@ script = ExtResource("8_fgtmp")
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
 _initialState = NodePath("PlayerIdle")
 
-[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_runningState", "_inputComponent")]
+[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_runningState", "_playerHurting", "_inputComponent")]
 script = ExtResource("4_x53oe")
 _runningState = NodePath("../PlayerRunning")
+_playerHurting = NodePath("../PlayerHurting")
 _inputComponent = NodePath("../../InputComponent")
 
-[node name="PlayerRunning" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idleState", "_velocityComponent", "_inputComponent")]
+[node name="PlayerRunning" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idleState", "_playerHurting", "_velocityComponent", "_inputComponent")]
 script = ExtResource("5_7lo8p")
 _idleState = NodePath("../PlayerIdle")
+_playerHurting = NodePath("../PlayerHurting")
 _velocityComponent = NodePath("../../VelocityComponent")
 _inputComponent = NodePath("../../InputComponent")
+
+[node name="PlayerHurting" type="Node" parent="StateMachine" node_paths=PackedStringArray("_playerIdle", "_playerRunning", "_inputComponent", "_velocityComponent")]
+script = ExtResource("12_fddnq")
+_playerIdle = NodePath("../PlayerIdle")
+_playerRunning = NodePath("../PlayerRunning")
+_inputComponent = NodePath("../../InputComponent")
+_velocityComponent = NodePath("../../VelocityComponent")
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
 [node name="Pistol" parent="Pivot" instance=ExtResource("10_l1qqo")]
 
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerIdle" method="OnDamageTaken"]
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerRunning" method="OnDamageTaken"]
 [connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]

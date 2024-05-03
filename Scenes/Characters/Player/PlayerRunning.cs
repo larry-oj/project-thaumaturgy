@@ -7,6 +7,7 @@ namespace projectthaumaturgy.Scenes.Characters.Player;
 public partial class PlayerRunning : State
 {
     [Export] private State _idleState;
+    [Export] private State _playerHurting;
     [Export] private VelocityComponent _velocityComponent;
     [Export] private InputComponent _inputComponent;
     
@@ -31,5 +32,10 @@ public partial class PlayerRunning : State
     public override void PhysicsProcess(double delta)
     {
         _velocityComponent.Move(_inputComponent.MovementDirection);
+    }
+    
+    private void OnDamageTaken(GodotObject _)
+    {
+        EmitSignal(nameof(Transitioned), this, _playerHurting);
     }
 }

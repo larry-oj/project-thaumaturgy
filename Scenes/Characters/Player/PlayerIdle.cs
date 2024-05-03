@@ -7,6 +7,7 @@ namespace projectthaumaturgy.Scenes.Characters.Player;
 public partial class PlayerIdle : State
 {
     [Export] private State _runningState;
+    [Export] private State _playerHurting;
     [Export] private InputComponent _inputComponent;
 
     public override void Enter()
@@ -25,5 +26,10 @@ public partial class PlayerIdle : State
         {
             EmitSignal(nameof(Transitioned), this, _runningState);
         }
+    }
+
+    private void OnDamageTaken(GodotObject _)
+    {
+        EmitSignal(nameof(Transitioned), this, _playerHurting);
     }
 }

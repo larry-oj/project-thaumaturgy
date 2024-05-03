@@ -17,10 +17,17 @@ public partial class HealthComponent : Node2D
         get => _health;
         private set
         {
-            var healthChange = new HealthChange();
-            healthChange.Before = _health;
             _health = value;
-            healthChange.After = _health;
+            if (_health <= 0)
+            {
+                EmitSignal(nameof(HealthDepleted));
+                return;
+            }
+            var healthChange = new HealthChange
+            {
+                Before = value,
+                After = _health
+            };
             EmitSignal(nameof(HealthChanged), healthChange);
         }
     }
@@ -50,9 +57,6 @@ public partial class HealthComponent : Node2D
         {
             Health -= attack.Damage;
         }
-        
-        if (Health <= 0)
-            EmitSignal(nameof(HealthDepleted));
         
         attack.Free(); // memory leak prevention
     }

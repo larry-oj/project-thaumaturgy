@@ -12,6 +12,7 @@ public partial class GunnerIdle : State
 	[Export] private GunnerWander _gunnerWander;
 	[Export] private GunnerAlert _gunnerAlert;
 	[Export] private GunnerDead _gunnerDead;
+	[Export] private GunnerHurt _gunnerHurt;
 
 	public override void _Ready()
 	{
@@ -47,6 +48,11 @@ public partial class GunnerIdle : State
 		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
 	}
 
+	private void OnDamageTaken(GodotObject _)
+	{
+		EmitSignal(nameof(Transitioned), this, _gunnerHurt);
+	}
+	
 	private void OnHealthDepleted()
 	{
 		EmitSignal(nameof(Transitioned), this, _gunnerDead);
