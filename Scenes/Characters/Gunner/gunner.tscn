@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://blb8ir4affwuf"]
+[gd_scene load_steps=22 format=3 uid="uid://blb8ir4affwuf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_7ejue"]
 [ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="1_dpilp"]
+[ext_resource type="Resource" uid="uid://cwlwhyobbjvh4" path="res://Resources/Weapons/CreatedObjects/round_bullet.tres" id="2_an56o"]
 [ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="2_pe08a"]
 [ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="3_re2n2"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="4_yx3ol"]
@@ -211,6 +212,7 @@ collision_layer = 16
 collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_7ejue")
+_bulletResource = ExtResource("2_an56o")
 _stateMachine = NodePath("StateMachine")
 _animationPlayer = NodePath("AnimationPlayer")
 

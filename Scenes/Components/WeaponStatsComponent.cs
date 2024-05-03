@@ -7,7 +7,7 @@ namespace projectthaumaturgy.Scenes.Components;
 public partial class WeaponStatsComponent : Node
 {
     [ExportCategory("Weapon Stats")]
-    [Export] public int Damage { get; set; } = 0;
+    [Export] public float Damage { get; set; } = 0;
     [Export] public float FireRate { get; set; } = 1;
     [Export] public float ManaCost { get; set; } = 1;
     [Export] public Attack.AttackType Type { get; set; } = Attack.AttackType.Melee;
@@ -15,7 +15,7 @@ public partial class WeaponStatsComponent : Node
     [Export] public Attack.AttackInfusion Infusion { get; set; } = Attack.AttackInfusion.None;
     
     [ExportGroup("Balance")]
-    [Export] public int DamageStep { get; set; } = 1;
+    [Export] public float DamageStep { get; set; } = 1;
     [Export] public int DamageCostIncrease { get; set; } = 1;
     [Export] public int DamageBaseCost { get; set; } = 5;
     public int DamageUpgradeCount { get; private set; } = 0;
@@ -34,13 +34,13 @@ public partial class WeaponStatsComponent : Node
         return new Attack(Damage, Type, Element, Infusion, owner);
     }
 
-    public WeaponStatsComponent SetDamage(int damage)
+    public WeaponStatsComponent SetDamage(float damage)
     {
         Damage = damage;
         return this;
     }
     
-    public WeaponStatsComponent IncrementDamage(int damage)
+    public WeaponStatsComponent IncrementDamage(float damage)
     {
         Damage += damage;
         DamageUpgradeCount++;

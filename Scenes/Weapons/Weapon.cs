@@ -1,5 +1,6 @@
 ﻿using Godot;
 using projectthaumaturgy.Resources.Weapons;
+using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scripts;
 
@@ -16,6 +17,8 @@ public partial class Weapon : Node2D
 
     public WeaponStatsComponent StatsComponent { get; private set; }
     public CanvasGroup Sprites { get; private set; }
+    
+    [Export] public BulletResource BulletResource { get; set; }
     
     // ABSOLUTELY OBLITERATED THE ENTIRE PROJECT
     // circular dependency is a warcrime

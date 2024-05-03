@@ -1,4 +1,5 @@
 using Godot;
+using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Weapons;
@@ -8,10 +9,13 @@ namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
 public partial class Gunner : Enemy
 {
+    [Export] private BulletResource _bulletResource;
+    
     public override void _Ready()
     {
         _stateMachine.Init(this, _animationPlayer);
         CurrentWeapon = GetNode("Pivot").GetChild<Weapon>(0);
+        CurrentWeapon.BulletResource = _bulletResource;
 
         CurrentWeapon.StatsComponent.SetElement(Attack.AttackElement.Fire);
     }

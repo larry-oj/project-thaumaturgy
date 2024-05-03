@@ -14,14 +14,12 @@ public partial class RifleShoot : State
     [Export] private Timer _timer;
     [Export] private Marker2D _projectileSpawner;
     
-    private BulletResource _bulletResource;
     private Rifle _rifle;
     private Character _character;
     
     public override void _Ready()
     {
         _rifle = GetNode<Rifle>(Options.PathOptions.WeaponStateToWeapon);
-        _bulletResource = _rifle.BulletResource;
         _timer.Timeout += OnTimerTimeout;
         
         _character = GetNode<Character>(Options.PathOptions.WeaponStateToCharacter);
@@ -34,7 +32,7 @@ public partial class RifleShoot : State
         _animationPlayer.Play(animationName, customSpeed: _rifle.StatsComponent.FireRate);
         _timer.Start(attackSpeed);
 
-        var bullet = _bulletResource.Instantiate(_projectileSpawner, _rifle.StatsComponent.CreateAttack(_character));
+        var bullet = _rifle.BulletResource.Instantiate(_projectileSpawner, _rifle.StatsComponent.CreateAttack(_character));
         GetNode(Options.PathOptions.Level).AddChild(bullet);
     }
 
