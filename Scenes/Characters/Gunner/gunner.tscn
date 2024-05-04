@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://blb8ir4affwuf"]
+[gd_scene load_steps=25 format=3 uid="uid://blb8ir4affwuf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_7ejue"]
 [ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="1_dpilp"]
 [ext_resource type="Resource" uid="uid://cwlwhyobbjvh4" path="res://Resources/Weapons/CreatedObjects/round_bullet.tres" id="2_an56o"]
 [ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="2_pe08a"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_6v1qg"]
 [ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="3_re2n2"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="4_yx3ol"]
 [ext_resource type="PackedScene" uid="uid://delpi1w48hmeo" path="res://Scenes/Components/detector_comonent.tscn" id="6_2nmy3"]
@@ -23,7 +24,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Outline:position")
+tracks/0/path = NodePath("SpritesComponent/Outline:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -35,7 +36,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprites/Outline:rotation")
+tracks/1/path = NodePath("SpritesComponent/Outline:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -47,7 +48,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprites/Color:position")
+tracks/2/path = NodePath("SpritesComponent/Color:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -59,7 +60,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprites/Color:rotation")
+tracks/3/path = NodePath("SpritesComponent/Color:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -107,7 +108,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("AnimatedSprites/Hurt:visible")
+tracks/7/path = NodePath("SpritesComponent/Hurt:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -124,7 +125,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Outline:position")
+tracks/0/path = NodePath("SpritesComponent/Outline:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -136,7 +137,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprites/Outline:rotation")
+tracks/1/path = NodePath("SpritesComponent/Outline:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -148,7 +149,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprites/Color:position")
+tracks/2/path = NodePath("SpritesComponent/Color:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -160,7 +161,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprites/Color:rotation")
+tracks/3/path = NodePath("SpritesComponent/Color:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -208,7 +209,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("AnimatedSprites/Hurt:visible")
+tracks/7/path = NodePath("SpritesComponent/Hurt:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -225,7 +226,7 @@ step = 0.075
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Hurt:visible")
+tracks/0/path = NodePath("SpritesComponent/Hurt:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -259,19 +260,21 @@ _bulletResource = ExtResource("2_an56o")
 _stateMachine = NodePath("StateMachine")
 _animationPlayer = NodePath("AnimationPlayer")
 
-[node name="AnimatedSprites" type="CanvasGroup" parent="."]
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("3_6v1qg")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
 
-[node name="Outline" type="Sprite2D" parent="AnimatedSprites"]
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
 texture = ExtResource("1_dpilp")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
-[node name="Color" type="Sprite2D" parent="AnimatedSprites"]
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
 texture = ExtResource("1_dpilp")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
-[node name="Hurt" type="Sprite2D" parent="AnimatedSprites"]
+[node name="Hurt" type="Sprite2D" parent="SpritesComponent"]
 visible = false
 texture = ExtResource("1_dpilp")
 region_enabled = true
@@ -286,7 +289,7 @@ libraries = {
 position = Vector2(0, 5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x2b2m")
-debug_color = Color(0, 0.631373, 0.45098, 0.419608)
+debug_color = Color(0, 0.631373, 0.45098, 0)
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("2_pe08a")]
 collision_layer = 64
@@ -296,6 +299,7 @@ _healthComponent = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_ughsc")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_re2n2")]
 Max = 10.0

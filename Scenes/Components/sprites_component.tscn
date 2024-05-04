@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bka3j72lj3n57"]
+
+[ext_resource type="Script" path="res://Scenes/Components/SpritesComponent.cs" id="1_shj0y"]
+
+[node name="SpritesComponent" type="Node2D"]
+script = ExtResource("1_shj0y")

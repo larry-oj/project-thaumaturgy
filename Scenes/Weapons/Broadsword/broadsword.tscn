@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://di0576ye1qco8"]
+[gd_scene load_steps=21 format=3 uid="uid://di0576ye1qco8"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/Broadsword.cs" id="1_8ojm5"]
 [ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_hfd2y"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://8lsuv4hsjqta" path="res://Graphics/Sprites/ph_sword_slash.png" id="3_65wcw"]
 [ext_resource type="PackedScene" uid="uid://bxh8qmhaixvwr" path="res://Scenes/Components/hurtbox_component.tscn" id="3_bwxyg"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="3_wintt"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_ynhjo"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/BroadswordIdle.cs" id="4_7kpib"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/BroadswordAttack.cs" id="5_fkbcf"]
 
@@ -57,58 +58,34 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/path = NodePath("SwordSlash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-2.26893]
+"update": 1,
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprites:position")
+tracks/1/path = NodePath("SwordSlash:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-2, -2)]
+"update": 1,
+"values": [0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SwordSlash:visible")
+tracks/2/path = NodePath("SwordSlash:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SwordSlash:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SwordSlash:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -119,37 +96,13 @@ tracks/4/keys = {
 resource_name = "attacking_from_bottom"
 length = 0.65
 step = 0.005
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/path = NodePath("StateMachine/BroadswordAttack")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [2.26893, 0.0, -2.26893]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprites:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-2, 2), Vector2(5, 0), Vector2(-2, -2)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("StateMachine/BroadswordAttack")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0.125),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -157,37 +110,37 @@ tracks/2/keys = {
 "method": &"OnAnimationAttack"
 }]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SwordSlash:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordSlash:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.105, 0.65),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SwordSlash:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwordSlash:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0.105, 0.14, 0.165, 0.5, 0.575),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("SwordSlash:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordSlash:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -198,37 +151,13 @@ tracks/5/keys = {
 resource_name = "attacking_from_top"
 length = 0.65
 step = 0.005
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/path = NodePath("StateMachine/BroadswordAttack")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [-2.26893, 0.0, 2.26893]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprites:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-2, -2), Vector2(5, 0), Vector2(-2, 2)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("StateMachine/BroadswordAttack")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0.125),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -236,37 +165,37 @@ tracks/2/keys = {
 "method": &"OnAnimationAttack"
 }]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SwordSlash:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordSlash:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.105, 0.65),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SwordSlash:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwordSlash:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0.105, 0.14, 0.165, 0.5, 0.575),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("SwordSlash:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordSlash:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -287,24 +216,27 @@ size = Vector2(20.5, 26)
 script = ExtResource("1_8ojm5")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("2_3reb6")]
-Damage = 6
 ManaCost = 0.0
 DamageCostIncrease = 2
 FireRateStep = 0.5
 FireRateCostIncrease = 2
 
-[node name="Sprites" type="CanvasGroup" parent="."]
-position = Vector2(-2, -2)
-rotation = -2.26893
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("3_ynhjo")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
 
-[node name="Outline" type="Sprite2D" parent="Sprites"]
-position = Vector2(7.5, 0)
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(-6.82092, -7.74532)
+rotation = -2.26893
+scale = Vector2(1, 1)
 texture = ExtResource("1_hfd2y")
 region_enabled = true
 region_rect = Rect2(40, 0, 15, 5)
 
-[node name="Color" type="Sprite2D" parent="Sprites"]
-position = Vector2(7.5, 0)
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(-6.82092, -7.74532)
+rotation = -2.26893
+scale = Vector2(1, 1)
 texture = ExtResource("1_hfd2y")
 region_enabled = true
 region_rect = Rect2(55, 0, 15, 5)

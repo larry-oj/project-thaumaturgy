@@ -9,6 +9,7 @@ public partial class Projectile : Area2D
 {
     public Attack Attack;
     internal VelocityComponent _velocityComponent;
+    [Export] internal SpritesComponent _spritesComponent;
     internal RayCast2D _rayCast2D;
 
     public override void _Ready()

@@ -43,6 +43,6 @@ public partial class Bullet : Projectile
 	{
 		base.SetAttack(attack);
 
-		GetNode<CanvasItem>("Sprites/Color").SelfModulate = Attack.GetElementColor(attack.Element);
+		_spritesComponent.SetColor(Attack.GetElementColor(attack.Element));
 	}
 }

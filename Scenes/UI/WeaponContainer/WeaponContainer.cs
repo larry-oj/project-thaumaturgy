@@ -63,17 +63,17 @@ public partial class WeaponContainer : MarginContainer
 		base.Name = _weapon.Name;
 
 		// set weapon sprite
-		var weaponOutline = _weapon.Sprites.GetNode<Sprite2D>("Outline");
-		var weaponColor = _weapon.Sprites.GetNode<Sprite2D>("Color");
+		var weaponOutline = _weapon.Sprites.Outline as Sprite2D;
+		var weaponColor = _weapon.Sprites.Color as Sprite2D;
 		
 		_outline.Texture = new AtlasTexture
 		{
-			Atlas = weaponOutline.Texture,
+			Atlas = weaponOutline!.Texture,
 			Region = weaponOutline.RegionRect,
 		};
 		_color.Texture = new AtlasTexture
 		{
-			Atlas = weaponColor.Texture,
+			Atlas = weaponColor!.Texture,
 			Region = weaponColor.RegionRect,
 		};
 		_color.SelfModulate = weaponColor.SelfModulate;
