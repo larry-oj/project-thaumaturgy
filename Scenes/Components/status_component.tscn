@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://crbm3jad6wkmc"]
+
+[ext_resource type="Script" path="res://Scenes/Components/StatusComponent.cs" id="1_7x51j"]
+
+[node name="StatusComponent" type="Node2D"]
+script = ExtResource("1_7x51j")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="OnTickTimeout"]

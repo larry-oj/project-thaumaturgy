@@ -13,11 +13,13 @@ public partial class HealthComponent : Node2D
     [Export] public float WeaknessMultiplier = 1.0f;
 
     [Export] public bool IsImmune { get; set; }
+    public bool IsDead => Health <= 0;
     public float Health
     {
         get => _health;
         private set
         {
+            if (Math.Abs(_health - value) < 0.001) return;
             var healthChange = new HealthChange
             {
                 Before = _health,
@@ -61,6 +63,13 @@ public partial class HealthComponent : Node2D
         }
         
         attack.Free(); // memory leak prevention
+    }
+
+    public void TakeStatusDamage(float damage)
+    {
+        if (IsImmune) return;
+
+        Health -= damage;
     }
 
     public void Heal(float amount)

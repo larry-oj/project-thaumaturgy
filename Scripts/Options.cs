@@ -34,5 +34,19 @@ public static class Options
         public static int ManaPickupValueDefault => 6;
         public static int CurrencyPickupValueDefault => 1;
         public static int ElementUpgradeCost => 10;
+
+        public static class StatusTypes
+        {
+            public static float BurningTickPeriod => 1.0f;
+            public static int BurningTicksAmount => 4;
+            public static float BurningDamage => 1.0f;
+            public static float FreezingTickPeriod => 4.0f;
+            public static int FreezingTicksAmount => 1;
+            public static float FreezingDamage => 0f;
+            public static float FreezingMultiplier => 0.5f;
+            public static float StunnedTickPeriod => 1.0f;
+            public static int StunnedTicksAmount => 1;
+            public static float StunnedDamage => 0f;
+        }
     }
 }

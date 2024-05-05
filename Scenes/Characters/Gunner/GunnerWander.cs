@@ -13,10 +13,11 @@ public partial class GunnerWander : State
 	[Export] private DetectorComponent _detectorComponent;
 	[Export] private VelocityComponent _velocityComponent;
 	[Export] private NavigationComponent _navigationComponent;
+	[Export] private StatusComponent _statusComponent;
 	[Export] private GunnerIdle _gunnerIdle;
 	[Export] private GunnerAlert _gunnerAlert;
 	[Export] private GunnerDead _gunnerDead;
-	[Export] private GunnerHurt _gunnerHurt;
+	[Export] private GunnerStunned _gunnerStunned;
 	
 	public override void _Ready()
 	{
@@ -26,6 +27,7 @@ public partial class GunnerWander : State
 	public override void Enter()
 	{
 		_detectorComponent.Detected += OnPlayerDetected;
+		_statusComponent.StatusChanged += OnStatusChanged;
 		
 		do
 		{
@@ -39,6 +41,7 @@ public partial class GunnerWander : State
 	public override void Exit()
 	{
 		_detectorComponent.Detected -= OnPlayerDetected;
+		_statusComponent.StatusChanged -= OnStatusChanged;
 	}
 	
 	public override void Process(double delta)
@@ -62,11 +65,20 @@ public partial class GunnerWander : State
 	
 	private void OnDamageTaken(GodotObject _)
 	{
-		EmitSignal(nameof(Transitioned), this, _gunnerHurt);
+		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
 	}
 
 	private void OnHealthDepleted()
 	{
 		EmitSignal(nameof(Transitioned), this, _gunnerDead);
+	}
+	
+	private void OnStatusChanged(bool isCleared, Status status)
+	{
+		if (!isCleared && status.Type == Status.StatusType.Stunned)
+		{
+			_gunnerStunned.Timer.WaitTime = status.TickPeriod;
+			EmitSignal(nameof(Transitioned), this, _gunnerStunned);
+		}
 	}
 }

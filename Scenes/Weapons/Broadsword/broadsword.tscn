@@ -91,6 +91,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesComponent:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_q03dk"]
 resource_name = "attacking_from_bottom"
@@ -145,6 +157,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, -1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SpritesComponent:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.165, 0.33),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [4.71239, 2.26893, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_jeelf"]
@@ -201,6 +225,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SpritesComponent:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.165, 0.33),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 2.26893, 4.71239]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ljjsx"]
 _data = {
@@ -216,7 +252,9 @@ size = Vector2(20.5, 26)
 script = ExtResource("1_8ojm5")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("2_3reb6")]
+Damage = 6.0
 ManaCost = 0.0
+StatusChance = 1.0
 DamageCostIncrease = 2
 FireRateStep = 0.5
 FireRateCostIncrease = 2
@@ -228,7 +266,6 @@ Color = NodePath("Color")
 [node name="Outline" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(-6.82092, -7.74532)
 rotation = -2.26893
-scale = Vector2(1, 1)
 texture = ExtResource("1_hfd2y")
 region_enabled = true
 region_rect = Rect2(40, 0, 15, 5)
@@ -236,7 +273,6 @@ region_rect = Rect2(40, 0, 15, 5)
 [node name="Color" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(-6.82092, -7.74532)
 rotation = -2.26893
-scale = Vector2(1, 1)
 texture = ExtResource("1_hfd2y")
 region_enabled = true
 region_rect = Rect2(55, 0, 15, 5)
@@ -253,8 +289,8 @@ libraries = {
 }
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_weaponStatsComponent") instance=ExtResource("3_bwxyg")]
-collision_layer = 36
-collision_mask = 72
+collision_layer = 4
+collision_mask = 64
 monitoring = true
 IsActiveDetection = false
 _weaponStatsComponent = NodePath("../WeaponStatsComponent")

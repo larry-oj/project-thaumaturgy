@@ -3,23 +3,29 @@ using projectthaumaturgy.Scenes.Components.StateMachine;
 
 namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
-public partial class GunnerHurt : State
+public partial class GunnerStunned : State
 {
 	[Export] private GunnerAlert _gunnerAlert;
 	[Export] private GunnerDead _gunnerDead;
+	public Timer Timer { get; private set; }
+	
+	public override void _Ready()
+	{
+		Timer = GetNode<Timer>("Timer");
+		Timer.Timeout += OnTimerTimeout;
+	}
 	
 	public override void Enter()
 	{
-		_animationPlayer.Play("hurting");
-		_animationPlayer.AnimationFinished += OnHealthDepleted;
+		Timer.Start();
 	}
 	
 	public override void Exit()
 	{
-		_animationPlayer.AnimationFinished -= OnHealthDepleted;
+		Timer.Stop();
 	}
 	
-	private void OnHealthDepleted(StringName _)
+	private void OnTimerTimeout()
 	{
 		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
 	}

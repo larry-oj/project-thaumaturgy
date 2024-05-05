@@ -52,7 +52,8 @@ script = ExtResource("1_jerm7")
 BulletResource = ExtResource("2_fc2c6")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dlku4")]
-Damage = 3.0
+Damage = 1.0
+StatusChance = 1.0
 Type = 1
 FireRateStep = 0.1
 FireRateCostIncrease = 2

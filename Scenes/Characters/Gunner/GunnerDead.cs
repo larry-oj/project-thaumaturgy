@@ -15,6 +15,7 @@ public partial class GunnerDead : State
 	[Export] private HitboxComponent _hitboxComponent;
 	[Export] private NavigationComponent _navigationComponent;
 	[Export] private DetectorComponent _detectorComponent;
+	[Export] private StatusComponent _statusComponent;
 
 	private Gunner _gunner;
 
@@ -28,12 +29,13 @@ public partial class GunnerDead : State
 
 	public override void Enter()
 	{
-		// this is some fucking voodoo shit and it sucks, but without this it doesnt work
+		// this is voodoo and it sucks, but without this it doesnt work
 		_feetCollider.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 		_hitboxComponent.SetDeferred(HitboxComponent.PropertyName.Monitorable, false);
 		_hitboxComponent.SetDeferred(HitboxComponent.PropertyName.Monitoring, false);
 		_navigationComponent.NavigationTimer.Stop();
 		_detectorComponent.StopDetection();
+		_statusComponent.StopStatus();
 
 		_animationPlayer.Play("dying");
 		
