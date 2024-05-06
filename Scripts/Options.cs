@@ -47,6 +47,7 @@ public static class Options
             public static float StunnedTickPeriod => 1.0f;
             public static int StunnedTicksAmount => 1;
             public static float StunnedDamage => 0f;
+            public static float KnockedBackForce => 50f;
         }
     }
 }

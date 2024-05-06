@@ -354,9 +354,10 @@ position = Vector2(0, -1)
 MaxSpeed = 65.0
 _body = NodePath("..")
 
-[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent") instance=ExtResource("10_fbnxj")]
+[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent", "_velocityComponent") instance=ExtResource("10_fbnxj")]
 _healthComponent = NodePath("../HealthComponent")
 _spritesComponent = NodePath("../SpritesComponent")
+_velocityComponent = NodePath("../VelocityComponent")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("4_yx3ol")]
 _initialState = NodePath("GunnerIdle")

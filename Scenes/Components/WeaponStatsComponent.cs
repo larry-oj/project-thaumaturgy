@@ -2,6 +2,7 @@ using System;
 using Godot;
 using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scripts;
+using Vector2 = Godot.Vector2;
 
 namespace projectthaumaturgy.Scenes.Components;
 
@@ -31,7 +32,7 @@ public partial class WeaponStatsComponent : Node
 
     [Signal] public delegate void UpdatedEventHandler();
 
-    public Attack CreateAttack(Character owner)
+    public Attack CreateAttack(Character owner, Vector2 direction = default)
     {
         Status status = default;
         if (GD.Randf() < StatusChance)
@@ -60,11 +61,15 @@ public partial class WeaponStatsComponent : Node
                     status.TicksAmount = Options.Balance.StatusTypes.StunnedTicksAmount;
                     status.Damage = Options.Balance.StatusTypes.StunnedDamage;
                     break;
+                
                 case Attack.AttackElement.Air:
+                    status.Type = Status.StatusType.KnockedBack;
+                    status.Multiplier = Options.Balance.StatusTypes.KnockedBackForce;
+                    status.Direction = direction;
                     break;
-                case Attack.AttackElement.Absolute:
-                    break;
+                
                 default:
+                case Attack.AttackElement.Absolute:
                 case Attack.AttackElement.None:
                     status.Free();
                     status = default;

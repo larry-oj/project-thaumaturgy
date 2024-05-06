@@ -12,6 +12,7 @@ public partial class StatusComponent : Node2D
 
 	[Export] private HealthComponent _healthComponent;
 	[Export] private SpritesComponent _spritesComponent;
+	[Export] private VelocityComponent _velocityComponent;
 	
 	public bool IsUnderStatus { get; private set; }
 	public float Multiplier { get; private set; }
@@ -38,14 +39,19 @@ public partial class StatusComponent : Node2D
 			case Status.StatusType.Burning:
 				_spritesComponent.SetBurning();
 				break;
+			
 			case Status.StatusType.Freezing:
 				_spritesComponent.SetFreezing();
 				break;
+			
 			case Status.StatusType.Stunned:
 				_spritesComponent.SetStunned();
 				break;
+			
 			case Status.StatusType.KnockedBack:
-				break;
+				_velocityComponent.Knockback(status.Direction, status.Multiplier);
+				return;
+			
 			default:
 			case Status.StatusType.None:
 				break;
@@ -57,7 +63,6 @@ public partial class StatusComponent : Node2D
 	
 	public void StopStatus()
 	{
-		GD.Print("!IsUnderStatus: " + !IsUnderStatus);
 		if (!IsUnderStatus) return;
 		IsUnderStatus = false;
 		_timer.Stop();

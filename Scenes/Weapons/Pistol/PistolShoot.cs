@@ -31,7 +31,9 @@ public partial class PistolShoot : State
         _animationPlayer.Play(animationName, customSpeed: _pistol.StatsComponent.FireRate);
         _timer.Start(_animationPlayer.GetAnimation(animationName).Length / _pistol.StatsComponent.FireRate);
         
-        var bullet = _bulletResource.Instantiate(_projectileSpawner, _pistol.StatsComponent.CreateAttack(_character));
+        var rotation = Vector2.Right.Rotated(_projectileSpawner.GlobalRotation);
+        var attack = _pistol.StatsComponent.CreateAttack(_character, rotation);
+        var bullet = _bulletResource.Instantiate(_projectileSpawner, attack);
         GetNode(Options.PathOptions.Level).AddChild(bullet);
     }
     

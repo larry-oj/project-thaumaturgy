@@ -106,11 +106,7 @@ public partial class WeaponContainer : MarginContainer
 	private void OnElementButtonPressed(Attack.AttackElement element)
 	{
 
-		if (_weaponStats.Element != Attack.AttackElement.None)
-		{
-			GD.Print("Failed to set element to a weapon: weapon already has an element.");
-			return;
-		}
+		if (_weaponStats.Element != Attack.AttackElement.None) return;
 
 		var success = CurrencyComponent.TryChangeCurrency(-Options.Balance.ElementUpgradeCost);
 		if (!success) return;

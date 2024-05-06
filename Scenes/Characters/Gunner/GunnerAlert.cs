@@ -78,6 +78,9 @@ public partial class GunnerAlert : State
 	
 	public override void PhysicsProcess(double delta)
 	{
+		if (_velocityComponent.IsInKnockback) 
+			_velocityComponent.Move(Vector2.Zero, delta);
+		
 		if (_navigationComponent.IsNavigationFinished())
 			return;
 
@@ -132,7 +135,6 @@ public partial class GunnerAlert : State
 			case Status.StatusType.Freezing:
 				if (Math.Abs(TimerPeriod - _baseTimePeriod) < 0.001)
 				{
-					GD.Print("kill me with fire");
 					TimerPeriod = TimerPeriod / change.Multiplier;
 				}
 				break;

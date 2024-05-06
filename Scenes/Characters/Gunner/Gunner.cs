@@ -32,7 +32,6 @@ public partial class Gunner : Enemy
     
     private void OnHealthDepleted()
     {
-        GD.Print("I died");
         EmitSignal(nameof(Died));
     }
 }
