@@ -1,12 +1,12 @@
 using Godot;
 using projectthaumaturgy.Extensions;
-using projectthaumaturgy.Scenes.Characters.Gunner;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Levels;
 using projectthaumaturgy.Scenes.Pickups;
 using projectthaumaturgy.Scripts;
-using System;
+
+namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
 public partial class GunnerDead : State
 {
@@ -15,6 +15,7 @@ public partial class GunnerDead : State
 	[Export] private HitboxComponent _hitboxComponent;
 	[Export] private NavigationComponent _navigationComponent;
 	[Export] private DetectorComponent _detectorComponent;
+	[Export] private StatusComponent _statusComponent;
 
 	private Gunner _gunner;
 
@@ -28,14 +29,15 @@ public partial class GunnerDead : State
 
 	public override void Enter()
 	{
-		// this is some fucking voodoo shit and it sucks, but without this it doesnt work
+		// called at the end of a frame so that the physics engine runs first
 		_feetCollider.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-		_hitboxComponent.SetDeferred(HitboxComponent.PropertyName.Monitorable, false);
-		_hitboxComponent.SetDeferred(HitboxComponent.PropertyName.Monitoring, false);
+		_hitboxComponent.SetDeferred(Area2D.PropertyName.Monitorable, false);
+		_hitboxComponent.SetDeferred(Area2D.PropertyName.Monitoring, false);
 		_navigationComponent.NavigationTimer.Stop();
 		_detectorComponent.StopDetection();
+		_statusComponent.StopStatus();
 
-		_animationPlayer.Play("dying");
+		_animationPlayer.Play(Options.AnimationNames.Dead);
 		
 		var healthAmount = GD.RandRange(0, 1);
 		var manaAmount = GD.RandRange(1, 2);
@@ -59,7 +61,7 @@ public partial class GunnerDead : State
 				pickup!.Type = Pickup.PickupType.Currency;
 			}
 			pickup.Position = _gunner.Position.Copy();
-			_level.CallDeferred(Level.MethodName.AddChild, pickup);
+			_level.CallDeferred(Node.MethodName.AddChild, pickup);
 		}
 	}
 }

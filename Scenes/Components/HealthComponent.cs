@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Components;
@@ -12,15 +13,25 @@ public partial class HealthComponent : Node2D
     [Export] public float WeaknessMultiplier = 1.0f;
 
     [Export] public bool IsImmune { get; set; }
+    public bool IsDead => Health <= 0;
     public float Health
     {
         get => _health;
         private set
         {
-            var healthChange = new HealthChange();
-            healthChange.Before = _health;
+            if (Math.Abs(_health - value) < 0.001) return;
+            var healthChange = new HealthChange
+            {
+                Before = _health,
+                After = value
+            };
             _health = value;
-            healthChange.After = _health;
+            if (_health <= 0)
+            {
+                healthChange.Free();
+                EmitSignal(nameof(HealthDepleted));
+                return;
+            }
             EmitSignal(nameof(HealthChanged), healthChange);
         }
     }
@@ -51,15 +62,20 @@ public partial class HealthComponent : Node2D
             Health -= attack.Damage;
         }
         
-        if (Health <= 0)
-            EmitSignal(nameof(HealthDepleted));
-        
         attack.Free(); // memory leak prevention
+    }
+
+    public void TakeStatusDamage(float damage)
+    {
+        if (IsImmune) return;
+
+        Health -= damage;
     }
 
     public void Heal(float amount)
     {
+        if (Math.Abs(Health - Max) < 0.001) return;
         var result = Health + amount;
-        Health = Mathf.Clamp(result, 0, Max);
+        Health = result > Max ? Max : result;
     }
 }

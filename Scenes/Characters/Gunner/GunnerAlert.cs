@@ -1,3 +1,4 @@
+	using System;
 	using Godot;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
@@ -13,16 +14,29 @@ public partial class GunnerAlert : State
 	[Export] private NavigationComponent _navigationComponent;
 	[Export] private DetectorComponent _detectorComponent;
 	[Export] private VelocityComponent _velocityComponent;
+	[Export] private StatusComponent _statusComponent;
 	[Export] private GunnerIdle _gunnerIdle;
 	[Export] private GunnerDead _gunnerDead;
+	[Export] private GunnerStunned _gunnerStunned;
 	[Export] private Node2D _weaponPivot;
 	[Export] private Weapon _weapon;
 	
 	private Gunner _gunner;
 	private CharacterBody2D _player;
-	private Timer _timer;
+	[Export] private Timer _timer;
 	private float _defaultDetectorRadius;
 	private bool _isPlayerDetected;
+
+	[Export] private float _baseTimePeriod;
+	private float TimerPeriod
+	{
+		get => (float)_timer.WaitTime;
+		set
+		{
+			_gunner.CurrentWeapon.StatsComponent.SetFireRate(1 / value);
+			_timer.WaitTime = value;
+		}
+	}
 	
 	private float DistanceToPlayer => _gunner.GlobalPosition.DistanceTo(_player.GlobalPosition);
 	public bool IsWithinBoundary => DistanceToPlayer <= _upperBoundary && DistanceToPlayer >= _lowerBoundary;
@@ -31,7 +45,6 @@ public partial class GunnerAlert : State
 	{
 		_gunner = GetNode<Gunner>(Options.PathOptions.CharacterStateToCharacter);
 		_player = _gunner.BodyToDetect;
-		_timer = GetNode<Timer>("Timer");
 		_defaultDetectorRadius = _detectorComponent.detectionRange;
 		
 		_timer.Timeout += OnAttackTimerTimeout;
@@ -40,14 +53,19 @@ public partial class GunnerAlert : State
 	public override void Enter()
 	{
 		_navigationComponent.NavigationTimer.Timeout += OnNavigationTimerTimeout;
+		_statusComponent.StatusChanged += OnStatusChanged;
+		_animationPlayer.AnimationFinished += OnAnimationFinished;
 		_navigationComponent.NavigationTimer.Start();
 		_detectorComponent.detectionRange = -1f;	// disable range limitation
+		TimerPeriod = _baseTimePeriod;
 		_timer.Start();
 	}
 	
 	public override void Exit()
 	{
 		_navigationComponent.NavigationTimer.Timeout -= OnNavigationTimerTimeout;
+		_statusComponent.StatusChanged -= OnStatusChanged;
+		_animationPlayer.AnimationFinished -= OnAnimationFinished;
 		_navigationComponent.NavigationTimer.Stop();
 		_weaponPivot.Rotation = 0;
 		_detectorComponent.detectionRange = _defaultDetectorRadius;
@@ -62,6 +80,9 @@ public partial class GunnerAlert : State
 	
 	public override void PhysicsProcess(double delta)
 	{
+		if (_velocityComponent.IsInKnockback) 
+			_velocityComponent.Move(Vector2.Zero, delta);
+		
 		if (_navigationComponent.IsNavigationFinished())
 			return;
 
@@ -101,6 +122,46 @@ public partial class GunnerAlert : State
 		var weaponScale = _weaponPivot.Scale;
 		weaponScale.Y = angle.X < 0 ? -1 : 1;
 		_weaponPivot.Scale = weaponScale;
+	}
+
+	private void OnStatusChanged(bool isCleared, Status change)
+	{
+		if (isCleared)
+		{
+			TimerPeriod = _baseTimePeriod;
+			return;
+		}
+
+		switch (change.Type)
+		{
+			case Status.StatusType.Freezing:
+				if (Math.Abs(TimerPeriod - _baseTimePeriod) < 0.001)
+				{
+					TimerPeriod /= change.Multiplier;
+				}
+				break;
+			
+			case Status.StatusType.Stunned:
+				_gunnerStunned.Timer.WaitTime = change.TickPeriod;
+				EmitSignal(nameof(Transitioned), this, _gunnerStunned);
+				break;
+			
+			default:
+			case Status.StatusType.Burning:
+			case Status.StatusType.KnockedBack:
+			case Status.StatusType.None:
+				break;
+		}
+	}
+	
+	private void OnDamageTaken(GodotObject _)
+	{
+		_animationPlayer.Play(Options.AnimationNames.Hurt);
+	}
+	
+	private void OnAnimationFinished(StringName animationName)
+	{
+		// todo when needed
 	}
 
 	private void OnHealthDepleted()

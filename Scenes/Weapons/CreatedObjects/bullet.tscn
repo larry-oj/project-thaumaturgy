@@ -1,30 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6uj58wrq4b4x"]
+[gd_scene load_steps=6 format=3 uid="uid://c6uj58wrq4b4x"]
 
 [ext_resource type="Texture2D" uid="uid://dg4whtpvqdbfb" path="res://Graphics/Sprites/ph_projectiles.png" id="1_ee8ag"]
 [ext_resource type="Script" path="res://Scenes/Weapons/CreatedObjects/Bullet.cs" id="1_uxdrq"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="2_x3l4f"]
 [ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="5_tshgw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp06g"]
 size = Vector2(5, 3)
 
-[node name="Bullet" type="Area2D"]
-collision_layer = 36
-collision_mask = 73
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("_spritesComponent")]
+collision_layer = 4
+collision_mask = 65
 script = ExtResource("1_uxdrq")
+_spritesComponent = NodePath("SpritesComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_mp06g")
 debug_color = Color(0, 0.631373, 0.443137, 0.419608)
 
-[node name="Sprites" type="CanvasGroup" parent="."]
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("2_x3l4f")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
 
-[node name="Outline" type="Sprite2D" parent="Sprites"]
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
 texture = ExtResource("1_ee8ag")
 region_enabled = true
 region_rect = Rect2(0, 0, 8, 5)
 
-[node name="Color" type="Sprite2D" parent="Sprites"]
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
 texture = ExtResource("1_ee8ag")
 region_enabled = true
 region_rect = Rect2(8, 0, 8, 5)

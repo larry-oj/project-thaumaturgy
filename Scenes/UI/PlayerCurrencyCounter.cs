@@ -22,6 +22,5 @@ public partial class PlayerCurrencyCounter : Label
 	private void OnCurrencyChanged(CurrencyChange change)
 	{
 		Text = change.After.ToString(CultureInfo.InvariantCulture);
-		change.Free();
 	}
 }

@@ -6,7 +6,7 @@ namespace projectthaumaturgy.Scenes.Components;
 
 public partial class InputComponent : Node2D
 {
-	[Export] private CanvasGroup _animatedSprites;
+	[Export] private Node2D _sprites;
 	[Export] private Node2D _weaponPivot;
 	private Weapon _weapon;
 	
@@ -15,13 +15,13 @@ public partial class InputComponent : Node2D
 		get
 		{
 			var dir = Vector2.Zero;
-			dir.X = Input.GetAxis("player_left", "player_right");
-			dir.Y = Input.GetAxis("player_up", "player_down");
+			dir.X = Input.GetAxis(Options.Controls.Player.Left, Options.Controls.Player.Right);
+			dir.Y = Input.GetAxis(Options.Controls.Player.Up, Options.Controls.Player.Down);
 			return dir.Normalized();
 		}
 	}
 
-	public virtual bool IsAttacking => Input.IsActionPressed("player_attack");
+	public virtual bool IsAttacking => Input.IsActionPressed(Options.Controls.Player.Attack);
 
 	public override void _Ready()
 	{
@@ -45,9 +45,9 @@ public partial class InputComponent : Node2D
 		var selfPos = GlobalPosition;
 		var angle = mousePos - selfPos;
 
-		var scale = _animatedSprites.Scale;
+		var scale = _sprites.Scale;
 		scale.X = angle.X < 0 ? -1 : 1;
-		_animatedSprites.Scale = scale;
+		_sprites.Scale = scale;
 	}
 	
 	private void RotateWeaponToMouse()

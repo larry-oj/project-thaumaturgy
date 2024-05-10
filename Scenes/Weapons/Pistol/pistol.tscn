@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://057rmsbyqtqh"]
+[gd_scene load_steps=12 format=3 uid="uid://057rmsbyqtqh"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/Pistol.cs" id="1_jerm7"]
 [ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_l7ssc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_fc2c6"]
 [ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="3_dlku4"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolIdle.cs" id="3_mj6hb"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="4_5f005"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolShoot.cs" id="4_b6krq"]
 
 [sub_resource type="Animation" id="Animation_joev8"]
@@ -13,7 +14,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/path = NodePath("SpritesComponent:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -26,10 +27,11 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_8jo3m"]
 resource_name = "shooting"
 length = 0.2
+step = 0.005
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites:rotation")
+tracks/0/path = NodePath("SpritesComponent:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -50,22 +52,24 @@ script = ExtResource("1_jerm7")
 BulletResource = ExtResource("2_fc2c6")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dlku4")]
-Damage = 3.0
+Damage = 1.0
+StatusChance = 1.0
 Type = 1
-DamageCostIncrease = 2.0
-DamageBaseCost = 4.0
+FireRateStep = 0.1
 FireRateCostIncrease = 2
 FireRateBaseCost = 4
 
-[node name="Sprites" type="CanvasGroup" parent="."]
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_5f005")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
 
-[node name="Outline" type="Sprite2D" parent="Sprites"]
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(2, 0)
 texture = ExtResource("1_l7ssc")
 region_enabled = true
 region_rect = Rect2(20, 0, 10, 5)
 
-[node name="Color" type="Sprite2D" parent="Sprites"]
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(2, 0)
 texture = ExtResource("1_l7ssc")
 region_enabled = true

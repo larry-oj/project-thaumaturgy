@@ -9,8 +9,6 @@ public partial class Rifle : Weapon
 {
 	private StateMachine _stateMachine;
 	private AnimationPlayer _animationPlayer;
-	
-	[Export] public BulletResource BulletResource { get; private set; }
 
 	public override void _Ready()
 	{

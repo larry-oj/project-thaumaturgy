@@ -9,12 +9,18 @@ namespace projectthaumaturgy.Scenes.Components;
 public partial class HitboxComponent : Area2D
 {
     [Export] private HealthComponent _healthComponent;
+    [Export] private StatusComponent _statusComponent;
     [Export] private ManaComponent _manaComponent;
     [Export] private CurrencyComponent _currencyComponent;
 
     public void Damage(Attack attack)
     {
-        _healthComponent?.TakeDamage(attack);
+        var status = attack.StatusEffect?.Copy();
+        _healthComponent.TakeDamage(attack);
+        if (status != null && !_healthComponent.IsDead)
+        {
+            _statusComponent?.TakeStatus(status);
+        }
     }
 
     public void TakePickup(Pickup @pickup)

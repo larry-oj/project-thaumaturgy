@@ -1,5 +1,6 @@
 ﻿using Godot;
 using projectthaumaturgy.Resources.Weapons;
+using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scripts;
 
@@ -10,12 +11,13 @@ public partial class Weapon : Node2D
     [Signal] public delegate void OnAttackEventHandler();
     public bool IsMelee => StatsComponent.Type == Scripts.Attack.AttackType.Melee;
     public bool IsInAttackAnimation { get; set; }
-    
-    internal CanvasItem _colorSprite;
-    internal CanvasItem _characterSprite;
+
+    public SpritesComponent Sprites { get; private set; }
+    internal SpritesComponent _characterSprites;
 
     public WeaponStatsComponent StatsComponent { get; private set; }
-    public CanvasGroup Sprites { get; private set; }
+    
+    [Export] public BulletResource BulletResource { get; set; }
     
     // ABSOLUTELY OBLITERATED THE ENTIRE PROJECT
     // circular dependency is a warcrime
@@ -23,9 +25,8 @@ public partial class Weapon : Node2D
 
     public override void _Ready()
     {
-        Sprites = GetNode<CanvasGroup>("Sprites");
-        _colorSprite = Sprites.GetNode<CanvasItem>("Color");
-        _characterSprite = GetNode(Options.PathOptions.WeaponToCharacter).GetNode<CanvasItem>("AnimatedSprites/Color");
+        Sprites = GetNode<SpritesComponent>("SpritesComponent");
+        _characterSprites = GetNode(Options.PathOptions.WeaponToCharacter).GetNode<SpritesComponent>("SpritesComponent");
         StatsComponent = GetNode<WeaponStatsComponent>("WeaponStatsComponent");
         
         OnWeaponStatSheetUpdate();
@@ -39,7 +40,7 @@ public partial class Weapon : Node2D
     public virtual void OnWeaponStatSheetUpdate()
     {
         var color = Scripts.Attack.GetElementColor(StatsComponent.Element);
-        _colorSprite.SelfModulate = color;
-        _characterSprite.SelfModulate = color;
+        Sprites.SetColor(color);
+        _characterSprites.SetColor(color);
     }
 }

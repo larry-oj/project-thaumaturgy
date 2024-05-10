@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://vbe0rcb2qiiv"]
+
+[ext_resource type="Texture2D" uid="uid://dg4whtpvqdbfb" path="res://Graphics/Sprites/ph_projectiles.png" id="1_q8ha8"]
+[ext_resource type="Script" path="res://Scenes/Weapons/CreatedObjects/Bullet.cs" id="1_y2vkc"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="2_afrp5"]
+[ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="2_mkblx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q1k6d"]
+radius = 4.0
+
+[node name="RoundBullet" type="Area2D" node_paths=PackedStringArray("_spritesComponent")]
+collision_layer = 32
+collision_mask = 9
+script = ExtResource("1_y2vkc")
+_spritesComponent = NodePath("SpritesComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_q1k6d")
+debug_color = Color(0, 0.631373, 0.443137, 0.419608)
+
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("2_afrp5")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
+
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
+texture = ExtResource("1_q8ha8")
+region_enabled = true
+region_rect = Rect2(0, 5, 7, 7)
+
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
+texture = ExtResource("1_q8ha8")
+region_enabled = true
+region_rect = Rect2(7, 5, 7, 7)
+
+[node name="VelocityComponent" parent="." instance=ExtResource("2_mkblx")]
+MaxSpeed = 200.0
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+rotation = -1.5708
+target_position = Vector2(0, 5)
+collision_mask = 73
+collide_with_areas = true

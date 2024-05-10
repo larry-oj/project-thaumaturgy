@@ -1,17 +1,23 @@
-[gd_scene load_steps=20 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=26 format=3 uid="uid://cabn78p4558rd"]
 
-[ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Sprites/player_sprite_frames.tres" id="1_jxsqx"]
+[ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Animations/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
+[ext_resource type="Texture2D" uid="uid://cm8eh1nl017cg" path="res://Graphics/Statuses/stunned_status_effect.tres" id="2_4gmdj"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="2_exbbw"]
+[ext_resource type="Texture2D" uid="uid://d1vak1yatwhx6" path="res://Graphics/Statuses/burning_status_effect.tres" id="3_2gv28"]
 [ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="3_2n4k3"]
 [ext_resource type="PackedScene" uid="uid://wln6mruo3b8p" path="res://Scenes/Components/input_component.tscn" id="3_6nmd5"]
 [ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="3_rav62"]
 [ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="4_crpsg"]
+[ext_resource type="Texture2D" uid="uid://csq6pl66on2r0" path="res://Graphics/Statuses/freezing_status_effect.tres" id="4_ucj1g"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
 [ext_resource type="Script" path="res://Scenes/Components/ManaComponent.cs" id="7_fqr0g"]
 [ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
-[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="10_l1qqo"]
+[ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerHurting.cs" id="12_fddnq"]
+[ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_sr35u"]
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_56c35"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 3.5
@@ -22,7 +28,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Outline:animation")
+tracks/0/path = NodePath("SpritesComponent/Outline:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -34,7 +40,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
+tracks/1/path = NodePath("SpritesComponent/Outline:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -46,7 +52,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprites/Color:animation")
+tracks/2/path = NodePath("SpritesComponent/Color:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -58,7 +64,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprites/Color:frame")
+tracks/3/path = NodePath("SpritesComponent/Color:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -70,7 +76,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("AnimatedSprites/Color:visible")
+tracks/4/path = NodePath("SpritesComponent/Color:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -82,12 +88,12 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_2jbvl"]
 resource_name = "hurting"
-length = 0.3
-loop_mode = 1
+length = 0.15
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Outline:animation")
+tracks/0/path = NodePath("SpritesComponent/Outline:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -99,11 +105,11 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
+tracks/1/path = NodePath("SpritesComponent/Outline:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.075, 0.15),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 2, 0]
@@ -111,7 +117,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprites/Color:animation")
+tracks/2/path = NodePath("SpritesComponent/Color:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -123,7 +129,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprites/Color:frame")
+tracks/3/path = NodePath("SpritesComponent/Color:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -135,11 +141,11 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("AnimatedSprites/Color:visible")
+tracks/4/path = NodePath("SpritesComponent/Color:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.075, 0.15),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -153,7 +159,7 @@ step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Outline:animation")
+tracks/0/path = NodePath("SpritesComponent/Outline:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -165,7 +171,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
+tracks/1/path = NodePath("SpritesComponent/Outline:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -177,7 +183,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprites/Color:animation")
+tracks/2/path = NodePath("SpritesComponent/Color:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -189,7 +195,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprites/Color:frame")
+tracks/3/path = NodePath("SpritesComponent/Color:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -207,7 +213,7 @@ step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Outline:animation")
+tracks/0/path = NodePath("SpritesComponent/Outline:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -219,7 +225,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprites/Outline:frame")
+tracks/1/path = NodePath("SpritesComponent/Outline:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -231,7 +237,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprites/Color:animation")
+tracks/2/path = NodePath("SpritesComponent/Color:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -243,7 +249,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprites/Color:frame")
+tracks/3/path = NodePath("SpritesComponent/Color:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -278,19 +284,48 @@ _animationPlayer = NodePath("AnimationPlayer")
 position = Vector2(0, 4.5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_d3126")
-debug_color = Color(0, 0.623529, 0.52549, 0.419608)
+debug_color = Color(0, 0.623529, 0.52549, 0)
 
-[node name="AnimatedSprites" type="CanvasGroup" parent="."]
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("2_exbbw")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
 
-[node name="Outline" type="AnimatedSprite2D" parent="AnimatedSprites"]
+[node name="Stunned" type="Sprite2D" parent="SpritesComponent"]
+visible = false
+z_index = 11
+position = Vector2(0, -8)
+texture = ExtResource("2_4gmdj")
+
+[node name="Outline" type="AnimatedSprite2D" parent="SpritesComponent"]
+clip_children = 2
 sprite_frames = ExtResource("1_jxsqx")
 animation = &"idling"
 
-[node name="Color" type="AnimatedSprite2D" parent="AnimatedSprites"]
-self_modulate = Color(0.252028, 0.252028, 0.252028, 1)
+[node name="Freezing" type="Sprite2D" parent="SpritesComponent/Outline"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.352941)
+texture = ExtResource("4_ucj1g")
+
+[node name="Burning" type="Sprite2D" parent="SpritesComponent/Outline"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.352941)
+texture = ExtResource("3_2gv28")
+
+[node name="Color" type="AnimatedSprite2D" parent="SpritesComponent"]
+clip_children = 2
 sprite_frames = ExtResource("1_jxsqx")
 animation = &"idling"
 frame = 1
+
+[node name="Freezing" type="Sprite2D" parent="SpritesComponent/Color"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.352941)
+texture = ExtResource("4_ucj1g")
+
+[node name="Burning" type="Sprite2D" parent="SpritesComponent/Color"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.352941)
+texture = ExtResource("3_2gv28")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -301,32 +336,41 @@ libraries = {
 MaxSpeed = 100.0
 _body = NodePath("..")
 
-[node name="InputComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_weaponPivot") instance=ExtResource("3_6nmd5")]
-_animatedSprites = NodePath("../AnimatedSprites")
+[node name="InputComponent" parent="." node_paths=PackedStringArray("_sprites", "_weaponPivot") instance=ExtResource("3_6nmd5")]
+_sprites = NodePath("../SpritesComponent")
 _weaponPivot = NodePath("../Pivot")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
 Max = 30.0
 Resistance = 5
 Weakness = 5
+IsImmune = true
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_manaComponent", "_currencyComponent") instance=ExtResource("4_crpsg")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent", "_manaComponent", "_currencyComponent") instance=ExtResource("4_crpsg")]
 collision_layer = 8
 collision_mask = 160
 _healthComponent = NodePath("../HealthComponent")
+_statusComponent = NodePath("../StatusComponent")
 _manaComponent = NodePath("../ManaComponent")
 _currencyComponent = NodePath("../CurrencyComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_e5c3n")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="ManaComponent" type="Node2D" parent="."]
 script = ExtResource("7_fqr0g")
 Max = 30.0
+IsInfinite = true
 
 [node name="CurrencyComponent" type="Node2D" parent="."]
 script = ExtResource("8_fgtmp")
+IsInfinite = true
+
+[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent") instance=ExtResource("13_sr35u")]
+_healthComponent = NodePath("../HealthComponent")
+_spritesComponent = NodePath("../SpritesComponent")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
 _initialState = NodePath("PlayerIdle")
@@ -336,15 +380,25 @@ script = ExtResource("4_x53oe")
 _runningState = NodePath("../PlayerRunning")
 _inputComponent = NodePath("../../InputComponent")
 
-[node name="PlayerRunning" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idleState", "_velocityComponent", "_inputComponent")]
+[node name="PlayerRunning" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idleState", "_playerHurting", "_velocityComponent", "_inputComponent")]
 script = ExtResource("5_7lo8p")
 _idleState = NodePath("../PlayerIdle")
+_playerHurting = NodePath("../PlayerHurting")
 _velocityComponent = NodePath("../../VelocityComponent")
 _inputComponent = NodePath("../../InputComponent")
+
+[node name="PlayerHurting" type="Node" parent="StateMachine" node_paths=PackedStringArray("_playerIdle", "_playerRunning", "_inputComponent", "_velocityComponent")]
+script = ExtResource("12_fddnq")
+_playerIdle = NodePath("../PlayerIdle")
+_playerRunning = NodePath("../PlayerRunning")
+_inputComponent = NodePath("../../InputComponent")
+_velocityComponent = NodePath("../../VelocityComponent")
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
-[node name="Pistol" parent="Pivot" instance=ExtResource("10_l1qqo")]
+[node name="Pistol" parent="Pivot" instance=ExtResource("18_56c35")]
 
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerIdle" method="OnDamageTaken"]
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerRunning" method="OnDamageTaken"]
 [connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]

@@ -1,27 +1,34 @@
-[gd_scene load_steps=21 format=3 uid="uid://blb8ir4affwuf"]
+[gd_scene load_steps=29 format=3 uid="uid://blb8ir4affwuf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_7ejue"]
 [ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="1_dpilp"]
+[ext_resource type="Resource" uid="uid://cwlwhyobbjvh4" path="res://Resources/Weapons/CreatedObjects/round_bullet.tres" id="2_an56o"]
 [ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="2_pe08a"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_6v1qg"]
 [ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="3_re2n2"]
+[ext_resource type="Texture2D" uid="uid://cm8eh1nl017cg" path="res://Graphics/Statuses/stunned_status_effect.tres" id="4_hop5r"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="4_yx3ol"]
 [ext_resource type="PackedScene" uid="uid://delpi1w48hmeo" path="res://Scenes/Components/detector_comonent.tscn" id="6_2nmy3"]
+[ext_resource type="Texture2D" uid="uid://csq6pl66on2r0" path="res://Graphics/Statuses/freezing_status_effect.tres" id="6_8420h"]
 [ext_resource type="PackedScene" uid="uid://d0foud0se2uis" path="res://Scenes/Components/navigation_component.tscn" id="6_pvd51"]
 [ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="7_7bstn"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerIdle.cs" id="7_bdqaj"]
+[ext_resource type="Texture2D" uid="uid://d1vak1yatwhx6" path="res://Graphics/Statuses/burning_status_effect.tres" id="7_prvc5"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerWander.cs" id="9_wsqky"]
+[ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="10_fbnxj"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerAlert.cs" id="10_ueuvy"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerDead.cs" id="12_flfg5"]
 [ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="12_k5yc8"]
 [ext_resource type="PackedScene" uid="uid://5oacsdw888e8" path="res://Scenes/Pickups/pickup.tscn" id="13_vpr0c"]
 [ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="13_wsgy1"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerStunned.cs" id="18_nkyr3"]
 
 [sub_resource type="Animation" id="Animation_efihd"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Outline:position")
+tracks/0/path = NodePath("SpritesComponent/Outline:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -33,7 +40,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprites/Outline:rotation")
+tracks/1/path = NodePath("SpritesComponent/Outline:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -45,7 +52,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprites/Color:position")
+tracks/2/path = NodePath("SpritesComponent/Color:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -57,7 +64,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprites/Color:rotation")
+tracks/3/path = NodePath("SpritesComponent/Color:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -102,6 +109,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SpritesComponent/Hurt:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_isp4a"]
 resource_name = "dying"
@@ -110,7 +129,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprites/Outline:position")
+tracks/0/path = NodePath("SpritesComponent/Outline:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -122,7 +141,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprites/Outline:rotation")
+tracks/1/path = NodePath("SpritesComponent/Outline:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -134,7 +153,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprites/Color:position")
+tracks/2/path = NodePath("SpritesComponent/Color:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -146,7 +165,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprites/Color:rotation")
+tracks/3/path = NodePath("SpritesComponent/Color:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -191,11 +210,41 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SpritesComponent/Hurt:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uy0te"]
+resource_name = "hurting"
+length = 0.15
+step = 0.075
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Hurt:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_el4o5"]
 _data = {
 "RESET": SubResource("Animation_efihd"),
-"dying": SubResource("Animation_isp4a")
+"dying": SubResource("Animation_isp4a"),
+"hurting": SubResource("Animation_uy0te")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x2b2m"]
@@ -211,20 +260,57 @@ collision_layer = 16
 collision_mask = 19
 motion_mode = 1
 script = ExtResource("1_7ejue")
+_bulletResource = ExtResource("2_an56o")
 _stateMachine = NodePath("StateMachine")
 _animationPlayer = NodePath("AnimationPlayer")
 
-[node name="AnimatedSprites" type="CanvasGroup" parent="."]
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("3_6v1qg")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
 
-[node name="Outline" type="Sprite2D" parent="AnimatedSprites"]
+[node name="Stunned" type="Sprite2D" parent="SpritesComponent"]
+visible = false
+z_index = 11
+position = Vector2(0, -8)
+texture = ExtResource("4_hop5r")
+
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
+clip_children = 2
 texture = ExtResource("1_dpilp")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
-[node name="Color" type="Sprite2D" parent="AnimatedSprites"]
+[node name="Freezing" type="Sprite2D" parent="SpritesComponent/Outline"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+texture = ExtResource("6_8420h")
+
+[node name="Burning" type="Sprite2D" parent="SpritesComponent/Outline"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+texture = ExtResource("7_prvc5")
+
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
+clip_children = 2
 texture = ExtResource("1_dpilp")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
+
+[node name="Freezing" type="Sprite2D" parent="SpritesComponent/Color"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+texture = ExtResource("6_8420h")
+
+[node name="Burning" type="Sprite2D" parent="SpritesComponent/Color"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+texture = ExtResource("7_prvc5")
+
+[node name="Hurt" type="Sprite2D" parent="SpritesComponent"]
+visible = false
+texture = ExtResource("1_dpilp")
+region_enabled = true
+region_rect = Rect2(0, 16, 16, 16)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -235,16 +321,18 @@ libraries = {
 position = Vector2(0, 5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x2b2m")
-debug_color = Color(0, 0.631373, 0.45098, 0.419608)
+debug_color = Color(0, 0.631373, 0.45098, 0)
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("2_pe08a")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent") instance=ExtResource("2_pe08a")]
 collision_layer = 64
 collision_mask = 4
 _healthComponent = NodePath("../HealthComponent")
+_statusComponent = NodePath("../StatusComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_ughsc")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_re2n2")]
 Max = 10.0
@@ -266,51 +354,74 @@ position = Vector2(0, -1)
 MaxSpeed = 65.0
 _body = NodePath("..")
 
+[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent", "_velocityComponent") instance=ExtResource("10_fbnxj")]
+_healthComponent = NodePath("../HealthComponent")
+_spritesComponent = NodePath("../SpritesComponent")
+_velocityComponent = NodePath("../VelocityComponent")
+
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("4_yx3ol")]
 _initialState = NodePath("GunnerIdle")
 
-[node name="GunnerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_gunnerWander", "_gunnerAlert", "_gunnerDead")]
+[node name="GunnerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_statusComponent", "_gunnerWander", "_gunnerAlert", "_gunnerDead", "_gunnerStunned")]
 script = ExtResource("7_bdqaj")
 _wanderChance = 0.5
 _detectorComponent = NodePath("../../DetectorComonent")
+_statusComponent = NodePath("../../StatusComponent")
 _gunnerWander = NodePath("../GunnerWander")
 _gunnerAlert = NodePath("../GunnerAlert")
 _gunnerDead = NodePath("../GunnerDead")
+_gunnerStunned = NodePath("../GunnerStunned")
 
 [node name="Timer" type="Timer" parent="StateMachine/GunnerIdle"]
 wait_time = 2.0
 
-[node name="GunnerWander" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_velocityComponent", "_navigationComponent", "_gunnerIdle", "_gunnerAlert", "_gunnerDead")]
+[node name="GunnerWander" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_velocityComponent", "_navigationComponent", "_statusComponent", "_gunnerIdle", "_gunnerAlert", "_gunnerDead", "_gunnerStunned")]
 script = ExtResource("9_wsqky")
 _wanderRadius = 50.0
 _detectorComponent = NodePath("../../DetectorComonent")
 _velocityComponent = NodePath("../../VelocityComponent")
 _navigationComponent = NodePath("../../NavigationComponent")
+_statusComponent = NodePath("../../StatusComponent")
 _gunnerIdle = NodePath("../GunnerIdle")
 _gunnerAlert = NodePath("../GunnerAlert")
 _gunnerDead = NodePath("../GunnerDead")
+_gunnerStunned = NodePath("../GunnerStunned")
 
-[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_navigationComponent", "_detectorComponent", "_velocityComponent", "_gunnerIdle", "_gunnerDead", "_weaponPivot", "_weapon")]
+[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_navigationComponent", "_detectorComponent", "_velocityComponent", "_statusComponent", "_gunnerIdle", "_gunnerDead", "_gunnerStunned", "_weaponPivot", "_weapon", "_timer")]
 script = ExtResource("10_ueuvy")
 _upperBoundary = 100.0
 _lowerBoundary = 60.0
 _navigationComponent = NodePath("../../NavigationComponent")
 _detectorComponent = NodePath("../../DetectorComonent")
 _velocityComponent = NodePath("../../VelocityComponent")
+_statusComponent = NodePath("../../StatusComponent")
 _gunnerIdle = NodePath("../GunnerIdle")
 _gunnerDead = NodePath("../GunnerDead")
+_gunnerStunned = NodePath("../GunnerStunned")
 _weaponPivot = NodePath("../../Pivot")
 _weapon = NodePath("../../Pivot/Rifle")
+_timer = NodePath("Timer")
+_baseTimePeriod = 0.5
 
 [node name="Timer" type="Timer" parent="StateMachine/GunnerAlert"]
+wait_time = 0.1
 
-[node name="GunnerDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("_feetCollider", "_hitboxComponent", "_navigationComponent", "_detectorComponent")]
+[node name="GunnerStunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("_gunnerAlert", "_gunnerDead")]
+script = ExtResource("18_nkyr3")
+_gunnerAlert = NodePath("../GunnerAlert")
+_gunnerDead = NodePath("../GunnerDead")
+
+[node name="Timer" type="Timer" parent="StateMachine/GunnerStunned"]
+one_shot = true
+
+[node name="GunnerDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("_feetCollider", "_hitboxComponent", "_navigationComponent", "_detectorComponent", "_statusComponent")]
 script = ExtResource("12_flfg5")
 _pickupScene = ExtResource("13_vpr0c")
 _feetCollider = NodePath("../../FeetCollider")
 _hitboxComponent = NodePath("../../HitboxComponent")
 _navigationComponent = NodePath("../../NavigationComponent")
 _detectorComponent = NodePath("../../DetectorComonent")
+_statusComponent = NodePath("../../StatusComponent")
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
@@ -321,11 +432,17 @@ rotation = -0.00292828
 [node name="MiniHealthBarComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("13_wsgy1")]
 tint_progress = Color(1, 0, 0, 1)
 _healthComponent = NodePath("../HealthComponent")
+metadata/_edit_use_anchors_ = true
 
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerIdle" method="OnDamageTaken"]
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerWander" method="OnDamageTaken"]
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerAlert" method="OnDamageTaken"]
 [connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]
 [connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerIdle" method="OnHealthDepleted"]
 [connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerWander" method="OnHealthDepleted"]
 [connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerAlert" method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerStunned" method="OnHealthDepleted"]
 [connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerIdle" method="OnPlayerDetected"]
 [connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerWander" method="OnPlayerDetected"]
+[connection signal="StatusChanged" from="StatusComponent" to="VelocityComponent" method="OnStatusChanged"]
 [connection signal="timeout" from="StateMachine/GunnerIdle/Timer" to="StateMachine/GunnerIdle" method="OnTimerTimeout"]

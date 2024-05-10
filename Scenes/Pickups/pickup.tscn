@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://5oacsdw888e8"]
 
 [ext_resource type="Script" path="res://Scenes/Pickups/Pickup.cs" id="1_w3yii"]
-[ext_resource type="Texture2D" uid="uid://c83k28xnyvi0c" path="res://Graphics/Sprites/health_pickup.tres" id="2_8xt46"]
-[ext_resource type="Texture2D" uid="uid://b5axgijpxwxqo" path="res://Graphics/Sprites/mana_pickup.tres" id="3_65lrd"]
-[ext_resource type="Texture2D" uid="uid://dbuuh6n13v8wp" path="res://Graphics/Sprites/currency_pickup.tres" id="4_hm6v2"]
+[ext_resource type="Texture2D" uid="uid://c83k28xnyvi0c" path="res://Graphics/Pickups/health_pickup.tres" id="2_8xt46"]
+[ext_resource type="Texture2D" uid="uid://b5axgijpxwxqo" path="res://Graphics/Pickups/mana_pickup.tres" id="3_65lrd"]
+[ext_resource type="Texture2D" uid="uid://dbuuh6n13v8wp" path="res://Graphics/Pickups/currency_pickup.tres" id="4_hm6v2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vdogw"]
 radius = 20.0

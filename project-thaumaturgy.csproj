@@ -12,4 +12,10 @@
   <ItemGroup>
     <Folder Include="Scenes\UI\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="script_templates\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="script_templates\**" />
+  </ItemGroup>
 </Project>

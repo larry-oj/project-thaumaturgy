@@ -14,12 +14,19 @@ public static class Options
 
     public static class Controls
     {
-        public static string PlayerUp => "player_up";
-        public static string PlayerDown => "player_down";
-        public static string PlayerLeft => "player_left";
-        public static string PlayerRight => "player_right";
-        public static string PlayerAttack => "player_attack";
-        public static string PlayerCraftWeapon => "player_craft_weapon";
+        public static class Player
+        {
+            public static string Up => "player_up";
+            public static string Down => "player_down";
+            public static string Left => "player_left";
+            public static string Right => "player_right";
+            public static string Attack => "player_attack";
+            public static string Interact => "player_interact";
+            public static string SwapActiveWeapon => "player_swap_weapon";
+            public static string CraftWeapon => "player_craft_weapon";
+            
+        }
+        
     }
 
     public static class Sizes
@@ -34,5 +41,29 @@ public static class Options
         public static int ManaPickupValueDefault => 6;
         public static int CurrencyPickupValueDefault => 1;
         public static int ElementUpgradeCost => 10;
+
+        public static class StatusTypes
+        {
+            public static float BurningTickPeriod => 1.0f;
+            public static int BurningTicksAmount => 4;
+            public static float BurningDamage => 1.0f;
+            public static float FreezingTickPeriod => 4.0f;
+            public static int FreezingTicksAmount => 1;
+            public static float FreezingDamage => 0f;
+            public static float FreezingMultiplier => 0.5f;
+            public static float StunnedTickPeriod => 1.0f;
+            public static int StunnedTicksAmount => 1;
+            public static float StunnedDamage => 0f;
+            public static float KnockedBackForce => 50f;
+        }
+    }
+
+    public static class AnimationNames
+    {
+        public static string Idle => "idle";
+        public static string Run => "running";
+        public static string Hurt => "hurting";
+        public static string Dead => "dying";
+        public static string Reset => "RESET";
     }
 }

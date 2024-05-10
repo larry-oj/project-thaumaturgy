@@ -63,17 +63,17 @@ public partial class WeaponContainer : MarginContainer
 		base.Name = _weapon.Name;
 
 		// set weapon sprite
-		var weaponOutline = _weapon.Sprites.GetNode<Sprite2D>("Outline");
-		var weaponColor = _weapon.Sprites.GetNode<Sprite2D>("Color");
+		var weaponOutline = _weapon.Sprites.Outline as Sprite2D;
+		var weaponColor = _weapon.Sprites.Color as Sprite2D;
 		
 		_outline.Texture = new AtlasTexture
 		{
-			Atlas = weaponOutline.Texture,
+			Atlas = weaponOutline!.Texture,
 			Region = weaponOutline.RegionRect,
 		};
 		_color.Texture = new AtlasTexture
 		{
-			Atlas = weaponColor.Texture,
+			Atlas = weaponColor!.Texture,
 			Region = weaponColor.RegionRect,
 		};
 		_color.SelfModulate = weaponColor.SelfModulate;
@@ -97,20 +97,16 @@ public partial class WeaponContainer : MarginContainer
 		}
 
 		// set weapon stats
-		_damageStatContainer.StatLabel.Text = _weapon.StatsComponent.Damage.ToString(CultureInfo.InvariantCulture);
+		_damageStatContainer.StatLabel.Text = _weapon.StatsComponent.Damage.ToString("0.00");
 		_damageStatContainer.CostLabel.Text = _weapon.StatsComponent.DamageUpgradeCost.ToString(CultureInfo.InvariantCulture);
-		_speedStatContainer.StatLabel.Text = _weapon.StatsComponent.FireRate.ToString(CultureInfo.InvariantCulture);
+		_speedStatContainer.StatLabel.Text = _weapon.StatsComponent.FireRate.ToString("0.00");
 		_speedStatContainer.CostLabel.Text = _weapon.StatsComponent.FireRateUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 
 	private void OnElementButtonPressed(Attack.AttackElement element)
 	{
 
-		if (_weaponStats.Element != Attack.AttackElement.None)
-		{
-			GD.Print("Failed to set element to a weapon: weapon already has an element.");
-			return;
-		}
+		if (_weaponStats.Element != Attack.AttackElement.None) return;
 
 		var success = CurrencyComponent.TryChangeCurrency(-Options.Balance.ElementUpgradeCost);
 		if (!success) return;
@@ -135,7 +131,7 @@ public partial class WeaponContainer : MarginContainer
 		if (!success) return;
 		
 		_weaponStats.IncrementDamage(_weaponStats.DamageStep);
-		_damageStatContainer.StatLabel.Text = _weaponStats.Damage.ToString(CultureInfo.InvariantCulture);
+		_damageStatContainer.StatLabel.Text = _weaponStats.Damage.ToString("0.00");
 		_damageStatContainer.CostLabel.Text = _weaponStats.DamageUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 
@@ -145,7 +141,7 @@ public partial class WeaponContainer : MarginContainer
 		if (!success) return;
 		
 		_weaponStats.IncrementFireRate(_weaponStats.FireRateStep);
-		_speedStatContainer.StatLabel.Text = _weaponStats.FireRate.ToString(CultureInfo.InvariantCulture);
+		_speedStatContainer.StatLabel.Text = _weaponStats.FireRate.ToString("0.00");
 		_speedStatContainer.CostLabel.Text = _weaponStats.FireRateUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 }

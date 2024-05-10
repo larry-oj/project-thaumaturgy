@@ -32,23 +32,31 @@ public partial class Attack : GodotObject
         Windy,
     }
 
-    public float Damage { get; private set; }
-    public AttackType Type { get; private set; }
-    public AttackElement Element { get; private set; }
-    public AttackInfusion Infusion { get; private set; }
+    public float Damage { get; set; }
+    public AttackType Type { get; set; }
+    public AttackElement Element { get; set; }
+    public AttackInfusion Infusion { get; set; }
+    public float StatusChance { get; set; } = 0f;
     
-    public Character Owner { get; private set; }
+#nullable enable
+    public Status? StatusEffect { get; private set; }
+#nullable disable
+    
+    public Character Owner { get; set; }
 
+    public Attack() {}
     public Attack(float damage, 
         AttackType type, AttackElement element, 
         AttackInfusion infusion = AttackInfusion.None,
-        Character owner = default)
+        Character owner = default,
+        Status statusEffect = null)
     {
         Damage = damage;
         Type = type;
         Element = element;
         Infusion = infusion;
         Owner = owner;
+        StatusEffect = statusEffect;
     }
     
     public static Color GetElementColor(AttackElement element)
@@ -59,7 +67,12 @@ public partial class Attack : GodotObject
             AttackElement.Water => Colors.Blue,
             AttackElement.Earth => Colors.ForestGreen,
             AttackElement.Air => Colors.LightBlue,
-            _ => Colors.White,
+            _ => Colors.DarkSlateGray,
         };
+    }
+    
+    public Attack Copy()
+    {
+        return new Attack(Damage, Type, Element, Infusion, Owner, StatusEffect);
     }
 }
