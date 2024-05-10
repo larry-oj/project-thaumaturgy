@@ -57,7 +57,7 @@ public partial class UI : CanvasLayer
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (@event.IsActionPressed(Options.Controls.PlayerCraftWeapon))
+		if (@event.IsActionPressed(Options.Controls.Player.CraftWeapon))
 		{
 			if (!_isWeaponTabsOpen)
 			{

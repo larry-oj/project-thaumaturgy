@@ -15,13 +15,13 @@ public partial class InputComponent : Node2D
 		get
 		{
 			var dir = Vector2.Zero;
-			dir.X = Input.GetAxis("player_left", "player_right");
-			dir.Y = Input.GetAxis("player_up", "player_down");
+			dir.X = Input.GetAxis(Options.Controls.Player.Left, Options.Controls.Player.Right);
+			dir.Y = Input.GetAxis(Options.Controls.Player.Up, Options.Controls.Player.Down);
 			return dir.Normalized();
 		}
 	}
 
-	public virtual bool IsAttacking => Input.IsActionPressed("player_attack");
+	public virtual bool IsAttacking => Input.IsActionPressed(Options.Controls.Player.Attack);
 
 	public override void _Ready()
 	{
