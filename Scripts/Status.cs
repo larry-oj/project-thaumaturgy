@@ -17,7 +17,7 @@ public partial class Status : GodotObject
     public float TickPeriod { get; set; } = 1f;
     public int TicksAmount { get; set; }
     public float Damage { get; set; }
-    public float Multiplier { get; set; }
+    public float Multiplier { get; set; } = 1.0f;
     public Vector2 Direction { get; set; }
     
     public Status() {}

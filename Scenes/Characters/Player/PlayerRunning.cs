@@ -14,12 +14,14 @@ public partial class PlayerRunning : State
     
     public override void Enter()
     {
-        _animationPlayer.Play("running");
+        _animationPlayer.Play(Options.AnimationNames.Run);
+        _animationPlayer.AnimationFinished += OnAnimationFinished;
     }
     
     public override void Exit()
     {
         _animationPlayer.Stop();
+        _animationPlayer.AnimationFinished -= OnAnimationFinished;
     }
 
     public override void Process(double delta)
@@ -39,6 +41,14 @@ public partial class PlayerRunning : State
     {
         if (change.IsHealing) return;
 
-        EmitSignal(nameof(Transitioned), this, _playerHurting);
+        _animationPlayer.Play(Options.AnimationNames.Hurt);
+    }
+    
+    private void OnAnimationFinished(StringName animationName)
+    {
+        if (animationName == Options.AnimationNames.Hurt)
+        {
+            _animationPlayer.Play(Options.AnimationNames.Run);
+        }
     }
 }

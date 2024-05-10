@@ -54,6 +54,7 @@ public partial class GunnerAlert : State
 	{
 		_navigationComponent.NavigationTimer.Timeout += OnNavigationTimerTimeout;
 		_statusComponent.StatusChanged += OnStatusChanged;
+		_animationPlayer.AnimationFinished += OnAnimationFinished;
 		_navigationComponent.NavigationTimer.Start();
 		_detectorComponent.detectionRange = -1f;	// disable range limitation
 		TimerPeriod = _baseTimePeriod;
@@ -64,6 +65,7 @@ public partial class GunnerAlert : State
 	{
 		_navigationComponent.NavigationTimer.Timeout -= OnNavigationTimerTimeout;
 		_statusComponent.StatusChanged -= OnStatusChanged;
+		_animationPlayer.AnimationFinished -= OnAnimationFinished;
 		_navigationComponent.NavigationTimer.Stop();
 		_weaponPivot.Rotation = 0;
 		_detectorComponent.detectionRange = _defaultDetectorRadius;
@@ -135,7 +137,7 @@ public partial class GunnerAlert : State
 			case Status.StatusType.Freezing:
 				if (Math.Abs(TimerPeriod - _baseTimePeriod) < 0.001)
 				{
-					TimerPeriod = TimerPeriod / change.Multiplier;
+					TimerPeriod /= change.Multiplier;
 				}
 				break;
 			
@@ -144,13 +146,9 @@ public partial class GunnerAlert : State
 				EmitSignal(nameof(Transitioned), this, _gunnerStunned);
 				break;
 			
-			case Status.StatusType.Burning:
-				break;
-			
-			case Status.StatusType.KnockedBack:
-				break;
-			
 			default:
+			case Status.StatusType.Burning:
+			case Status.StatusType.KnockedBack:
 			case Status.StatusType.None:
 				break;
 		}
@@ -158,7 +156,12 @@ public partial class GunnerAlert : State
 	
 	private void OnDamageTaken(GodotObject _)
 	{
-		// EmitSignal(nameof(Transitioned), this, _gunnerStunned);
+		_animationPlayer.Play(Options.AnimationNames.Hurt);
+	}
+	
+	private void OnAnimationFinished(StringName animationName)
+	{
+		// todo when needed
 	}
 
 	private void OnHealthDepleted()

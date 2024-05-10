@@ -28,6 +28,7 @@ public partial class GunnerWander : State
 	{
 		_detectorComponent.Detected += OnPlayerDetected;
 		_statusComponent.StatusChanged += OnStatusChanged;
+		_animationPlayer.AnimationFinished += OnAnimationFinished;
 		
 		do
 		{
@@ -42,6 +43,7 @@ public partial class GunnerWander : State
 	{
 		_detectorComponent.Detected -= OnPlayerDetected;
 		_statusComponent.StatusChanged -= OnStatusChanged;
+		_animationPlayer.AnimationFinished -= OnAnimationFinished;
 	}
 	
 	public override void Process(double delta)
@@ -65,7 +67,15 @@ public partial class GunnerWander : State
 	
 	private void OnDamageTaken(GodotObject _)
 	{
-		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
+		_animationPlayer.Play(Options.AnimationNames.Hurt);
+	}
+	
+	private void OnAnimationFinished(StringName animationName)
+	{
+		if (animationName == Options.AnimationNames.Hurt)
+		{
+			EmitSignal(State.SignalName.Transitioned, this, _gunnerAlert);
+		}
 	}
 
 	private void OnHealthDepleted()

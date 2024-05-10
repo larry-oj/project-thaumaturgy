@@ -50,4 +50,13 @@ public static class Options
             public static float KnockedBackForce => 50f;
         }
     }
+
+    public static class AnimationNames
+    {
+        public static string Idle => "idle";
+        public static string Run => "running";
+        public static string Hurt => "hurting";
+        public static string Dead => "dying";
+        public static string Reset => "RESET";
+    }
 }

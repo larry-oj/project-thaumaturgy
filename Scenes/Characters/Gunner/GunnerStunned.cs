@@ -1,5 +1,6 @@
 using Godot;
 using projectthaumaturgy.Scenes.Components.StateMachine;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
@@ -17,12 +18,18 @@ public partial class GunnerStunned : State
 	
 	public override void Enter()
 	{
+		_animationPlayer.Play(Options.AnimationNames.Reset);
 		Timer.Start();
 	}
 	
 	public override void Exit()
 	{
 		Timer.Stop();
+	}
+	
+	private void OnDamageReceived(GodotObject _)
+	{
+		_animationPlayer.Play(Options.AnimationNames.Hurt);
 	}
 	
 	private void OnTimerTimeout()
