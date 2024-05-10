@@ -11,6 +11,7 @@ public partial class Weapon : Node2D
     [Signal] public delegate void OnAttackEventHandler();
     public bool IsMelee => StatsComponent.Type == Scripts.Attack.AttackType.Melee;
     public bool IsInAttackAnimation { get; set; }
+    public bool IsActive { get; set; } = true;
 
     public SpritesComponent Sprites { get; private set; }
     internal SpritesComponent _characterSprites;
@@ -41,6 +42,11 @@ public partial class Weapon : Node2D
     {
         var color = Scripts.Attack.GetElementColor(StatsComponent.Element);
         Sprites.SetColor(color);
-        _characterSprites.SetColor(color);
+        
+        if (IsActive)
+            SetCharacterColor();
     }
+    
+    public void SetCharacterColor()
+        => _characterSprites.SetColor(Sprites.Color.SelfModulate);
 }

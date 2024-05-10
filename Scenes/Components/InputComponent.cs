@@ -1,4 +1,5 @@
 using Godot;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Weapons;
 using projectthaumaturgy.Scripts;
 
@@ -8,9 +9,9 @@ public partial class InputComponent : Node2D
 {
 	[Export] private Node2D _sprites;
 	[Export] private Node2D _weaponPivot;
-	private Weapon _weapon;
+	private Player _player;
 	
-	public virtual Vector2 MovementDirection
+	public Vector2 MovementDirection
 	{
 		get
 		{
@@ -21,22 +22,26 @@ public partial class InputComponent : Node2D
 		}
 	}
 
-	public virtual bool IsAttacking => Input.IsActionPressed(Options.Controls.Player.Attack);
-
+	public bool IsAttacking => Input.IsActionPressed(Options.Controls.Player.Attack);
+	public bool IsSwappingWeapons => Input.IsActionJustPressed(Options.Controls.Player.SwapActiveWeapon);
+	
 	public override void _Ready()
 	{
-		_weapon = GetNode<Node2D>(Options.PathOptions.CharacterComponentToPivot).GetChild<Weapon>(0);
+		_player = this.GetParent<Player>();
 	}
 	
 	public override void _Process(double delta)
 	{
-		if (_weapon.IsInAttackAnimation) return;
+		if (_player.CurrentWeapon.IsInAttackAnimation) return;
 		
 		RotateSpriteToMouse();
 		RotateWeaponToMouse();
 		
 		if (IsAttacking)
-			_weapon.Attack();
+			_player.CurrentWeapon.Attack();
+		
+		if (IsSwappingWeapons)
+			_player.SwapWeapons();
 	}
 
 	private void RotateSpriteToMouse()
@@ -57,7 +62,7 @@ public partial class InputComponent : Node2D
 		var angle = mousePos - selfPos;
 		_weaponPivot.Rotation = angle.Angle();
 
-		if (_weapon.IsMelee) return;
+		if (_player.CurrentWeapon.IsMelee) return;
 		
 		var scale = _weaponPivot.Scale;
 		scale.Y = angle.X < 0 ? -1 : 1;

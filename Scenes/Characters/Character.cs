@@ -11,7 +11,16 @@ public partial class Character : CharacterBody2D
     [Export] internal AnimationPlayer _animationPlayer;
     
     [Signal] public delegate void DiedEventHandler();
-    
-    public Weapon CurrentWeapon { get; internal set; }
-    public Array<Weapon> Weapons { get; internal set; } = new Array<Weapon>();
+
+    private Weapon _currentWeapon;
+    public Weapon CurrentWeapon
+    {
+        get => _currentWeapon;
+        internal set
+        {
+            _currentWeapon = value;
+            _currentWeapon.IsActive = true;
+        }
+    } // is Weapons[0] by default
+    public Array<Weapon> Weapons { get; internal set; } = new(); // for now max length is 2
 }
