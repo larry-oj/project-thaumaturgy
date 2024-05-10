@@ -1,15 +1,15 @@
 [gd_scene load_steps=26 format=3 uid="uid://cabn78p4558rd"]
 
-[ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/player_sprite_frames.tres" id="1_jxsqx"]
+[ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Animations/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
-[ext_resource type="Texture2D" uid="uid://cm8eh1nl017cg" path="res://Graphics/stunned_status_effect.tres" id="2_4gmdj"]
+[ext_resource type="Texture2D" uid="uid://cm8eh1nl017cg" path="res://Graphics/Statuses/stunned_status_effect.tres" id="2_4gmdj"]
 [ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="2_exbbw"]
-[ext_resource type="Texture2D" uid="uid://d1vak1yatwhx6" path="res://Graphics/burning_status_effect.tres" id="3_2gv28"]
+[ext_resource type="Texture2D" uid="uid://d1vak1yatwhx6" path="res://Graphics/Statuses/burning_status_effect.tres" id="3_2gv28"]
 [ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="3_2n4k3"]
 [ext_resource type="PackedScene" uid="uid://wln6mruo3b8p" path="res://Scenes/Components/input_component.tscn" id="3_6nmd5"]
 [ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="3_rav62"]
 [ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="4_crpsg"]
-[ext_resource type="Texture2D" uid="uid://csq6pl66on2r0" path="res://Graphics/freezing_status_effect.tres" id="4_ucj1g"]
+[ext_resource type="Texture2D" uid="uid://csq6pl66on2r0" path="res://Graphics/Statuses/freezing_status_effect.tres" id="4_ucj1g"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerHurting.cs" id="12_fddnq"]
 [ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_sr35u"]
-[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_nu457"]
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_56c35"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 3.5
@@ -375,10 +375,9 @@ _spritesComponent = NodePath("../SpritesComponent")
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
 _initialState = NodePath("PlayerIdle")
 
-[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_runningState", "_playerHurting", "_inputComponent")]
+[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_runningState", "_inputComponent")]
 script = ExtResource("4_x53oe")
 _runningState = NodePath("../PlayerRunning")
-_playerHurting = NodePath("../PlayerHurting")
 _inputComponent = NodePath("../../InputComponent")
 
 [node name="PlayerRunning" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idleState", "_playerHurting", "_velocityComponent", "_inputComponent")]
@@ -398,7 +397,7 @@ _velocityComponent = NodePath("../../VelocityComponent")
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
-[node name="Pistol" parent="Pivot" instance=ExtResource("18_nu457")]
+[node name="Pistol" parent="Pivot" instance=ExtResource("18_56c35")]
 
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerIdle" method="OnDamageTaken"]
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerRunning" method="OnDamageTaken"]
