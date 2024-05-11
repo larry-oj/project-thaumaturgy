@@ -11,7 +11,6 @@ public partial class Broadsword : Weapon
 	private StateMachine _stateMachine;
 	private AnimationPlayer _animationPlayer;
 	private HurtboxComponent _hurtboxComponent;
-	private Character _character;
 
 	public override void _Ready()
 	{
@@ -19,11 +18,7 @@ public partial class Broadsword : Weapon
         
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_stateMachine = GetNode<StateMachine>("StateMachine");
-		_stateMachine.Init(this, _animationPlayer);
 		_hurtboxComponent = GetNode<HurtboxComponent>("HurtboxComponent");
-		_character = GetNode<Character>(Options.PathOptions.WeaponToCharacter);
-		
-		_hurtboxComponent.attackOwner = _character;
 	}
 	
 	public override void _Process(double delta)
@@ -36,9 +31,22 @@ public partial class Broadsword : Weapon
 		_stateMachine.PhysicsProcess(delta);
 	}
 	
-
 	public override void Attack()
 	{
 		EmitSignal(nameof(OnAttack));
+	}
+	
+	internal override void OnCharacterSetup()
+	{
+		base.OnCharacterSetup();
+		_hurtboxComponent.attackOwner = Character;
+		_stateMachine.Init(this, _animationPlayer);
+	}
+    
+	internal override void OnCharacterClear()
+	{
+		base.OnCharacterClear();
+		_hurtboxComponent.attackOwner = null;
+		_stateMachine.Shutdown();
 	}
 }

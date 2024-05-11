@@ -1,9 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bi1s4rbbn1jje"]
+[gd_scene load_steps=5 format=3 uid="uid://bi1s4rbbn1jje"]
 
 [ext_resource type="Script" path="res://Scenes/Pickups/WeaponPickup.cs" id="1_oxwhj"]
-[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="1_u2v07"]
-[ext_resource type="Texture2D" uid="uid://v5ss4fnmrta2" path="res://Graphics/Weapons/rifle_outline.tres" id="2_x367m"]
-[ext_resource type="Texture2D" uid="uid://catbdx3yvpgdy" path="res://Graphics/Weapons/rifle_color.tres" id="3_rwh7d"]
 [ext_resource type="Texture2D" uid="uid://br4b1bclfwp6f" path="res://Graphics/UI/item_interact.tres" id="5_52v6w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_81ri2"]
@@ -12,19 +9,12 @@ radius = 13.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_72a5c"]
 radius = 4.12311
 
-[node name="WeaponPickup" type="CanvasGroup"]
+[node name="WeaponPickup" type="CanvasGroup" node_paths=PackedStringArray("_weaponHolder")]
 z_index = 5
 script = ExtResource("1_oxwhj")
+_weaponHolder = NodePath("WeaponHolder")
 
-[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("1_u2v07")]
-Outline = NodePath("Outline")
-Color = NodePath("Color")
-
-[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
-texture = ExtResource("2_x367m")
-
-[node name="Color" type="Sprite2D" parent="SpritesComponent"]
-texture = ExtResource("3_rwh7d")
+[node name="WeaponHolder" type="Node2D" parent="."]
 
 [node name="InteractArea" type="Area2D" parent="."]
 collision_layer = 256

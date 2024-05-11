@@ -16,7 +16,6 @@ public partial class Rifle : Weapon
 		
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_stateMachine = GetNode<StateMachine>("StateMachine");
-		_stateMachine.Init(this, _animationPlayer);
 	}
 	
 	public override void _Process(double delta)
@@ -32,5 +31,17 @@ public partial class Rifle : Weapon
 	public override void Attack()
 	{
 		EmitSignal(nameof(OnAttack));
+	}
+	
+	internal override void OnCharacterSetup()
+	{
+		base.OnCharacterSetup();
+		_stateMachine.Init(this, _animationPlayer);
+	}
+    
+	internal override void OnCharacterClear()
+	{
+		base.OnCharacterClear();
+		_stateMachine.Shutdown();
 	}
 }

@@ -4,6 +4,7 @@ using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Levels;
 using projectthaumaturgy.Scenes.Pickups;
+using projectthaumaturgy.Scenes.Weapons;
 using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Interactables;
@@ -34,10 +35,10 @@ public partial class Chest : Area2D
         _closedSprite.Visible = false;
         _openSprite.Visible = true;
 
-        var weapon = WeaponPickupScene.Instantiate<WeaponPickup>();
-        weapon.Position = this.Position.Copy();
-        weapon.Weapon = WeaponResource;
-        _level.CallDeferred(Node.MethodName.AddChild, weapon);
+        var weaponPickup = WeaponPickupScene.Instantiate<WeaponPickup>();
+        weaponPickup.Position = this.Position.Copy();
+        weaponPickup.Weapon = WeaponResource.Scene.Instantiate<Weapon>();
+        _level.CallDeferred(Node.MethodName.AddChild, weaponPickup);
         
         _isUsed = true;
     }

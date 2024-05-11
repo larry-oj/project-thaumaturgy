@@ -11,14 +11,10 @@ public partial class RifleIdle : State
 {
     [Export] private RifleShoot _rifleShoot;
     private Rifle _rifle;
-    private ManaComponent _manaComponent;
     
     public override void _Ready()
     {
         _rifle = GetNode<Rifle>(Options.PathOptions.WeaponStateToWeapon);
-        var character = GetNode<Character>(Options.PathOptions.WeaponStateToCharacter);
-        if (character is not Player player) return;
-        _manaComponent = player.GetNode<ManaComponent>("ManaComponent");
     }
 
     public override void Enter()
@@ -33,9 +29,12 @@ public partial class RifleIdle : State
 
     private void OnAttacked()
     {
-        if (_manaComponent != null)
+        if (_rifle.Character is not Player player) return;
+        var manaComponent = player.GetNode<ManaComponent>("ManaComponent");
+        
+        if (manaComponent != null)
         {
-            var success = _manaComponent.TryChangeMana(-_rifle.StatsComponent.ManaCost);
+            var success = manaComponent.TryChangeMana(-_rifle.StatsComponent.ManaCost);
             if (!success) return;
         }
 
