@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bilnmox6l80r8"]
+
+[ext_resource type="Script" path="res://Scenes/Interactables/Chest.cs" id="1_1n4b2"]
+[ext_resource type="Texture2D" uid="uid://bm67estm52f5n" path="res://Graphics/Interactables/chest_closed.tres" id="2_btsbr"]
+[ext_resource type="PackedScene" uid="uid://bi1s4rbbn1jje" path="res://Scenes/Pickups/weapon_pickup.tscn" id="2_ty211"]
+[ext_resource type="Texture2D" uid="uid://cl33rrm6axi7v" path="res://Graphics/Interactables/chest_open.tres" id="3_578qh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfhfu"]
+size = Vector2(16, 16)
+
+[node name="Chest" type="Area2D"]
+collision_layer = 256
+collision_mask = 8
+script = ExtResource("1_1n4b2")
+WeaponPickupScene = ExtResource("2_ty211")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cfhfu")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="Closed" type="Sprite2D" parent="."]
+texture = ExtResource("2_btsbr")
+
+[node name="Open" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0.513726, 0.513726, 0.513726, 1)
+texture = ExtResource("3_578qh")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]

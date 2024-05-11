@@ -7,6 +7,7 @@ using projectthaumaturgy.Extensions;
 using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
+using projectthaumaturgy.Scenes.Interactables;
 using projectthaumaturgy.Scenes.Levels;
 using projectthaumaturgy.Scenes.Pickups;
 using projectthaumaturgy.Scenes.Weapons.CreatedObjects;
@@ -37,12 +38,14 @@ public partial class Level : Node
     
     [Export] public PackedScene WorldScene { get; private set; }
     [Export] public Camera2D PlayerCamera { get; private set; }
+    [Export] public PackedScene WeaponPickupScene { get; private set; }
 
     private World _world;
     private World _loadingWorld;
 
     private WalkerProperties _walkerProperties;
     private EnemyProperties _enemyProperties;
+    private InteractableProperties _interactableProperties;
 
     public int EnemiesLeft { get; private set; }
     [Signal] public delegate void LevelCompletedEventHandler();
@@ -93,6 +96,13 @@ public partial class Level : Node
             _enemyProperties.Enemies[key] = tmp;
         }
 
+        return this;
+    }
+    
+    public Level SetInteractableProperties(InteractableProperties props)
+    {
+        _interactableProperties?.Free(); // !!!
+        _interactableProperties = props;
         return this;
     }
 
@@ -172,6 +182,34 @@ public partial class Level : Node
         }
 
         EnemiesLeft = _enemyProperties.MaxEnemies;
+
+        return this;
+    }
+
+    public Level PlaceInteractables()
+    {
+        var eligibleTiles = _world.WalkableTiles
+            .OrderByDescending(x => x.DijkstraValue)
+            .Take(_interactableProperties.MaxInteractables);
+
+        foreach (var tile in eligibleTiles)
+        {
+            var r = GD.Randf();
+            var winner = _interactableProperties.Interactables.Keys
+                .First(x => r < _interactableProperties.Interactables[x]);
+
+            var @int = winner.Instantiate();
+            if (@int is Chest chest)
+            {
+                r = GD.Randf();
+                chest.WeaponResource = _interactableProperties.Weapons.Keys
+                    .First(x => r < _interactableProperties.Weapons[x]);
+            }
+            this.CallDeferred(Node.MethodName.AddChild, @int);
+            @int.SetDeferred(Node2D.PropertyName.Position,
+                (tile.Position * Options.Sizes.TilesetSize) +
+                new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize));
+        }
 
         return this;
     }

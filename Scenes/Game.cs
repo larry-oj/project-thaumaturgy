@@ -58,23 +58,22 @@ public partial class Game : Node2D
 			{
 				MaxEnemies = levelResource.MaxEnemies,
 				Enemies = levelResource.Enemies
+			})
+			.SetInteractableProperties(new InteractableProperties
+			{
+				MaxInteractables = levelResource.MaxInteractables,
+				Interactables = levelResource.Interactables,
+				Weapons = levelResource.Weapons
 			});
 		
 		if (!isSync)
 		{
-			Level.StartWorldGen(() =>
-            {
-            	Level.PlacePlayer()
-            		.PlaceEnemies();
-            	UI.SetLoadingScreen(false);
-            });
+			Level.StartWorldGen(AfterWorldGen);
 		}
 		else
 		{
-			Level.StartWorldGenSync()
-				.PlacePlayer()
-				.PlaceEnemies();
-			UI.SetLoadingScreen(false);
+			Level.StartWorldGenSync();
+			AfterWorldGen();
 		}
 
 		EnemiesLeft = levelResource.MaxEnemies;
@@ -86,12 +85,7 @@ public partial class Game : Node2D
 		if (Level.Substage < Level.MaxSubstage)
 		{
 			Level.Substage++;
-			Level.StartWorldGen(() =>
-			{
-				Level.PlacePlayer()
-					.PlaceEnemies();
-				UI.SetLoadingScreen(false);
-			});
+			Level.StartWorldGen(AfterWorldGen);
 		}
 		else if (Level.Stage < _levelResources.Count)
 		{
@@ -103,15 +97,20 @@ public partial class Game : Node2D
 			UI.GameOver(true);
 		}
 	}
+	
+	private void AfterWorldGen()
+	{
+		Level.PlacePlayer()
+			.PlaceEnemies()
+			.PlaceInteractables();
+		UI.SetLoadingScreen(false);
+	}
 
 	// public override void _UnhandledInput(InputEvent @event)
 	// {
-	// 	if (@event.IsActionPressed("ui_accept"))
-	// 	{
-	// 		Level.Clear()
-	// 			.GenerateBase()
-	// 			.PlacePlayer()
-	// 			.PlaceEnemies();
-	// 	}
+	// 	if (!@event.IsActionPressed("ui_accept")) return;
+	// 	
+	// 	UI.SetLoadingScreen(true);
+	// 	LoadLevel(_initialLevelResource);
 	// }
 }

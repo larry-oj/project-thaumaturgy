@@ -21,4 +21,9 @@ public partial class LevelResource : Resource
 	[ExportGroup("Enemies")]
 	[Export] public int MaxEnemies { get; private set; }
 	[Export] public Dictionary<PackedScene, float> Enemies { get; private set; } = new();
+	
+	[ExportGroup("Interactables")]
+	[Export] public Dictionary<PackedScene, float> Interactables { get; set; }
+	[Export] public int MaxInteractables { get; set; }
+	[Export] public Dictionary<WeaponResource, float> Weapons { get; set; }
 }

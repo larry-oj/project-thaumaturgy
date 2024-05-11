@@ -1,7 +1,11 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c4py6vspma1f8"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://c4py6vspma1f8"]
 
 [ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_35ky2"]
 [ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="2_r4dia"]
+[ext_resource type="PackedScene" uid="uid://bilnmox6l80r8" path="res://Scenes/Interactables/chest.tscn" id="2_y766p"]
+[ext_resource type="Resource" uid="uid://sjd1omesmajj" path="res://Resources/Weapons/pistol_resource.tres" id="3_pn2kq"]
+[ext_resource type="Resource" uid="uid://u1ij2gjgmbdo" path="res://Resources/Weapons/rifle_resource.tres" id="4_e2jnj"]
+[ext_resource type="Resource" uid="uid://c4o31nnii8pa1" path="res://Resources/Weapons/broadsword_resource.tres" id="5_e1iyh"]
 
 [resource]
 script = ExtResource("2_r4dia")
@@ -17,4 +21,13 @@ WalkerChance = 0.12
 MaxEnemies = 10
 Enemies = {
 ExtResource("1_35ky2"): 1.0
+}
+Interactables = {
+ExtResource("2_y766p"): 1.0
+}
+MaxInteractables = 1
+Weapons = {
+ExtResource("3_pn2kq"): 0.33,
+ExtResource("4_e2jnj"): 0.66,
+ExtResource("5_e1iyh"): 1.0
 }

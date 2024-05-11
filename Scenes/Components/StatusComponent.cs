@@ -14,6 +14,8 @@ public partial class StatusComponent : Node2D
 	[Export] private SpritesComponent _spritesComponent;
 	[Export] private VelocityComponent _velocityComponent;
 	
+	[Export] public bool IsImmune { get; private set; }
+	
 	public bool IsUnderStatus { get; private set; }
 	public float Multiplier { get; private set; }
 	
@@ -26,6 +28,7 @@ public partial class StatusComponent : Node2D
 	
 	public void TakeStatus(Status status)
 	{
+		if (IsImmune) return;
 		if (IsUnderStatus && _currentStatus.Type != status.Type) return;
 		
 		IsUnderStatus = true;
