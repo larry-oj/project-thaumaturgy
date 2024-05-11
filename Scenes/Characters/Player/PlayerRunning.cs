@@ -8,7 +8,6 @@ namespace projectthaumaturgy.Scenes.Characters.Player;
 public partial class PlayerRunning : State
 {
     [Export] private State _idleState;
-    [Export] private State _playerHurting;
     [Export] private VelocityComponent _velocityComponent;
     [Export] private InputComponent _inputComponent;
     
