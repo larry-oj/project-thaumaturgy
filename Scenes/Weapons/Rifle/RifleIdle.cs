@@ -16,7 +16,6 @@ public partial class RifleIdle : State
     public override void _Ready()
     {
         _rifle = GetNode<Rifle>(Options.PathOptions.WeaponStateToWeapon);
-        _rifle.OnAttack += OnAttacked;
         var character = GetNode<Character>(Options.PathOptions.WeaponStateToCharacter);
         if (character is not Player player) return;
         _manaComponent = player.GetNode<ManaComponent>("ManaComponent");
@@ -24,10 +23,12 @@ public partial class RifleIdle : State
 
     public override void Enter()
     {
+        _rifle.OnAttack += OnAttacked;
     }
 
     public override void Exit()
     {
+        _rifle.OnAttack -= OnAttacked;
     }
 
     private void OnAttacked()
