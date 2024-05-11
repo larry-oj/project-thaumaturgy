@@ -11,7 +11,7 @@ public partial class Weapon : Node2D
     [Signal] public delegate void OnAttackEventHandler();
     public bool IsMelee => StatsComponent.Type == Scripts.Attack.AttackType.Melee;
     public bool IsInAttackAnimation { get; set; }
-    public bool IsActive { get; set; } = true;
+    public bool IsActive { get; set; } = false;
 
     public SpritesComponent Sprites { get; private set; }
     internal SpritesComponent _characterSprites;

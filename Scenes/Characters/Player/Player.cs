@@ -8,6 +8,8 @@ namespace projectthaumaturgy.Scenes.Characters.Player;
 
 public partial class Player : Character
 {
+	[Signal] public delegate void WeaponsSwappedEventHandler();
+	
 	public override void _Ready()
 	{
 		_stateMachine.Init(this, _animationPlayer);
@@ -17,7 +19,6 @@ public partial class Player : Character
 			if (child is not Weapon weapon) continue;
 			Weapons.Add(weapon);
 			weapon.Visible = false;
-			weapon.IsActive = false;
 		}
 		CurrentWeapon = Weapons[0];
 		CurrentWeapon.Visible = true;
@@ -40,6 +41,7 @@ public partial class Player : Character
 		CurrentWeapon = CurrentWeapon == Weapons[0] ? Weapons[1] : Weapons[0]; // bruh
 		CurrentWeapon.Visible = true;
 		CurrentWeapon.SetCharacterColor();
+		EmitSignal(SignalName.WeaponsSwapped);
 	}
 	
 	private void OnHealthDepleted()

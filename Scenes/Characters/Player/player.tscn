@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=27 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Animations/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -17,7 +17,8 @@
 [ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerHurting.cs" id="12_fddnq"]
 [ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_sr35u"]
-[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_56c35"]
+[ext_resource type="PackedScene" uid="uid://di0576ye1qco8" path="res://Scenes/Weapons/Broadsword/broadsword.tscn" id="18_mw5tn"]
+[ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="19_mwdve"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 3.5
@@ -371,6 +372,7 @@ IsInfinite = true
 [node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent") instance=ExtResource("13_sr35u")]
 _healthComponent = NodePath("../HealthComponent")
 _spritesComponent = NodePath("../SpritesComponent")
+IsImmune = true
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
 _initialState = NodePath("PlayerIdle")
@@ -397,7 +399,9 @@ _velocityComponent = NodePath("../../VelocityComponent")
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
-[node name="Pistol" parent="Pivot" instance=ExtResource("18_56c35")]
+[node name="Broadsword" parent="Pivot" instance=ExtResource("18_mw5tn")]
+
+[node name="Rifle" parent="Pivot" instance=ExtResource("19_mwdve")]
 
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerIdle" method="OnDamageTaken"]
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerRunning" method="OnDamageTaken"]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://n8pp2ogmrhfw"]
+
+[ext_resource type="Script" path="res://Scenes/UI/WeaponIconContainer.cs" id="1_2jwcs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vubtb"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="WeaponIconContainer" type="PanelContainer" node_paths=PackedStringArray("Outline", "Color")]
+self_modulate = Color(0.25, 0.25, 0.25, 1)
+custom_minimum_size = Vector2(120, 0)
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_vubtb")
+script = ExtResource("1_2jwcs")
+Outline = NodePath("Margin/Outline")
+Color = NodePath("Margin/Color")
+
+[node name="Margin" type="MarginContainer" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Outline" type="TextureRect" parent="Margin"]
+layout_mode = 2
+expand_mode = 3
+
+[node name="Color" type="TextureRect" parent="Margin"]
+layout_mode = 2
+expand_mode = 3
