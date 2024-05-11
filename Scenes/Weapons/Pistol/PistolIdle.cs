@@ -29,8 +29,8 @@ public partial class PistolIdle : State
 
     private void OnAttacked()
     {
-        if (_pistol.Character is not Player player) return;
-        var manaComponent = player.GetNode<ManaComponent>("ManaComponent");
+        if (_pistol.Character == null) return;
+        var manaComponent = _pistol.Character.GetNode<ManaComponent>("ManaComponent");
         if (manaComponent != null)
         {
             var success = manaComponent.TryChangeMana(-_pistol.StatsComponent.ManaCost);

@@ -29,8 +29,8 @@ public partial class RifleIdle : State
 
     private void OnAttacked()
     {
-        if (_rifle.Character is not Player player) return;
-        var manaComponent = player.GetNode<ManaComponent>("ManaComponent");
+        if (_rifle.Character == null) return;
+        var manaComponent = _rifle.Character.GetNode<ManaComponent>("ManaComponent");
         
         if (manaComponent != null)
         {
