@@ -1,4 +1,6 @@
 using Godot;
+using Godot.Collections;
+using projectthaumaturgy.Extensions;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Levels;
@@ -24,13 +26,24 @@ public partial class UI : CanvasLayer
 			var currencyComponent = _player.GetNode<CurrencyComponent>("CurrencyComponent");
 			_playerCurrencyCounter.CurrencyComponent = currencyComponent;
 			_player.Died += OnPlayerDied;
+			_player.WeaponsSwapped += OnWeaponSwapped;
 
+			var isFirst = true;
 			foreach (var weapon in _player.Weapons)
 			{
 				var weaponContainer = _weaponContainerScene.Instantiate() as WeaponContainer;
 				_weaponTabsContainer.AddChild(weaponContainer);
 				weaponContainer!.Weapon = weapon;
 				weaponContainer.CurrencyComponent = currencyComponent;
+				
+				var icon = _weaponIconScene.Instantiate<WeaponIconContainer>();
+				_weaponIconsContainer.AddChild(icon);
+				icon.Outline.Texture = weapon.Sprites.Outline.As<Sprite2D>().Texture;	// ugly ass downcast
+				icon.Color.Texture = weapon.Sprites.Color.As<Sprite2D>().Texture;		// i sure do love inheritance
+				
+				if (!isFirst) continue;
+				icon.IsActive = true;
+				isFirst = false;
 			}
 		}
 	}
@@ -39,7 +52,9 @@ public partial class UI : CanvasLayer
 	private Control _gameOverScreen;
 	private Control _weaponTabsContainer;
 	[Export] private PackedScene _weaponContainerScene;
+	[Export] private PackedScene _weaponIconScene;
 	private Control _loadingScreen;
+	private HBoxContainer _weaponIconsContainer;
 	
 	private bool _isGameOver;
 	private bool _isWeaponTabsOpen;
@@ -53,6 +68,7 @@ public partial class UI : CanvasLayer
 		_gameOverScreen = GetNode<VBoxContainer>("%GameOverScreen");
 		_weaponTabsContainer = GetNode<Control>("%WeaponTabsContainer");
 		_loadingScreen = GetNode<Control>("%LoadingScreen");
+		_weaponIconsContainer = GetNode<HBoxContainer>("%WeaponIcons");
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -111,5 +127,16 @@ public partial class UI : CanvasLayer
 	public void SetLoadingScreen(bool @bool)
 	{
 		_loadingScreen.Visible = @bool;
+	}
+	
+	private void OnWeaponSwapped()
+	{
+		foreach (var icon in _weaponIconsContainer.GetChildren())
+		{
+			if (icon is WeaponIconContainer weaponIcon)
+			{
+				weaponIcon.IsActive = !weaponIcon.IsActive;
+			}
+		}
 	}
 }

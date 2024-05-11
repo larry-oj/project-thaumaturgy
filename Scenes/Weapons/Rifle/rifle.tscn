@@ -1,21 +1,46 @@
-[gd_scene load_steps=12 format=3 uid="uid://dkahg3wfy0dh4"]
+[gd_scene load_steps=13 format=3 uid="uid://dkahg3wfy0dh4"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Rifle/Rifle.cs" id="1_080it"]
-[ext_resource type="Texture2D" uid="uid://voxrdwof5j64" path="res://Graphics/Sprites/ph_guns.png" id="1_dk5ww"]
 [ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_kmtdr"]
 [ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="3_75pll"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="4_4khtw"]
 [ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="4_wh2r4"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Rifle/RifleIdle.cs" id="5_i0qy7"]
+[ext_resource type="Texture2D" uid="uid://v5ss4fnmrta2" path="res://Graphics/Weapons/rifle_outline.tres" id="5_x0shq"]
+[ext_resource type="Texture2D" uid="uid://catbdx3yvpgdy" path="res://Graphics/Weapons/rifle_color.tres" id="6_0bo02"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Rifle/RifleShoot.cs" id="6_iujdr"]
 
 [sub_resource type="Animation" id="Animation_kgb10"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_nl3uy"]
 resource_name = "shooting"
 length = 0.7
 step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.240855, 0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b1xap"]
 _data = {
@@ -31,6 +56,7 @@ BulletResource = ExtResource("2_kmtdr")
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_75pll")]
 Damage = 5.0
 ManaCost = 5.0
+StatusChance = 1.0
 Type = 1
 
 [node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_wh2r4")]
@@ -38,14 +64,14 @@ Outline = NodePath("Outline")
 Color = NodePath("Color")
 
 [node name="Outline" type="Sprite2D" parent="SpritesComponent"]
-texture = ExtResource("1_dk5ww")
+texture = ExtResource("5_x0shq")
 region_enabled = true
 region_rect = Rect2(0, 0, 13, 4)
 
 [node name="Color" type="Sprite2D" parent="SpritesComponent"]
-texture = ExtResource("1_dk5ww")
+texture = ExtResource("6_0bo02")
 region_enabled = true
-region_rect = Rect2(13, 0, 13, 4)
+region_rect = Rect2(0, 0, 13, 4)
 
 [node name="ProjectileSpawner" type="Marker2D" parent="."]
 position = Vector2(6.5, 0)

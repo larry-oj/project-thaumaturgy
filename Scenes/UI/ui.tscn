@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dk2rsb8np72r6"]
+[gd_scene load_steps=9 format=3 uid="uid://dk2rsb8np72r6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
 [ext_resource type="PackedScene" uid="uid://b48byjhqn7tcm" path="res://Scenes/UI/WeaponContainer/weapon_container.tscn" id="2_iq6jy"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerManabar.cs" id="4_vicfp"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerCurrencyCounter.cs" id="5_urvci"]
+[ext_resource type="PackedScene" uid="uid://n8pp2ogmrhfw" path="res://Scenes/UI/weapon_icon_container.tscn" id="6_fk18c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb13u"]
 bg_color = Color(1, 0, 0, 1)
@@ -16,6 +17,7 @@ bg_color = Color(0, 0, 1, 1)
 process_mode = 3
 script = ExtResource("1_ttyjk")
 _weaponContainerScene = ExtResource("2_iq6jy")
+_weaponIconScene = ExtResource("6_fk18c")
 
 [node name="Interface" type="Control" parent="."]
 unique_name_in_owner = true
@@ -40,10 +42,10 @@ theme_override_constants/margin_bottom = 20
 
 [node name="Sections" type="VBoxContainer" parent="Interface/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 0
 
 [node name="TopSection" type="HBoxContainer" parent="Interface/MarginContainer/Sections"]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/MarginContainer/Sections/TopSection"]
 layout_mode = 2
@@ -134,6 +136,29 @@ text = "000"
 horizontal_alignment = 1
 script = ExtResource("5_urvci")
 
+[node name="spacer2" type="Control" parent="Interface/MarginContainer/Sections"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BottomSection" type="HBoxContainer" parent="Interface/MarginContainer/Sections"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/BottomSection"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="WeaponIcons" type="HBoxContainer" parent="Interface/MarginContainer/Sections/BottomSection/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
 [node name="Menus" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -144,6 +169,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Menus"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

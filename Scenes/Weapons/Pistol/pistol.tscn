@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://057rmsbyqtqh"]
+[gd_scene load_steps=13 format=3 uid="uid://057rmsbyqtqh"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/Pistol.cs" id="1_jerm7"]
-[ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_l7ssc"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="2_ecuxd"]
 [ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_fc2c6"]
 [ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="3_dlku4"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolIdle.cs" id="3_mj6hb"]
 [ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="4_5f005"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolShoot.cs" id="4_b6krq"]
+[ext_resource type="Texture2D" uid="uid://by8uafner8xt5" path="res://Graphics/Weapons/pistol_outline.tres" id="5_yqkmu"]
+[ext_resource type="Texture2D" uid="uid://bewxogmug7m48" path="res://Graphics/Weapons/pistol_color.tres" id="6_nphre"]
 
 [sub_resource type="Animation" id="Animation_joev8"]
 length = 0.001
@@ -52,7 +53,7 @@ script = ExtResource("1_jerm7")
 BulletResource = ExtResource("2_fc2c6")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dlku4")]
-Damage = 1.0
+Damage = 3.0
 StatusChance = 1.0
 Type = 1
 FireRateStep = 0.1
@@ -65,15 +66,11 @@ Color = NodePath("Color")
 
 [node name="Outline" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(2, 0)
-texture = ExtResource("1_l7ssc")
-region_enabled = true
-region_rect = Rect2(20, 0, 10, 5)
+texture = ExtResource("5_yqkmu")
 
 [node name="Color" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(2, 0)
-texture = ExtResource("1_l7ssc")
-region_enabled = true
-region_rect = Rect2(30, 0, 10, 5)
+texture = ExtResource("6_nphre")
 
 [node name="ProjectileSpawner" type="Marker2D" parent="."]
 position = Vector2(5, -0.5)

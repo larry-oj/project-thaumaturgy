@@ -1,4 +1,6 @@
-﻿namespace projectthaumaturgy.Scripts;
+﻿using Godot;
+ 
+namespace projectthaumaturgy.Scripts;
 
 public static class Options
 {
@@ -24,9 +26,7 @@ public static class Options
             public static string Interact => "player_interact";
             public static string SwapActiveWeapon => "player_swap_weapon";
             public static string CraftWeapon => "player_craft_weapon";
-            
         }
-        
     }
 
     public static class Sizes
@@ -65,5 +65,11 @@ public static class Options
         public static string Hurt => "hurting";
         public static string Dead => "dying";
         public static string Reset => "RESET";
+    }
+
+    public static class Colors
+    {
+        public static Color UiActivePanel => new Color(0.5f, 0.5f, 0.5f, 1);
+        public static Color UiInactivePanel => new Color(0.25f, 0.25f, 0.25f, 1);
     }
 }

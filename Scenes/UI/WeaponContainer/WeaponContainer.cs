@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using projectthaumaturgy.Extensions;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Weapons;
@@ -63,19 +64,11 @@ public partial class WeaponContainer : MarginContainer
 		base.Name = _weapon.Name;
 
 		// set weapon sprite
-		var weaponOutline = _weapon.Sprites.Outline as Sprite2D;
-		var weaponColor = _weapon.Sprites.Color as Sprite2D;
-		
-		_outline.Texture = new AtlasTexture
-		{
-			Atlas = weaponOutline!.Texture,
-			Region = weaponOutline.RegionRect,
-		};
-		_color.Texture = new AtlasTexture
-		{
-			Atlas = weaponColor!.Texture,
-			Region = weaponColor.RegionRect,
-		};
+		var weaponOutline = _weapon.Sprites.Outline.As<Sprite2D>();
+		var weaponColor = _weapon.Sprites.Color.As<Sprite2D>();
+
+		_outline.Texture = weaponOutline.Texture;
+		_color.Texture = weaponColor.Texture;
 		_color.SelfModulate = weaponColor.SelfModulate;
 
 		// set element picker

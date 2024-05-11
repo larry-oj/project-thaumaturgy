@@ -9,4 +9,7 @@ public static class Extentions
     
     public static Vector2I Copy(this Vector2I vector)
         => new Vector2I(vector.X, vector.Y);
+
+    public static T As<T>(this CanvasItem obj) where T : CanvasItem
+        => obj as T;
 }
