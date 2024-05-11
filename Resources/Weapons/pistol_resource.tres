@@ -1,19 +1,14 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://sjd1omesmajj"]
 
-[ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_2aqto"]
+[ext_resource type="Texture2D" uid="uid://bewxogmug7m48" path="res://Graphics/Weapons/pistol_color.tres" id="1_oqhe5"]
 [ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="2_4sf51"]
+[ext_resource type="Texture2D" uid="uid://by8uafner8xt5" path="res://Graphics/Weapons/pistol_outline.tres" id="2_tajk3"]
+[ext_resource type="Texture2D" uid="uid://3qiuii4k0o02" path="res://Graphics/Weapons/pistol_select.tres" id="3_rfdu0"]
 [ext_resource type="Script" path="res://Resources/Weapons/WeaponResource.cs" id="3_x7dsp"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rt1qw"]
-atlas = ExtResource("1_2aqto")
-region = Rect2(30, 0, 10, 5)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d8snp"]
-atlas = ExtResource("1_2aqto")
-region = Rect2(20, 0, 10, 5)
 
 [resource]
 script = ExtResource("3_x7dsp")
 Scene = ExtResource("2_4sf51")
-IconOutline = SubResource("AtlasTexture_d8snp")
-IconColor = SubResource("AtlasTexture_rt1qw")
+IconOutline = ExtResource("2_tajk3")
+IconColor = ExtResource("1_oqhe5")
+IconSelect = ExtResource("3_rfdu0")

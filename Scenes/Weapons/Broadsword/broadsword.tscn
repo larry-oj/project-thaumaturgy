@@ -1,13 +1,14 @@
-[gd_scene load_steps=21 format=3 uid="uid://di0576ye1qco8"]
+[gd_scene load_steps=22 format=3 uid="uid://di0576ye1qco8"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/Broadsword.cs" id="1_8ojm5"]
-[ext_resource type="Texture2D" uid="uid://5r5040006j7b" path="res://Graphics/Sprites/ph_weapons.png" id="1_hfd2y"]
 [ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="2_3reb6"]
 [ext_resource type="Texture2D" uid="uid://8lsuv4hsjqta" path="res://Graphics/Sprites/ph_sword_slash.png" id="3_65wcw"]
 [ext_resource type="PackedScene" uid="uid://bxh8qmhaixvwr" path="res://Scenes/Components/hurtbox_component.tscn" id="3_bwxyg"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="3_wintt"]
 [ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_ynhjo"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/BroadswordIdle.cs" id="4_7kpib"]
+[ext_resource type="Texture2D" uid="uid://bf5de843scp1a" path="res://Graphics/Weapons/broadsword_outline.tres" id="4_yajj2"]
+[ext_resource type="Texture2D" uid="uid://bi8y6vp73qmn6" path="res://Graphics/Weapons/broadsword_color.tres" id="5_48sit"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/BroadswordAttack.cs" id="5_fkbcf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dih1c"]
@@ -266,15 +267,12 @@ Color = NodePath("Color")
 [node name="Outline" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(-6.82092, -7.74532)
 rotation = -2.26893
-texture = ExtResource("1_hfd2y")
-region_enabled = true
-region_rect = Rect2(40, 0, 15, 5)
+texture = ExtResource("4_yajj2")
 
 [node name="Color" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(-6.82092, -7.74532)
 rotation = -2.26893
-texture = ExtResource("1_hfd2y")
-region_enabled = true
+texture = ExtResource("5_48sit")
 region_rect = Rect2(55, 0, 15, 5)
 
 [node name="SwordSlash" type="AnimatedSprite2D" parent="."]

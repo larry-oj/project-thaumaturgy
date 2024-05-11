@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://u1ij2gjgmbdo"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://u1ij2gjgmbdo"]
 
 [ext_resource type="Texture2D" uid="uid://catbdx3yvpgdy" path="res://Graphics/Weapons/rifle_color.tres" id="1_fgdwy"]
 [ext_resource type="Texture2D" uid="uid://v5ss4fnmrta2" path="res://Graphics/Weapons/rifle_outline.tres" id="2_ehrda"]
 [ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="2_jwnin"]
+[ext_resource type="Texture2D" uid="uid://g6kd2go0tk3i" path="res://Graphics/Weapons/rifle_select.tres" id="3_0ugkq"]
 [ext_resource type="Script" path="res://Resources/Weapons/WeaponResource.cs" id="3_hjo6f"]
 
 [resource]
@@ -11,3 +12,4 @@ script = ExtResource("3_hjo6f")
 Scene = ExtResource("2_jwnin")
 IconOutline = ExtResource("2_ehrda")
 IconColor = ExtResource("1_fgdwy")
+IconSelect = ExtResource("3_0ugkq")
