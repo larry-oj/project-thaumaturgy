@@ -19,7 +19,6 @@ public partial class Player : Character
 		foreach (var child in pivot.GetChildren())
 		{
 			if (child is not Weapon weapon) continue;
-			weapon.Character = this;
 			Weapons.Add(weapon);
 			weapon.Visible = false;
 		}
