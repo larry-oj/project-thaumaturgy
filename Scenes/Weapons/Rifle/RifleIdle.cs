@@ -11,30 +11,30 @@ public partial class RifleIdle : State
 {
     [Export] private RifleShoot _rifleShoot;
     private Rifle _rifle;
-    private ManaComponent _manaComponent;
     
     public override void _Ready()
     {
         _rifle = GetNode<Rifle>(Options.PathOptions.WeaponStateToWeapon);
-        _rifle.OnAttack += OnAttacked;
-        var character = GetNode<Character>(Options.PathOptions.WeaponStateToCharacter);
-        if (character is not Player player) return;
-        _manaComponent = player.GetNode<ManaComponent>("ManaComponent");
     }
 
     public override void Enter()
     {
+        _rifle.OnAttack += OnAttacked;
     }
 
     public override void Exit()
     {
+        _rifle.OnAttack -= OnAttacked;
     }
 
     private void OnAttacked()
     {
-        if (_manaComponent != null)
+        if (_rifle.Character == null) return;
+        var manaComponent = _rifle.Character.GetNode<ManaComponent>("ManaComponent");
+        
+        if (manaComponent != null)
         {
-            var success = _manaComponent.TryChangeMana(-_rifle.StatsComponent.ManaCost);
+            var success = manaComponent.TryChangeMana(-_rifle.StatsComponent.ManaCost);
             if (!success) return;
         }
 

@@ -1,6 +1,7 @@
 ﻿using Godot;
 using projectthaumaturgy.Resources.Weapons;
 using projectthaumaturgy.Resources.Weapons.CreatedObjects;
+using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scripts;
 
@@ -14,9 +15,23 @@ public partial class Weapon : Node2D
     public bool IsActive { get; set; } = false;
 
     public SpritesComponent Sprites { get; private set; }
-    internal SpritesComponent _characterSprites;
 
     public WeaponStatsComponent StatsComponent { get; private set; }
+    public SpritesComponent CharacterSprites { get; private set; }
+    
+    private Character _character;
+    public Character Character
+    {
+        get => _character;
+        set
+        {
+            _character = value;
+            if (_character != null)
+                OnCharacterSetup();
+            else 
+                OnCharacterClear();
+        }
+    }
     
     [Export] public BulletResource BulletResource { get; set; }
     
@@ -27,7 +42,7 @@ public partial class Weapon : Node2D
     public override void _Ready()
     {
         Sprites = GetNode<SpritesComponent>("SpritesComponent");
-        _characterSprites = GetNode(Options.PathOptions.WeaponToCharacter).GetNode<SpritesComponent>("SpritesComponent");
+        
         StatsComponent = GetNode<WeaponStatsComponent>("WeaponStatsComponent");
         
         OnWeaponStatSheetUpdate();
@@ -43,10 +58,22 @@ public partial class Weapon : Node2D
         var color = Scripts.Attack.GetElementColor(StatsComponent.Element);
         Sprites.SetColor(color);
         
-        if (IsActive)
+        if (IsActive && Character != null)
             SetCharacterColor();
     }
     
     public void SetCharacterColor()
-        => _characterSprites.SetColor(Sprites.Color.SelfModulate);
+        => CharacterSprites.SetColor(Sprites.Color.SelfModulate);
+
+    internal virtual void OnCharacterSetup()
+    {
+        CharacterSprites = _character.GetNode<SpritesComponent>("SpritesComponent");
+        if (IsActive)
+            SetCharacterColor();
+    }
+
+    internal virtual void OnCharacterClear()
+    {
+        CharacterSprites = null;
+    }
 }

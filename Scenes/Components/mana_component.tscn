@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cccc8v6w6ig1j"]
+
+[ext_resource type="Script" path="res://Scenes/Components/ManaComponent.cs" id="1_e0lhn"]
+
+[node name="ManaComponent" type="Node2D"]
+script = ExtResource("1_e0lhn")
+Max = 30.0
+IsInfinite = true

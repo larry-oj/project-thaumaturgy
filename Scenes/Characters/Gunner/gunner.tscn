@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://blb8ir4affwuf"]
+[gd_scene load_steps=30 format=3 uid="uid://blb8ir4affwuf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_7ejue"]
 [ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="1_dpilp"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="12_k5yc8"]
 [ext_resource type="PackedScene" uid="uid://5oacsdw888e8" path="res://Scenes/Pickups/pickup.tscn" id="13_vpr0c"]
 [ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="13_wsgy1"]
+[ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="14_trg3d"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerStunned.cs" id="18_nkyr3"]
 
 [sub_resource type="Animation" id="Animation_efihd"]
@@ -106,7 +107,7 @@ tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [true]
 }
 tracks/7/type = "value"
@@ -207,7 +208,7 @@ tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [false]
 }
 tracks/7/type = "value"
@@ -358,6 +359,8 @@ _body = NodePath("..")
 _healthComponent = NodePath("../HealthComponent")
 _spritesComponent = NodePath("../SpritesComponent")
 _velocityComponent = NodePath("../VelocityComponent")
+
+[node name="ManaComponent" parent="." instance=ExtResource("14_trg3d")]
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("4_yx3ol")]
 _initialState = NodePath("GunnerIdle")

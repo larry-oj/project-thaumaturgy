@@ -4,6 +4,7 @@ using projectthaumaturgy.Extensions;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Levels;
+using projectthaumaturgy.Scenes.Weapons;
 using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.UI;
@@ -14,6 +15,7 @@ public partial class UI : CanvasLayer
 	private PlayerManabar _playerManabar;
 	private PlayerCurrencyCounter _playerCurrencyCounter;
 	
+	private CurrencyComponent _currencyComponent;
 	private Player _player;
 	public Player Player
 	{
@@ -23,27 +25,17 @@ public partial class UI : CanvasLayer
 			_player = value;
 			_playerHealthbar.HealthComponent = _player.GetNode<HealthComponent>("HealthComponent");
 			_playerManabar.ManaComponent = _player.GetNode<ManaComponent>("ManaComponent");
-			var currencyComponent = _player.GetNode<CurrencyComponent>("CurrencyComponent");
-			_playerCurrencyCounter.CurrencyComponent = currencyComponent;
+			_currencyComponent = _player.GetNode<CurrencyComponent>("CurrencyComponent");
+			_playerCurrencyCounter.CurrencyComponent = _currencyComponent;
 			_player.Died += OnPlayerDied;
 			_player.WeaponsSwapped += OnWeaponSwapped;
+			_player.WeaponPickedUp += OnWeaponPickedUp;
+			_player.WeaponRemoved += OnWeaponRemoved;
 
 			var isFirst = true;
 			foreach (var weapon in _player.Weapons)
 			{
-				var weaponContainer = _weaponContainerScene.Instantiate() as WeaponContainer;
-				_weaponTabsContainer.AddChild(weaponContainer);
-				weaponContainer!.Weapon = weapon;
-				weaponContainer.CurrencyComponent = currencyComponent;
-				
-				var icon = _weaponIconScene.Instantiate<WeaponIconContainer>();
-				_weaponIconsContainer.AddChild(icon);
-				icon.Outline.Texture = weapon.Sprites.Outline.As<Sprite2D>().Texture;	// ugly ass downcast
-				icon.Color.Texture = weapon.Sprites.Color.As<Sprite2D>().Texture;		// i sure do love inheritance
-				
-				if (!isFirst) continue;
-				icon.IsActive = true;
-				isFirst = false;
+				OnWeaponPickedUp(weapon);
 			}
 		}
 	}
@@ -129,14 +121,45 @@ public partial class UI : CanvasLayer
 		_loadingScreen.Visible = @bool;
 	}
 	
-	private void OnWeaponSwapped()
+	private void OnWeaponSwapped(Weapon weapon)
 	{
 		foreach (var icon in _weaponIconsContainer.GetChildren())
 		{
-			if (icon is WeaponIconContainer weaponIcon)
-			{
-				weaponIcon.IsActive = !weaponIcon.IsActive;
-			}
+			if (icon is not WeaponIconContainer weaponIcon) continue;
+			weaponIcon.IsActive = false || weaponIcon.RelatedWeapon == weapon;
+		}
+	}
+	
+	private void OnWeaponPickedUp(Weapon weapon)
+	{
+		var weaponContainer = _weaponContainerScene.Instantiate() as WeaponContainer;
+		_weaponTabsContainer.AddChild(weaponContainer);
+		weaponContainer!.Weapon = weapon;
+		weaponContainer.CurrencyComponent = _currencyComponent;
+		
+		var icon = _weaponIconScene.Instantiate<WeaponIconContainer>();
+		_weaponIconsContainer.AddChild(icon);
+		icon.Outline.Texture = weapon.Sprites.Outline.As<Sprite2D>().Texture;
+		icon.Color.Texture = weapon.Sprites.Color.As<Sprite2D>().Texture;
+		icon.RelatedWeapon = weapon;
+		
+		OnWeaponSwapped(weapon);
+	}
+	
+	private void OnWeaponRemoved(Weapon weapon)
+	{
+		foreach (var child in _weaponTabsContainer.GetChildren())
+		{
+			if (child is not WeaponContainer weaponContainer || weaponContainer.Weapon != weapon) continue;
+			weaponContainer.QueueFree();
+			break;
+		}
+
+		foreach (var child in _weaponIconsContainer.GetChildren())
+		{
+			if (child is not WeaponIconContainer weaponIcon || weaponIcon.RelatedWeapon != weapon) continue;
+			weaponIcon.QueueFree();
+			break;
 		}
 	}
 }

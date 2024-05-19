@@ -15,14 +15,12 @@ public partial class PistolShoot : State
     
     private BulletResource _bulletResource;
     private Pistol _pistol;
-    private Character _character;
 
     public override void _Ready()
     {
         _pistol = GetNode<Pistol>(Options.PathOptions.WeaponStateToWeapon);
         _bulletResource = _pistol.BulletResource;
         _timer.Timeout += OnTimerTimeout;
-        _character = GetNode<Character>(Options.PathOptions.WeaponStateToCharacter);
     }
     
     public override void Enter()
@@ -32,7 +30,7 @@ public partial class PistolShoot : State
         _timer.Start(_animationPlayer.GetAnimation(animationName).Length / _pistol.StatsComponent.FireRate);
         
         var rotation = Vector2.Right.Rotated(_projectileSpawner.GlobalRotation);
-        var attack = _pistol.StatsComponent.CreateAttack(_character, rotation);
+        var attack = _pistol.StatsComponent.CreateAttack(_pistol.Character, rotation);
         var bullet = _bulletResource.Instantiate(_projectileSpawner, attack);
         GetNode(Options.PathOptions.Level).AddChild(bullet);
     }

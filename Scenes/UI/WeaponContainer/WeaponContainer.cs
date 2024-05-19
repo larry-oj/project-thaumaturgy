@@ -61,7 +61,7 @@ public partial class WeaponContainer : MarginContainer
 
 	private void SetWeapon()
 	{
-		base.Name = _weapon.Name;
+		base.Name = _weapon.GetType().Name;
 
 		// set weapon sprite
 		var weaponOutline = _weapon.Sprites.Outline.As<Sprite2D>();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=25 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Animations/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -13,12 +13,10 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerIdle.cs" id="4_x53oe"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerRunning.cs" id="5_7lo8p"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="6_oqunc"]
-[ext_resource type="Script" path="res://Scenes/Components/ManaComponent.cs" id="7_fqr0g"]
 [ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
-[ext_resource type="Script" path="res://Scenes/Characters/Player/PlayerHurting.cs" id="12_fddnq"]
+[ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="11_k30gl"]
 [ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_sr35u"]
-[ext_resource type="PackedScene" uid="uid://di0576ye1qco8" path="res://Scenes/Weapons/Broadsword/broadsword.tscn" id="18_mw5tn"]
-[ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="19_mwdve"]
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_56c35"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 3.5
@@ -272,7 +270,7 @@ _data = {
 radius = 6.0
 height = 15.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer", "_pivot")]
 z_index = 10
 collision_layer = 2
 collision_mask = 17
@@ -280,6 +278,7 @@ motion_mode = 1
 script = ExtResource("1_tdxyb")
 _stateMachine = NodePath("StateMachine")
 _animationPlayer = NodePath("AnimationPlayer")
+_pivot = NodePath("Pivot")
 
 [node name="FeetCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4.5)
@@ -345,11 +344,10 @@ _weaponPivot = NodePath("../Pivot")
 Max = 30.0
 Resistance = 5
 Weakness = 5
-IsImmune = true
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent", "_manaComponent", "_currencyComponent") instance=ExtResource("4_crpsg")]
 collision_layer = 8
-collision_mask = 160
+collision_mask = 416
 _healthComponent = NodePath("../HealthComponent")
 _statusComponent = NodePath("../StatusComponent")
 _manaComponent = NodePath("../ManaComponent")
@@ -360,14 +358,12 @@ position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_e5c3n")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="ManaComponent" type="Node2D" parent="."]
-script = ExtResource("7_fqr0g")
-Max = 30.0
-IsInfinite = true
+[node name="ManaComponent" parent="." instance=ExtResource("11_k30gl")]
+IsInfinite = false
 
 [node name="CurrencyComponent" type="Node2D" parent="."]
+scale = Vector2(0.993798, 1)
 script = ExtResource("8_fgtmp")
-IsInfinite = true
 
 [node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent") instance=ExtResource("13_sr35u")]
 _healthComponent = NodePath("../HealthComponent")
@@ -382,26 +378,16 @@ script = ExtResource("4_x53oe")
 _runningState = NodePath("../PlayerRunning")
 _inputComponent = NodePath("../../InputComponent")
 
-[node name="PlayerRunning" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idleState", "_playerHurting", "_velocityComponent", "_inputComponent")]
+[node name="PlayerRunning" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idleState", "_velocityComponent", "_inputComponent")]
 script = ExtResource("5_7lo8p")
 _idleState = NodePath("../PlayerIdle")
-_playerHurting = NodePath("../PlayerHurting")
 _velocityComponent = NodePath("../../VelocityComponent")
 _inputComponent = NodePath("../../InputComponent")
-
-[node name="PlayerHurting" type="Node" parent="StateMachine" node_paths=PackedStringArray("_playerIdle", "_playerRunning", "_inputComponent", "_velocityComponent")]
-script = ExtResource("12_fddnq")
-_playerIdle = NodePath("../PlayerIdle")
-_playerRunning = NodePath("../PlayerRunning")
-_inputComponent = NodePath("../../InputComponent")
-_velocityComponent = NodePath("../../VelocityComponent")
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
-[node name="Broadsword" parent="Pivot" instance=ExtResource("18_mw5tn")]
-
-[node name="Rifle" parent="Pivot" instance=ExtResource("19_mwdve")]
+[node name="Pistol" parent="Pivot" instance=ExtResource("18_56c35")]
 
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerIdle" method="OnDamageTaken"]
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerRunning" method="OnDamageTaken"]

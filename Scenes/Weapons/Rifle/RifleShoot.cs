@@ -15,14 +15,11 @@ public partial class RifleShoot : State
     [Export] private Marker2D _projectileSpawner;
     
     private Rifle _rifle;
-    private Character _character;
     
     public override void _Ready()
     {
         _rifle = GetNode<Rifle>(Options.PathOptions.WeaponStateToWeapon);
         _timer.Timeout += OnTimerTimeout;
-        
-        _character = GetNode<Character>(Options.PathOptions.WeaponStateToCharacter);
     }
 
     public override void Enter()
@@ -33,7 +30,7 @@ public partial class RifleShoot : State
         _timer.Start(attackSpeed);
 
         var rotation = Vector2.Right.Rotated(_projectileSpawner.GlobalRotation);
-        var attack = _rifle.StatsComponent.CreateAttack(_character, rotation);
+        var attack = _rifle.StatsComponent.CreateAttack(_rifle.Character, rotation);
         var bullet = _rifle.BulletResource.Instantiate(_projectileSpawner, attack);
         GetNode(Options.PathOptions.Level).AddChild(bullet);
     }

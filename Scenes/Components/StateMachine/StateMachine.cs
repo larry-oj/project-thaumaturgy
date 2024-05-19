@@ -24,6 +24,18 @@ public partial class StateMachine : Node
         _currentState.Enter();
     }
 
+    public void Shutdown()
+    {
+        foreach (var child in GetChildren())
+        {
+            if (child is not State state) continue;
+            state.Transitioned -= OnChildTransition;
+        }
+        
+        _currentState?.Exit();
+        _currentState = null;
+    }
+
     public void Process(double delta)
     {
         _currentState?.Process(delta);
