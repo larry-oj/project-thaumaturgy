@@ -26,18 +26,11 @@ public partial class Game : Node2D
 
 	public override void _Ready()
 	{
-		UI.SetLoadingScreen(true);
-
-		_player = PlayerScene.Instantiate() as Player;
-		_player.Name = "Player";
-		_player.UniqueNameInOwner = true;
-
-		Level.Player = _player;
 		Level.UI = UI;
 		Level.LevelCompleted += OnLevelCompleted;
-		UI.Player = _player;
 
-		LoadLevel(_initialLevelResource, true);
+		UI.StartRequested += OnStart;
+		UI.EndRequested += OnEnd;
 	}
 
 	private void LoadLevel(LevelResource levelResource, bool isSync = false)
@@ -101,9 +94,35 @@ public partial class Game : Node2D
 		Level.PlacePlayer()
 			.PlaceEnemies()
 			.PlaceInteractables();
+		UI.SetMainMenu(false);
 		UI.SetLoadingScreen(false);
+		UI.SetInterface(true);
+		_player.Visible = true;
 	}
 
+	private void OnStart()
+	{
+		UI.SetLoadingScreen(true);
+		_player = PlayerScene.Instantiate() as Player;
+		_player.Name = "Player";
+		_player.UniqueNameInOwner = true;
+		AddChild(_player);
+		_player.Visible = false;
+
+		Level.Player = _player;
+		UI.Player = _player;
+		
+		LoadLevel(_initialLevelResource);
+	}
+
+	private void OnEnd()
+	{
+		Level.End();
+		UI.SetLoadingScreen(false);
+		UI.SetInterface(false);
+		UI.SetMainMenu(true);
+	}
+	
     // public override void _UnhandledInput(InputEvent @event)
     // {
     // 	if (!@event.IsActionPressed("ui_accept")) return;

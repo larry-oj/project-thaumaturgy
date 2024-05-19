@@ -47,9 +47,13 @@ public partial class UI : CanvasLayer
 	[Export] private PackedScene _weaponIconScene;
 	private Control _loadingScreen;
 	private HBoxContainer _weaponIconsContainer;
+	private VBoxContainer _mainMenu;
 	
 	private bool _isGameOver;
 	private bool _isWeaponTabsOpen;
+	
+	[Signal] public delegate void StartRequestedEventHandler();
+	[Signal] public delegate void EndRequestedEventHandler();
 
 	public override void _Ready()
 	{
@@ -61,6 +65,9 @@ public partial class UI : CanvasLayer
 		_weaponTabsContainer = GetNode<Control>("%WeaponTabsContainer");
 		_loadingScreen = GetNode<Control>("%LoadingScreen");
 		_weaponIconsContainer = GetNode<HBoxContainer>("%WeaponIcons");
+		_mainMenu = GetNode<VBoxContainer>("%MainMenu");
+		
+		GetNode<Button>("%StartButton").Pressed += () => EmitSignal(SignalName.StartRequested);
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -84,7 +91,7 @@ public partial class UI : CanvasLayer
 		if (@event.IsActionPressed("ui_accept"))
 		{
 			GameOver(false);
-			GetTree().ReloadCurrentScene();
+			EmitSignal(SignalName.EndRequested);
 		}
 	}
 
@@ -120,7 +127,19 @@ public partial class UI : CanvasLayer
 	{
 		_loadingScreen.Visible = @bool;
 	}
+
+	public void SetInterface(bool @bool)
+	{
+		_interface.Visible = @bool;
+		_playerManabar.SetManaSettings();
+		_playerHealthbar.SetHealthSettings();
+	}
 	
+	public void SetMainMenu(bool @bool)
+	{
+		_mainMenu.Visible = @bool;
+	}
+
 	private void OnWeaponSwapped(Weapon weapon)
 	{
 		foreach (var icon in _weaponIconsContainer.GetChildren())

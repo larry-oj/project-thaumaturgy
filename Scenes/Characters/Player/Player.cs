@@ -67,6 +67,5 @@ public partial class Player : Character
 	private void OnHealthDepleted()
 	{
 		EmitSignal(nameof(Died));
-		QueueFree();
 	}
 }

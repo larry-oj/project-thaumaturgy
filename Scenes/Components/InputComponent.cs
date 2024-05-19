@@ -33,7 +33,8 @@ public partial class InputComponent : Node2D
 	
 	public override void _Process(double delta)
 	{
-		if (_player.CurrentWeapon.IsInAttackAnimation) return;
+		var curr = _player.CurrentWeapon;
+		if (!curr.IsMelee && curr.IsInAttackAnimation) return;
 		
 		RotateSpriteToMouse();
 		RotateWeaponToMouse();

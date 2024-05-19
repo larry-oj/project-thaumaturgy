@@ -29,8 +29,8 @@ public partial class Level : Node
         set
         {
             _player = value;
-            _player.GetParent()?.RemoveChild(_player);
-            this.AddChild(_player);
+            // _player.GetParent()?.RemoveChild(_player);
+            // this.AddChild(_player);
         }
     }
 
@@ -154,6 +154,9 @@ public partial class Level : Node
         var s = Options.Sizes.TilesetSize;
         var hs = Options.Sizes.TilesetHalfsize;
         Player.Position = c * s + new Vector2(hs, hs);
+        
+        Player.GetParent()?.RemoveChild(Player);
+        AddChild(Player);
 
         // camera follow
         PlayerCamera.GetParent()?.RemoveChild(PlayerCamera);
@@ -220,6 +223,15 @@ public partial class Level : Node
         return this;
     }
 
+    public Level End()
+    {
+        Clear();
+        PlayerCamera.GetParent()?.RemoveChild(PlayerCamera);
+        Player.QueueFree();
+        
+        return this;
+    }
+    
     private void OnEnemyKilled()
     {
         EnemiesLeft--;

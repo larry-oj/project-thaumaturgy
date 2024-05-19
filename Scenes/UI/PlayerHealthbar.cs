@@ -17,7 +17,7 @@ public partial class PlayerHealthbar : ProgressBar
 		}
 	}
 
-	private void SetHealthSettings()
+	public void SetHealthSettings()
 	{
 		MaxValue = HealthComponent.Max;
 		Value = HealthComponent.Health;
