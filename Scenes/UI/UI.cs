@@ -48,6 +48,7 @@ public partial class UI : CanvasLayer
 	private Control _loadingScreen;
 	private HBoxContainer _weaponIconsContainer;
 	private VBoxContainer _mainMenu;
+	private VBoxContainer _pauseMenu;
 	
 	private bool _isGameOver;
 	private bool _isWeaponTabsOpen;
@@ -66,8 +67,11 @@ public partial class UI : CanvasLayer
 		_loadingScreen = GetNode<Control>("%LoadingScreen");
 		_weaponIconsContainer = GetNode<HBoxContainer>("%WeaponIcons");
 		_mainMenu = GetNode<VBoxContainer>("%MainMenu");
+		_pauseMenu = GetNode<VBoxContainer>("%PauseMenu");
 		
 		GetNode<Button>("%StartButton").Pressed += () => EmitSignal(SignalName.StartRequested);
+		GetNode<Button>("%ExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
+		GetNode<Button>("%QuitButton").Pressed += () => GetTree().Quit();
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -86,8 +90,12 @@ public partial class UI : CanvasLayer
 			}
 		}
 		
-		if (!_isGameOver) return;
+		if (@event.IsActionPressed(Options.Controls.Player.Pause))
+		{
+			SetPauseMenu(!_pauseMenu.Visible);
+		}
 		
+		if (!_isGameOver) return;
 		if (@event.IsActionPressed("ui_accept"))
 		{
 			GameOver(false);
@@ -140,6 +148,12 @@ public partial class UI : CanvasLayer
 		_mainMenu.Visible = @bool;
 	}
 
+	public void SetPauseMenu(bool @bool)
+	{
+		_pauseMenu.Visible = @bool;
+		GetTree().Paused = @bool;
+	}
+	
 	private void OnWeaponSwapped(Weapon weapon)
 	{
 		foreach (var icon in _weaponIconsContainer.GetChildren())
