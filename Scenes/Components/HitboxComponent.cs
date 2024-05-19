@@ -1,6 +1,7 @@
 ﻿using Godot;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Pickups;
+using projectthaumaturgy.Scenes.Weapons;
 using projectthaumaturgy.Scenes.Weapons.CreatedObjects;
 using projectthaumaturgy.Scripts;
 
@@ -38,5 +39,23 @@ public partial class HitboxComponent : Area2D
                 _currencyComponent.TryChangeCurrency(@pickup.Value);
                 break;
         }
+    }
+
+    public Weapon TakeWeapon(Weapon weapon)
+    {
+        if (this.Owner is not Player player) return null;
+        Weapon curr = null;
+        
+        if (player.Weapons.Count == 2)
+        {
+            curr = player.CurrentWeapon;
+            player.ReplaceWeapon(weapon);
+        }
+        else
+        {
+            player.TakeWeapon(weapon);
+        }
+        
+        return curr;
     }
 }

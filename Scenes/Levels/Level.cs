@@ -108,12 +108,18 @@ public partial class Level : Node
 
     public Level Clear()
     {
-        // ✨🌈 kill all "wrong" children 🌈✨
         foreach (var child in GetChildren())
         {
-            if (child is Enemy or Pickup or Projectile or World)
+            switch (child)
             {
-                child.QueueFree();
+                case Enemy:
+                case Pickup:
+                case Projectile:
+                case World:
+                case Chest:
+                case WeaponPickup:
+                    child.QueueFree();
+                    break;
             }
         }
 

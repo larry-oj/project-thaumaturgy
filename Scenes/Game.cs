@@ -21,14 +21,12 @@ public partial class Game : Node2D
 	private LevelResource _currentLevelResource;
 	
 	private Player _player;
-	private PlayerData _playerData;
 
 	public int EnemiesLeft { get; private set; }
 
 	public override void _Ready()
 	{
 		UI.SetLoadingScreen(true);
-		_playerData = GetNode<PlayerData>("PlayerData");
 
 		_player = PlayerScene.Instantiate() as Player;
 		_player.Name = "Player";
@@ -106,11 +104,11 @@ public partial class Game : Node2D
 		UI.SetLoadingScreen(false);
 	}
 
-	// public override void _UnhandledInput(InputEvent @event)
-	// {
-	// 	if (!@event.IsActionPressed("ui_accept")) return;
-	// 	
-	// 	UI.SetLoadingScreen(true);
-	// 	LoadLevel(_initialLevelResource);
-	// }
+    // public override void _UnhandledInput(InputEvent @event)
+    // {
+    // 	if (!@event.IsActionPressed("ui_accept")) return;
+    // 	
+    // 	UI.SetLoadingScreen(true);
+    // 	LoadLevel(_initialLevelResource);
+    // }
 }

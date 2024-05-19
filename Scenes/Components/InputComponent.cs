@@ -24,6 +24,7 @@ public partial class InputComponent : Node2D
 
 	public bool IsAttacking => Input.IsActionPressed(Options.Controls.Player.Attack);
 	public bool IsSwappingWeapons => Input.IsActionJustPressed(Options.Controls.Player.SwapActiveWeapon);
+	public static bool IsJustInteracted => Input.IsActionJustPressed(Options.Controls.Player.Interact);
 	
 	public override void _Ready()
 	{

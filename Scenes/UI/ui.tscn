@@ -144,7 +144,7 @@ size_flags_vertical = 3
 [node name="BottomSection" type="HBoxContainer" parent="Interface/MarginContainer/Sections"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/BottomSection"]
+[node name="WeaponIcons" type="MarginContainer" parent="Interface/MarginContainer/Sections/BottomSection"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -153,7 +153,7 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="WeaponIcons" type="HBoxContainer" parent="Interface/MarginContainer/Sections/BottomSection/MarginContainer"]
+[node name="WeaponIcons" type="HBoxContainer" parent="Interface/MarginContainer/Sections/BottomSection/WeaponIcons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -180,6 +180,37 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
+
+[node name="GameWonScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GameOverPanel" type="PanelContainer" parent="Menus/MarginContainer/GameWonScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOverText" type="Label" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+
+[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Press {KEY} to restart"
 
 [node name="GameOverScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true
@@ -245,6 +276,58 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 
 [node name="LoadingText" type="Label" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Loading..."
+
+[node name="PauseMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LoadingPanel" type="PanelContainer" parent="Menus/MarginContainer/PauseMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/PauseMenu/LoadingPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="LoadingText" type="Label" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Loading..."
+
+[node name="MainMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LoadingPanel" type="PanelContainer" parent="Menus/MarginContainer/MainMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/MainMenu/LoadingPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/MainMenu/LoadingPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="LoadingText" type="Label" parent="Menus/MarginContainer/MainMenu/LoadingPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50

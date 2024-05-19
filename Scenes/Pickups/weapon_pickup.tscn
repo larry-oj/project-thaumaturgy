@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi1s4rbbn1jje"]
+[gd_scene load_steps=6 format=3 uid="uid://bi1s4rbbn1jje"]
 
 [ext_resource type="Script" path="res://Scenes/Pickups/WeaponPickup.cs" id="1_oxwhj"]
+[ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="2_kadyg"]
 [ext_resource type="Texture2D" uid="uid://br4b1bclfwp6f" path="res://Graphics/UI/item_interact.tres" id="5_52v6w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_81ri2"]
@@ -16,18 +17,16 @@ _weaponHolder = NodePath("WeaponHolder")
 
 [node name="WeaponHolder" type="Node2D" parent="."]
 
-[node name="InteractArea" type="Area2D" parent="."]
-collision_layer = 256
-collision_mask = 8
+[node name="HitboxComponent" parent="." instance=ExtResource("2_kadyg")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_81ri2")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="PhysicalHitbox" type="Area2D" parent="."]
 collision_layer = 256
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicalHitbox"]
 shape = SubResource("CircleShape2D_72a5c")
 debug_color = Color(0, 0.639216, 0.34902, 0)
 
@@ -40,5 +39,5 @@ position = Vector2(0, -6)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("5_52v6w")
 
-[connection signal="area_entered" from="InteractArea" to="." method="OnAreaEntered"]
-[connection signal="area_exited" from="InteractArea" to="." method="OnAreaExited"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="OnAreaEntered"]
+[connection signal="area_exited" from="HitboxComponent" to="." method="OnAreaExited"]

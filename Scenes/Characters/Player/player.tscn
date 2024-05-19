@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=25 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Animations/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="11_k30gl"]
 [ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_sr35u"]
 [ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_56c35"]
-[ext_resource type="PackedScene" uid="uid://dkahg3wfy0dh4" path="res://Scenes/Weapons/Rifle/rifle.tscn" id="19_mwdve"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 3.5
@@ -271,7 +270,7 @@ _data = {
 radius = 6.0
 height = 15.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer", "_pivot")]
 z_index = 10
 collision_layer = 2
 collision_mask = 17
@@ -279,6 +278,7 @@ motion_mode = 1
 script = ExtResource("1_tdxyb")
 _stateMachine = NodePath("StateMachine")
 _animationPlayer = NodePath("AnimationPlayer")
+_pivot = NodePath("Pivot")
 
 [node name="FeetCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4.5)
@@ -344,7 +344,6 @@ _weaponPivot = NodePath("../Pivot")
 Max = 30.0
 Resistance = 5
 Weakness = 5
-IsImmune = true
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent", "_manaComponent", "_currencyComponent") instance=ExtResource("4_crpsg")]
 collision_layer = 8
@@ -360,10 +359,11 @@ shape = SubResource("CapsuleShape2D_e5c3n")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="ManaComponent" parent="." instance=ExtResource("11_k30gl")]
+IsInfinite = false
 
 [node name="CurrencyComponent" type="Node2D" parent="."]
+scale = Vector2(0.993798, 1)
 script = ExtResource("8_fgtmp")
-IsInfinite = true
 
 [node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent") instance=ExtResource("13_sr35u")]
 _healthComponent = NodePath("../HealthComponent")
@@ -388,8 +388,6 @@ _inputComponent = NodePath("../../InputComponent")
 position = Vector2(0, 3)
 
 [node name="Pistol" parent="Pivot" instance=ExtResource("18_56c35")]
-
-[node name="Rifle" parent="Pivot" instance=ExtResource("19_mwdve")]
 
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerIdle" method="OnDamageTaken"]
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerRunning" method="OnDamageTaken"]
