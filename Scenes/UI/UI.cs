@@ -154,6 +154,25 @@ public partial class UI : CanvasLayer
 		GetTree().Paused = @bool;
 	}
 	
+	public void ClearWeaponTabs()
+	{
+		foreach (var child in _weaponTabsContainer.GetChildren())
+		{
+			if (child is WeaponContainer weaponContainer)
+			{
+				weaponContainer.QueueFree();
+			}
+		}
+		
+		foreach (var child in _weaponIconsContainer.GetChildren())
+		{
+			if (child is WeaponIconContainer weaponContainer)
+			{
+				weaponContainer.QueueFree();
+			}
+		}
+	}
+	
 	private void OnWeaponSwapped(Weapon weapon)
 	{
 		foreach (var icon in _weaponIconsContainer.GetChildren())

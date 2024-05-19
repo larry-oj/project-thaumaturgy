@@ -92,8 +92,10 @@ public partial class WeaponContainer : MarginContainer
 		// set weapon stats
 		_damageStatContainer.StatLabel.Text = _weapon.StatsComponent.Damage.ToString("0.00");
 		_damageStatContainer.CostLabel.Text = _weapon.StatsComponent.DamageUpgradeCost.ToString(CultureInfo.InvariantCulture);
+		_damageStatContainer.IncreaseButton.Text = "+" + _weapon.StatsComponent.DamageStep.ToString("0.00");
 		_speedStatContainer.StatLabel.Text = _weapon.StatsComponent.FireRate.ToString("0.00");
 		_speedStatContainer.CostLabel.Text = _weapon.StatsComponent.FireRateUpgradeCost.ToString(CultureInfo.InvariantCulture);
+		_speedStatContainer.IncreaseButton.Text = "+" + _weapon.StatsComponent.FireRateStep.ToString("0.00");
 	}
 
 	private void OnElementButtonPressed(Attack.AttackElement element)

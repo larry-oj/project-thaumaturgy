@@ -162,5 +162,12 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "  Continue  "
+
 [editable path="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
 [editable path="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]

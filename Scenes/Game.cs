@@ -118,6 +118,7 @@ public partial class Game : Node2D
 	private void OnEnd()
 	{
 		Level.End();
+		UI.ClearWeaponTabs();
 		UI.SetPauseMenu(false);
 		UI.SetLoadingScreen(false);
 		UI.SetInterface(false);
