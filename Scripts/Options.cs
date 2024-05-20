@@ -43,7 +43,8 @@ public static class Options
         public static int CurrencyPickupValueDefault => 1;
         public static int ElementUpgradeCost => 10;
         public static int InfusionUpgradeCost => 50;
-
+        public static float InfusionBoldDamageFraction => 0.4f;
+        
         public static class StatusTypes
         {
             public static float BurningTickPeriod => 1.0f;
