@@ -49,6 +49,7 @@ public partial class UI : CanvasLayer
 	private HBoxContainer _weaponIconsContainer;
 	private VBoxContainer _mainMenu;
 	private VBoxContainer _pauseMenu;
+	private VBoxContainer _settingsMenu;
 	
 	private bool _isWeaponTabsOpen;
 	
@@ -68,11 +69,14 @@ public partial class UI : CanvasLayer
 		_weaponIconsContainer = GetNode<HBoxContainer>("%WeaponIcons");
 		_mainMenu = GetNode<VBoxContainer>("%MainMenu");
 		_pauseMenu = GetNode<VBoxContainer>("%PauseMenu");
+		_settingsMenu = GetNode<VBoxContainer>("%SettingsMenu");
 		
 		GetNode<Button>("%StartButton").Pressed += () => EmitSignal(SignalName.StartRequested);
 		GetNode<Button>("%PauseExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
 		GetNode<Button>("%OverExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
 		GetNode<Button>("%MainExitButton").Pressed += () => GetTree().Quit();
+		GetNode<Button>("%SettingsButton").Pressed += () => { SetMainMenu(false); SetSettingsMenu(true); };
+		GetNode<Button>("%BackButton").Pressed += () => { SetSettingsMenu(false); SetMainMenu(true); };
 		GetNode<Button>("%RetryButton").Pressed += () => EmitSignal(SignalName.RetryRequested);
 	}
 
@@ -144,6 +148,11 @@ public partial class UI : CanvasLayer
 	{
 		_pauseMenu.Visible = @bool;
 		GetTree().Paused = @bool;
+	}
+
+	public void SetSettingsMenu(bool @bool)
+	{
+		_settingsMenu.Visible = @bool;
 	}
 	
 	public void ClearWeaponTabs()
