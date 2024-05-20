@@ -108,6 +108,9 @@ public partial class UI : CanvasLayer
 		
 		if (@event.IsActionPressed(Options.Controls.Player.Pause))
 		{
+			if (_weaponTabs.Visible) return;
+			if (_mainMenu.Visible) return;
+			if (_settingsMenu.Visible) return;
 			SetPauseMenu(!_pauseMenu.Visible);
 		}
 	}
