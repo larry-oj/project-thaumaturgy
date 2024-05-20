@@ -56,6 +56,7 @@ BulletResource = ExtResource("2_fc2c6")
 Damage = 4.0
 StatusChance = 1.0
 Type = 1
+Infusion = 3
 FireRateStep = 0.1
 FireRateCostIncrease = 2
 FireRateBaseCost = 4

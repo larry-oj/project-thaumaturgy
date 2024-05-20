@@ -44,6 +44,8 @@ public static class Options
         public static int ElementUpgradeCost => 10;
         public static int InfusionUpgradeCost => 50;
         public static float InfusionBoldDamageFraction => 0.4f;
+        public static float InfusionGhastMultiplier => 0.35f;
+        public static float InfusionGhastGrowth => 5f;
         
         public static class StatusTypes
         {
