@@ -347,55 +347,9 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 36
 text = " Exit "
 
-[node name="MainMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 15
-
-[node name="Logo" type="Label" parent="Menus/MarginContainer/MainMenu"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/shadow_outline_size = 10
-theme_override_font_sizes/font_size = 100
-text = "Thaumaturge"
-
-[node name="Spacer" type="Control" parent="Menus/MarginContainer/MainMenu"]
-layout_mode = 2
-
-[node name="StartButton" type="Button" parent="Menus/MarginContainer/MainMenu"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 60
-text = " Start "
-
-[node name="Buttons" type="VBoxContainer" parent="Menus/MarginContainer/MainMenu"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="SettingsButton" type="Button" parent="Menus/MarginContainer/MainMenu/Buttons"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 30
-text = " Settings "
-
-[node name="MainExitButton" type="Button" parent="Menus/MarginContainer/MainMenu/Buttons"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 30
-text = "Exit"
-
 [node name="SettingsMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="spacer" type="Control" parent="Menus/MarginContainer/SettingsMenu"]
@@ -482,12 +436,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Window:"
 
-[node name="WindowOptionButton" type="OptionButton" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="WindowOptionButton" type="OptionButton" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("_resolutionOptionButton")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 fit_to_longest_item = false
 script = ExtResource("8_mrow8")
+_resolutionOptionButton = NodePath("../../HBoxContainer2/ResolutionOptionButton")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(225, 0)
@@ -511,3 +466,49 @@ scrollable = false
 [node name="spacer2" type="Control" parent="Menus/MarginContainer/SettingsMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="MainMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="Logo" type="Label" parent="Menus/MarginContainer/MainMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 100
+text = "Thaumaturge"
+
+[node name="Spacer" type="Control" parent="Menus/MarginContainer/MainMenu"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="Menus/MarginContainer/MainMenu"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 60
+text = " Start "
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/MarginContainer/MainMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SettingsButton" type="Button" parent="Menus/MarginContainer/MainMenu/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = " Settings "
+
+[node name="MainExitButton" type="Button" parent="Menus/MarginContainer/MainMenu/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "Exit"
