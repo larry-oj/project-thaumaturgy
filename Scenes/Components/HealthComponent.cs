@@ -19,6 +19,7 @@ public partial class HealthComponent : Node2D
         get => _health;
         private set
         {
+            if (_health <= 0) return;
             if (Math.Abs(_health - value) < 0.001) return;
             var healthChange = new HealthChange
             {
@@ -65,6 +66,13 @@ public partial class HealthComponent : Node2D
         attack.Free(); // memory leak prevention
     }
 
+    public void TakeDamage(float flat)
+    {
+        if (IsImmune) return;
+
+        Health -= flat;
+    }
+    
     public void TakeStatusDamage(float damage)
     {
         if (IsImmune) return;

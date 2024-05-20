@@ -17,13 +17,23 @@ public partial class HitboxComponent : Area2D
     public void Damage(Attack attack)
     {
         var status = attack.StatusEffect?.Copy();
+        var infusion = attack.Infusion;
+        var attackDamage = attack.Damage;
         _healthComponent.TakeDamage(attack);
         if (status != null && !_healthComponent.IsDead)
         {
             _statusComponent?.TakeStatus(status);
         }
+        if (infusion != Attack.AttackInfusion.None)
+        {
+            _statusComponent?.TakeInfusion(infusion, attackDamage);
+        }
     }
-
+    public void Damage(float flat)
+    {
+        _healthComponent.TakeDamage(flat);
+    }
+    
     public void TakePickup(Pickup @pickup)
     {
         switch (@pickup.Type)

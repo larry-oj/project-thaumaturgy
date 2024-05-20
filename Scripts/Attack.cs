@@ -26,10 +26,9 @@ public partial class Attack : GodotObject
     public enum AttackInfusion
     {
         None,
-        Fiery,
-        Icy,
-        Earthy,
-        Windy,
+        Saturated,
+        Bold,
+        Ghastly
     }
 
     public float Damage { get; set; }

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://voxrdwof5j64" path="res://Graphics/Sprites/ph_guns.png" id="2_haa7m"]
 [ext_resource type="PackedScene" uid="uid://8u3q4m0etgvm" path="res://Scenes/UI/WeaponContainer/ElementPickerButton.tscn" id="3_e7acy"]
 [ext_resource type="PackedScene" uid="uid://dkxqps31i0j2i" path="res://Scenes/UI/WeaponContainer/stat_change_container.tscn" id="4_x4fl1"]
+[ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/EffectPickerButton.cs" id="5_1amqu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xuc0c"]
 atlas = ExtResource("2_haa7m")
@@ -13,10 +14,7 @@ region = Rect2(0, 0, 13, 4)
 atlas = ExtResource("2_haa7m")
 region = Rect2(13, 0, 13, 4)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ubfwt"]
-font_size = 13
-
-[node name="WeaponContainer" type="MarginContainer" node_paths=PackedStringArray("_weaponSprite", "_elementPicker", "_damageStatContainer", "_speedStatContainer")]
+[node name="WeaponContainer" type="MarginContainer" node_paths=PackedStringArray("_weaponSprite", "_elementPicker", "_effectPicker", "_damageStatContainer", "_speedStatContainer")]
 process_mode = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
@@ -24,7 +22,8 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 script = ExtResource("1_01lo4")
 _weaponSprite = NodePath("VBoxContainer/WeaponSprite")
-_elementPicker = NodePath("VBoxContainer/ElementPicker")
+_elementPicker = NodePath("VBoxContainer/VBoxContainer/ElementPicker")
+_effectPicker = NodePath("VBoxContainer/VBoxContainer2/EffectPicker")
 _damageStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer")
 _speedStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer")
 
@@ -55,48 +54,48 @@ expand_mode = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ElementPicker" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ElementPicker" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="Spacer5" type="Control" parent="VBoxContainer/ElementPicker"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Fire" parent="VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
+[node name="Fire" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
 
-[node name="Spacer" type="Control" parent="VBoxContainer/ElementPicker"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Water" parent="VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
+[node name="Water" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
 text = "Water"
 Element = 1
 
-[node name="Spacer2" type="Control" parent="VBoxContainer/ElementPicker"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Earth" parent="VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
+[node name="Earth" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
 text = "Earth"
 Element = 2
 
-[node name="Spacer3" type="Control" parent="VBoxContainer/ElementPicker"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Air" parent="VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
+[node name="Air" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
 text = "Air
 "
 Element = 3
 
-[node name="Spacer4" type="Control" parent="VBoxContainer/ElementPicker"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+
+[node name="CostLabel" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "cost:"
+
+[node name="ElementCostValue" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0"
 
 [node name="Spacer3" type="Control" parent="VBoxContainer"]
 layout_mode = 2
@@ -130,33 +129,54 @@ text = "SPD:"
 disabled = false
 text = "+0.25"
 
-[node name="InfusionContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer"]
+[node name="Spacer4" type="Control" parent="VBoxContainer"]
 layout_mode = 2
-alignment = 1
+size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer"]
+[node name="EffectPicker" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 1
-text = "Infusion"
-vertical_alignment = 1
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
 
-[node name="Infuse" type="Button" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer"]
+[node name="Saturated" parent="VBoxContainer/VBoxContainer2/EffectPicker" instance=ExtResource("3_e7acy")]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-disabled = true
-text = "{NAME}"
+text = "Saturated"
+script = ExtResource("5_1amqu")
+Infusion = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer"]
+[node name="Bold" parent="VBoxContainer/VBoxContainer2/EffectPicker" instance=ExtResource("3_e7acy")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Bold"
+script = ExtResource("5_1amqu")
+Infusion = 2
+
+[node name="Ghastly" parent="VBoxContainer/VBoxContainer2/EffectPicker" instance=ExtResource("3_e7acy")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Ghastly"
+script = ExtResource("5_1amqu")
+Infusion = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer/InfusionContainer/HBoxContainer2"]
+[node name="CostLabel" type="Label" parent="VBoxContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
-text = "cost: 50"
-label_settings = SubResource("LabelSettings_ubfwt")
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+text = "cost:"
+
+[node name="InfusionCostValue" type="Label" parent="VBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0"
 
 [editable path="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
 [editable path="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]

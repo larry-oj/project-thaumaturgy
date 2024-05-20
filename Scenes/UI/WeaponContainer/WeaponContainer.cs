@@ -18,6 +18,9 @@ public partial class WeaponContainer : MarginContainer
 
 	[Export] private Control _elementPicker;
 	private Array<ElementPickerButton> _elementPickerButtons = new();
+	
+	[Export] private Control _effectPicker;
+	private Array<EffectPickerButton> _effectPickerButtons = new();
 
 	[Export] private StatChangeContainer _damageStatContainer;
 	[Export] private StatChangeContainer _speedStatContainer;
@@ -49,9 +52,20 @@ public partial class WeaponContainer : MarginContainer
 				_elementPickerButtons.Add(button);
 			}
 		}
+		
+		foreach (var child in _effectPicker.GetChildren())
+		{
+			if (child is EffectPickerButton button)
+			{
+				_effectPickerButtons.Add(button);
+			}
+		}
 
 		_damageStatContainer.StatChanged += OnDamageStatChanged;
 		_speedStatContainer.StatChanged += OnSpeedStatChanged;
+		
+		GetNode<Label>("%ElementCostValue").Text = Options.Balance.ElementUpgradeCost.ToString(CultureInfo.InvariantCulture);
+		GetNode<Label>("%InfusionCostValue").Text = Options.Balance.InfusionUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 
 	// find buttons in the element picker
@@ -80,6 +94,23 @@ public partial class WeaponContainer : MarginContainer
 				button.ElementPicked += OnElementButtonPressed;
 			}
 			else if (button.Element == _weaponStats.Element)
+			{
+				button.Disabled = false;
+			}
+			else
+			{
+				button.Disabled = true;
+			}
+		}
+		
+		foreach (var button in _effectPickerButtons)
+		{
+			if (_weaponStats.Infusion == Attack.AttackInfusion.None)
+			{
+				button.Disabled = false;
+				button.EffectPicked += OnEffectButtonPressed;
+			}
+			else if (button.Infusion == _weaponStats.Infusion)
 			{
 				button.Disabled = false;
 			}
@@ -117,6 +148,27 @@ public partial class WeaponContainer : MarginContainer
 				button.Disabled = true;
 			
 			button.ElementPicked -= OnElementButtonPressed;
+		}
+	}
+	
+	private void OnEffectButtonPressed(Attack.AttackInfusion infusion)
+	{
+
+		if (_weaponStats.Infusion != Attack.AttackInfusion.None) return;
+
+		var success = CurrencyComponent.TryChangeCurrency(-Options.Balance.InfusionUpgradeCost);
+		if (!success) return;
+		
+		_weapon.StatsComponent.SetInfusion(infusion);
+
+		// disable all other buttons
+		// remove event listeners so that we cant re-pick
+		foreach (var button in _effectPickerButtons)
+		{
+			if (button.Infusion != infusion)
+				button.Disabled = true;
+			
+			button.EffectPicked -= OnEffectButtonPressed;
 		}
 	}
 

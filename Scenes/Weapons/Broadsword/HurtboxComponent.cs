@@ -20,12 +20,17 @@ public partial class HurtboxComponent : Area2D
 			AreaEntered += OnHitboxAreaEntered;
 	}
 
-	public void TryGetOverlappingAreas()
+	public bool TryGetOverlappingAreas()
 	{
+		var flag = false;
 		foreach (var area in GetOverlappingAreas())
 		{
 			OnHitboxAreaEntered(area);
+			flag = true;
+			break;
 		}
+
+		return flag;
 	}
 	
 	private void OnHitboxAreaEntered(Area2D area)

@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using Godot.Collections;
+using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scripts;
 
@@ -7,6 +9,9 @@ public partial class StatusComponent : Node2D
 {
 	private Timer _timer;
 	private Status _currentStatus;
+	private Area2D _spreaderHurtbox;
+	private Array<Enemy> _nearbyEnemies = new();
+		
 	private float _damage = 0f;
 	private int _tickAmount;
 
@@ -24,6 +29,10 @@ public partial class StatusComponent : Node2D
 	public override void _Ready()
 	{
 		_timer = GetNode<Timer>("Timer");
+		_spreaderHurtbox = GetNode<Area2D>("%SpreaderHurtbox");
+		
+		_spreaderHurtbox.AreaEntered += OnSpreaderEntered;
+		_spreaderHurtbox.AreaExited += OnSpreaderExited;
 	}
 	
 	public void TakeStatus(Status status)
@@ -64,6 +73,32 @@ public partial class StatusComponent : Node2D
 		EmitSignal(nameof(StatusChanged), false, _currentStatus);
 	}
 	
+	public void TakeInfusion(Attack.AttackInfusion infusion, float attackDamage)
+	{
+		switch (infusion)
+		{
+			case Attack.AttackInfusion.Saturated:
+				foreach (var enemy in _nearbyEnemies)
+				{
+					if (_currentStatus == null) return;
+					enemy.GetNode<StatusComponent>("StatusComponent")
+						.TakeStatus(_currentStatus.Copy());
+				}
+				break;
+			
+			case Attack.AttackInfusion.Bold:
+				foreach (var enemy in _nearbyEnemies)
+				{
+					enemy.GetNode<HitboxComponent>("HitboxComponent")
+						.Damage(attackDamage * Options.Balance.InfusionBoldDamageFraction);
+				}
+				break;
+			
+			default:
+				return;
+		}
+	}
+	
 	public void StopStatus()
 	{
 		if (!IsUnderStatus) return;
@@ -81,5 +116,21 @@ public partial class StatusComponent : Node2D
 
 		if (_currentStatus.TicksAmount > 0) return;
 		StopStatus();
+	}
+	
+	private void OnSpreaderEntered(Area2D area)
+	{
+		if (area.Owner is Enemy enemy)
+		{
+			_nearbyEnemies.Add(enemy);
+		}
+	}
+	
+	private void OnSpreaderExited(Area2D area)
+	{
+		if (area.Owner is Enemy enemy)
+		{
+			_nearbyEnemies.Remove(enemy);
+		}
 	}
 }
