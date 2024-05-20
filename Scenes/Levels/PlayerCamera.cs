@@ -9,11 +9,12 @@ public partial class PlayerCamera : Camera2D
 	public override void _Ready()
 	{
 		UpdateZoom();
+		GetViewport().SizeChanged += UpdateZoom;
 	}
 	
 	public void UpdateZoom()
 	{
-		var zoom = GetViewportRect().Size.X / targetWidth;
+		var zoom = GetViewportRect().Size.X / (float)targetWidth;
 		Zoom = new Vector2(zoom, zoom);
 	}
 }

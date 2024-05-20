@@ -1,9 +1,8 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://bvl8bqqlvurl2"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://bvl8bqqlvurl2"]
 
 [ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_3runh"]
 [ext_resource type="PackedScene" uid="uid://bilnmox6l80r8" path="res://Scenes/Interactables/chest.tscn" id="2_4gpdj"]
 [ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="2_yysi8"]
-[ext_resource type="Resource" uid="uid://sjd1omesmajj" path="res://Resources/Weapons/pistol_resource.tres" id="3_yjn4g"]
 [ext_resource type="Resource" uid="uid://u1ij2gjgmbdo" path="res://Resources/Weapons/rifle_resource.tres" id="4_tvtmk"]
 [ext_resource type="Resource" uid="uid://c4o31nnii8pa1" path="res://Resources/Weapons/broadsword_resource.tres" id="5_yvjer"]
 
@@ -27,7 +26,6 @@ ExtResource("2_4gpdj"): 1.0
 }
 MaxInteractables = 1
 Weapons = {
-ExtResource("3_yjn4g"): 0.33,
-ExtResource("4_tvtmk"): 0.66,
+ExtResource("4_tvtmk"): 0.5,
 ExtResource("5_yvjer"): 1.0
 }

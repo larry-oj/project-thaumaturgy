@@ -209,12 +209,26 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
-text = "Game Over"
+text = "You won!"
 
-[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Press {KEY} to restart"
+theme_override_constants/separation = 15
+
+[node name="WonRetryButton" type="Button" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "  Retry  "
+
+[node name="WonExitButton" type="Button" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
 
 [node name="GameOverScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true
@@ -248,7 +262,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 15
 
-[node name="RetryButton" type="Button" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="OverRetryButton" type="Button" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
@@ -262,15 +276,65 @@ theme_override_font_sizes/font_size = 30
 text = "Exit
 "
 
-[node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer"]
+[node name="WeaponTabsScreen" type="PanelContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true
 visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/WeaponTabsScreen"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Menus/MarginContainer/WeaponTabsScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+text = "Upgrade your weapons!"
+
+[node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer/WeaponTabsScreen/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(650, 400)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 30
 tab_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Menus/MarginContainer/WeaponTabsScreen/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+text = "  Continue  "
+
+[node name="LevelClearedScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="spacer" type="Control" parent="Menus/MarginContainer/LevelClearedScreen"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Menus/MarginContainer/LevelClearedScreen"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/LevelClearedScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="Menus/MarginContainer/LevelClearedScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Level cleared!"
 
 [node name="LoadingScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true

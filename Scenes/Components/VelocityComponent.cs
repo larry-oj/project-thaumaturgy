@@ -28,7 +28,6 @@ public partial class VelocityComponent : Node2D
     
     public void Knockback(Vector2 direction, float force)
     {
-        GD.Print(direction);
         IsInKnockback = true;
         this.Velocity = direction.Normalized() * force;
     }

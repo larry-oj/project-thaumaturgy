@@ -14,6 +14,7 @@ public partial class Game : Node2D
 	[Export] public PackedScene PlayerScene { get; private set; }
 	[Export] public UI.UI UI { get; private set; }
 	[Export] public Level Level { get; private set; }
+	[Export] public Timer Timer { get; private set; }
 
 	[ExportCategory("Levels")]
 	[Export] private Array<LevelResource> _levelResources = new();
@@ -32,6 +33,9 @@ public partial class Game : Node2D
 		UI.StartRequested += OnStart;
 		UI.EndRequested += OnEnd;
 		UI.RetryRequested += OnRetry;
+		UI.WeaponsModified += OnWeaponsModified;
+		
+		Timer.Timeout += OnTimerTimeout;
 	}
 
 	private void LoadLevel(LevelResource levelResource, bool isSync = false)
@@ -73,21 +77,8 @@ public partial class Game : Node2D
 
 	private void OnLevelCompleted()
 	{
-		UI.SetLoadingScreen(true);
-		if (Level.Substage < Level.MaxSubstage)
-		{
-			Level.Substage++;
-			Level.StartWorldGen(AfterWorldGen);
-		}
-		else if (Level.Stage < _levelResources.Count)
-		{
-			LoadLevel(_levelResources.First(x => x.StageNum == Level.Stage + 1));
-		}
-		else
-		{
-			UI.SetLoadingScreen(false);
-			UI.SetGameOver(true);
-		}
+		Timer.Start();
+		UI.SetLevelCleared(true);
 	}
 	
 	private void AfterWorldGen()
@@ -95,10 +86,8 @@ public partial class Game : Node2D
 		Level.PlacePlayer()
 			.PlaceEnemies()
 			.PlaceInteractables();
-		UI.SetMainMenu(false);
-		UI.SetLoadingScreen(false);
+		UI.HideAll();
 		UI.SetInterface(true);
-		UI.SetGameOver(false);
 		_player.Visible = true;
 	}
 
@@ -121,10 +110,7 @@ public partial class Game : Node2D
 	{
 		Level.End();
 		UI.ClearWeaponTabs();
-		UI.SetPauseMenu(false);
-		UI.SetLoadingScreen(false);
-		UI.SetInterface(false);
-		UI.SetGameOver(false);
+		UI.HideAll();
 		UI.SetMainMenu(true);
 	}
 
@@ -132,13 +118,36 @@ public partial class Game : Node2D
 	{
 		Level.End();
 		UI.ClearWeaponTabs();
-		UI.SetPauseMenu(false);
-		UI.SetLoadingScreen(false);
-		UI.SetInterface(false);
-		UI.SetMainMenu(false);
+		UI.HideAll();
 		OnStart();
 	}
 
+	private void OnTimerTimeout()
+	{
+		UI.SetLevelCleared(false);
+		UI.SetWeaponsTab(true);
+	}
+	
+	private void OnWeaponsModified()
+	{
+		UI.SetWeaponsTab(false);
+		UI.SetLoadingScreen(true);
+		if (Level.Substage < Level.MaxSubstage)
+		{
+			Level.Substage++;
+			Level.StartWorldGen(AfterWorldGen);
+		}
+		else if (Level.Stage < _levelResources.Count)
+		{
+			LoadLevel(_levelResources.First(x => x.StageNum == Level.Stage + 1));
+		}
+		else
+		{
+			UI.SetLoadingScreen(false);
+			UI.SetGameWon(true);
+		}
+	}
+	
 	// public override void _UnhandledInput(InputEvent @event)
     // {
     // 	if (!@event.IsActionPressed("ui_accept")) return;
