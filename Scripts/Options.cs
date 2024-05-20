@@ -42,6 +42,7 @@ public static class Options
         public static int ManaPickupValueDefault => 6;
         public static int CurrencyPickupValueDefault => 1;
         public static int ElementUpgradeCost => 10;
+        public static int InfusionUpgradeCost => 50;
 
         public static class StatusTypes
         {

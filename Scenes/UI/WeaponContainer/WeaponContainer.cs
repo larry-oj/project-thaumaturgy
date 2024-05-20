@@ -18,6 +18,9 @@ public partial class WeaponContainer : MarginContainer
 
 	[Export] private Control _elementPicker;
 	private Array<ElementPickerButton> _elementPickerButtons = new();
+	
+	[Export] private Control _effectPicker;
+	private Array<EffectPickerButton> _effectPickerButtons = new();
 
 	[Export] private StatChangeContainer _damageStatContainer;
 	[Export] private StatChangeContainer _speedStatContainer;
@@ -47,6 +50,14 @@ public partial class WeaponContainer : MarginContainer
 			if (child is ElementPickerButton button)
 			{
 				_elementPickerButtons.Add(button);
+			}
+		}
+		
+		foreach (var child in _effectPicker.GetChildren())
+		{
+			if (child is EffectPickerButton button)
+			{
+				_effectPickerButtons.Add(button);
 			}
 		}
 
@@ -88,6 +99,23 @@ public partial class WeaponContainer : MarginContainer
 				button.Disabled = true;
 			}
 		}
+		
+		foreach (var button in _effectPickerButtons)
+		{
+			if (_weaponStats.Infusion == Attack.AttackInfusion.None)
+			{
+				button.Disabled = false;
+				button.EffectPicked += OnEffectButtonPressed;
+			}
+			else if (button.Infusion == _weaponStats.Infusion)
+			{
+				button.Disabled = false;
+			}
+			else
+			{
+				button.Disabled = true;
+			}
+		}
 
 		// set weapon stats
 		_damageStatContainer.StatLabel.Text = _weapon.StatsComponent.Damage.ToString("0.00");
@@ -117,6 +145,27 @@ public partial class WeaponContainer : MarginContainer
 				button.Disabled = true;
 			
 			button.ElementPicked -= OnElementButtonPressed;
+		}
+	}
+	
+	private void OnEffectButtonPressed(Attack.AttackInfusion infusion)
+	{
+
+		if (_weaponStats.Infusion != Attack.AttackInfusion.None) return;
+
+		var success = CurrencyComponent.TryChangeCurrency(-Options.Balance.InfusionUpgradeCost);
+		if (!success) return;
+		
+		_weapon.StatsComponent.SetInfusion(infusion);
+
+		// disable all other buttons
+		// remove event listeners so that we cant re-pick
+		foreach (var button in _effectPickerButtons)
+		{
+			if (button.Infusion != infusion)
+				button.Disabled = true;
+			
+			button.EffectPicked -= OnEffectButtonPressed;
 		}
 	}
 
