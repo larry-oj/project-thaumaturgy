@@ -26,6 +26,7 @@ public static class Options
             public static string Interact => "player_interact";
             public static string SwapActiveWeapon => "player_swap_weapon";
             public static string CraftWeapon => "player_craft_weapon";
+            public static string Pause => "player_pause";
         }
     }
 

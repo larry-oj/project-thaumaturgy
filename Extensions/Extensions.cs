@@ -12,4 +12,7 @@ public static class Extentions
 
     public static T As<T>(this CanvasItem obj) where T : CanvasItem
         => obj as T;
+    
+    public static Vector2I ToVector2I(this Rect2 rect)
+        => new Vector2I((int)rect.Size.X, (int)rect.Size.Y);
 }

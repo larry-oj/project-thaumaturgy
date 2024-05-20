@@ -14,6 +14,7 @@ public partial class Game : Node2D
 	[Export] public PackedScene PlayerScene { get; private set; }
 	[Export] public UI.UI UI { get; private set; }
 	[Export] public Level Level { get; private set; }
+	[Export] public Timer Timer { get; private set; }
 
 	[ExportCategory("Levels")]
 	[Export] private Array<LevelResource> _levelResources = new();
@@ -26,18 +27,15 @@ public partial class Game : Node2D
 
 	public override void _Ready()
 	{
-		UI.SetLoadingScreen(true);
-
-		_player = PlayerScene.Instantiate() as Player;
-		_player.Name = "Player";
-		_player.UniqueNameInOwner = true;
-
-		Level.Player = _player;
 		Level.UI = UI;
 		Level.LevelCompleted += OnLevelCompleted;
-		UI.Player = _player;
 
-		LoadLevel(_initialLevelResource, true);
+		UI.StartRequested += OnStart;
+		UI.EndRequested += OnEnd;
+		UI.RetryRequested += OnRetry;
+		UI.WeaponsModified += OnWeaponsModified;
+		
+		Timer.Timeout += OnTimerTimeout;
 	}
 
 	private void LoadLevel(LevelResource levelResource, bool isSync = false)
@@ -79,6 +77,60 @@ public partial class Game : Node2D
 
 	private void OnLevelCompleted()
 	{
+		Timer.Start();
+		UI.SetLevelCleared(true);
+	}
+	
+	private void AfterWorldGen()
+	{
+		Level.PlacePlayer()
+			.PlaceEnemies()
+			.PlaceInteractables();
+		UI.HideAll();
+		UI.SetInterface(true);
+		_player.Visible = true;
+	}
+
+	private void OnStart()
+	{
+		UI.SetLoadingScreen(true);
+		_player = PlayerScene.Instantiate() as Player;
+		_player!.Name = "Player";
+		_player.UniqueNameInOwner = true;
+		AddChild(_player);
+		_player.Visible = false;
+
+		Level.Player = _player;
+		UI.Player = _player;
+		
+		LoadLevel(_initialLevelResource);
+	}
+
+	private void OnEnd()
+	{
+		Level.End();
+		UI.ClearWeaponTabs();
+		UI.HideAll();
+		UI.SetMainMenu(true);
+	}
+
+	private void OnRetry()
+	{
+		Level.End();
+		UI.ClearWeaponTabs();
+		UI.HideAll();
+		OnStart();
+	}
+
+	private void OnTimerTimeout()
+	{
+		UI.SetLevelCleared(false);
+		UI.SetWeaponsTab(true);
+	}
+	
+	private void OnWeaponsModified()
+	{
+		UI.SetWeaponsTab(false);
 		UI.SetLoadingScreen(true);
 		if (Level.Substage < Level.MaxSubstage)
 		{
@@ -92,19 +144,11 @@ public partial class Game : Node2D
 		else
 		{
 			UI.SetLoadingScreen(false);
-			UI.GameOver(true);
+			UI.SetGameWon(true);
 		}
 	}
 	
-	private void AfterWorldGen()
-	{
-		Level.PlacePlayer()
-			.PlaceEnemies()
-			.PlaceInteractables();
-		UI.SetLoadingScreen(false);
-	}
-
-    // public override void _UnhandledInput(InputEvent @event)
+	// public override void _UnhandledInput(InputEvent @event)
     // {
     // 	if (!@event.IsActionPressed("ui_accept")) return;
     // 	

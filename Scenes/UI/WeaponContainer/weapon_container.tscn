@@ -158,9 +158,5 @@ text = "cost: 50"
 label_settings = SubResource("LabelSettings_ubfwt")
 horizontal_alignment = 1
 
-[node name="Spacer4" type="Control" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
 [editable path="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
 [editable path="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]

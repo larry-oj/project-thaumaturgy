@@ -7,14 +7,19 @@
 [ext_resource type="Resource" uid="uid://bvl8bqqlvurl2" path="res://Resources/Levels/forest.tres" id="3_kwhql"]
 [ext_resource type="Resource" uid="uid://c4py6vspma1f8" path="res://Resources/Levels/caves.tres" id="4_hksmi"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("UI", "Level")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("UI", "Level", "Timer")]
 script = ExtResource("1_rc2bw")
 PlayerScene = ExtResource("2_qnov2")
 UI = NodePath("UI")
 Level = NodePath("Level")
+Timer = NodePath("Timer")
 _levelResources = [ExtResource("3_kwhql"), ExtResource("4_hksmi")]
 
 [node name="Level" parent="." instance=ExtResource("1_usil2")]
 
 [node name="UI" parent="." instance=ExtResource("2_x22sx")]
 layer = 50
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

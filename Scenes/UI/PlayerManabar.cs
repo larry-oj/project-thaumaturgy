@@ -18,7 +18,7 @@ public partial class PlayerManabar : ProgressBar
 		}
 	}
 
-	private void SetManaSettings()
+	public void SetManaSettings()
 	{
 		MaxValue = ManaComponent.Max;
 		Value = ManaComponent.Mana;

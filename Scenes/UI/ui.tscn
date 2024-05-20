@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dk2rsb8np72r6"]
+[gd_scene load_steps=11 format=3 uid="uid://dk2rsb8np72r6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Scenes/UI/PlayerManabar.cs" id="4_vicfp"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerCurrencyCounter.cs" id="5_urvci"]
 [ext_resource type="PackedScene" uid="uid://n8pp2ogmrhfw" path="res://Scenes/UI/weapon_icon_container.tscn" id="6_fk18c"]
+[ext_resource type="Script" path="res://Scenes/UI/ResolutionOptionButton.cs" id="7_imbmw"]
+[ext_resource type="Script" path="res://Scenes/UI/WindowOptionButton.cs" id="8_mrow8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb13u"]
 bg_color = Color(1, 0, 0, 1)
@@ -21,6 +23,7 @@ _weaponIconScene = ExtResource("6_fk18c")
 
 [node name="Interface" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,6 +185,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="GameWonScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 4
@@ -205,12 +209,26 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
-text = "Game Over"
+text = "You won!"
 
-[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Press {KEY} to restart"
+theme_override_constants/separation = 15
+
+[node name="WonRetryButton" type="Button" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "  Retry  "
+
+[node name="WonExitButton" type="Button" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
 
 [node name="GameOverScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true
@@ -239,14 +257,45 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Game Over"
 
-[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Press {KEY} to restart"
+theme_override_constants/separation = 15
 
-[node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer"]
+[node name="OverRetryButton" type="Button" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "  Retry  "
+
+[node name="OverExitButton" type="Button" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
+
+[node name="WeaponTabsScreen" type="PanelContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true
 visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/WeaponTabsScreen"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Menus/MarginContainer/WeaponTabsScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+text = "Upgrade your weapons!"
+
+[node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer/WeaponTabsScreen/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(650, 400)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -254,11 +303,44 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 30
 tab_alignment = 1
 
+[node name="ContinueButton" type="Button" parent="Menus/MarginContainer/WeaponTabsScreen/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+text = "  Continue  "
+
+[node name="LevelClearedScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="spacer" type="Control" parent="Menus/MarginContainer/LevelClearedScreen"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Menus/MarginContainer/LevelClearedScreen"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/LevelClearedScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="Menus/MarginContainer/LevelClearedScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Level cleared!"
+
 [node name="LoadingScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 8
 
 [node name="LoadingPanel" type="PanelContainer" parent="Menus/MarginContainer/LoadingScreen"]
 layout_mode = 2
@@ -267,21 +349,19 @@ size_flags_vertical = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel/MarginContainer"]
-layout_mode = 2
-
-[node name="LoadingText" type="Label" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel/MarginContainer/VBoxContainer"]
+[node name="LoadingText" type="Label" parent="Menus/MarginContainer/LoadingScreen/LoadingPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 30
 text = "Loading..."
 
 [node name="PauseMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 4
@@ -300,35 +380,199 @@ theme_override_constants/margin_bottom = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="LoadingText" type="Label" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
-text = "Loading..."
+text = "Paused"
 
-[node name="MainMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Sound:"
+
+[node name="HSlider" type="HSlider" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 65.0
+scrollable = false
+
+[node name="PauseExitButton" type="Button" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = " Exit "
+
+[node name="SettingsMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
-size_flags_vertical = 4
 
-[node name="LoadingPanel" type="PanelContainer" parent="Menus/MarginContainer/MainMenu"]
+[node name="spacer" type="Control" parent="Menus/MarginContainer/SettingsMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Menus/MarginContainer/SettingsMenu"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/MainMenu/LoadingPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 25
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/MainMenu/LoadingPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 30
 
-[node name="LoadingText" type="Label" parent="Menus/MarginContainer/MainMenu/LoadingPanel/MarginContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BackButton" type="Button" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 25
+text = " Back "
+
+[node name="spacer2" type="Control" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
-text = "Loading..."
+text = "Settings"
+
+[node name="spacer2" type="Control" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Resolution:"
+
+[node name="ResolutionOptionButton" type="OptionButton" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+script = ExtResource("7_imbmw")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Window:"
+
+[node name="WindowOptionButton" type="OptionButton" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("_resolutionOptionButton")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+script = ExtResource("8_mrow8")
+_resolutionOptionButton = NodePath("../../HBoxContainer2/ResolutionOptionButton")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Sound:"
+
+[node name="SettingsSoundSlider" type="HSlider" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 65.0
+scrollable = false
+
+[node name="spacer2" type="Control" parent="Menus/MarginContainer/SettingsMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MainMenu" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="Logo" type="Label" parent="Menus/MarginContainer/MainMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 100
+text = "Thaumaturge"
+
+[node name="Spacer" type="Control" parent="Menus/MarginContainer/MainMenu"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="Menus/MarginContainer/MainMenu"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 60
+text = " Start "
+
+[node name="Buttons" type="VBoxContainer" parent="Menus/MarginContainer/MainMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SettingsButton" type="Button" parent="Menus/MarginContainer/MainMenu/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = " Settings "
+
+[node name="MainExitButton" type="Button" parent="Menus/MarginContainer/MainMenu/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "Exit"

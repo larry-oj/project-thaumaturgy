@@ -47,9 +47,19 @@ public partial class UI : CanvasLayer
 	[Export] private PackedScene _weaponIconScene;
 	private Control _loadingScreen;
 	private HBoxContainer _weaponIconsContainer;
+	private VBoxContainer _mainMenu;
+	private VBoxContainer _pauseMenu;
+	private VBoxContainer _settingsMenu;
+	private VBoxContainer _wonMenu;
+	private PanelContainer _weaponTabs;
+	private VBoxContainer _levelCleared;
 	
-	private bool _isGameOver;
-	private bool _isWeaponTabsOpen;
+	// private bool _isWeaponTabsOpen;
+	
+	[Signal] public delegate void StartRequestedEventHandler();
+	[Signal] public delegate void EndRequestedEventHandler();
+	[Signal] public delegate void RetryRequestedEventHandler();
+	[Signal] public delegate void WeaponsModifiedEventHandler();
 
 	public override void _Ready()
 	{
@@ -61,64 +71,132 @@ public partial class UI : CanvasLayer
 		_weaponTabsContainer = GetNode<Control>("%WeaponTabsContainer");
 		_loadingScreen = GetNode<Control>("%LoadingScreen");
 		_weaponIconsContainer = GetNode<HBoxContainer>("%WeaponIcons");
+		_mainMenu = GetNode<VBoxContainer>("%MainMenu");
+		_pauseMenu = GetNode<VBoxContainer>("%PauseMenu");
+		_settingsMenu = GetNode<VBoxContainer>("%SettingsMenu");
+		_wonMenu = GetNode<VBoxContainer>("%GameWonScreen");
+		_weaponTabs = GetNode<PanelContainer>("%WeaponTabsScreen");
+		_levelCleared = GetNode<VBoxContainer>("%LevelClearedScreen");
+		
+		GetNode<Button>("%StartButton").Pressed += () => EmitSignal(SignalName.StartRequested);
+		GetNode<Button>("%PauseExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
+		GetNode<Button>("%OverExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
+		GetNode<Button>("%MainExitButton").Pressed += () => GetTree().Quit();
+		GetNode<Button>("%SettingsButton").Pressed += () => { SetMainMenu(false); SetSettingsMenu(true); };
+		GetNode<Button>("%BackButton").Pressed += () => { SetSettingsMenu(false); SetMainMenu(true); };
+		GetNode<Button>("%OverRetryButton").Pressed += () => EmitSignal(SignalName.RetryRequested);
+		GetNode<Button>("%WonRetryButton").Pressed += () => EmitSignal(SignalName.RetryRequested);
+		GetNode<Button>("%WonExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
+		GetNode<Button>("%ContinueButton").Pressed += () => EmitSignal(SignalName.WeaponsModified);
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (@event.IsActionPressed(Options.Controls.Player.CraftWeapon))
-		{
-			if (!_isWeaponTabsOpen)
-			{
-				OnWeaponTabsOpen();
-				return;
-			}
-			else
-			{
-				OnWeaponTabsClose();
-				return;
-			}
-		}
+		// if (@event.IsActionPressed(Options.Controls.Player.CraftWeapon))
+		// {
+		// 	if (!_isWeaponTabsOpen)
+		// 	{
+		// 		OnWeaponTabsOpen();
+		// 		return;
+		// 	}
+		// 	else
+		// 	{
+		// 		OnWeaponTabsClose();
+		// 		return;
+		// 	}
+		// }
 		
-		if (!_isGameOver) return;
-		
-		if (@event.IsActionPressed("ui_accept"))
+		if (@event.IsActionPressed(Options.Controls.Player.Pause))
 		{
-			GameOver(false);
-			GetTree().ReloadCurrentScene();
+			SetPauseMenu(!_pauseMenu.Visible);
 		}
 	}
 
-	public void GameOver(bool isOver)
+	public void SetGameOver(bool @bool)
 	{
-		_isGameOver = isOver;
-		
-		_interface.Visible = !isOver;
-		_gameOverScreen.Visible = isOver;
-		GetTree().Paused = isOver;
+		_gameOverScreen.Visible = @bool;
+		GetTree().Paused = @bool;
 	}
 
+	public void SetGameWon(bool @bool)
+	{
+		_wonMenu.Visible = @bool;
+		GetTree().Paused = @bool;
+	}
+	
 	private void OnPlayerDied()
 	{
-		GameOver(true);
+		SetGameOver(true);
 	}
 	
-	private void OnWeaponTabsOpen()
+	public void SetWeaponsTab(bool @bool)
 	{
-		GetTree().Paused = true;
-		_weaponTabsContainer.Visible = true;
-		_isWeaponTabsOpen = true;
+		GetTree().Paused = @bool;
+		_weaponTabs.Visible = @bool;
 	}
 	
-	private void OnWeaponTabsClose()
-	{
-		GetTree().Paused = false;
-		_weaponTabsContainer.Visible = false;
-		_isWeaponTabsOpen = false;
-	}
-
 	public void SetLoadingScreen(bool @bool)
 	{
 		_loadingScreen.Visible = @bool;
+	}
+
+	public void SetInterface(bool @bool)
+	{
+		_interface.Visible = @bool;
+		_playerManabar.SetManaSettings();
+		_playerHealthbar.SetHealthSettings();
+	}
+	
+	public void SetMainMenu(bool @bool)
+	{
+		_mainMenu.Visible = @bool;
+	}
+
+	public void SetPauseMenu(bool @bool)
+	{
+		_pauseMenu.Visible = @bool;
+		GetTree().Paused = @bool;
+	}
+
+	public void SetSettingsMenu(bool @bool)
+	{
+		_settingsMenu.Visible = @bool;
+	}
+
+	public void SetLevelCleared(bool @bool)
+	{
+		_levelCleared.Visible = @bool;
+	}
+	
+	public void HideAll()
+	{
+		SetPauseMenu(false);
+		SetLoadingScreen(false);
+		SetInterface(false);
+		SetMainMenu(false);
+		SetGameWon(false);
+		SetGameOver(false);
+		SetWeaponsTab(false);
+		SetLevelCleared(false);
+	}
+	
+	public void ClearWeaponTabs()
+	{
+		foreach (var child in _weaponTabsContainer.GetChildren())
+		{
+			if (child is WeaponContainer weaponContainer)
+			{
+				weaponContainer.QueueFree();
+			}
+		}
+		
+		foreach (var child in _weaponIconsContainer.GetChildren())
+		{
+			if (child is WeaponIconContainer weaponContainer)
+			{
+				weaponContainer.QueueFree();
+			}
+		}
 	}
 	
 	private void OnWeaponSwapped(Weapon weapon)
