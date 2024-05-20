@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://3gfnnmqedwqo"]
+
+[ext_resource type="Texture2D" uid="uid://8lsuv4hsjqta" path="res://Graphics/Sprites/ph_sword_slash.png" id="1_fcyud"]
+
+[resource]
+atlas = ExtResource("1_fcyud")
+region = Rect2(18, 0, 9, 18)

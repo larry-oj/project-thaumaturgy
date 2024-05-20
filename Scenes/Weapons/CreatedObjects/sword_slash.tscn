@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://bb6w6xitsrkpn"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/CreatedObjects/Bullet.cs" id="1_xbjbn"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="2_4o0yu"]
+[ext_resource type="Texture2D" uid="uid://3gfnnmqedwqo" path="res://Graphics/Weapons/melee_wave.tres" id="3_c6isd"]
+[ext_resource type="Texture2D" uid="uid://8lsuv4hsjqta" path="res://Graphics/Sprites/ph_sword_slash.png" id="4_aphfb"]
+[ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="4_v40ja"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8bnuk"]
+size = Vector2(7, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u5a0"]
+atlas = ExtResource("4_aphfb")
+region = Rect2(36, 0, 9, 18)
+
+[node name="SwordSlash" type="Area2D" node_paths=PackedStringArray("_timer", "_spritesComponent")]
+collision_layer = 4
+collision_mask = 65
+script = ExtResource("1_xbjbn")
+_isTemporary = true
+_timer = NodePath("Timer")
+_spritesComponent = NodePath("SpritesComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_8bnuk")
+debug_color = Color(0, 0.631373, 0.443137, 0)
+
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("2_4o0yu")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
+
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
+texture = ExtResource("3_c6isd")
+region_rect = Rect2(0, 5, 7, 7)
+
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
+modulate = Color(1, 1, 1, 0.5)
+texture = SubResource("AtlasTexture_3u5a0")
+region_rect = Rect2(7, 5, 7, 7)
+
+[node name="VelocityComponent" parent="." instance=ExtResource("4_v40ja")]
+MaxSpeed = 250.0
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+rotation = -1.5708
+target_position = Vector2(0, 0)
+collision_mask = 73
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

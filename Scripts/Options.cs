@@ -46,6 +46,7 @@ public static class Options
         public static float InfusionBoldDamageFraction => 0.4f;
         public static float InfusionGhastMultiplier => 0.35f;
         public static float InfusionGhastGrowth => 5f;
+        public static double InfusionGhastDuration => 0.15f;
         
         public static class StatusTypes
         {

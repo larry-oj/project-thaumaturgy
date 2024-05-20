@@ -9,6 +9,8 @@ namespace projectthaumaturgy.Scenes.Weapons.CreatedObjects;
 public partial class Bullet : Projectile
 {
 	[Export] private Area2D _ghastArea;
+	[Export] private bool _isTemporary;
+	[Export] private Timer _timer;
 	
 	private Array<HitboxComponent> _nearbyEnemies = new();
 
@@ -19,6 +21,11 @@ public partial class Bullet : Projectile
 		base._Ready();
 		AreaEntered += OnHitboxAreaEntered;
 		BodyEntered += OnHitboxAreaEntered;
+
+		if (!_isTemporary) return;
+		_timer.Timeout += OnTimerTimeout;
+		_timer.WaitTime = Options.Balance.InfusionGhastDuration;
+		_timer.Start();
 	}
 
 	public override void _Process(double delta)
@@ -73,6 +80,7 @@ public partial class Bullet : Projectile
 
 		_spritesComponent.SetColor(Attack.GetElementColor(attack.Element));
 		
+		if (_isTemporary) return;
 		if (attack.Infusion != Attack.AttackInfusion.Ghastly) return;
 		_ghastArea.AreaEntered += OnGhastEntered;
 		_ghastArea.AreaExited += OnGhastExited;
@@ -93,5 +101,10 @@ public partial class Bullet : Projectile
 			_nearbyEnemies.Remove(hitbox);
 		}
 		if (_nearbyEnemies.Count == 0) _magnetize = 0f;
+	}
+	
+	private void OnTimerTimeout()
+	{
+		QueueFree();
 	}
 }
