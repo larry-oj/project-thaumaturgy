@@ -31,6 +31,7 @@ public partial class Game : Node2D
 
 		UI.StartRequested += OnStart;
 		UI.EndRequested += OnEnd;
+		UI.RetryRequested += OnRetry;
 	}
 
 	private void LoadLevel(LevelResource levelResource, bool isSync = false)
@@ -85,7 +86,7 @@ public partial class Game : Node2D
 		else
 		{
 			UI.SetLoadingScreen(false);
-			UI.GameOver(true);
+			UI.SetGameOver(true);
 		}
 	}
 	
@@ -97,6 +98,7 @@ public partial class Game : Node2D
 		UI.SetMainMenu(false);
 		UI.SetLoadingScreen(false);
 		UI.SetInterface(true);
+		UI.SetGameOver(false);
 		_player.Visible = true;
 	}
 
@@ -104,7 +106,7 @@ public partial class Game : Node2D
 	{
 		UI.SetLoadingScreen(true);
 		_player = PlayerScene.Instantiate() as Player;
-		_player.Name = "Player";
+		_player!.Name = "Player";
 		_player.UniqueNameInOwner = true;
 		AddChild(_player);
 		_player.Visible = false;
@@ -122,10 +124,22 @@ public partial class Game : Node2D
 		UI.SetPauseMenu(false);
 		UI.SetLoadingScreen(false);
 		UI.SetInterface(false);
+		UI.SetGameOver(false);
 		UI.SetMainMenu(true);
 	}
-	
-    // public override void _UnhandledInput(InputEvent @event)
+
+	private void OnRetry()
+	{
+		Level.End();
+		UI.ClearWeaponTabs();
+		UI.SetPauseMenu(false);
+		UI.SetLoadingScreen(false);
+		UI.SetInterface(false);
+		UI.SetMainMenu(false);
+		OnStart();
+	}
+
+	// public override void _UnhandledInput(InputEvent @event)
     // {
     // 	if (!@event.IsActionPressed("ui_accept")) return;
     // 	

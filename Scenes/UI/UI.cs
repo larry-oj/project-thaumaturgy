@@ -50,11 +50,11 @@ public partial class UI : CanvasLayer
 	private VBoxContainer _mainMenu;
 	private VBoxContainer _pauseMenu;
 	
-	private bool _isGameOver;
 	private bool _isWeaponTabsOpen;
 	
 	[Signal] public delegate void StartRequestedEventHandler();
 	[Signal] public delegate void EndRequestedEventHandler();
+	[Signal] public delegate void RetryRequestedEventHandler();
 
 	public override void _Ready()
 	{
@@ -70,8 +70,10 @@ public partial class UI : CanvasLayer
 		_pauseMenu = GetNode<VBoxContainer>("%PauseMenu");
 		
 		GetNode<Button>("%StartButton").Pressed += () => EmitSignal(SignalName.StartRequested);
-		GetNode<Button>("%ExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
-		GetNode<Button>("%QuitButton").Pressed += () => GetTree().Quit();
+		GetNode<Button>("%PauseExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
+		GetNode<Button>("%OverExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
+		GetNode<Button>("%MainExitButton").Pressed += () => GetTree().Quit();
+		GetNode<Button>("%RetryButton").Pressed += () => EmitSignal(SignalName.RetryRequested);
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -94,27 +96,17 @@ public partial class UI : CanvasLayer
 		{
 			SetPauseMenu(!_pauseMenu.Visible);
 		}
-		
-		if (!_isGameOver) return;
-		if (@event.IsActionPressed("ui_accept"))
-		{
-			GameOver(false);
-			EmitSignal(SignalName.EndRequested);
-		}
 	}
 
-	public void GameOver(bool isOver)
+	public void SetGameOver(bool @bool)
 	{
-		_isGameOver = isOver;
-		
-		_interface.Visible = !isOver;
-		_gameOverScreen.Visible = isOver;
-		GetTree().Paused = isOver;
+		_gameOverScreen.Visible = @bool;
+		GetTree().Paused = @bool;
 	}
 
 	private void OnPlayerDied()
 	{
-		GameOver(true);
+		SetGameOver(true);
 	}
 	
 	private void OnWeaponTabsOpen()

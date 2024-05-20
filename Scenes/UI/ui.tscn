@@ -183,6 +183,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="GameWonScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 4
@@ -240,10 +241,24 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "Game Over"
 
-[node name="GameOverSubtext" type="Label" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Press SPACE to return to main menu"
+theme_override_constants/separation = 15
+
+[node name="RetryButton" type="Button" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "  Retry  "
+
+[node name="OverExitButton" type="Button" parent="Menus/MarginContainer/GameOverScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
 
 [node name="WeaponTabsContainer" type="TabContainer" parent="Menus/MarginContainer"]
 unique_name_in_owner = true
@@ -323,7 +338,7 @@ size_flags_vertical = 4
 value = 65.0
 scrollable = false
 
-[node name="ExitButton" type="Button" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer"]
+[node name="PauseExitButton" type="Button" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -368,7 +383,7 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 30
 text = " Settings "
 
-[node name="QuitButton" type="Button" parent="Menus/MarginContainer/MainMenu/Buttons"]
+[node name="MainExitButton" type="Button" parent="Menus/MarginContainer/MainMenu/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
