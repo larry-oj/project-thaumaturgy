@@ -91,7 +91,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "cost:"
 
-[node name="CostValue" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="ElementCostValue" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0"
@@ -171,7 +172,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "cost:"
 
-[node name="CostValue" type="Label" parent="VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="InfusionCostValue" type="Label" parent="VBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0"

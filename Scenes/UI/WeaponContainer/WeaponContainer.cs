@@ -63,6 +63,9 @@ public partial class WeaponContainer : MarginContainer
 
 		_damageStatContainer.StatChanged += OnDamageStatChanged;
 		_speedStatContainer.StatChanged += OnSpeedStatChanged;
+		
+		GetNode<Label>("%ElementCostValue").Text = Options.Balance.ElementUpgradeCost.ToString(CultureInfo.InvariantCulture);
+		GetNode<Label>("%InfusionCostValue").Text = Options.Balance.InfusionUpgradeCost.ToString(CultureInfo.InvariantCulture);
 	}
 
 	// find buttons in the element picker
