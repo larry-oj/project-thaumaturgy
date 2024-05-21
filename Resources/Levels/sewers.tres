@@ -1,0 +1,33 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://d1qfidum7u73o"]
+
+[ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_kby8i"]
+[ext_resource type="PackedScene" uid="uid://bilnmox6l80r8" path="res://Scenes/Interactables/chest.tscn" id="2_fw7f0"]
+[ext_resource type="Resource" uid="uid://sjd1omesmajj" path="res://Resources/Weapons/pistol_resource.tres" id="3_k4hpg"]
+[ext_resource type="Resource" uid="uid://u1ij2gjgmbdo" path="res://Resources/Weapons/rifle_resource.tres" id="4_ohe4n"]
+[ext_resource type="Resource" uid="uid://c4o31nnii8pa1" path="res://Resources/Weapons/broadsword_resource.tres" id="5_pbu8l"]
+[ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="6_iy3wr"]
+
+[resource]
+script = ExtResource("6_iy3wr")
+Name = "Sewers"
+StageNum = 3
+MaxSubstagesNum = 3
+Size = 300
+RoomChance = 0.4
+RoomSize = PackedInt32Array(2, 2)
+TurnChance = PackedFloat32Array(0.15, 0.7, 0.15, 0)
+WalkerMax = 4
+WalkerChance = 0.15
+MaxEnemies = 10
+Enemies = {
+ExtResource("1_kby8i"): 1.0
+}
+Interactables = {
+ExtResource("2_fw7f0"): 1.0
+}
+MaxInteractables = 1
+Weapons = {
+ExtResource("3_k4hpg"): 0.33,
+ExtResource("4_ohe4n"): 0.66,
+ExtResource("5_pbu8l"): 1.0
+}
