@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="2_r4dia"]
 [ext_resource type="PackedScene" uid="uid://bilnmox6l80r8" path="res://Scenes/Interactables/chest.tscn" id="2_y766p"]
 [ext_resource type="Resource" uid="uid://dwlenn81mi3rl" path="res://Resources/Weapons/shotgun_resource.tres" id="3_4vbq3"]
-[ext_resource type="Resource" uid="uid://c4o31nnii8pa1" path="res://Resources/Weapons/broadsword_resource.tres" id="5_e1iyh"]
 [ext_resource type="Resource" uid="uid://eikr4462mluy" path="res://Resources/Weapons/autorifle_resource.tres" id="5_jrowu"]
+[ext_resource type="Resource" uid="uid://be2t2y137wuqb" path="res://Resources/Weapons/lance_resource.tres" id="5_rthsv"]
 
 [resource]
 script = ExtResource("2_r4dia")
@@ -29,5 +29,5 @@ MaxInteractables = 1
 Weapons = {
 ExtResource("3_4vbq3"): 0.4,
 ExtResource("5_jrowu"): 0.8,
-ExtResource("5_e1iyh"): 1.0
+ExtResource("5_rthsv"): 1.0
 }

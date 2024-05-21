@@ -1,0 +1,303 @@
+[gd_scene load_steps=22 format=3 uid="uid://b163c0m3k3uyt"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Lance/Lance.cs" id="1_lkq0d"]
+[ext_resource type="Resource" uid="uid://s802u6xanskc" path="res://Resources/Weapons/CreatedObjects/sword_slash.tres" id="2_jheug"]
+[ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="3_5ngx2"]
+[ext_resource type="Texture2D" uid="uid://dylutt3t72211" path="res://Graphics/Weapons/lance_outline.tres" id="3_ouad1"]
+[ext_resource type="Texture2D" uid="uid://baq73g27f7bka" path="res://Graphics/Weapons/lance_color.tres" id="4_18fed"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="4_uot0v"]
+[ext_resource type="Texture2D" uid="uid://8lsuv4hsjqta" path="res://Graphics/Sprites/ph_sword_slash.png" id="7_jxkpj"]
+[ext_resource type="PackedScene" uid="uid://bxh8qmhaixvwr" path="res://Scenes/Components/hurtbox_component.tscn" id="8_m051b"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Lance/LanceIdle.cs" id="8_y4om1"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Lance/LanceAttack.cs" id="9_ayjm0"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="9_qw7ql"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dih1c"]
+atlas = ExtResource("7_jxkpj")
+region = Rect2(0, 0, 9, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdqq2"]
+atlas = ExtResource("7_jxkpj")
+region = Rect2(9, 0, 9, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74ht8"]
+atlas = ExtResource("7_jxkpj")
+region = Rect2(18, 0, 9, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qpc8"]
+atlas = ExtResource("7_jxkpj")
+region = Rect2(27, 0, 9, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgirp"]
+atlas = ExtResource("7_jxkpj")
+region = Rect2(36, 0, 9, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a2npe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dih1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdqq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74ht8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qpc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgirp")
+}],
+"loop": true,
+"name": &"slashing",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_7sqqy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Outline:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Outline:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.20944]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesComponent/Color:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesComponent/Color:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.20944]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LanceSlash:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LanceSlash:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pi7tf"]
+resource_name = "attacking"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Outline:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.05, 0.07, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(3, 1), Vector2(16, 1), Vector2(17.3668, 0), Vector2(16, -1), Vector2(3, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Outline:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.05, 0.07, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.20944, 0.122173, 0.0, -0.122173, 0.20944]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesComponent/Color:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.05, 0.07, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(3, 1), Vector2(16, 1), Vector2(17.3668, 0), Vector2(16, -1), Vector2(3, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesComponent/Color:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.05, 0.07, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.20944, 0.122173, 0.0, -0.122173, 0.20944]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LanceSlash:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LanceSlash:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.03, 0.04, 0.05, 0.07, 0.09),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("StateMachine/LanceAttack")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"OnAnimationAttack"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1tatp"]
+_data = {
+"RESET": SubResource("Animation_7sqqy"),
+"attacking": SubResource("Animation_pi7tf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4woey"]
+size = Vector2(30, 10)
+
+[node name="Lance" type="Node2D"]
+script = ExtResource("1_lkq0d")
+BulletResource = ExtResource("2_jheug")
+
+[node name="WeaponStatsComponent" parent="." instance=ExtResource("3_5ngx2")]
+Damage = 4.0
+ManaCost = 0.0
+StatusChance = 1.0
+DamageCostIncrease = 2
+FireRateStep = 0.5
+FireRateCostIncrease = 2
+
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_uot0v")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
+
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(3, 1)
+rotation = 0.20944
+texture = ExtResource("3_ouad1")
+
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(3, 1)
+rotation = 0.20944
+texture = ExtResource("4_18fed")
+region_rect = Rect2(55, 0, 15, 5)
+
+[node name="LanceSlash" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(32, 0)
+scale = Vector2(1, -0.66)
+sprite_frames = SubResource("SpriteFrames_a2npe")
+animation = &"slashing"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1tatp")
+}
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_weaponStatsComponent") instance=ExtResource("8_m051b")]
+collision_layer = 4
+collision_mask = 64
+monitoring = true
+IsActiveDetection = false
+_weaponStatsComponent = NodePath("../WeaponStatsComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(29, 0)
+shape = SubResource("RectangleShape2D_4woey")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("9_qw7ql")]
+_initialState = NodePath("LanceIdle")
+
+[node name="LanceIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_lanceAttack")]
+script = ExtResource("8_y4om1")
+_lanceAttack = NodePath("../LanceAttack")
+
+[node name="LanceAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("_lanceIdle", "_timer", "_hurtboxComponent", "_lance", "_projectileSpawner")]
+script = ExtResource("9_ayjm0")
+_lanceIdle = NodePath("../LanceIdle")
+_timer = NodePath("Timer")
+_hurtboxComponent = NodePath("../../HurtboxComponent")
+_lance = NodePath("../..")
+_projectileSpawner = NodePath("../../BulletSpawner")
+
+[node name="Timer" type="Timer" parent="StateMachine/LanceAttack"]
+one_shot = true
+
+[node name="BulletSpawner" type="Marker2D" parent="."]
+position = Vector2(34, 0)
+gizmo_extents = 5.0

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://be2t2y137wuqb"]
+
+[ext_resource type="Texture2D" uid="uid://baq73g27f7bka" path="res://Graphics/Weapons/lance_color.tres" id="1_2j3ha"]
+[ext_resource type="Texture2D" uid="uid://dylutt3t72211" path="res://Graphics/Weapons/lance_outline.tres" id="2_kq1nj"]
+[ext_resource type="PackedScene" uid="uid://b163c0m3k3uyt" path="res://Scenes/Weapons/Lance/lance.tscn" id="4_356vb"]
+[ext_resource type="Script" path="res://Resources/Weapons/WeaponResource.cs" id="5_fqrov"]
+
+[resource]
+script = ExtResource("5_fqrov")
+Scene = ExtResource("4_356vb")
+IconOutline = ExtResource("2_kq1nj")
+IconColor = ExtResource("1_2j3ha")
