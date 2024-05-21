@@ -28,8 +28,10 @@ public partial class Pistol : Weapon
         _stateMachine.PhysicsProcess(delta);
     }
 
-    public override void Attack()
+    public override void Attack(bool isPlayer = false)
     {
+        if (isPlayer && !InputComponent.IsJustAttacked) return;
+        
         EmitSignal(nameof(OnAttack));
     }
 

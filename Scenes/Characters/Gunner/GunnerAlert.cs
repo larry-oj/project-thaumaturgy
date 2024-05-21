@@ -28,6 +28,7 @@ public partial class GunnerAlert : State
 	private bool _isPlayerDetected;
 
 	[Export] private float _baseTimePeriod;
+	[Export] private float _damage;
 	private float TimerPeriod
 	{
 		get => (float)_timer.WaitTime;
@@ -59,6 +60,7 @@ public partial class GunnerAlert : State
 		_detectorComponent.detectionRange = -1f;	// disable range limitation
 		TimerPeriod = _baseTimePeriod;
 		_timer.Start();
+		_weapon.StatsComponent.SetDamage(_damage);
 	}
 	
 	public override void Exit()

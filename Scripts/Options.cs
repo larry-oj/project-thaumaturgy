@@ -47,6 +47,7 @@ public static class Options
         public static float InfusionGhastMultiplier => 0.35f;
         public static float InfusionGhastGrowth => 5f;
         public static double InfusionGhastDuration => 0.15f;
+        public static double AutorifleSpreadAngle => 7f;
         
         public static class StatusTypes
         {
@@ -71,6 +72,7 @@ public static class Options
         public static string Hurt => "hurting";
         public static string Dead => "dying";
         public static string Reset => "RESET";
+        public static string Shoot => "shooting";
     }
 
     public static class Colors

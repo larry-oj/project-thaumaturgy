@@ -35,7 +35,7 @@ public partial class WeaponStatsComponent : Node
     public Attack CreateAttack(Character owner, Vector2 direction = default)
     {
         Status status = default;
-        if (GD.Randf() < StatusChance)
+        if (GD.Randf() < (Element == Attack.AttackElement.Air ? 1 : StatusChance))
         {
             status = new Status();
             switch (this.Element)

@@ -68,7 +68,7 @@ layout_mode = 2
 
 [node name="Water" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
-text = "Water"
+text = "Ice"
 Element = 1
 
 [node name="Earth" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]

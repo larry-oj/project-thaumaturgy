@@ -405,6 +405,7 @@ _weaponPivot = NodePath("../../Pivot")
 _weapon = NodePath("../../Pivot/Rifle")
 _timer = NodePath("Timer")
 _baseTimePeriod = 0.5
+_damage = 5.0
 
 [node name="Timer" type="Timer" parent="StateMachine/GunnerAlert"]
 wait_time = 0.1

@@ -1,6 +1,7 @@
 using Godot;
 using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Characters;
+using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scripts;
 
@@ -31,8 +32,10 @@ public partial class Broadsword : Weapon
 		_stateMachine.PhysicsProcess(delta);
 	}
 	
-	public override void Attack()
+	public override void Attack(bool isPlayer = false)
 	{
+		if (isPlayer && !InputComponent.IsJustAttacked) return;
+		
 		EmitSignal(nameof(OnAttack));
 	}
 	
