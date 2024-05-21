@@ -29,7 +29,7 @@ public partial class GunnerAlert : State
 
 	[Export] private float _baseTimePeriod;
 	[Export] private float _damage;
-	private float TimerPeriod
+	public float TimerPeriod
 	{
 		get => (float)_timer.WaitTime;
 		set

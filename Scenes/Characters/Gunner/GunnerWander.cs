@@ -85,10 +85,24 @@ public partial class GunnerWander : State
 	
 	private void OnStatusChanged(bool isCleared, Status status)
 	{
-		if (!isCleared && status.Type == Status.StatusType.Stunned)
+		if (isCleared) return;
+		
+		switch (status.Type)
 		{
-			_gunnerStunned.Timer.WaitTime = status.TickPeriod;
-			EmitSignal(nameof(Transitioned), this, _gunnerStunned);
+			case Status.StatusType.Freezing:
+				_gunnerAlert.TimerPeriod /= status.Multiplier;
+				break;
+			
+			case Status.StatusType.Stunned:
+				_gunnerStunned.Timer.WaitTime = status.TickPeriod;
+				EmitSignal(nameof(Transitioned), this, _gunnerStunned);
+				break;
+			
+			default:
+			case Status.StatusType.Burning:
+			case Status.StatusType.KnockedBack:
+			case Status.StatusType.None:
+				break;
 		}
 	}
 }
