@@ -55,7 +55,7 @@ BulletResource = ExtResource("2_q8o1y")
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dvamb")]
 Damage = 1.5
 ManaCost = 0.67
-StatusChance = 0.1
+StatusChance = 0.35
 Type = 1
 DamageStep = 0.2
 DamageCostIncrease = 3
