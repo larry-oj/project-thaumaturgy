@@ -1,0 +1,101 @@
+[gd_scene load_steps=13 format=3 uid="uid://bjnmhf061v7li"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Autorifle/Autorifle.cs" id="1_xlfoe"]
+[ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_q8o1y"]
+[ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="3_dvamb"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="4_6uvoj"]
+[ext_resource type="Texture2D" uid="uid://cwkrpt50rp3ra" path="res://Graphics/Weapons/autorifle_outline.tres" id="5_gqbqv"]
+[ext_resource type="Texture2D" uid="uid://b5lsxmhyfhj02" path="res://Graphics/Weapons/autorifle_color.tres" id="5_yve2s"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="7_rsqgd"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Autorifle/AutorifleIdle.cs" id="8_o2vo7"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Autorifle/AutorifleShoot.cs" id="9_xqu24"]
+
+[sub_resource type="Animation" id="Animation_2n06w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hlv4s"]
+resource_name = "shooting"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.08),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0802851, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uraou"]
+_data = {
+"RESET": SubResource("Animation_2n06w"),
+"shooting": SubResource("Animation_hlv4s")
+}
+
+[node name="Autorifle" type="Node2D"]
+script = ExtResource("1_xlfoe")
+BulletResource = ExtResource("2_q8o1y")
+
+[node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dvamb")]
+Damage = 1.5
+ManaCost = 0.67
+StatusChance = 0.1
+Type = 1
+DamageStep = 0.2
+DamageCostIncrease = 3
+DamageBaseCost = 10
+FireRateStep = 0.1
+FireRateCostIncrease = 5
+FireRateBaseCost = 15
+
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_6uvoj")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
+
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(2, 0)
+texture = ExtResource("5_gqbqv")
+
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(2, 0)
+texture = ExtResource("5_yve2s")
+
+[node name="ProjectileSpawner" type="Marker2D" parent="."]
+position = Vector2(10, -1)
+gizmo_extents = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uraou")
+}
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("7_rsqgd")]
+_initialState = NodePath("AutorifleIdle")
+
+[node name="AutorifleIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_pistolShoot")]
+script = ExtResource("8_o2vo7")
+_pistolShoot = NodePath("../AutorifleShoot")
+
+[node name="AutorifleShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_autorifleIdle", "_timer", "_projectileSpawner")]
+script = ExtResource("9_xqu24")
+_autorifleIdle = NodePath("../AutorifleIdle")
+_timer = NodePath("Timer")
+_projectileSpawner = NodePath("../../ProjectileSpawner")
+
+[node name="Timer" type="Timer" parent="StateMachine/AutorifleShoot"]

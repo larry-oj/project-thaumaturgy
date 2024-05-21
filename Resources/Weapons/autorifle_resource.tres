@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://eikr4462mluy"]
+
+[ext_resource type="Texture2D" uid="uid://b5lsxmhyfhj02" path="res://Graphics/Weapons/autorifle_color.tres" id="1_nk5te"]
+[ext_resource type="Texture2D" uid="uid://cwkrpt50rp3ra" path="res://Graphics/Weapons/autorifle_outline.tres" id="2_5x0u3"]
+[ext_resource type="PackedScene" uid="uid://bjnmhf061v7li" path="res://Scenes/Weapons/Autorifle/autorifle.tscn" id="3_kv7a1"]
+[ext_resource type="Script" path="res://Resources/Weapons/WeaponResource.cs" id="5_1sypi"]
+
+[resource]
+resource_name = "AutorifleResource"
+script = ExtResource("5_1sypi")
+Scene = ExtResource("3_kv7a1")
+IconOutline = ExtResource("2_5x0u3")
+IconColor = ExtResource("1_nk5te")
