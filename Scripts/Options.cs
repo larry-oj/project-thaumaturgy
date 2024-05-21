@@ -48,6 +48,8 @@ public static class Options
         public static float InfusionGhastGrowth => 5f;
         public static double InfusionGhastDuration => 0.15f;
         public static double AutorifleSpreadAngle => 7f;
+        public static double ShotgunSpreadAngle => 10f;
+        public static int ShotgunPallets => 5;
         
         public static class StatusTypes
         {

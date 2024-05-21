@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://dwlenn81mi3rl"]
+
+[ext_resource type="Texture2D" uid="uid://clk7kb6p34ege" path="res://Graphics/Weapons/shotgun_color.tres" id="1_cbqnh"]
+[ext_resource type="Texture2D" uid="uid://bh3m1utpjid6b" path="res://Graphics/Weapons/shotgun_outline.tres" id="2_xro2c"]
+[ext_resource type="PackedScene" uid="uid://wqo4xw7rquif" path="res://Scenes/Weapons/Shotgun/shotgun.tscn" id="3_58alp"]
+[ext_resource type="Script" path="res://Resources/Weapons/WeaponResource.cs" id="4_cv83x"]
+
+[resource]
+resource_name = "ShotgunResource"
+script = ExtResource("4_cv83x")
+Scene = ExtResource("3_58alp")
+IconOutline = ExtResource("2_xro2c")
+IconColor = ExtResource("1_cbqnh")
