@@ -6,4 +6,3 @@
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("1_3s1ub")
-targetWidth = 352

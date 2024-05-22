@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
@@ -39,6 +40,7 @@ public partial class Level : Node
     [Export] public PackedScene WorldScene { get; private set; }
     [Export] public Camera2D PlayerCamera { get; private set; }
     [Export] public PackedScene WeaponPickupScene { get; private set; }
+    [Export] public ColorRect Background { get; private set; }
 
     private World _world;
     private World _loadingWorld;
@@ -116,7 +118,7 @@ public partial class Level : Node
                 case Pickup:
                 case Projectile:
                 case World:
-                case Chest:
+                case Interactable:
                 case WeaponPickup:
                     child.QueueFree();
                     break;
@@ -129,9 +131,9 @@ public partial class Level : Node
     public Level StartWorldGen(World.WorldLoaded callback)
     {
         _loadingWorld = WorldScene.Instantiate() as World;
-        _loadingWorld!.Init(Size, _walkerProperties);
+        _loadingWorld!.Init(Size, _walkerProperties, Background);
         _loadingWorld.OnWorldLoaded = callback;
-        _loadingWorld.LoadWorld();
+        _loadingWorld.LoadWorld(Stage);
     
         return this;
     }
@@ -139,8 +141,8 @@ public partial class Level : Node
     public Level StartWorldGenSync()
     {
         _world = WorldScene.Instantiate() as World;
-        _world!.Init(Size, _walkerProperties);
-        _world.LoadWorld();
+        _world!.Init(Size, _walkerProperties, Background);
+        _world.LoadWorld(Stage);
         _world.Wait();
         Clear();
         AddChild(_world);
@@ -201,23 +203,31 @@ public partial class Level : Node
             .OrderByDescending(x => x.DijkstraValue)
             .Take(_interactableProperties.MaxInteractables);
 
+        var props = _interactableProperties.Copy();
+
         foreach (var tile in eligibleTiles)
         {
+            props.MaxInteractables--;
+            
             var r = GD.Randf();
-            var winner = _interactableProperties.Interactables.Keys
-                .First(x => r < _interactableProperties.Interactables[x]);
+            var winner = props.Interactables.Keys
+                .FirstOrDefault(x => r < props.Interactables[x][0] && props.Interactables[x][1] > 0);
+            if (winner == null) continue;
+            props.Interactables[winner][1]--;
 
             var @int = winner.Instantiate();
             if (@int is Chest chest)
             {
                 r = GD.Randf();
-                chest.WeaponResource = _interactableProperties.Weapons.Keys
-                    .First(x => r < _interactableProperties.Weapons[x]);
+                chest.WeaponResource = props.Weapons.Keys
+                    .First(x => r < props.Weapons[x]);
             }
             this.CallDeferred(Node.MethodName.AddChild, @int);
             @int.SetDeferred(Node2D.PropertyName.Position,
                 (tile.Position * Options.Sizes.TilesetSize) +
                 new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize));
+            
+            if (props.MaxInteractables == 0) break;
         }
 
         return this;
@@ -228,6 +238,7 @@ public partial class Level : Node
         Clear();
         PlayerCamera.GetParent()?.RemoveChild(PlayerCamera);
         Player.QueueFree();
+        Background.Color = new Color("4c4c4c");
         
         return this;
     }

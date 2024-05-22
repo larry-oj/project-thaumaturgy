@@ -3,6 +3,7 @@ using Godot.Collections;
 using projectthaumaturgy.Scenes.Characters;
 using projectthaumaturgy.Scripts;
 using System;
+using Array = Godot.Collections.Array;
 
 public partial class LevelResource : Resource
 {
@@ -23,7 +24,7 @@ public partial class LevelResource : Resource
 	[Export] public Dictionary<PackedScene, float> Enemies { get; private set; } = new();
 	
 	[ExportGroup("Interactables")]
-	[Export] public Dictionary<PackedScene, float> Interactables { get; set; }
+	[Export] public Dictionary<PackedScene, Array<float>> Interactables { get; set; }
 	[Export] public int MaxInteractables { get; set; }
 	[Export] public Dictionary<WeaponResource, float> Weapons { get; set; }
 }

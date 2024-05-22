@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=26 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Animations/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d1vak1yatwhx6" path="res://Graphics/Statuses/burning_status_effect.tres" id="3_2gv28"]
 [ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="3_2n4k3"]
 [ext_resource type="PackedScene" uid="uid://wln6mruo3b8p" path="res://Scenes/Components/input_component.tscn" id="3_6nmd5"]
+[ext_resource type="Texture2D" uid="uid://cs8l0aqo7p5cc" path="res://Graphics/Sprites/player.png" id="3_8uypf"]
 [ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="3_rav62"]
 [ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="4_crpsg"]
 [ext_resource type="Texture2D" uid="uid://csq6pl66on2r0" path="res://Graphics/Statuses/freezing_status_effect.tres" id="4_ucj1g"]
@@ -16,11 +17,11 @@
 [ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
 [ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="11_k30gl"]
 [ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_sr35u"]
-[ext_resource type="PackedScene" uid="uid://bjnmhf061v7li" path="res://Scenes/Weapons/Autorifle/autorifle.tscn" id="17_28mya"]
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_yrw68"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
-radius = 3.5
-height = 14.0
+radius = 5.5
+height = 12.0
 
 [sub_resource type="Animation" id="Animation_esx43"]
 length = 0.001
@@ -281,14 +282,19 @@ _animationPlayer = NodePath("AnimationPlayer")
 _pivot = NodePath("Pivot")
 
 [node name="FeetCollider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.5)
-rotation = 1.5708
+position = Vector2(-0.5, 2)
 shape = SubResource("CapsuleShape2D_d3126")
 debug_color = Color(0, 0.623529, 0.52549, 0)
 
 [node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("2_exbbw")]
 Outline = NodePath("Outline")
 Color = NodePath("Color")
+
+[node name="Shadow" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(0, 7.5)
+texture = ExtResource("3_8uypf")
+region_enabled = true
+region_rect = Rect2(33, 91, 14, 5)
 
 [node name="Stunned" type="Sprite2D" parent="SpritesComponent"]
 visible = false
@@ -365,9 +371,10 @@ IsInfinite = false
 scale = Vector2(0.993798, 1)
 script = ExtResource("8_fgtmp")
 
-[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent") instance=ExtResource("13_sr35u")]
+[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent", "_velocityComponent") instance=ExtResource("13_sr35u")]
 _healthComponent = NodePath("../HealthComponent")
 _spritesComponent = NodePath("../SpritesComponent")
+_velocityComponent = NodePath("../VelocityComponent")
 IsImmune = true
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("6_oqunc")]
@@ -387,7 +394,7 @@ _inputComponent = NodePath("../../InputComponent")
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
-[node name="Autorifle" parent="Pivot" instance=ExtResource("17_28mya")]
+[node name="Pistol" parent="Pivot" instance=ExtResource("18_yrw68")]
 
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerIdle" method="OnDamageTaken"]
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerRunning" method="OnDamageTaken"]
