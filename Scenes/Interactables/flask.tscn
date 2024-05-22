@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://oa08ku0vccif"]
+
+[ext_resource type="Script" path="res://Scenes/Interactables/Flask.cs" id="1_rhnuk"]
+[ext_resource type="PackedScene" uid="uid://5oacsdw888e8" path="res://Scenes/Pickups/pickup.tscn" id="2_7cmn7"]
+[ext_resource type="Texture2D" uid="uid://g65yyv5d42u3" path="res://Graphics/Sprites/ph_interactables.png" id="3_xyn2r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfhfu"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03ewi"]
+atlas = ExtResource("3_xyn2r")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7gme"]
+atlas = ExtResource("3_xyn2r")
+region = Rect2(0, 32, 16, 16)
+
+[node name="Flask" type="Area2D"]
+collision_layer = 256
+collision_mask = 12
+script = ExtResource("1_rhnuk")
+PickupScene = ExtResource("2_7cmn7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cfhfu")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="ClosedOutline" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_03ewi")
+
+[node name="ClosedColor" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_a7gme")
+
+[node name="OpenOutline" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0.513726, 0.513726, 0.513726, 1)
+texture = ExtResource("3_xyn2r")
+region_enabled = true
+region_rect = Rect2(16, 16, 16, 16)
+
+[node name="OpenColor" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.678944, 0.678944, 0.678944, 1)
+scale = Vector2(1, 1.03468)
+texture = ExtResource("3_xyn2r")
+region_enabled = true
+region_rect = Rect2(16, 32, 16, 16)
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
