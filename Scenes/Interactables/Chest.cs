@@ -9,27 +9,23 @@ using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Interactables;
 
-public partial class Chest : Area2D
+public partial class Chest : Interactable
 {
     private Sprite2D _closedSprite;
     private Sprite2D _openSprite;
-    private Level _level;
-    
-    private bool _isUsed = false;
     
     [Export] public WeaponResource WeaponResource { get; set; }
     [Export] public PackedScene WeaponPickupScene { get; set; }
 	
     public override void _Ready()
     {
+        base._Ready();
         _closedSprite = GetNode<Sprite2D>("Closed");
         _openSprite = GetNode<Sprite2D>("Open");
-        _level = GetNode<Level>(Options.PathOptions.Level);
     }
 
-    private void OnAreaEntered(Node area)
+    internal override void OnInteracted()
     {
-        if (area.Owner is not Player) return;
         if (_isUsed) return;
         
         _closedSprite.Visible = false;

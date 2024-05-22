@@ -28,6 +28,7 @@ public partial class GunnerIdle : State
 		_detectorComponent.Detected += OnPlayerDetected;
 		_statusComponent.StatusChanged += OnStatusChanged;
 		_animationPlayer.AnimationFinished += OnAnimationFinished;
+		_animationPlayer.Play(Options.AnimationNames.Idle);
 	}
 	
 	public override void Exit()
@@ -36,6 +37,7 @@ public partial class GunnerIdle : State
 		_detectorComponent.Detected -= OnPlayerDetected;
 		_statusComponent.StatusChanged -= OnStatusChanged;
 		_animationPlayer.AnimationFinished -= OnAnimationFinished;
+		_animationPlayer.Stop();
 	}
 
 	public override void Process(double delta)

@@ -49,6 +49,8 @@ public partial class Bullet : Projectile
 			var a = Options.Balance.InfusionGhastMultiplier + _magnetize;
 			var b = 1f - a;
 			GlobalRotation = (Transform.X * b + tmp * a).Normalized().Angle();
+			if (Attack.StatusEffect != null)
+				Attack.StatusEffect.Direction = Transform.X;
 		}
 		
 		Position += _velocityComponent.MaxSpeed * direction * (float)delta;

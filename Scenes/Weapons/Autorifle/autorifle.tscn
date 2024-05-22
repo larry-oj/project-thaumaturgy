@@ -57,7 +57,6 @@ Damage = 1.5
 ManaCost = 0.67
 StatusChance = 0.35
 Type = 1
-Element = 1
 DamageStep = 0.2
 DamageCostIncrease = 3
 DamageBaseCost = 10

@@ -37,6 +37,7 @@ public partial class GunnerWander : State
             
             _navigationComponent.TargetPosition = new Vector2(x, y);
 		} while (!_navigationComponent.IsTargetReachable());
+		_animationPlayer.Play(Options.AnimationNames.Run);
 	}
 	
 	public override void Exit()
@@ -44,6 +45,7 @@ public partial class GunnerWander : State
 		_detectorComponent.Detected -= OnPlayerDetected;
 		_statusComponent.StatusChanged -= OnStatusChanged;
 		_animationPlayer.AnimationFinished -= OnAnimationFinished;
+		_animationPlayer.Stop();
 	}
 	
 	public override void Process(double delta)

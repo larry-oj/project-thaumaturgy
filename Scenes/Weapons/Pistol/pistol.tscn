@@ -27,7 +27,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8jo3m"]
 resource_name = "shooting"
-length = 0.3
+length = 0.2
 step = 0.005
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -53,7 +53,7 @@ script = ExtResource("1_jerm7")
 BulletResource = ExtResource("2_fc2c6")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dlku4")]
-Damage = 4.0
+Damage = 3.5
 StatusChance = 1.0
 Type = 1
 FireRateStep = 0.1

@@ -33,7 +33,7 @@ region_enabled = true
 region_rect = Rect2(7, 5, 7, 7)
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_mkblx")]
-MaxSpeed = 200.0
+MaxSpeed = 150.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 rotation = -1.5708

@@ -4,7 +4,7 @@ namespace projectthaumaturgy.Scenes.Levels;
 
 public partial class PlayerCamera : Camera2D
 {
-	[Export] public int targetWidth = 1;
+	[Export] public int targetWidth = 352;
 	
 	public override void _Ready()
 	{

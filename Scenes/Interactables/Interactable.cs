@@ -1,30 +1,28 @@
 using Godot;
 using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
+using projectthaumaturgy.Scenes.Levels;
+using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Interactables;
 
 public partial class Interactable  : Area2D
 {
-	internal SpritesComponent _spritesComponent;
-	internal bool _isOneTimeUse = true;
 	internal bool _isUsed = false;
-	
+	internal Level _level;
+
 	public override void _Ready()
 	{
-		_spritesComponent = GetNode<SpritesComponent>("SpritesComponent");
+		_level = GetNode<Level>(Options.PathOptions.Level);
 	}
-
+	
 	internal virtual void OnAreaEntered(Node area)
 	{
-		if (area.Owner is Player)
-		{
-			OnInteracted();
-		}
+		OnInteracted();
 	}
 
 	internal virtual void OnInteracted()
 	{
-		if (_isOneTimeUse && _isUsed) return;
+		if (_isUsed) return;
 	}
 }
