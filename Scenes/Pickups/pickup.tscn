@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://5oacsdw888e8"]
+[gd_scene load_steps=8 format=3 uid="uid://5oacsdw888e8"]
 
 [ext_resource type="Script" path="res://Scenes/Pickups/Pickup.cs" id="1_w3yii"]
 [ext_resource type="Texture2D" uid="uid://c83k28xnyvi0c" path="res://Graphics/Pickups/health_pickup.tres" id="2_8xt46"]
 [ext_resource type="Texture2D" uid="uid://b5axgijpxwxqo" path="res://Graphics/Pickups/mana_pickup.tres" id="3_65lrd"]
 [ext_resource type="Texture2D" uid="uid://dbuuh6n13v8wp" path="res://Graphics/Pickups/currency_pickup.tres" id="4_hm6v2"]
+[ext_resource type="Texture2D" uid="uid://b6gavwpvunvsx" path="res://Graphics/Sprites/ph_pickups.png" id="5_p7nrr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vdogw"]
 radius = 20.0
@@ -19,8 +20,15 @@ _healthTexture = ExtResource("2_8xt46")
 _manaTexture = ExtResource("3_65lrd")
 _currencyTexture = ExtResource("4_hm6v2")
 
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 2.5)
+texture = ExtResource("5_p7nrr")
+region_enabled = true
+region_rect = Rect2(14, 2, 4, 3)
+
 [node name="Color" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+texture = ExtResource("4_hm6v2")
 
 [node name="MagnetizeArea" type="Area2D" parent="."]
 collision_layer = 128

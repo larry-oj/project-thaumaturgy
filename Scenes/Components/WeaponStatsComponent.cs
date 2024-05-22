@@ -32,10 +32,10 @@ public partial class WeaponStatsComponent : Node
 
     [Signal] public delegate void UpdatedEventHandler();
 
-    public Attack CreateAttack(Character owner, Vector2 direction = default)
+    public Attack CreateAttack(Character owner, Vector2 direction = default, int pallets = 1)
     {
         Status status = default;
-        if (GD.Randf() < StatusChance)
+        if (GD.Randf() < (Element == Attack.AttackElement.Air ? 1 : StatusChance))
         {
             status = new Status();
             switch (this.Element)
@@ -77,7 +77,7 @@ public partial class WeaponStatsComponent : Node
             }
         }
         
-        return new Attack(Damage, Type, Element, Infusion, owner, status);
+        return new Attack(Damage / pallets, Type, Element, Infusion, owner, status);
     }
 
     public WeaponStatsComponent SetDamage(float damage)

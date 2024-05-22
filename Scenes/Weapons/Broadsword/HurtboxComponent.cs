@@ -39,7 +39,7 @@ public partial class HurtboxComponent : Area2D
 		if (area.Owner == attackOwner) return;
 		if (area is not HitboxComponent hitbox) return;
 		
-		var rotation = Vector2.Right.Rotated(GetParent<Broadsword>().GlobalRotation);
+		var rotation = Vector2.Right.Rotated(GetParent<Weapon>().GlobalRotation);
 		hitbox.Damage(_weaponStatsComponent.CreateAttack(attackOwner, rotation));
 	}
 }

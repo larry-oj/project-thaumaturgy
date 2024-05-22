@@ -1,11 +1,14 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://c4py6vspma1f8"]
+[gd_resource type="Resource" load_steps=10 format=3 uid="uid://c4py6vspma1f8"]
 
 [ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_35ky2"]
+[ext_resource type="PackedScene" uid="uid://bqw8i1m88e3wv" path="res://Scenes/Characters/Shotgunner/shotgunner.tscn" id="2_ego2k"]
 [ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="2_r4dia"]
 [ext_resource type="PackedScene" uid="uid://bilnmox6l80r8" path="res://Scenes/Interactables/chest.tscn" id="2_y766p"]
-[ext_resource type="Resource" uid="uid://sjd1omesmajj" path="res://Resources/Weapons/pistol_resource.tres" id="3_pn2kq"]
-[ext_resource type="Resource" uid="uid://u1ij2gjgmbdo" path="res://Resources/Weapons/rifle_resource.tres" id="4_e2jnj"]
-[ext_resource type="Resource" uid="uid://c4o31nnii8pa1" path="res://Resources/Weapons/broadsword_resource.tres" id="5_e1iyh"]
+[ext_resource type="Resource" uid="uid://dwlenn81mi3rl" path="res://Resources/Weapons/shotgun_resource.tres" id="3_4vbq3"]
+[ext_resource type="PackedScene" uid="uid://oa08ku0vccif" path="res://Scenes/Interactables/flask.tscn" id="4_ettb2"]
+[ext_resource type="Resource" uid="uid://eikr4462mluy" path="res://Resources/Weapons/autorifle_resource.tres" id="5_jrowu"]
+[ext_resource type="Resource" uid="uid://be2t2y137wuqb" path="res://Resources/Weapons/lance_resource.tres" id="5_rthsv"]
+[ext_resource type="PackedScene" uid="uid://d2qtlg0m10na4" path="res://Scenes/Interactables/obelisk.tscn" id="5_v0hxl"]
 
 [resource]
 script = ExtResource("2_r4dia")
@@ -18,16 +21,19 @@ RoomSize = PackedInt32Array(2, 2)
 TurnChance = PackedFloat32Array(0.25, 0.5, 0.25, 0)
 WalkerMax = 3
 WalkerChance = 0.12
-MaxEnemies = 10
+MaxEnemies = 12
 Enemies = {
-ExtResource("1_35ky2"): 1.0
+ExtResource("1_35ky2"): 0.6,
+ExtResource("2_ego2k"): 1.0
 }
 Interactables = {
-ExtResource("2_y766p"): 1.0
+ExtResource("2_y766p"): [1.0, 1.0],
+ExtResource("4_ettb2"): [0.2, 1.0],
+ExtResource("5_v0hxl"): [0.5, 1.0]
 }
-MaxInteractables = 1
+MaxInteractables = 2
 Weapons = {
-ExtResource("3_pn2kq"): 0.33,
-ExtResource("4_e2jnj"): 0.66,
-ExtResource("5_e1iyh"): 1.0
+ExtResource("3_4vbq3"): 0.4,
+ExtResource("5_jrowu"): 0.8,
+ExtResource("5_rthsv"): 1.0
 }

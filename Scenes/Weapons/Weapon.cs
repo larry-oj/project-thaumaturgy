@@ -49,7 +49,7 @@ public partial class Weapon : Node2D
         StatsComponent.Updated += OnWeaponStatSheetUpdate;
     }
     
-    public virtual void Attack()
+    public virtual void Attack(bool isPlayer = false)
     {
     }
     

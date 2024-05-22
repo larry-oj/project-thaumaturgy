@@ -49,6 +49,7 @@ public partial class HealthComponent : Node2D
     public void TakeDamage(Attack attack)
     {
         if (IsImmune) return;
+        if (!IsInstanceValid(attack)) return;
         
         if (Resistance == attack.Element)
         {
@@ -63,7 +64,7 @@ public partial class HealthComponent : Node2D
             Health -= attack.Damage;
         }
         
-        attack.Free(); // memory leak prevention
+        attack?.Free(); // memory leak prevention
     }
 
     public void TakeDamage(float flat)

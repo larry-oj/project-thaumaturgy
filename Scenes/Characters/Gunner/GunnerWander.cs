@@ -37,6 +37,7 @@ public partial class GunnerWander : State
             
             _navigationComponent.TargetPosition = new Vector2(x, y);
 		} while (!_navigationComponent.IsTargetReachable());
+		_animationPlayer.Play(Options.AnimationNames.Run);
 	}
 	
 	public override void Exit()
@@ -44,6 +45,7 @@ public partial class GunnerWander : State
 		_detectorComponent.Detected -= OnPlayerDetected;
 		_statusComponent.StatusChanged -= OnStatusChanged;
 		_animationPlayer.AnimationFinished -= OnAnimationFinished;
+		_animationPlayer.Stop();
 	}
 	
 	public override void Process(double delta)
@@ -85,10 +87,24 @@ public partial class GunnerWander : State
 	
 	private void OnStatusChanged(bool isCleared, Status status)
 	{
-		if (!isCleared && status.Type == Status.StatusType.Stunned)
+		if (isCleared) return;
+		
+		switch (status.Type)
 		{
-			_gunnerStunned.Timer.WaitTime = status.TickPeriod;
-			EmitSignal(nameof(Transitioned), this, _gunnerStunned);
+			case Status.StatusType.Freezing:
+				_gunnerAlert.TimerPeriod /= status.Multiplier;
+				break;
+			
+			case Status.StatusType.Stunned:
+				_gunnerStunned.Timer.WaitTime = status.TickPeriod;
+				EmitSignal(nameof(Transitioned), this, _gunnerStunned);
+				break;
+			
+			default:
+			case Status.StatusType.Burning:
+			case Status.StatusType.KnockedBack:
+			case Status.StatusType.None:
+				break;
 		}
 	}
 }

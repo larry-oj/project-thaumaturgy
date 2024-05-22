@@ -4,10 +4,20 @@
 [ext_resource type="PackedScene" uid="uid://b5ke1tax4fn3t" path="res://Scenes/Levels/world.tscn" id="2_ns8lr"]
 [ext_resource type="PackedScene" uid="uid://ciyodh8ntlc5o" path="res://Scenes/Levels/player_camera.tscn" id="3_6prls"]
 
-[node name="Level" type="Node2D" node_paths=PackedStringArray("PlayerCamera")]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("PlayerCamera", "Background")]
 process_mode = 1
+visibility_layer = 2
 script = ExtResource("1_3cupq")
 WorldScene = ExtResource("2_ns8lr")
 PlayerCamera = NodePath("PlayerCamera")
+Background = NodePath("Background")
 
 [node name="PlayerCamera" parent="." instance=ExtResource("3_6prls")]
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(16000, 16000)
+offset_left = -8000.0
+offset_top = -8000.0
+offset_right = 8000.0
+offset_bottom = 8000.0
+color = Color(0.298039, 0.298039, 0.298039, 1)

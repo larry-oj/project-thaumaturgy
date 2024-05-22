@@ -3,14 +3,20 @@
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons;
-	using projectthaumaturgy.Scripts;
+using projectthaumaturgy.Scenes.Weapons.Shotgun;
+using projectthaumaturgy.Scripts;
 
 	namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
 public partial class GunnerAlert : State
 {
+	[ExportCategory("Customization")]
+	[Export] public float BaseTimePeriod;
+	[Export] public float CustomDamage;
 	[Export] private float _upperBoundary;
 	[Export] private float _lowerBoundary;
+	
+	[ExportGroup("Technical")]
 	[Export] private NavigationComponent _navigationComponent;
 	[Export] private DetectorComponent _detectorComponent;
 	[Export] private VelocityComponent _velocityComponent;
@@ -26,9 +32,8 @@ public partial class GunnerAlert : State
 	[Export] private Timer _timer;
 	private float _defaultDetectorRadius;
 	private bool _isPlayerDetected;
-
-	[Export] private float _baseTimePeriod;
-	private float TimerPeriod
+	
+	public float TimerPeriod
 	{
 		get => (float)_timer.WaitTime;
 		set
@@ -57,8 +62,9 @@ public partial class GunnerAlert : State
 		_animationPlayer.AnimationFinished += OnAnimationFinished;
 		_navigationComponent.NavigationTimer.Start();
 		_detectorComponent.detectionRange = -1f;	// disable range limitation
-		TimerPeriod = _baseTimePeriod;
+		TimerPeriod = BaseTimePeriod;
 		_timer.Start();
+		_weapon.StatsComponent.SetDamage(CustomDamage);
 	}
 	
 	public override void Exit()
@@ -82,10 +88,18 @@ public partial class GunnerAlert : State
 	{
 		if (_velocityComponent.IsInKnockback) 
 			_velocityComponent.Move(Vector2.Zero, delta);
-		
-		if (_navigationComponent.IsNavigationFinished())
-			return;
 
+		if (_navigationComponent.IsNavigationFinished())
+		{
+			if (_animationPlayer.CurrentAnimation != Options.AnimationNames.Hurt)
+				_animationPlayer.Play(Options.AnimationNames.Idle);
+            return;
+		}
+
+		if (_animationPlayer.CurrentAnimation != Options.AnimationNames.Hurt && _animationPlayer.CurrentAnimation != Options.AnimationNames.Run)
+		{
+			_animationPlayer.Play(Options.AnimationNames.Run);
+		}
 		_velocityComponent.Move(_gunner.ToLocal(_navigationComponent.GetNextPathPosition()).Normalized());
 	}
 	
@@ -101,7 +115,7 @@ public partial class GunnerAlert : State
 	
 	private void OnAttackTimerTimeout()
 	{
-		if (!_navigationComponent.IsNavigationFinished()) return;
+		if (!_navigationComponent.IsNavigationFinished() && DistanceToPlayer < _lowerBoundary) return;
 		if (!_isPlayerDetected) return;
 		
 		_weapon.Attack();
@@ -128,14 +142,14 @@ public partial class GunnerAlert : State
 	{
 		if (isCleared)
 		{
-			TimerPeriod = _baseTimePeriod;
+			TimerPeriod = BaseTimePeriod;
 			return;
 		}
 
 		switch (change.Type)
 		{
 			case Status.StatusType.Freezing:
-				if (Math.Abs(TimerPeriod - _baseTimePeriod) < 0.001)
+				if (Math.Abs(TimerPeriod - BaseTimePeriod) < 0.001)
 				{
 					TimerPeriod /= change.Multiplier;
 				}
@@ -161,7 +175,10 @@ public partial class GunnerAlert : State
 	
 	private void OnAnimationFinished(StringName animationName)
 	{
-		// todo when needed
+		if (animationName == Options.AnimationNames.Hurt)
+		{
+			_animationPlayer.Play(Options.AnimationNames.Idle);
+		}
 	}
 
 	private void OnHealthDepleted()

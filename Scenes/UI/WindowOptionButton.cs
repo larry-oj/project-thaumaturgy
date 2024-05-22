@@ -23,9 +23,9 @@ public partial class WindowOptionButton : OptionButton
 		this.Selected = 0;
 		this.ItemSelected += (item) =>
 		{
-			DisplayServer.WindowSetMode(_type[item]);
 			if (item == 1)
 				_resolutionOptionButton.Select(1);
+			DisplayServer.WindowSetMode(_type[item]);
 		};
 	}
 }

@@ -117,7 +117,7 @@ tracks/0/path = NodePath("StateMachine/BroadswordAttack")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.125),
+"times": PackedFloat32Array(0.07),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -184,7 +184,7 @@ tracks/0/path = NodePath("StateMachine/BroadswordAttack")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.125),
+"times": PackedFloat32Array(0.07),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -248,7 +248,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4woey"]
-size = Vector2(17, 14)
+size = Vector2(16, 14)
 
 [node name="Broadsword" type="Node2D"]
 script = ExtResource("1_8ojm5")
@@ -296,7 +296,7 @@ IsActiveDetection = false
 _weaponStatsComponent = NodePath("../WeaponStatsComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(20.5, 0)
+position = Vector2(20, 0)
 shape = SubResource("RectangleShape2D_4woey")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("3_wintt")]

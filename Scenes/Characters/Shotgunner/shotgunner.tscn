@@ -1,0 +1,921 @@
+[gd_scene load_steps=48 format=3 uid="uid://bqw8i1m88e3wv"]
+
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_nbo2f"]
+[ext_resource type="Resource" uid="uid://cwlwhyobbjvh4" path="res://Resources/Weapons/CreatedObjects/round_bullet.tres" id="2_y04xe"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_xfba6"]
+[ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="4_ofup8"]
+[ext_resource type="Texture2D" uid="uid://cm8eh1nl017cg" path="res://Graphics/Statuses/stunned_status_effect.tres" id="5_ltgui"]
+[ext_resource type="Texture2D" uid="uid://csq6pl66on2r0" path="res://Graphics/Statuses/freezing_status_effect.tres" id="6_p6e11"]
+[ext_resource type="Texture2D" uid="uid://d1vak1yatwhx6" path="res://Graphics/Statuses/burning_status_effect.tres" id="7_tlpbm"]
+[ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="8_n5sw7"]
+[ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="9_m44w0"]
+[ext_resource type="PackedScene" uid="uid://d0foud0se2uis" path="res://Scenes/Components/navigation_component.tscn" id="10_um374"]
+[ext_resource type="PackedScene" uid="uid://delpi1w48hmeo" path="res://Scenes/Components/detector_comonent.tscn" id="11_ca54x"]
+[ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="12_lqqee"]
+[ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_trde5"]
+[ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="14_57qpl"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="15_0xx8y"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerIdle.cs" id="16_b17er"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerWander.cs" id="17_ohbjy"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerAlert.cs" id="18_i7eed"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerStunned.cs" id="19_qdtbq"]
+[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerDead.cs" id="20_icw7e"]
+[ext_resource type="PackedScene" uid="uid://5oacsdw888e8" path="res://Scenes/Pickups/pickup.tscn" id="21_uqiya"]
+[ext_resource type="PackedScene" uid="uid://wqo4xw7rquif" path="res://Scenes/Weapons/Shotgun/shotgun.tscn" id="22_tgjbg"]
+[ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="23_1vlpv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h47tr"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ochlr"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0awv"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykygy"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfo1b"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arrhn"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wshgk"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yqlyt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h47tr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ochlr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0awv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykygy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfo1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arrhn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wshgk")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lggjc"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa4l4"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjpag"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vo7cc"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqpdq"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g41ni"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v40r4"]
+atlas = ExtResource("4_ofup8")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ro8q5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lggjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa4l4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjpag")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vo7cc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqpdq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g41ni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v40r4")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_efihd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Outline:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Outline:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesComponent/Color:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesComponent/Color:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.00292828]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MiniHealthBarComponent:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SpritesComponent/Hurt:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SpritesComponent/Shadow:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SpritesComponent/Shadow:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 7.5)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SpritesComponent/Outline:animation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("SpritesComponent/Outline:frame")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("SpritesComponent/Color:animation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("SpritesComponent/Color:frame")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_isp4a"]
+resource_name = "dying"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Outline:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Outline:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesComponent/Color:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesComponent/Color:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -1.5708]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 3), Vector2(3, 3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.00292828, -1.5708]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MiniHealthBarComponent:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SpritesComponent/Hurt:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SpritesComponent/Shadow:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SpritesComponent/Shadow:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 7.5), Vector2(0.5, 7.5)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SpritesComponent/Color:animation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("SpritesComponent/Color:frame")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("SpritesComponent/Outline:animation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("SpritesComponent/Outline:frame")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_uy0te"]
+resource_name = "hurting"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Hurt:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_hv43i"]
+resource_name = "idle"
+length = 0.45
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Outline:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Outline:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesComponent/Color:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesComponent/Color:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SpritesComponent/Hurt:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_kbow6"]
+resource_name = "running"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent/Outline:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"running"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesComponent/Outline:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesComponent/Color:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"running"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesComponent/Color:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SpritesComponent/Color:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SpritesComponent/Color:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SpritesComponent/Outline:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SpritesComponent/Outline:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Pivot:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("SpritesComponent/Hurt:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_el4o5"]
+_data = {
+"RESET": SubResource("Animation_efihd"),
+"dying": SubResource("Animation_isp4a"),
+"hurting": SubResource("Animation_uy0te"),
+"idle": SubResource("Animation_hv43i"),
+"running": SubResource("Animation_kbow6")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x2b2m"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ughsc"]
+radius = 5.0
+height = 15.0
+
+[node name="Shotgunner" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer", "_pivot")]
+collision_layer = 16
+collision_mask = 19
+motion_mode = 1
+script = ExtResource("1_nbo2f")
+_bulletResource = ExtResource("2_y04xe")
+_stateMachine = NodePath("StateMachine")
+_animationPlayer = NodePath("AnimationPlayer")
+_pivot = NodePath("Pivot")
+
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("3_xfba6")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
+
+[node name="Shadow" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(0, 7.5)
+texture = ExtResource("4_ofup8")
+region_enabled = true
+region_rect = Rect2(19, 28, 10, 4)
+
+[node name="Stunned" type="Sprite2D" parent="SpritesComponent"]
+visible = false
+z_index = 11
+position = Vector2(0, -8)
+texture = ExtResource("5_ltgui")
+
+[node name="Outline" type="AnimatedSprite2D" parent="SpritesComponent"]
+clip_children = 2
+sprite_frames = SubResource("SpriteFrames_yqlyt")
+animation = &"idle"
+
+[node name="Freezing" type="Sprite2D" parent="SpritesComponent/Outline"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+texture = ExtResource("6_p6e11")
+
+[node name="Burning" type="Sprite2D" parent="SpritesComponent/Outline"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+texture = ExtResource("7_tlpbm")
+
+[node name="Color" type="AnimatedSprite2D" parent="SpritesComponent"]
+clip_children = 2
+sprite_frames = SubResource("SpriteFrames_ro8q5")
+animation = &"idle"
+
+[node name="Freezing" type="Sprite2D" parent="SpritesComponent/Color"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+texture = ExtResource("6_p6e11")
+
+[node name="Burning" type="Sprite2D" parent="SpritesComponent/Color"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.509804)
+texture = ExtResource("7_tlpbm")
+
+[node name="Hurt" type="Sprite2D" parent="SpritesComponent"]
+visible = false
+texture = ExtResource("4_ofup8")
+region_enabled = true
+region_rect = Rect2(0, 16, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_el4o5")
+}
+
+[node name="FeetCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_x2b2m")
+debug_color = Color(0, 0.631373, 0.45098, 0)
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent") instance=ExtResource("8_n5sw7")]
+collision_layer = 64
+collision_mask = 4
+_healthComponent = NodePath("../HealthComponent")
+_statusComponent = NodePath("../StatusComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 0.5)
+shape = SubResource("CapsuleShape2D_ughsc")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="HealthComponent" parent="." instance=ExtResource("9_m44w0")]
+Max = 10.0
+Resistance = 5
+Weakness = 5
+
+[node name="NavigationComponent" parent="." instance=ExtResource("10_um374")]
+path_desired_distance = 5.0
+target_desired_distance = 7.0
+_timerInterval = 0.25
+
+[node name="DetectorComonent" parent="." instance=ExtResource("11_ca54x")]
+collision_mask = 9
+_detectionInterval = 0.1
+detectionRange = 100.0
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("12_lqqee")]
+position = Vector2(0, -1)
+MaxSpeed = 95.0
+_body = NodePath("..")
+
+[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent", "_velocityComponent") instance=ExtResource("13_trde5")]
+_healthComponent = NodePath("../HealthComponent")
+_spritesComponent = NodePath("../SpritesComponent")
+_velocityComponent = NodePath("../VelocityComponent")
+
+[node name="ManaComponent" parent="." instance=ExtResource("14_57qpl")]
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("15_0xx8y")]
+_initialState = NodePath("GunnerIdle")
+
+[node name="GunnerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_statusComponent", "_gunnerWander", "_gunnerAlert", "_gunnerDead", "_gunnerStunned")]
+script = ExtResource("16_b17er")
+_wanderChance = 0.5
+_detectorComponent = NodePath("../../DetectorComonent")
+_statusComponent = NodePath("../../StatusComponent")
+_gunnerWander = NodePath("../GunnerWander")
+_gunnerAlert = NodePath("../GunnerAlert")
+_gunnerDead = NodePath("../GunnerDead")
+_gunnerStunned = NodePath("../GunnerStunned")
+
+[node name="Timer" type="Timer" parent="StateMachine/GunnerIdle"]
+wait_time = 2.0
+
+[node name="GunnerWander" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_velocityComponent", "_navigationComponent", "_statusComponent", "_gunnerIdle", "_gunnerAlert", "_gunnerDead", "_gunnerStunned")]
+script = ExtResource("17_ohbjy")
+_wanderRadius = 50.0
+_detectorComponent = NodePath("../../DetectorComonent")
+_velocityComponent = NodePath("../../VelocityComponent")
+_navigationComponent = NodePath("../../NavigationComponent")
+_statusComponent = NodePath("../../StatusComponent")
+_gunnerIdle = NodePath("../GunnerIdle")
+_gunnerAlert = NodePath("../GunnerAlert")
+_gunnerDead = NodePath("../GunnerDead")
+_gunnerStunned = NodePath("../GunnerStunned")
+
+[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_navigationComponent", "_detectorComponent", "_velocityComponent", "_statusComponent", "_gunnerIdle", "_gunnerDead", "_gunnerStunned", "_weaponPivot", "_weapon", "_timer")]
+script = ExtResource("18_i7eed")
+BaseTimePeriod = 1.0
+CustomDamage = 5.0
+_upperBoundary = 60.0
+_lowerBoundary = 35.0
+_navigationComponent = NodePath("../../NavigationComponent")
+_detectorComponent = NodePath("../../DetectorComonent")
+_velocityComponent = NodePath("../../VelocityComponent")
+_statusComponent = NodePath("../../StatusComponent")
+_gunnerIdle = NodePath("../GunnerIdle")
+_gunnerDead = NodePath("../GunnerDead")
+_gunnerStunned = NodePath("../GunnerStunned")
+_weaponPivot = NodePath("../../Pivot")
+_weapon = NodePath("../../Pivot/Shotgun")
+_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="StateMachine/GunnerAlert"]
+wait_time = 0.1
+
+[node name="GunnerStunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("_gunnerAlert", "_gunnerDead")]
+script = ExtResource("19_qdtbq")
+_gunnerAlert = NodePath("../GunnerAlert")
+_gunnerDead = NodePath("../GunnerDead")
+
+[node name="Timer" type="Timer" parent="StateMachine/GunnerStunned"]
+one_shot = true
+
+[node name="GunnerDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("_feetCollider", "_hitboxComponent", "_navigationComponent", "_detectorComponent", "_statusComponent")]
+script = ExtResource("20_icw7e")
+_pickupScene = ExtResource("21_uqiya")
+_feetCollider = NodePath("../../FeetCollider")
+_hitboxComponent = NodePath("../../HitboxComponent")
+_navigationComponent = NodePath("../../NavigationComponent")
+_detectorComponent = NodePath("../../DetectorComonent")
+_statusComponent = NodePath("../../StatusComponent")
+
+[node name="Pivot" type="Node2D" parent="."]
+position = Vector2(0, 3)
+rotation = -0.00292828
+
+[node name="Shotgun" parent="Pivot" instance=ExtResource("22_tgjbg")]
+
+[node name="MiniHealthBarComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("23_1vlpv")]
+offset_top = 10.0
+offset_bottom = 13.0
+tint_progress = Color(1, 0, 0, 1)
+_healthComponent = NodePath("../HealthComponent")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerIdle" method="OnDamageTaken"]
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerWander" method="OnDamageTaken"]
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerAlert" method="OnDamageTaken"]
+[connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerIdle" method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerWander" method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerAlert" method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerStunned" method="OnHealthDepleted"]
+[connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerIdle" method="OnPlayerDetected"]
+[connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerWander" method="OnPlayerDetected"]
+[connection signal="StatusChanged" from="StatusComponent" to="VelocityComponent" method="OnStatusChanged"]
+[connection signal="timeout" from="StateMachine/GunnerIdle/Timer" to="StateMachine/GunnerIdle" method="OnTimerTimeout"]

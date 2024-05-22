@@ -1,3 +1,4 @@
+using System.Globalization;
 using Godot;
 using Godot.Collections;
 using projectthaumaturgy.Extensions;
@@ -53,6 +54,9 @@ public partial class UI : CanvasLayer
 	private VBoxContainer _wonMenu;
 	private PanelContainer _weaponTabs;
 	private VBoxContainer _levelCleared;
+	private Label _stageNameLabel;
+	private Label _stageLabel;
+	private Label _substageLabel;
 	
 	// private bool _isWeaponTabsOpen;
 	
@@ -77,6 +81,10 @@ public partial class UI : CanvasLayer
 		_wonMenu = GetNode<VBoxContainer>("%GameWonScreen");
 		_weaponTabs = GetNode<PanelContainer>("%WeaponTabsScreen");
 		_levelCleared = GetNode<VBoxContainer>("%LevelClearedScreen");
+		_stageNameLabel = GetNode<Label>("%StageNameLabel");
+		_stageLabel = GetNode<Label>("%StageLabel");
+		_substageLabel = GetNode<Label>("%SubstageLabel");
+		
 		
 		GetNode<Button>("%StartButton").Pressed += () => EmitSignal(SignalName.StartRequested);
 		GetNode<Button>("%PauseExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
@@ -148,6 +156,13 @@ public partial class UI : CanvasLayer
 		_interface.Visible = @bool;
 		_playerManabar.SetManaSettings();
 		_playerHealthbar.SetHealthSettings();
+	}
+
+	public void SetStage(string stageLabel, int stage, int substage)
+	{
+		_stageNameLabel.Text = stageLabel;
+		_stageLabel.Text = stage.ToString(CultureInfo.InvariantCulture);
+		_substageLabel.Text = substage.ToString(CultureInfo.InvariantCulture);
 	}
 	
 	public void SetMainMenu(bool @bool)

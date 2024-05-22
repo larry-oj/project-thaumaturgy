@@ -104,6 +104,8 @@ public partial class Game : Node2D
 		UI.Player = _player;
 		
 		LoadLevel(_initialLevelResource);
+		_currentLevelResource = _initialLevelResource;
+		UI.SetStage(_initialLevelResource.Name, Level.Stage, Level.Substage);
 	}
 
 	private void OnEnd()
@@ -136,10 +138,13 @@ public partial class Game : Node2D
 		{
 			Level.Substage++;
 			Level.StartWorldGen(AfterWorldGen);
+			UI.SetStage(_currentLevelResource.Name, Level.Stage, Level.Substage);
 		}
 		else if (Level.Stage < _levelResources.Count)
 		{
-			LoadLevel(_levelResources.First(x => x.StageNum == Level.Stage + 1));
+			_currentLevelResource = _levelResources.First(x => x.StageNum == Level.Stage + 1);
+			LoadLevel(_currentLevelResource);
+			UI.SetStage(_currentLevelResource.Name, Level.Stage, Level.Substage);
 		}
 		else
 		{
@@ -147,12 +152,4 @@ public partial class Game : Node2D
 			UI.SetGameWon(true);
 		}
 	}
-	
-	// public override void _UnhandledInput(InputEvent @event)
-    // {
-    // 	if (!@event.IsActionPressed("ui_accept")) return;
-    // 	
-    // 	UI.SetLoadingScreen(true);
-    // 	LoadLevel(_initialLevelResource);
-    // }
 }

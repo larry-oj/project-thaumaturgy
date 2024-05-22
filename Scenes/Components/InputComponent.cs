@@ -24,6 +24,7 @@ public partial class InputComponent : Node2D
 
 	public bool IsAttacking => Input.IsActionPressed(Options.Controls.Player.Attack);
 	public bool IsSwappingWeapons => Input.IsActionJustPressed(Options.Controls.Player.SwapActiveWeapon);
+	public static bool IsJustAttacked => Input.IsActionJustPressed(Options.Controls.Player.Attack);
 	public static bool IsJustInteracted => Input.IsActionJustPressed(Options.Controls.Player.Interact);
 	
 	public override void _Ready()
@@ -40,7 +41,7 @@ public partial class InputComponent : Node2D
 		RotateWeaponToMouse();
 		
 		if (IsAttacking)
-			_player.CurrentWeapon.Attack();
+			_player.CurrentWeapon.Attack(true);
 		
 		if (IsSwappingWeapons)
 			_player.SwapWeapons();

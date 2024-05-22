@@ -46,11 +46,13 @@ theme_override_constants/margin_bottom = 20
 [node name="Sections" type="VBoxContainer" parent="Interface/MarginContainer"]
 layout_mode = 2
 
-[node name="TopSection" type="HBoxContainer" parent="Interface/MarginContainer/Sections"]
+[node name="TopSection" type="GridContainer" parent="Interface/MarginContainer/Sections"]
 layout_mode = 2
 size_flags_vertical = 0
+columns = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="PlayerHealthPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection/VBoxContainer"]
@@ -112,27 +114,79 @@ script = ExtResource("4_vicfp")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerCurrencyPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="StageNameLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Stage"
+
+[node name="doubledot" type="Label" parent="Interface/MarginContainer/Sections/TopSection/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = ":"
+
+[node name="StageLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "1
+"
+
+[node name="dash" type="Label" parent="Interface/MarginContainer/Sections/TopSection/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "-"
+
+[node name="SubstageLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "1
+"
+
+[node name="spacer2" type="Control" parent="Interface/MarginContainer/Sections/TopSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="PlayerCurrencyPanel" type="PanelContainer" parent="Interface/MarginContainer/Sections/TopSection/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MarginContainer/Sections/TopSection/MarginContainer/PlayerCurrencyPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer/Sections/TopSection/MarginContainer/PlayerCurrencyPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="CurrencyLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer/VBoxContainer"]
+[node name="CurrencyLabel" type="Label" parent="Interface/MarginContainer/Sections/TopSection/MarginContainer/PlayerCurrencyPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Essense:"
 horizontal_alignment = 2
 
-[node name="PlayerCurrencyCounter" type="Label" parent="Interface/MarginContainer/Sections/TopSection/PlayerCurrencyPanel/MarginContainer/VBoxContainer"]
+[node name="PlayerCurrencyCounter" type="Label" parent="Interface/MarginContainer/Sections/TopSection/MarginContainer/PlayerCurrencyPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "000"
@@ -220,7 +274,7 @@ theme_override_constants/separation = 15
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "  Retry  "
+text = "Play again"
 
 [node name="WonExitButton" type="Button" parent="Menus/MarginContainer/GameWonScreen/GameOverPanel/MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -335,7 +389,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Label" type="Label" parent="Menus/MarginContainer/LevelClearedScreen/PanelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 30
 text = "Level cleared!"
 
 [node name="LoadingScreen" type="VBoxContainer" parent="Menus/MarginContainer"]
