@@ -21,9 +21,9 @@ public partial class LanceAttack  : State
 	public override void Enter()
 	{
 		const string animationName = "attacking";
-		_timer.Start(_animationPlayer.GetAnimation(animationName).Length / _lance.StatsComponent.FireRate);
+		_timer.Start(1 / _lance.StatsComponent.FireRate);
 
-		_animationPlayer.Play(animationName, customSpeed: _lance.StatsComponent.FireRate);
+		_animationPlayer.Play(animationName);
 		
 		_lance.IsInAttackAnimation = true;
 	}

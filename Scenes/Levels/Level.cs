@@ -171,7 +171,7 @@ public partial class Level : Node
     {
         // dont place enemies right next to the player
         var eligibleTiles = _world.WalkableTiles
-            .Where(x => x.DijkstraValue > 4)
+            .Where(x => x.DijkstraValue > 8)
             .Select(x => (x, GD.Randf()))
             .OrderBy(x => x.Item2)
             .Select(x => x.x)
@@ -185,9 +185,9 @@ public partial class Level : Node
                 .First(x => r < _enemyProperties.Enemies[x]);
             
             var enemy = winner.Instantiate() as Enemy;
-            enemy.SetDeferred(Enemy.PropertyName.Position, (tile.Position * Options.Sizes.TilesetSize) + new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize));
+            enemy!.SetDeferred(Node2D.PropertyName.Position, (tile.Position * Options.Sizes.TilesetSize) + new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize));
             enemy.BodyToDetect = Player as CharacterBody2D;
-            this.CallDeferred(Level.MethodName.AddChild, enemy);
+            this.CallDeferred(Node.MethodName.AddChild, enemy);
             enemy.Died += OnEnemyKilled;
             enemy.Ready += () => enemy.CurrentWeapon.StatsComponent.SetElement((Attack.AttackElement)GD.RandRange(0, 3));
         }
@@ -238,7 +238,7 @@ public partial class Level : Node
         Clear();
         PlayerCamera.GetParent()?.RemoveChild(PlayerCamera);
         Player.QueueFree();
-        Background.Color = new Color("4c4c4c");
+        Background.Color = new Color("4c4c70");
         
         return this;
     }

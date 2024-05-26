@@ -16,6 +16,7 @@ public partial class Pickup : CanvasGroup
 	}
 
 	[Export] private Sprite2D _color;
+	[Export] private Timer _disappearTimer;
 
 	[ExportCategory("Textures")]
 	[Export] private AtlasTexture _healthTexture;
@@ -115,6 +116,22 @@ public partial class Pickup : CanvasGroup
 		if (area.Owner is Player)
 		{
 			_player = null;
+		}
+	}
+	
+	private bool _isDisappearing = false;
+	private void OnDisappearTimerTimeout()
+	{
+		if (!_isDisappearing)
+		{
+			GetNode<AnimationPlayer>("AnimationPlayer").Play(Options.AnimationNames.Disappear);
+			_isDisappearing = true;
+			_disappearTimer.WaitTime = 2f;
+			_disappearTimer.Start();
+		}
+		else
+		{
+			QueueFree();
 		}
 	}
 }

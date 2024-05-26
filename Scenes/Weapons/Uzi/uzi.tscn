@@ -1,0 +1,101 @@
+[gd_scene load_steps=13 format=3 uid="uid://ccqoq2qgn4rh7"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Uzi/Uzi.cs" id="1_egltx"]
+[ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_xqcof"]
+[ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="3_o1vw5"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="4_3n8ax"]
+[ext_resource type="Texture2D" uid="uid://dsp8nc3csli05" path="res://Graphics/Weapons/uzi_outline.tres" id="5_y0ihp"]
+[ext_resource type="Texture2D" uid="uid://1hikpuq05kb1" path="res://Graphics/Weapons/uzi_color.tres" id="6_lv8e0"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="7_bm3cv"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Uzi/UziIdle.cs" id="8_br6qs"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Uzi/UziShoot.cs" id="9_diyga"]
+
+[sub_resource type="Animation" id="Animation_2n06w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hlv4s"]
+resource_name = "shooting"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.14),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.139626, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uraou"]
+_data = {
+"RESET": SubResource("Animation_2n06w"),
+"shooting": SubResource("Animation_hlv4s")
+}
+
+[node name="Uzi" type="Node2D"]
+script = ExtResource("1_egltx")
+BulletResource = ExtResource("2_xqcof")
+
+[node name="WeaponStatsComponent" parent="." instance=ExtResource("3_o1vw5")]
+Damage = 1.6
+ManaCost = 0.6
+StatusChance = 0.25
+Type = 1
+DamageStep = 0.2
+DamageCostIncrease = 3
+DamageBaseCost = 10
+FireRateStep = 0.1
+FireRateCostIncrease = 5
+FireRateBaseCost = 15
+
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_3n8ax")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
+
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(1.5, 0)
+texture = ExtResource("5_y0ihp")
+
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
+position = Vector2(1.5, 0)
+texture = ExtResource("6_lv8e0")
+
+[node name="ProjectileSpawner" type="Marker2D" parent="."]
+position = Vector2(5.5, -1.5)
+gizmo_extents = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uraou")
+}
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("7_bm3cv")]
+_initialState = NodePath("UziIdle")
+
+[node name="UziIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_shoot")]
+script = ExtResource("8_br6qs")
+_shoot = NodePath("../UziShoot")
+
+[node name="UziShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idle", "_timer", "_projectileSpawner")]
+script = ExtResource("9_diyga")
+_idle = NodePath("../UziIdle")
+_timer = NodePath("Timer")
+_projectileSpawner = NodePath("../../ProjectileSpawner")
+
+[node name="Timer" type="Timer" parent="StateMachine/UziShoot"]

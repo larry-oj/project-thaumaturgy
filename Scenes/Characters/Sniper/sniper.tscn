@@ -1,68 +1,73 @@
-[gd_scene load_steps=48 format=3 uid="uid://bqw8i1m88e3wv"]
+[gd_scene load_steps=48 format=3 uid="uid://cniv8ipbkcpwy"]
 
-[ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_nbo2f"]
-[ext_resource type="Resource" uid="uid://cwlwhyobbjvh4" path="res://Resources/Weapons/CreatedObjects/round_bullet.tres" id="2_y04xe"]
-[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_xfba6"]
-[ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="4_ofup8"]
-[ext_resource type="Texture2D" uid="uid://cm8eh1nl017cg" path="res://Graphics/Statuses/stunned_status_effect.tres" id="5_ltgui"]
-[ext_resource type="Texture2D" uid="uid://csq6pl66on2r0" path="res://Graphics/Statuses/freezing_status_effect.tres" id="6_p6e11"]
-[ext_resource type="Texture2D" uid="uid://d1vak1yatwhx6" path="res://Graphics/Statuses/burning_status_effect.tres" id="7_tlpbm"]
-[ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="8_n5sw7"]
-[ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="9_m44w0"]
-[ext_resource type="PackedScene" uid="uid://d0foud0se2uis" path="res://Scenes/Components/navigation_component.tscn" id="10_um374"]
-[ext_resource type="PackedScene" uid="uid://delpi1w48hmeo" path="res://Scenes/Components/detector_comonent.tscn" id="11_ca54x"]
-[ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="12_lqqee"]
-[ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_trde5"]
-[ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="14_57qpl"]
-[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="15_0xx8y"]
-[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerIdle.cs" id="16_b17er"]
-[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerWander.cs" id="17_ohbjy"]
-[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerAlert.cs" id="18_i7eed"]
-[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerStunned.cs" id="19_qdtbq"]
-[ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerDead.cs" id="20_icw7e"]
-[ext_resource type="PackedScene" uid="uid://5oacsdw888e8" path="res://Scenes/Pickups/pickup.tscn" id="21_uqiya"]
-[ext_resource type="PackedScene" uid="uid://wqo4xw7rquif" path="res://Scenes/Weapons/Shotgun/shotgun.tscn" id="22_tgjbg"]
-[ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="23_1vlpv"]
+[ext_resource type="Script" path="res://Scenes/Characters/Sniper/Sniper.cs" id="1_7aep6"]
+[ext_resource type="Resource" uid="uid://cwlwhyobbjvh4" path="res://Resources/Weapons/CreatedObjects/round_bullet.tres" id="2_sjimv"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_o5oji"]
+[ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="4_8wg5u"]
+[ext_resource type="Texture2D" uid="uid://cm8eh1nl017cg" path="res://Graphics/Statuses/stunned_status_effect.tres" id="5_wixxv"]
+[ext_resource type="Texture2D" uid="uid://csq6pl66on2r0" path="res://Graphics/Statuses/freezing_status_effect.tres" id="6_00cur"]
+[ext_resource type="Texture2D" uid="uid://d1vak1yatwhx6" path="res://Graphics/Statuses/burning_status_effect.tres" id="7_83s1x"]
+[ext_resource type="PackedScene" uid="uid://dfba477dgx76r" path="res://Scenes/Components/hitbox_component.tscn" id="8_fneys"]
+[ext_resource type="PackedScene" uid="uid://ddu5kbyu1ig2c" path="res://Scenes/Components/health_component.tscn" id="9_1oj1m"]
+[ext_resource type="PackedScene" uid="uid://d0foud0se2uis" path="res://Scenes/Components/navigation_component.tscn" id="10_wvvyj"]
+[ext_resource type="PackedScene" uid="uid://delpi1w48hmeo" path="res://Scenes/Components/detector_comonent.tscn" id="11_2ffan"]
+[ext_resource type="PackedScene" uid="uid://dnjwxjomrtya7" path="res://Scenes/Components/velocity_component.tscn" id="12_s67wv"]
+[ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_jcm8g"]
+[ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="14_okwmn"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="15_1hwkr"]
+[ext_resource type="Script" path="res://Scenes/Characters/Sniper/SniperAlert.cs" id="16_5yita"]
+[ext_resource type="Script" path="res://Scenes/Characters/Sniper/SniperStunned.cs" id="17_hc5cq"]
+[ext_resource type="Script" path="res://Scenes/Characters/Sniper/SniperDead.cs" id="18_oqggr"]
+[ext_resource type="PackedScene" uid="uid://5oacsdw888e8" path="res://Scenes/Pickups/pickup.tscn" id="21_kb6ef"]
+[ext_resource type="PackedScene" uid="uid://hqqhhcwnvx0y" path="res://Scenes/Weapons/Sniper/sniper.tscn" id="22_cqd80"]
+[ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="23_68yet"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h47tr"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nlcc"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(0, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ochlr"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(32, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_agpq1"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(16, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e0awv"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(48, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_r38af"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(32, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ykygy"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(64, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxujd"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(48, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lfo1b"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(80, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bf8h"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(64, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_arrhn"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(96, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_bso03"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(80, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wshgk"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(112, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mostr"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(96, 32, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_yqlyt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7mfe"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c5kmv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h47tr")
+"texture": SubResource("AtlasTexture_1nlcc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ochlr")
+"texture": SubResource("AtlasTexture_agpq1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e0awv")
+"texture": SubResource("AtlasTexture_r38af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxujd")
 }],
 "loop": true,
 "name": &"idle",
@@ -70,61 +75,68 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ykygy")
+"texture": SubResource("AtlasTexture_3bf8h")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lfo1b")
+"texture": SubResource("AtlasTexture_bso03")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_arrhn")
+"texture": SubResource("AtlasTexture_mostr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wshgk")
+"texture": SubResource("AtlasTexture_m7mfe")
 }],
 "loop": true,
 "name": &"running",
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lggjc"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_34txk"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(0, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qa4l4"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(32, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_agewm"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(16, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fjpag"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(48, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ab2j"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(32, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vo7cc"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(64, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0ctq"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(48, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jqpdq"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(80, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_lftsu"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(64, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g41ni"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(96, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_st5b0"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(80, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v40r4"]
-atlas = ExtResource("4_ofup8")
-region = Rect2(112, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ufe5"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(96, 48, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ro8q5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_14xu5"]
+atlas = ExtResource("4_8wg5u")
+region = Rect2(112, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rpady"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lggjc")
+"texture": SubResource("AtlasTexture_34txk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qa4l4")
+"texture": SubResource("AtlasTexture_agewm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fjpag")
+"texture": SubResource("AtlasTexture_5ab2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0ctq")
 }],
 "loop": true,
 "name": &"idle",
@@ -132,16 +144,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vo7cc")
+"texture": SubResource("AtlasTexture_lftsu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jqpdq")
+"texture": SubResource("AtlasTexture_st5b0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g41ni")
+"texture": SubResource("AtlasTexture_6ufe5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v40r4")
+"texture": SubResource("AtlasTexture_14xu5")
 }],
 "loop": true,
 "name": &"running",
@@ -249,31 +261,31 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("SpritesComponent/Shadow:scale")
+tracks/8/path = NodePath("SpritesComponent/Outline:animation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [&"idle"]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("SpritesComponent/Shadow:position")
+tracks/9/path = NodePath("SpritesComponent/Outline:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 7.5)]
+"update": 1,
+"values": [0]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("SpritesComponent/Outline:animation")
+tracks/10/path = NodePath("SpritesComponent/Color:animation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -285,34 +297,10 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("SpritesComponent/Outline:frame")
+tracks/11/path = NodePath("SpritesComponent/Color:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("SpritesComponent/Color:animation")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("SpritesComponent/Color:frame")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -422,31 +410,31 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("SpritesComponent/Shadow:scale")
+tracks/8/path = NodePath("SpritesComponent/Color:animation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.5, 1)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("SpritesComponent/Shadow:position")
+tracks/9/path = NodePath("SpritesComponent/Color:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 7.5), Vector2(0.5, 7.5)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("SpritesComponent/Color:animation")
+tracks/10/path = NodePath("SpritesComponent/Outline:animation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -458,34 +446,10 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("SpritesComponent/Color:frame")
+tracks/11/path = NodePath("SpritesComponent/Outline:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("SpritesComponent/Outline:animation")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("SpritesComponent/Outline:frame")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -511,7 +475,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_hv43i"]
 resource_name = "idle"
-length = 0.45
+length = 0.6
 loop_mode = 1
 step = 0.15
 tracks/0/type = "value"
@@ -533,10 +497,10 @@ tracks/1/path = NodePath("SpritesComponent/Outline:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [0, 1, 2, 3]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -557,10 +521,10 @@ tracks/3/path = NodePath("SpritesComponent/Color:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [0, 1, 2, 3]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -718,65 +682,65 @@ height = 10.0
 radius = 5.0
 height = 15.0
 
-[node name="Shotgunner" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer", "_pivot")]
+[node name="Sniper" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer", "_pivot")]
 collision_layer = 16
 collision_mask = 19
 motion_mode = 1
-script = ExtResource("1_nbo2f")
-_bulletResource = ExtResource("2_y04xe")
+script = ExtResource("1_7aep6")
+_bulletResource = ExtResource("2_sjimv")
 _stateMachine = NodePath("StateMachine")
 _animationPlayer = NodePath("AnimationPlayer")
 _pivot = NodePath("Pivot")
 
-[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("3_xfba6")]
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("3_o5oji")]
 Outline = NodePath("Outline")
 Color = NodePath("Color")
 
 [node name="Shadow" type="Sprite2D" parent="SpritesComponent"]
 position = Vector2(0, 7.5)
-texture = ExtResource("4_ofup8")
+texture = ExtResource("4_8wg5u")
 region_enabled = true
-region_rect = Rect2(19, 28, 10, 4)
+region_rect = Rect2(129, 44, 14, 4)
 
 [node name="Stunned" type="Sprite2D" parent="SpritesComponent"]
 visible = false
 z_index = 11
 position = Vector2(0, -8)
-texture = ExtResource("5_ltgui")
+texture = ExtResource("5_wixxv")
 
 [node name="Outline" type="AnimatedSprite2D" parent="SpritesComponent"]
 clip_children = 2
-sprite_frames = SubResource("SpriteFrames_yqlyt")
+sprite_frames = SubResource("SpriteFrames_c5kmv")
 animation = &"idle"
 
 [node name="Freezing" type="Sprite2D" parent="SpritesComponent/Outline"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
-texture = ExtResource("6_p6e11")
+texture = ExtResource("6_00cur")
 
 [node name="Burning" type="Sprite2D" parent="SpritesComponent/Outline"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
-texture = ExtResource("7_tlpbm")
+texture = ExtResource("7_83s1x")
 
 [node name="Color" type="AnimatedSprite2D" parent="SpritesComponent"]
 clip_children = 2
-sprite_frames = SubResource("SpriteFrames_ro8q5")
+sprite_frames = SubResource("SpriteFrames_rpady")
 animation = &"idle"
 
 [node name="Freezing" type="Sprite2D" parent="SpritesComponent/Color"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
-texture = ExtResource("6_p6e11")
+texture = ExtResource("6_00cur")
 
 [node name="Burning" type="Sprite2D" parent="SpritesComponent/Color"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.509804)
-texture = ExtResource("7_tlpbm")
+texture = ExtResource("7_83s1x")
 
 [node name="Hurt" type="Sprite2D" parent="SpritesComponent"]
 visible = false
-texture = ExtResource("4_ofup8")
+texture = ExtResource("4_8wg5u")
 region_enabled = true
 region_rect = Rect2(0, 16, 16, 16)
 
@@ -791,7 +755,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x2b2m")
 debug_color = Color(0, 0.631373, 0.45098, 0)
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent") instance=ExtResource("8_n5sw7")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent") instance=ExtResource("8_fneys")]
 collision_layer = 64
 collision_mask = 4
 _healthComponent = NodePath("../HealthComponent")
@@ -802,96 +766,71 @@ position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_ughsc")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="HealthComponent" parent="." instance=ExtResource("9_m44w0")]
+[node name="HealthComponent" parent="." instance=ExtResource("9_1oj1m")]
 Max = 10.0
 Resistance = 5
 Weakness = 5
 
-[node name="NavigationComponent" parent="." instance=ExtResource("10_um374")]
+[node name="NavigationComponent" parent="." instance=ExtResource("10_wvvyj")]
 path_desired_distance = 5.0
 target_desired_distance = 7.0
 path_postprocessing = 1
 _timerInterval = 0.25
 
-[node name="DetectorComonent" parent="." instance=ExtResource("11_ca54x")]
+[node name="DetectorComonent" parent="." instance=ExtResource("11_2ffan")]
 collision_mask = 9
 _detectionInterval = 0.1
-detectionRange = 100.0
+detectionRange = 1000.0
 
-[node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("12_lqqee")]
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("12_s67wv")]
 position = Vector2(0, -1)
-MaxSpeed = 95.0
+MaxSpeed = 65.0
 _body = NodePath("..")
 
-[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent", "_velocityComponent") instance=ExtResource("13_trde5")]
+[node name="StatusComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_spritesComponent", "_velocityComponent") instance=ExtResource("13_jcm8g")]
 _healthComponent = NodePath("../HealthComponent")
 _spritesComponent = NodePath("../SpritesComponent")
 _velocityComponent = NodePath("../VelocityComponent")
 
-[node name="ManaComponent" parent="." instance=ExtResource("14_57qpl")]
+[node name="ManaComponent" parent="." instance=ExtResource("14_okwmn")]
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("15_0xx8y")]
-_initialState = NodePath("GunnerIdle")
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("15_1hwkr")]
+_initialState = NodePath("SniperAlert")
 
-[node name="GunnerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_statusComponent", "_gunnerWander", "_gunnerAlert", "_gunnerDead", "_gunnerStunned")]
-script = ExtResource("16_b17er")
-_wanderChance = 0.5
-_detectorComponent = NodePath("../../DetectorComonent")
-_statusComponent = NodePath("../../StatusComponent")
-_gunnerWander = NodePath("../GunnerWander")
-_gunnerAlert = NodePath("../GunnerAlert")
-_gunnerDead = NodePath("../GunnerDead")
-_gunnerStunned = NodePath("../GunnerStunned")
-
-[node name="Timer" type="Timer" parent="StateMachine/GunnerIdle"]
-wait_time = 2.0
-
-[node name="GunnerWander" type="Node" parent="StateMachine" node_paths=PackedStringArray("_detectorComponent", "_velocityComponent", "_navigationComponent", "_statusComponent", "_gunnerIdle", "_gunnerAlert", "_gunnerDead", "_gunnerStunned")]
-script = ExtResource("17_ohbjy")
-_wanderRadius = 50.0
-_detectorComponent = NodePath("../../DetectorComonent")
-_velocityComponent = NodePath("../../VelocityComponent")
-_navigationComponent = NodePath("../../NavigationComponent")
-_statusComponent = NodePath("../../StatusComponent")
-_gunnerIdle = NodePath("../GunnerIdle")
-_gunnerAlert = NodePath("../GunnerAlert")
-_gunnerDead = NodePath("../GunnerDead")
-_gunnerStunned = NodePath("../GunnerStunned")
-
-[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_gunnerIdle", "_gunnerDead", "_gunnerStunned", "NavigationComponent", "DetectorComponent", "VelocityComponent", "StatusComponent", "WeaponPivot", "Weapon", "Timer")]
-script = ExtResource("18_i7eed")
-_gunnerIdle = NodePath("../GunnerIdle")
-_gunnerDead = NodePath("../GunnerDead")
-_gunnerStunned = NodePath("../GunnerStunned")
-UpperBoundary = 65.0
+[node name="SniperAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_sniperStunned", "_sniperDead", "_crutch", "NavigationComponent", "DetectorComponent", "VelocityComponent", "StatusComponent", "WeaponPivot", "Weapon", "Timer")]
+script = ExtResource("16_5yita")
+_sniperStunned = NodePath("../SniperStunned")
+_sniperDead = NodePath("../SniperDead")
+_crutch = NodePath("../../SpawnTimerCrutch")
 BaseTimePeriod = 1.0
 CustomDamage = 10.0
-LowerBoundary = 45.0
+ForcePlayerInView = false
+LowerBoundary = 70.0
 NavigationComponent = NodePath("../../NavigationComponent")
 DetectorComponent = NodePath("../../DetectorComonent")
 VelocityComponent = NodePath("../../VelocityComponent")
 StatusComponent = NodePath("../../StatusComponent")
 WeaponPivot = NodePath("../../Pivot")
-Weapon = NodePath("../../Pivot/Shotgun")
+Weapon = NodePath("../../Pivot/Sniper")
 Timer = NodePath("Timer")
 
-[node name="Timer" type="Timer" parent="StateMachine/GunnerAlert"]
+[node name="Timer" type="Timer" parent="StateMachine/SniperAlert"]
 wait_time = 0.1
 
-[node name="GunnerStunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("_gunnerAlert", "_gunnerDead")]
-script = ExtResource("19_qdtbq")
-_gunnerAlert = NodePath("../GunnerAlert")
-_gunnerDead = NodePath("../GunnerDead")
+[node name="SniperStunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("_alert", "_dead")]
+script = ExtResource("17_hc5cq")
+_alert = NodePath("../SniperAlert")
+_dead = NodePath("../SniperDead")
 
-[node name="Timer" type="Timer" parent="StateMachine/GunnerStunned"]
+[node name="Timer" type="Timer" parent="StateMachine/SniperStunned"]
 one_shot = true
 
-[node name="GunnerDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("FeetCollider", "HitboxComponent", "NavigationComponent", "DetectorComponent", "StatusComponent")]
-script = ExtResource("20_icw7e")
+[node name="SniperDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("FeetCollider", "HitboxComponent", "NavigationComponent", "DetectorComponent", "StatusComponent")]
+script = ExtResource("18_oqggr")
 HealthAmount = [null, 1]
 ManaAmount = [2, 3]
 EssenceAmount = [3, 5]
-PickupScene = ExtResource("21_uqiya")
+PickupScene = ExtResource("21_kb6ef")
 FeetCollider = NodePath("../../FeetCollider")
 HitboxComponent = NodePath("../../HitboxComponent")
 NavigationComponent = NodePath("../../NavigationComponent")
@@ -902,24 +841,22 @@ StatusComponent = NodePath("../../StatusComponent")
 position = Vector2(0, 3)
 rotation = -0.00292828
 
-[node name="Shotgun" parent="Pivot" instance=ExtResource("22_tgjbg")]
+[node name="Sniper" parent="Pivot" instance=ExtResource("22_cqd80")]
+position = Vector2(2.99999, 0.00878478)
 
-[node name="MiniHealthBarComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("23_1vlpv")]
+[node name="MiniHealthBarComponent" parent="." node_paths=PackedStringArray("_healthComponent") instance=ExtResource("23_68yet")]
 offset_top = 10.0
 offset_bottom = 13.0
 tint_progress = Color(1, 0, 0, 1)
 _healthComponent = NodePath("../HealthComponent")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerIdle" method="OnDamageTaken"]
-[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerWander" method="OnDamageTaken"]
-[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/GunnerAlert" method="OnDamageTaken"]
+[node name="SpawnTimerCrutch" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="HealthChanged" from="HealthComponent" to="StateMachine/SniperAlert" method="OnDamageTaken"]
 [connection signal="HealthDepleted" from="HealthComponent" to="." method="OnHealthDepleted"]
-[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerIdle" method="OnHealthDepleted"]
-[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerWander" method="OnHealthDepleted"]
-[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerAlert" method="OnHealthDepleted"]
-[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/GunnerStunned" method="OnHealthDepleted"]
-[connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerIdle" method="OnPlayerDetected"]
-[connection signal="Detected" from="DetectorComonent" to="StateMachine/GunnerWander" method="OnPlayerDetected"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/SniperAlert" method="OnHealthDepleted"]
+[connection signal="HealthDepleted" from="HealthComponent" to="StateMachine/SniperStunned" method="OnHealthDepleted"]
 [connection signal="StatusChanged" from="StatusComponent" to="VelocityComponent" method="OnStatusChanged"]
-[connection signal="timeout" from="StateMachine/GunnerIdle/Timer" to="StateMachine/GunnerIdle" method="OnTimerTimeout"]

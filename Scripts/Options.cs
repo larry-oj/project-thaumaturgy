@@ -60,7 +60,7 @@ public static class Options
             public static int FreezingTicksAmount => 1;
             public static float FreezingDamage => 0f;
             public static float FreezingMultiplier => 0.5f;
-            public static float StunnedTickPeriod => 1.0f;
+            public static float StunnedTickPeriod => 0.5f;
             public static int StunnedTicksAmount => 1;
             public static float StunnedDamage => 0f;
             public static float KnockedBackForce => 50f;
@@ -75,6 +75,7 @@ public static class Options
         public static string Dead => "dying";
         public static string Reset => "RESET";
         public static string Shoot => "shooting";
+        public static string Disappear => "disappearing";
     }
 
     public static class Colors

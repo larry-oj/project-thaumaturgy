@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dq7wpcnuv5d5y"]
+
+[node name="Laser" type="Line2D"]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 0.5
+default_color = Color(1, 0, 0, 1)
+
+[node name="Ray" type="RayCast2D" parent="."]
+target_position = Vector2(5, 0)

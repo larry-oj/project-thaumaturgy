@@ -1,10 +1,11 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://c4py6vspma1f8"]
+[gd_resource type="Resource" load_steps=11 format=3 uid="uid://c4py6vspma1f8"]
 
 [ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_35ky2"]
 [ext_resource type="PackedScene" uid="uid://bqw8i1m88e3wv" path="res://Scenes/Characters/Shotgunner/shotgunner.tscn" id="2_ego2k"]
 [ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="2_r4dia"]
 [ext_resource type="PackedScene" uid="uid://bilnmox6l80r8" path="res://Scenes/Interactables/chest.tscn" id="2_y766p"]
 [ext_resource type="Resource" uid="uid://dwlenn81mi3rl" path="res://Resources/Weapons/shotgun_resource.tres" id="3_4vbq3"]
+[ext_resource type="PackedScene" uid="uid://cyxhg1dmkafdn" path="res://Scenes/Characters/Knight/knight.tscn" id="3_wl2ay"]
 [ext_resource type="PackedScene" uid="uid://oa08ku0vccif" path="res://Scenes/Interactables/flask.tscn" id="4_ettb2"]
 [ext_resource type="Resource" uid="uid://eikr4462mluy" path="res://Resources/Weapons/autorifle_resource.tres" id="5_jrowu"]
 [ext_resource type="Resource" uid="uid://be2t2y137wuqb" path="res://Resources/Weapons/lance_resource.tres" id="5_rthsv"]
@@ -15,16 +16,17 @@ script = ExtResource("2_r4dia")
 Name = "Caves"
 StageNum = 2
 MaxSubstagesNum = 3
-Size = 300
+Size = 200
 RoomChance = 0.5
 RoomSize = PackedInt32Array(2, 2)
 TurnChance = PackedFloat32Array(0.25, 0.5, 0.25, 0)
 WalkerMax = 3
 WalkerChance = 0.12
-MaxEnemies = 12
+MaxEnemies = 7
 Enemies = {
-ExtResource("1_35ky2"): 0.6,
-ExtResource("2_ego2k"): 1.0
+ExtResource("1_35ky2"): 0.25,
+ExtResource("2_ego2k"): 0.5,
+ExtResource("3_wl2ay"): 0.25
 }
 Interactables = {
 ExtResource("2_y766p"): [1.0, 1.0],

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://camg0f3nihfvd"]
+
+[ext_resource type="Texture2D" uid="uid://1hikpuq05kb1" path="res://Graphics/Weapons/uzi_color.tres" id="1_gh8k3"]
+[ext_resource type="Texture2D" uid="uid://dsp8nc3csli05" path="res://Graphics/Weapons/uzi_outline.tres" id="2_35xdu"]
+[ext_resource type="PackedScene" uid="uid://ccqoq2qgn4rh7" path="res://Scenes/Weapons/Uzi/uzi.tscn" id="3_fejdg"]
+[ext_resource type="Script" path="res://Resources/Weapons/WeaponResource.cs" id="4_rypl0"]
+
+[resource]
+resource_name = "AutorifleResource"
+script = ExtResource("4_rypl0")
+Scene = ExtResource("3_fejdg")
+IconOutline = ExtResource("2_35xdu")
+IconColor = ExtResource("1_gh8k3")

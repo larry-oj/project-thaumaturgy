@@ -1,0 +1,118 @@
+[gd_scene load_steps=14 format=3 uid="uid://hqqhhcwnvx0y"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Sniper/Sniper.cs" id="1_rqapu"]
+[ext_resource type="Resource" uid="uid://cwlwhyobbjvh4" path="res://Resources/Weapons/CreatedObjects/round_bullet.tres" id="2_h0u1c"]
+[ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="3_rdbkq"]
+[ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="4_k00qf"]
+[ext_resource type="Texture2D" uid="uid://voxrdwof5j64" path="res://Graphics/Sprites/ph_guns.png" id="5_2cgg2"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Sniper/SniperIdle.cs" id="7_didns"]
+[ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="7_n3r5v"]
+[ext_resource type="Script" path="res://Scenes/Weapons/Sniper/SniperShoot.cs" id="8_eqd3h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfxbb"]
+atlas = ExtResource("5_2cgg2")
+region = Rect2(0, 10, 18, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou7bl"]
+atlas = ExtResource("5_2cgg2")
+region = Rect2(18, 10, 18, 6)
+
+[sub_resource type="Animation" id="Animation_kgb10"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_nl3uy"]
+resource_name = "shooting"
+length = 2.0
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesComponent:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.139626, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b1xap"]
+_data = {
+"RESET": SubResource("Animation_kgb10"),
+"shooting": SubResource("Animation_nl3uy")
+}
+
+[node name="Sniper" type="Node2D" node_paths=PackedStringArray("Laser", "Ray")]
+position = Vector2(2.5, 0)
+script = ExtResource("1_rqapu")
+Laser = NodePath("Laser")
+Ray = NodePath("Laser/Ray")
+BulletResource = ExtResource("2_h0u1c")
+
+[node name="WeaponStatsComponent" parent="." instance=ExtResource("3_rdbkq")]
+Damage = 10.0
+ManaCost = 5.0
+StatusChance = 1.0
+Type = 1
+
+[node name="Laser" type="Line2D" parent="."]
+position = Vector2(2.5, 1.5)
+points = PackedVector2Array(0, 0, 0, 0)
+width = 0.5
+default_color = Color(1, 0, 0, 1)
+
+[node name="Ray" type="RayCast2D" parent="Laser"]
+target_position = Vector2(0, 0)
+collision_mask = 9
+collide_with_areas = true
+
+[node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_k00qf")]
+Outline = NodePath("Outline")
+Color = NodePath("Color")
+
+[node name="Outline" type="Sprite2D" parent="SpritesComponent"]
+texture = SubResource("AtlasTexture_lfxbb")
+region_rect = Rect2(0, 0, 13, 4)
+
+[node name="Color" type="Sprite2D" parent="SpritesComponent"]
+texture = SubResource("AtlasTexture_ou7bl")
+region_rect = Rect2(0, 0, 13, 4)
+
+[node name="ProjectileSpawner" type="Marker2D" parent="."]
+position = Vector2(8.5, 0.5)
+gizmo_extents = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b1xap")
+}
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("7_n3r5v")]
+_initialState = NodePath("SniperIdle")
+
+[node name="SniperIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("_pistolShoot")]
+script = ExtResource("7_didns")
+_pistolShoot = NodePath("../SniperShoot")
+
+[node name="SniperShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rifleIdle", "_timer", "_projectileSpawner")]
+script = ExtResource("8_eqd3h")
+_rifleIdle = NodePath("../SniperIdle")
+_timer = NodePath("Timer")
+_projectileSpawner = NodePath("../../ProjectileSpawner")
+
+[node name="Timer" type="Timer" parent="StateMachine/SniperShoot"]
+wait_time = 0.7
+one_shot = true

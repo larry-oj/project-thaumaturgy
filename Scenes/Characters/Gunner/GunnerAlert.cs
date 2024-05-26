@@ -1,5 +1,5 @@
-	using System;
-	using Godot;
+using System;
+using Godot;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons;
@@ -8,88 +8,22 @@ using projectthaumaturgy.Scripts;
 
 	namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
-public partial class GunnerAlert : State
+public partial class GunnerAlert : AlertBase
 {
-	[ExportCategory("Customization")]
-	[Export] public float BaseTimePeriod;
-	[Export] public float CustomDamage;
-	[Export] private float _upperBoundary;
-	[Export] private float _lowerBoundary;
-	
-	[ExportGroup("Technical")]
-	[Export] private NavigationComponent _navigationComponent;
-	[Export] private DetectorComponent _detectorComponent;
-	[Export] private VelocityComponent _velocityComponent;
-	[Export] private StatusComponent _statusComponent;
+	[ExportGroup("Gunner")]
 	[Export] private GunnerIdle _gunnerIdle;
 	[Export] private GunnerDead _gunnerDead;
 	[Export] private GunnerStunned _gunnerStunned;
-	[Export] private Node2D _weaponPivot;
-	[Export] private Weapon _weapon;
+	[Export] protected float UpperBoundary;
 	
-	private Gunner _gunner;
-	private CharacterBody2D _player;
-	[Export] private Timer _timer;
-	private float _defaultDetectorRadius;
-	private bool _isPlayerDetected;
-	
-	public float TimerPeriod
-	{
-		get => (float)_timer.WaitTime;
-		set
-		{
-			_gunner.CurrentWeapon.StatsComponent.SetFireRate(1 / value);
-			_timer.WaitTime = value;
-		}
-	}
-	
-	private float DistanceToPlayer => _gunner.GlobalPosition.DistanceTo(_player.GlobalPosition);
-	public bool IsWithinBoundary => DistanceToPlayer <= _upperBoundary && DistanceToPlayer >= _lowerBoundary;
-
-	public override void _Ready()
-	{
-		_gunner = GetNode<Gunner>(Options.PathOptions.CharacterStateToCharacter);
-		_player = _gunner.BodyToDetect;
-		_defaultDetectorRadius = _detectorComponent.detectionRange;
-		
-		_timer.Timeout += OnAttackTimerTimeout;
-	}
-	
-	public override void Enter()
-	{
-		_navigationComponent.NavigationTimer.Timeout += OnNavigationTimerTimeout;
-		_statusComponent.StatusChanged += OnStatusChanged;
-		_animationPlayer.AnimationFinished += OnAnimationFinished;
-		_navigationComponent.NavigationTimer.Start();
-		_detectorComponent.detectionRange = -1f;	// disable range limitation
-		TimerPeriod = BaseTimePeriod;
-		_timer.Start();
-		_weapon.StatsComponent.SetDamage(CustomDamage);
-	}
-	
-	public override void Exit()
-	{
-		_navigationComponent.NavigationTimer.Timeout -= OnNavigationTimerTimeout;
-		_statusComponent.StatusChanged -= OnStatusChanged;
-		_animationPlayer.AnimationFinished -= OnAnimationFinished;
-		_navigationComponent.NavigationTimer.Stop();
-		_weaponPivot.Rotation = 0;
-		_detectorComponent.detectionRange = _defaultDetectorRadius;
-		_timer.Stop();
-	}
-
-	public override void Process(double delta)
-	{
-		RotateWeaponToMouse();
-		_isPlayerDetected = _detectorComponent.TryDetect();
-	}
+	protected override bool IsWithinBoundary => DistanceToPlayer <= UpperBoundary && DistanceToPlayer >= LowerBoundary;
 	
 	public override void PhysicsProcess(double delta)
 	{
-		if (_velocityComponent.IsInKnockback) 
-			_velocityComponent.Move(Vector2.Zero, delta);
+		if (VelocityComponent.IsInKnockback) 
+			VelocityComponent.Move(Vector2.Zero, delta);
 
-		if (_navigationComponent.IsNavigationFinished())
+		if (NavigationComponent.IsNavigationFinished())
 		{
 			if (_animationPlayer.CurrentAnimation != Options.AnimationNames.Hurt)
 				_animationPlayer.Play(Options.AnimationNames.Idle);
@@ -100,45 +34,28 @@ public partial class GunnerAlert : State
 		{
 			_animationPlayer.Play(Options.AnimationNames.Run);
 		}
-		_velocityComponent.Move(_gunner.ToLocal(_navigationComponent.GetNextPathPosition()).Normalized());
+		VelocityComponent.Move(Self.ToLocal(NavigationComponent.GetNextPathPosition()).Normalized());
 	}
 	
-	private void OnNavigationTimerTimeout()
+	protected override void OnNavigationTimerTimeout()
 	{
-		if (IsWithinBoundary)
+		if (IsWithinBoundary && IsPlayerDetected)
 			return;
 		
-		var boundary = DistanceToPlayer > _upperBoundary ? _upperBoundary : _lowerBoundary;
+		var boundary = DistanceToPlayer > UpperBoundary ? UpperBoundary : LowerBoundary;
+		if (!IsPlayerDetected && ForcePlayerInView) boundary = 10;
 		
-		_navigationComponent.TargetPosition = CalculateTargetPosition(boundary);
-	}
-	
-	private void OnAttackTimerTimeout()
-	{
-		if (!_navigationComponent.IsNavigationFinished() && DistanceToPlayer < _lowerBoundary) return;
-		if (!_isPlayerDetected) return;
-		
-		_weapon.Attack();
+		NavigationComponent.TargetPosition = CalculateTargetPosition(boundary);
 	}
 
 	private Vector2 CalculateTargetPosition(float boundary)
 	{
 		var distance = DistanceToPlayer;
 		var percent = (distance - boundary) / distance;
-		return _gunner.GlobalPosition.Lerp(_player.GlobalPosition, percent);
+		return Self.GlobalPosition.Lerp(Player.GlobalPosition, percent);
 	}
 
-	private void RotateWeaponToMouse()
-	{
-		var angle = _detectorComponent.VectorToDetectedBody;
-		_weaponPivot.Rotation = angle.Angle();
-		
-		var weaponScale = _weaponPivot.Scale;
-		weaponScale.Y = angle.X < 0 ? -1 : 1;
-		_weaponPivot.Scale = weaponScale;
-	}
-
-	private void OnStatusChanged(bool isCleared, Status change)
+	protected override void OnStatusChanged(bool isCleared, Status change)
 	{
 		if (isCleared)
 		{
@@ -167,21 +84,8 @@ public partial class GunnerAlert : State
 				break;
 		}
 	}
-	
-	private void OnDamageTaken(GodotObject _)
-	{
-		_animationPlayer.Play(Options.AnimationNames.Hurt);
-	}
-	
-	private void OnAnimationFinished(StringName animationName)
-	{
-		if (animationName == Options.AnimationNames.Hurt)
-		{
-			_animationPlayer.Play(Options.AnimationNames.Idle);
-		}
-	}
 
-	private void OnHealthDepleted()
+	protected override void OnHealthDepleted()
 	{
 		EmitSignal(nameof(Transitioned), this, _gunnerDead);
 	}

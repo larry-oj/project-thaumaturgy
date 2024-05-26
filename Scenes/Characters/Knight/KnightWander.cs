@@ -1,11 +1,12 @@
 using Godot;
+using projectthaumaturgy.Scenes.Characters.Gunner;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scripts;
 
-namespace projectthaumaturgy.Scenes.Characters.Gunner;
+namespace projectthaumaturgy.Scenes.Characters.Knight;
 
-public partial class GunnerWander : State
+public partial class KnightWander  : State
 {
 	private Enemy _character;
 	
@@ -14,10 +15,10 @@ public partial class GunnerWander : State
 	[Export] private VelocityComponent _velocityComponent;
 	[Export] private NavigationComponent _navigationComponent;
 	[Export] private StatusComponent _statusComponent;
-	[Export] private GunnerIdle _gunnerIdle;
-	[Export] private GunnerAlert _gunnerAlert;
-	[Export] private GunnerDead _gunnerDead;
-	[Export] private GunnerStunned _gunnerStunned;
+	[Export] private KnightIdle _idle;
+	[Export] private KnightAlert _alert;
+	[Export] private KnightDead _dead;
+	[Export] private KnightStunned _stunned;
 	
 	public override void _Ready()
 	{
@@ -33,9 +34,9 @@ public partial class GunnerWander : State
 		do
 		{
 			var x = (float)GD.RandRange(-1 * _wanderRadius, _wanderRadius) + _character.GlobalPosition.X;
-            var y = (float)GD.RandRange(-1 * _wanderRadius, _wanderRadius) + _character.GlobalPosition.Y;
+			var y = (float)GD.RandRange(-1 * _wanderRadius, _wanderRadius) + _character.GlobalPosition.Y;
             
-            _navigationComponent.TargetPosition = new Vector2(x, y);
+			_navigationComponent.TargetPosition = new Vector2(x, y);
 		} while (!_navigationComponent.IsTargetReachable());
 		_animationPlayer.Play(Options.AnimationNames.Run);
 	}
@@ -57,14 +58,14 @@ public partial class GunnerWander : State
 	{
 		if (_navigationComponent.IsNavigationFinished())
 		{
-			EmitSignal(nameof(Transitioned), this, _gunnerIdle);
+			EmitSignal(nameof(Transitioned), this, _idle);
 		}
 		_velocityComponent.Move(_character.ToLocal(_navigationComponent.GetNextPathPosition()).Normalized());
 	}
 
 	private void OnPlayerDetected()
 	{
-		EmitSignal(nameof(Transitioned), this, _gunnerAlert);
+		EmitSignal(nameof(Transitioned), this, _alert);
 	}
 	
 	private void OnDamageTaken(GodotObject _)
@@ -76,13 +77,13 @@ public partial class GunnerWander : State
 	{
 		if (animationName == Options.AnimationNames.Hurt)
 		{
-			EmitSignal(State.SignalName.Transitioned, this, _gunnerAlert);
+			EmitSignal(State.SignalName.Transitioned, this, _alert);
 		}
 	}
 
 	private void OnHealthDepleted()
 	{
-		EmitSignal(nameof(Transitioned), this, _gunnerDead);
+		EmitSignal(nameof(Transitioned), this, _alert);
 	}
 	
 	private void OnStatusChanged(bool isCleared, Status status)
@@ -92,12 +93,12 @@ public partial class GunnerWander : State
 		switch (status.Type)
 		{
 			case Status.StatusType.Freezing:
-				_gunnerAlert.TimerPeriod /= status.Multiplier;
+				_alert.TimerPeriod /= status.Multiplier;
 				break;
 			
 			case Status.StatusType.Stunned:
-				_gunnerStunned.Timer.WaitTime = status.TickPeriod;
-				EmitSignal(nameof(Transitioned), this, _gunnerStunned);
+				_stunned.Timer.WaitTime = status.TickPeriod;
+				EmitSignal(nameof(Transitioned), this, _stunned);
 				break;
 			
 			default:

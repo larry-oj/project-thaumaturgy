@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://Scenes/Components/CurrencyComponent.cs" id="8_fgtmp"]
 [ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="11_k30gl"]
 [ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_sr35u"]
-[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_yrw68"]
+[ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_nww7q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 5.5
@@ -347,7 +347,7 @@ _sprites = NodePath("../SpritesComponent")
 _weaponPivot = NodePath("../Pivot")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
-Max = 30.0
+Max = 40.0
 Resistance = 5
 Weakness = 5
 
@@ -394,7 +394,7 @@ _inputComponent = NodePath("../../InputComponent")
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
 
-[node name="Pistol" parent="Pivot" instance=ExtResource("18_yrw68")]
+[node name="Pistol" parent="Pivot" instance=ExtResource("18_nww7q")]
 
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerIdle" method="OnDamageTaken"]
 [connection signal="HealthChanged" from="HealthComponent" to="StateMachine/PlayerRunning" method="OnDamageTaken"]

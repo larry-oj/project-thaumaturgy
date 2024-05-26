@@ -1,8 +1,8 @@
 using Godot;
-using System;
 using projectthaumaturgy.Scenes.Components.StateMachine;
-using projectthaumaturgy.Scenes.Weapons.Autorifle;
 using projectthaumaturgy.Scripts;
+
+namespace projectthaumaturgy.Scenes.Weapons.Autorifle;
 
 public partial class AutorifleShoot  : State
 {
@@ -45,4 +45,3 @@ public partial class AutorifleShoot  : State
 		EmitSignal(nameof(Transitioned), this, _autorifleIdle);
 	}
 }
-
