@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters.Knight;
@@ -9,11 +10,14 @@ public partial class KnightAlert  : AlertBase
 	[ExportGroup("Knight")]
 	[Export] private KnightDead _dead;
 	[Export] private KnightStunned _stunned;
+	[Export] private Area2D _attackRange;
 	
-	protected override bool IsWithinBoundary => DistanceToPlayer <= LowerBoundary + 10;
+	protected override bool IsWithinBoundary => DistanceToPlayer <= LowerBoundary;
+	private bool IsWithinAttackRange => DistanceToPlayer <= LowerBoundary + 10;
 
 	private bool _isInPosition = false;
 	private bool _isAttacking = false;
+	private bool _isExited = true;
 	
 	public override void Enter()
 	{
@@ -21,18 +25,16 @@ public partial class KnightAlert  : AlertBase
 		
 		Timer.Stop();
 		Timer.OneShot = true;
+		
+		_attackRange.AreaEntered += OnAttackRangeEntered;
+		_attackRange.AreaExited += OnAttackRangeExited;
 	}
 
-	public override void Process(double delta)
+	public override void Exit()
 	{
-		base.Process(delta);
-
-		if (_isInPosition) return;
-		if (!IsWithinBoundary || !IsPlayerDetected) return;
-		
-		_isInPosition = true;
-		Timer.WaitTime = 0.35f;
-		Timer.Start();
+		_attackRange.AreaEntered -= OnAttackRangeEntered;
+		_attackRange.AreaExited -= OnAttackRangeExited;
+		OnAttackRangeExited(null);
 	}
 	
 	public override void PhysicsProcess(double delta)
@@ -68,6 +70,22 @@ public partial class KnightAlert  : AlertBase
 		var percent = (distance - boundary) / distance;
 		return Self.GlobalPosition.Lerp(Player.GlobalPosition, percent);
 	}
+	
+	private void OnAttackRangeEntered(Area2D area)
+	{
+		if (area is HitboxComponent && area.Owner is Player.Player)
+		{
+			_isInPosition = true;
+			_isExited = false;
+			Timer.WaitTime = 0.35f;
+			Timer.Start();
+		}
+	}
+	
+	private void OnAttackRangeExited(Area2D area)
+	{
+		_isExited = true;
+	}
 
 	protected override void OnAttackTimerTimeout()
 	{
@@ -81,6 +99,11 @@ public partial class KnightAlert  : AlertBase
 		{
 			_isAttacking = false;
 			_isInPosition = false;
+			
+			if (!_isExited)
+			{
+				Timer.Start();
+			}
 		}
 	}
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cyxhg1dmkafdn"]
+[gd_scene load_steps=50 format=3 uid="uid://cyxhg1dmkafdn"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Knight/Knight.cs" id="1_ph7f0"]
 [ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_m7ljp"]
@@ -731,6 +731,9 @@ height = 12.0
 radius = 6.0
 height = 15.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_n167n"]
+radius = 23.0
+
 [node name="Knight" type="CharacterBody2D" node_paths=PackedStringArray("_stateMachine", "_animationPlayer", "_pivot")]
 collision_layer = 16
 collision_mask = 19
@@ -818,21 +821,19 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 [node name="HealthComponent" parent="." instance=ExtResource("9_k8lnf")]
 Max = 10.0
 Resistance = 5
-ResistanceMultiplier = null
 Weakness = 5
-WeaknessMultiplier = null
-IsImmune = null
 
 [node name="NavigationComponent" parent="." instance=ExtResource("10_7o3eo")]
 path_desired_distance = 5.0
 target_desired_distance = 7.0
 path_max_distance = 200.0
+path_postprocessing = 1
+_timerInterval = 0.1
 
 [node name="DetectorComonent" parent="." instance=ExtResource("11_m4j2l")]
 collision_mask = 9
 _detectionInterval = 0.25
 detectionRange = 100.0
-_isDebugging = null
 
 [node name="VelocityComponent" parent="." node_paths=PackedStringArray("_body") instance=ExtResource("12_65j83")]
 position = Vector2(0, -1)
@@ -843,11 +844,16 @@ _body = NodePath("..")
 _healthComponent = NodePath("../HealthComponent")
 _spritesComponent = NodePath("../SpritesComponent")
 _velocityComponent = NodePath("../VelocityComponent")
-IsImmune = null
 
 [node name="ManaComponent" parent="." instance=ExtResource("14_d2amw")]
-GainMultiplier = null
-LossMultiplier = null
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_n167n")
+debug_color = Color(0.960784, 0, 0.501961, 0)
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("_initialState") instance=ExtResource("15_c14gu")]
 _initialState = NodePath("KnightIdle")
@@ -876,13 +882,13 @@ _alert = NodePath("../KnightAlert")
 _dead = NodePath("../KnightDead")
 _stunned = NodePath("../KnightStunned")
 
-[node name="KnightAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_dead", "_stunned", "NavigationComponent", "DetectorComponent", "VelocityComponent", "StatusComponent", "WeaponPivot", "Weapon", "Timer")]
+[node name="KnightAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_dead", "_stunned", "_attackRange", "NavigationComponent", "DetectorComponent", "VelocityComponent", "StatusComponent", "WeaponPivot", "Weapon", "Timer")]
 script = ExtResource("16_qcnso")
 _dead = NodePath("../KnightDead")
 _stunned = NodePath("../KnightStunned")
+_attackRange = NodePath("../../AttackRange")
 BaseTimePeriod = 1.0
 CustomDamage = 8.0
-ForcePlayerInView = null
 LowerBoundary = 15.0
 NavigationComponent = NodePath("../../NavigationComponent")
 DetectorComponent = NodePath("../../DetectorComonent")
