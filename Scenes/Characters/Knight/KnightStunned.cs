@@ -2,7 +2,7 @@ using Godot;
 
 namespace projectthaumaturgy.Scenes.Characters.Knight;
 
-public partial class KnightStunned  : StunnedBase<Knight>
+public partial class KnightStunned : StunnedBase
 {
 	[ExportCategory("Knight")]
 	[Export] private KnightAlert _alert;

@@ -6,7 +6,7 @@ using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters;
 
-public partial class AlertBase<T> : State where T : Enemy
+public partial class AlertBase : State
 {
 	[ExportCategory("Customization")]
 	[Export] public float BaseTimePeriod;
@@ -23,7 +23,7 @@ public partial class AlertBase<T> : State where T : Enemy
 	[Export] protected Weapon Weapon;
 	[Export] protected Timer Timer;
 	
-	protected T Self;
+	protected Enemy Self;
 	protected Character Player;
 	protected float DefaultDetectorRadius;
 	protected bool IsPlayerDetected;
@@ -42,7 +42,7 @@ public partial class AlertBase<T> : State where T : Enemy
 	
 	public override void _Ready()
 	{
-		Self = GetNode<T>(Options.PathOptions.CharacterStateToCharacter);
+		Self = GetNode<Enemy>(Options.PathOptions.CharacterStateToCharacter);
 		Player = Self.BodyToDetect as Character;
 		DefaultDetectorRadius = DetectorComponent.detectionRange;
 		

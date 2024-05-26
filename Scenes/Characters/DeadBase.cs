@@ -9,7 +9,7 @@ using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters;
 
-public partial class DeadBase<T> : State where T : Enemy
+public partial class DeadBase : State
 {
 	[ExportCategory("Customization")] 
 	[Export] protected Array<int> HealthAmount = new();

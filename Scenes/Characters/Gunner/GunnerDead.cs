@@ -8,6 +8,6 @@ using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
-public partial class GunnerDead : DeadBase<Gunner>
+public partial class GunnerDead : DeadBase
 {
 }

@@ -826,6 +826,7 @@ IsImmune = null
 [node name="NavigationComponent" parent="." instance=ExtResource("10_7o3eo")]
 path_desired_distance = 5.0
 target_desired_distance = 7.0
+path_max_distance = 200.0
 
 [node name="DetectorComonent" parent="." instance=ExtResource("11_m4j2l")]
 collision_mask = 9

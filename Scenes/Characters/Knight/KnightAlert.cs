@@ -4,7 +4,7 @@ using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters.Knight;
 
-public partial class KnightAlert  : AlertBase<Knight>
+public partial class KnightAlert  : AlertBase
 {
 	[ExportGroup("Knight")]
 	[Export] private KnightDead _dead;

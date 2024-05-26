@@ -4,7 +4,7 @@ using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
-public partial class GunnerStunned : StunnedBase<Gunner>
+public partial class GunnerStunned : StunnedBase
 {
 	[ExportCategory("Gunner")]
 	[Export] private GunnerAlert _gunnerAlert;

@@ -4,7 +4,7 @@ using projectthaumaturgy.Scenes.Components.StateMachine;
 
 namespace projectthaumaturgy.Scenes.Characters.Sniper;
 
-public partial class SniperStunned  : StunnedBase<Sniper>
+public partial class SniperStunned  : StunnedBase
 {
 	[ExportCategory("Gunner")]
 	[Export] private SniperAlert _alert;

@@ -1,10 +1,11 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://bvl8bqqlvurl2"]
+[gd_resource type="Resource" load_steps=11 format=3 uid="uid://bvl8bqqlvurl2"]
 
 [ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_3runh"]
 [ext_resource type="PackedScene" uid="uid://bilnmox6l80r8" path="res://Scenes/Interactables/chest.tscn" id="2_4gpdj"]
 [ext_resource type="PackedScene" uid="uid://bqw8i1m88e3wv" path="res://Scenes/Characters/Shotgunner/shotgunner.tscn" id="2_ox3es"]
 [ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="2_yysi8"]
 [ext_resource type="PackedScene" uid="uid://cniv8ipbkcpwy" path="res://Scenes/Characters/Sniper/sniper.tscn" id="3_yixca"]
+[ext_resource type="PackedScene" uid="uid://cyxhg1dmkafdn" path="res://Scenes/Characters/Knight/knight.tscn" id="4_3ocqj"]
 [ext_resource type="PackedScene" uid="uid://oa08ku0vccif" path="res://Scenes/Interactables/flask.tscn" id="4_ds867"]
 [ext_resource type="Resource" uid="uid://u1ij2gjgmbdo" path="res://Resources/Weapons/rifle_resource.tres" id="4_tvtmk"]
 [ext_resource type="PackedScene" uid="uid://d2qtlg0m10na4" path="res://Scenes/Interactables/obelisk.tscn" id="5_120cg"]
@@ -23,9 +24,10 @@ WalkerMax = 3
 WalkerChance = 0.15
 MaxEnemies = 15
 Enemies = {
-ExtResource("1_3runh"): 0.75,
-ExtResource("2_ox3es"): 0.15,
-ExtResource("3_yixca"): 0.1
+ExtResource("1_3runh"): 0.5,
+ExtResource("2_ox3es"): 0.2,
+ExtResource("3_yixca"): 0.1,
+ExtResource("4_3ocqj"): 0.2
 }
 Interactables = {
 ExtResource("2_4gpdj"): [1.0, 1.0],

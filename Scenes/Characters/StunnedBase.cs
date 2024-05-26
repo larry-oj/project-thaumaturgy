@@ -4,7 +4,7 @@ using projectthaumaturgy.Scripts;
 
 namespace projectthaumaturgy.Scenes.Characters;
 
-public partial class StunnedBase<T> : State where T : Enemy
+public partial class StunnedBase : State
 {
 	public Timer Timer { get; private set; }
 	

@@ -8,7 +8,7 @@ using projectthaumaturgy.Scripts;
 
 	namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
-public partial class GunnerAlert : AlertBase<Gunner>
+public partial class GunnerAlert : AlertBase
 {
 	[ExportGroup("Gunner")]
 	[Export] private GunnerIdle _gunnerIdle;
