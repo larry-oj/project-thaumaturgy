@@ -7,7 +7,7 @@ namespace projectthaumaturgy.Scenes.Characters.Gunner;
 
 public partial class GunnerWander : State
 {
-	private Gunner _character;
+	private Enemy _character;
 	
 	[Export] private float _wanderRadius;
 	[Export] private DetectorComponent _detectorComponent;
@@ -21,7 +21,7 @@ public partial class GunnerWander : State
 	
 	public override void _Ready()
 	{
-		_character = GetNode<Gunner>(Options.PathOptions.CharacterStateToCharacter);
+		_character = GetNode<Enemy>(Options.PathOptions.CharacterStateToCharacter);
 	}
 	
 	public override void Enter()

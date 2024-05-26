@@ -20,4 +20,4 @@ offset_left = -8000.0
 offset_top = -8000.0
 offset_right = 8000.0
 offset_bottom = 8000.0
-color = Color(0.298039, 0.298039, 0.298039, 1)
+color = Color(0.298039, 0.298039, 0.439216, 1)

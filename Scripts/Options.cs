@@ -60,7 +60,7 @@ public static class Options
             public static int FreezingTicksAmount => 1;
             public static float FreezingDamage => 0f;
             public static float FreezingMultiplier => 0.5f;
-            public static float StunnedTickPeriod => 1.0f;
+            public static float StunnedTickPeriod => 0.5f;
             public static int StunnedTicksAmount => 1;
             public static float StunnedDamage => 0f;
             public static float KnockedBackForce => 50f;

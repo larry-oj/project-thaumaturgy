@@ -810,6 +810,7 @@ Weakness = 5
 [node name="NavigationComponent" parent="." instance=ExtResource("10_um374")]
 path_desired_distance = 5.0
 target_desired_distance = 7.0
+path_postprocessing = 1
 _timerInterval = 0.25
 
 [node name="DetectorComonent" parent="." instance=ExtResource("11_ca54x")]
@@ -857,22 +858,22 @@ _gunnerAlert = NodePath("../GunnerAlert")
 _gunnerDead = NodePath("../GunnerDead")
 _gunnerStunned = NodePath("../GunnerStunned")
 
-[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_navigationComponent", "_detectorComponent", "_velocityComponent", "_statusComponent", "_gunnerIdle", "_gunnerDead", "_gunnerStunned", "_weaponPivot", "_weapon", "_timer")]
+[node name="GunnerAlert" type="Node" parent="StateMachine" node_paths=PackedStringArray("_gunnerIdle", "_gunnerDead", "_gunnerStunned", "NavigationComponent", "DetectorComponent", "VelocityComponent", "StatusComponent", "WeaponPivot", "Weapon", "Timer")]
 script = ExtResource("18_i7eed")
-BaseTimePeriod = 1.0
-CustomDamage = 5.0
-_upperBoundary = 60.0
-_lowerBoundary = 35.0
-_navigationComponent = NodePath("../../NavigationComponent")
-_detectorComponent = NodePath("../../DetectorComonent")
-_velocityComponent = NodePath("../../VelocityComponent")
-_statusComponent = NodePath("../../StatusComponent")
 _gunnerIdle = NodePath("../GunnerIdle")
 _gunnerDead = NodePath("../GunnerDead")
 _gunnerStunned = NodePath("../GunnerStunned")
-_weaponPivot = NodePath("../../Pivot")
-_weapon = NodePath("../../Pivot/Shotgun")
-_timer = NodePath("Timer")
+UpperBoundary = 65.0
+BaseTimePeriod = 1.0
+CustomDamage = 10.0
+LowerBoundary = 45.0
+NavigationComponent = NodePath("../../NavigationComponent")
+DetectorComponent = NodePath("../../DetectorComonent")
+VelocityComponent = NodePath("../../VelocityComponent")
+StatusComponent = NodePath("../../StatusComponent")
+WeaponPivot = NodePath("../../Pivot")
+Weapon = NodePath("../../Pivot/Shotgun")
+Timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="StateMachine/GunnerAlert"]
 wait_time = 0.1
@@ -885,14 +886,17 @@ _gunnerDead = NodePath("../GunnerDead")
 [node name="Timer" type="Timer" parent="StateMachine/GunnerStunned"]
 one_shot = true
 
-[node name="GunnerDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("_feetCollider", "_hitboxComponent", "_navigationComponent", "_detectorComponent", "_statusComponent")]
+[node name="GunnerDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("FeetCollider", "HitboxComponent", "NavigationComponent", "DetectorComponent", "StatusComponent")]
 script = ExtResource("20_icw7e")
-_pickupScene = ExtResource("21_uqiya")
-_feetCollider = NodePath("../../FeetCollider")
-_hitboxComponent = NodePath("../../HitboxComponent")
-_navigationComponent = NodePath("../../NavigationComponent")
-_detectorComponent = NodePath("../../DetectorComonent")
-_statusComponent = NodePath("../../StatusComponent")
+HealthAmount = [null, 1]
+ManaAmount = [2, 3]
+EssenceAmount = [6, 8]
+PickupScene = ExtResource("21_uqiya")
+FeetCollider = NodePath("../../FeetCollider")
+HitboxComponent = NodePath("../../HitboxComponent")
+NavigationComponent = NodePath("../../NavigationComponent")
+DetectorComponent = NodePath("../../DetectorComonent")
+StatusComponent = NodePath("../../StatusComponent")
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)

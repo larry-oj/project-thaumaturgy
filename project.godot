@@ -93,7 +93,7 @@ player_pause={
 
 [navigation]
 
-2d/default_edge_connection_margin=12
+2d/default_edge_connection_margin=4.0
 
 [rendering]
 

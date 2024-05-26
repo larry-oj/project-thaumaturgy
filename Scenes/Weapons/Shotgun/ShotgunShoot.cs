@@ -38,7 +38,7 @@ public partial class ShotgunShoot  : State
             var attack = _autorifle.StatsComponent.CreateAttack(_autorifle.Character, Vector2.Right.Rotated(rotation), pallets);
             var bullet = _autorifle.BulletResource.Instantiate(_projectileSpawner, attack, rotation);
             var vc = bullet.GetNode<VelocityComponent>("VelocityComponent");
-            vc.MaxSpeed += GD.RandRange(-100, 0);
+            vc.MaxSpeed += GD.RandRange((int)(-vc.MaxSpeed * 0.2f), 0);
             GetNode(Options.PathOptions.Level).AddChild(bullet);
 		}
 	}
