@@ -91,10 +91,6 @@ player_pause={
 2d_physics/layer_8="Pick-ups"
 2d_physics/layer_9="Interactables"
 
-[navigation]
-
-2d/default_edge_connection_margin=4.0
-
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
