@@ -290,7 +290,7 @@ libraries = {
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_weaponStatsComponent") instance=ExtResource("3_bwxyg")]
 collision_layer = 4
-collision_mask = 64
+collision_mask = 72
 monitoring = true
 IsActiveDetection = false
 _weaponStatsComponent = NodePath("../WeaponStatsComponent")
