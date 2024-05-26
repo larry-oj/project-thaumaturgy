@@ -26,11 +26,11 @@ public partial class BroadswordAttack : State
 		
 		if (_isFirstAttack)
 		{
-			_animationPlayer.Play(animationName + "_from_top", customSpeed: _broadsword.StatsComponent.FireRate);
+			_animationPlayer.Play(animationName + "_from_top");
 		}
 		else
 		{
-			_animationPlayer.Play(animationName + "_from_bottom", customSpeed: _broadsword.StatsComponent.FireRate);
+			_animationPlayer.Play(animationName + "_from_bottom");
 		}
 
 		_isFirstAttack = !_isFirstAttack;
