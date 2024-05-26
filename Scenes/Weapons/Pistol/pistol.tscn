@@ -27,7 +27,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8jo3m"]
 resource_name = "shooting"
-length = 0.2
+length = 0.15
 step = 0.005
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -36,7 +36,7 @@ tracks/0/path = NodePath("SpritesComponent:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.015, 0.2),
+"times": PackedFloat32Array(0, 0.015, 0.15),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, -0.488692, 0.0]
@@ -53,9 +53,13 @@ script = ExtResource("1_jerm7")
 BulletResource = ExtResource("2_fc2c6")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dlku4")]
-Damage = 3.5
+Damage = 3.0
+ManaCost = 0.75
 StatusChance = 1.0
 Type = 1
+DamageStep = 0.25
+DamageCostIncrease = 5
+DamageBaseCost = 2
 FireRateStep = 0.1
 FireRateCostIncrease = 2
 FireRateBaseCost = 4

@@ -57,7 +57,6 @@ Damage = 1.5
 ManaCost = 0.5
 StatusChance = 0.35
 Type = 1
-Infusion = 2
 DamageStep = 0.2
 DamageCostIncrease = 3
 DamageBaseCost = 10
