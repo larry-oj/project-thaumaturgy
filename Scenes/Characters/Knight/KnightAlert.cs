@@ -35,6 +35,7 @@ public partial class KnightAlert  : AlertBase
 		_attackRange.AreaEntered -= OnAttackRangeEntered;
 		_attackRange.AreaExited -= OnAttackRangeExited;
 		OnAttackRangeExited(null);
+		Timer.Stop();
 	}
 	
 	public override void PhysicsProcess(double delta)

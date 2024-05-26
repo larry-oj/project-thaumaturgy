@@ -75,6 +75,7 @@ public static class Options
         public static string Dead => "dying";
         public static string Reset => "RESET";
         public static string Shoot => "shooting";
+        public static string Disappear => "disappearing";
     }
 
     public static class Colors
