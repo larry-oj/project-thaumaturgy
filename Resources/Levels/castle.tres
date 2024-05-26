@@ -1,0 +1,41 @@
+[gd_resource type="Resource" load_steps=11 format=3 uid="uid://d1qfidum7u73o"]
+
+[ext_resource type="PackedScene" uid="uid://blb8ir4affwuf" path="res://Scenes/Characters/Gunner/gunner.tscn" id="1_pt4xn"]
+[ext_resource type="PackedScene" uid="uid://bqw8i1m88e3wv" path="res://Scenes/Characters/Shotgunner/shotgunner.tscn" id="2_bb5gy"]
+[ext_resource type="PackedScene" uid="uid://cniv8ipbkcpwy" path="res://Scenes/Characters/Sniper/sniper.tscn" id="3_1uc51"]
+[ext_resource type="PackedScene" uid="uid://cyxhg1dmkafdn" path="res://Scenes/Characters/Knight/knight.tscn" id="4_r7dcl"]
+[ext_resource type="PackedScene" uid="uid://bilnmox6l80r8" path="res://Scenes/Interactables/chest.tscn" id="5_xsvs8"]
+[ext_resource type="PackedScene" uid="uid://oa08ku0vccif" path="res://Scenes/Interactables/flask.tscn" id="6_i1m3g"]
+[ext_resource type="Resource" uid="uid://dwlenn81mi3rl" path="res://Resources/Weapons/shotgun_resource.tres" id="7_w17x6"]
+[ext_resource type="Resource" uid="uid://eikr4462mluy" path="res://Resources/Weapons/autorifle_resource.tres" id="8_xpg2b"]
+[ext_resource type="Resource" uid="uid://u1ij2gjgmbdo" path="res://Resources/Weapons/rifle_resource.tres" id="9_5sxaa"]
+[ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="10_1orjj"]
+
+[resource]
+script = ExtResource("10_1orjj")
+Name = "Castle"
+StageNum = 3
+MaxSubstagesNum = 3
+Size = 250
+RoomChance = 0.5
+RoomSize = PackedInt32Array(2, 2)
+TurnChance = PackedFloat32Array(0.15, 0.7, 0.15, 0)
+WalkerMax = 4
+WalkerChance = 0.25
+MaxEnemies = 8
+Enemies = {
+ExtResource("1_pt4xn"): 0.3,
+ExtResource("2_bb5gy"): 0.3,
+ExtResource("3_1uc51"): 0.1,
+ExtResource("4_r7dcl"): 0.3
+}
+Interactables = {
+ExtResource("5_xsvs8"): [1.0, 1.0],
+ExtResource("6_i1m3g"): [0.4, 1.0]
+}
+MaxInteractables = 1
+Weapons = {
+ExtResource("7_w17x6"): 0.34,
+ExtResource("8_xpg2b"): 0.67,
+ExtResource("9_5sxaa"): 1.0
+}
