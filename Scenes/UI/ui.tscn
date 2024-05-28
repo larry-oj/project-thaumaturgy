@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dk2rsb8np72r6"]
+[gd_scene load_steps=13 format=3 uid="uid://dk2rsb8np72r6"]
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_ttyjk"]
 [ext_resource type="Script" path="res://Scenes/UI/PlayerHealthbar.cs" id="2_dmueb"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://n8pp2ogmrhfw" path="res://Scenes/UI/weapon_icon_container.tscn" id="6_fk18c"]
 [ext_resource type="Script" path="res://Scenes/UI/ResolutionOptionButton.cs" id="7_imbmw"]
 [ext_resource type="Script" path="res://Scenes/UI/WindowOptionButton.cs" id="8_mrow8"]
+[ext_resource type="AudioStream" uid="uid://6ti12ld38mu" path="res://Audio/menu_button.wav" id="9_crc44"]
+[ext_resource type="Script" path="res://Scenes/UI/SoundSlider.cs" id="9_kuew6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb13u"]
 bg_color = Color(1, 0, 0, 1)
@@ -15,11 +17,12 @@ bg_color = Color(1, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovnx2"]
 bg_color = Color(0, 0, 1, 1)
 
-[node name="UI" type="CanvasLayer"]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("_audioStreamPlayer")]
 process_mode = 3
 script = ExtResource("1_ttyjk")
 _weaponContainerScene = ExtResource("2_iq6jy")
 _weaponIconScene = ExtResource("6_fk18c")
+_audioStreamPlayer = NodePath("Sound")
 
 [node name="Interface" type="Control" parent="."]
 unique_name_in_owner = true
@@ -453,12 +456,16 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "Sound:"
 
-[node name="HSlider" type="HSlider" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SettingsSoundSlider" type="HSlider" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("_audioStreamPlayer")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-value = 65.0
+max_value = 1.0
+step = 0.05
+value = 1.0
 scrollable = false
+script = ExtResource("9_kuew6")
+_audioStreamPlayer = NodePath("../../../../../../../../Sound")
 
 [node name="PauseExitButton" type="Button" parent="Menus/MarginContainer/PauseMenu/LoadingPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -575,13 +582,16 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Sound:"
 
-[node name="SettingsSoundSlider" type="HSlider" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="SettingsSoundSlider" type="HSlider" parent="Menus/MarginContainer/SettingsMenu/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("_audioStreamPlayer")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-value = 65.0
+max_value = 1.0
+step = 0.05
+value = 1.0
 scrollable = false
+script = ExtResource("9_kuew6")
+_audioStreamPlayer = NodePath("../../../../../../../../../Sound")
 
 [node name="spacer2" type="Control" parent="Menus/MarginContainer/SettingsMenu"]
 layout_mode = 2
@@ -632,3 +642,7 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 30
 text = "Exit"
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_crc44")
+bus = &"SFX"

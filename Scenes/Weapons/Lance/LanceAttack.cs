@@ -12,6 +12,7 @@ public partial class LanceAttack  : State
 	[Export] private HurtboxComponent _hurtboxComponent;
 	[Export] private Lance _lance;
 	[Export] private Marker2D _projectileSpawner;
+	[Export] private AudioStreamPlayer2D _audioStreamPlayer;
 	
 	public override void _Ready()
 	{
@@ -26,6 +27,7 @@ public partial class LanceAttack  : State
 		_animationPlayer.Play(animationName);
 		
 		_lance.IsInAttackAnimation = true;
+		_audioStreamPlayer.Playing = true;
 	}
 	
 	public override void Exit()

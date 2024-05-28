@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dkahg3wfy0dh4"]
+[gd_scene load_steps=14 format=3 uid="uid://dkahg3wfy0dh4"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Rifle/Rifle.cs" id="1_080it"]
 [ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_kmtdr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://v5ss4fnmrta2" path="res://Graphics/Weapons/rifle_outline.tres" id="5_x0shq"]
 [ext_resource type="Texture2D" uid="uid://catbdx3yvpgdy" path="res://Graphics/Weapons/rifle_color.tres" id="6_0bo02"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Rifle/RifleShoot.cs" id="6_iujdr"]
+[ext_resource type="AudioStream" uid="uid://dw5kt54wy75fq" path="res://Audio/pew_mid.wav" id="10_ifd1c"]
 
 [sub_resource type="Animation" id="Animation_kgb10"]
 length = 0.001
@@ -88,12 +89,16 @@ _initialState = NodePath("RifleIdle")
 script = ExtResource("5_i0qy7")
 _rifleShoot = NodePath("../RifleShoot")
 
-[node name="RifleShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rifleIdle", "_timer", "_projectileSpawner")]
+[node name="RifleShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rifleIdle", "_timer", "_projectileSpawner", "_audioStreamPlayer")]
 script = ExtResource("6_iujdr")
 _rifleIdle = NodePath("../RifleIdle")
 _timer = NodePath("Timer")
 _projectileSpawner = NodePath("../../ProjectileSpawner")
+_audioStreamPlayer = NodePath("../../Pew")
 
 [node name="Timer" type="Timer" parent="StateMachine/RifleShoot"]
 wait_time = 0.7
 one_shot = true
+
+[node name="Pew" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_ifd1c")

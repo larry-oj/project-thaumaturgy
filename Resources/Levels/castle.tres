@@ -16,13 +16,13 @@ script = ExtResource("10_1orjj")
 Name = "Castle"
 StageNum = 3
 MaxSubstagesNum = 3
-Size = 250
+Size = 300
 RoomChance = 0.5
 RoomSize = PackedInt32Array(2, 2)
 TurnChance = PackedFloat32Array(0.15, 0.7, 0.15, 0)
 WalkerMax = 4
 WalkerChance = 0.25
-MaxEnemies = 8
+MaxEnemies = 15
 Enemies = {
 ExtResource("1_pt4xn"): 0.3,
 ExtResource("2_bb5gy"): 0.3,

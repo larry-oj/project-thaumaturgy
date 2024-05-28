@@ -11,6 +11,7 @@ public partial class BroadswordAttack : State
 	[Export] private HurtboxComponent _hurtboxComponent;
 	[Export] private Broadsword _broadsword;
 	[Export] private Marker2D _projectileSpawner;
+	[Export] private AudioStreamPlayer2D _audioStreamPlayer;
 	
 	private bool _isFirstAttack = true;
 	
@@ -35,6 +36,8 @@ public partial class BroadswordAttack : State
 
 		_isFirstAttack = !_isFirstAttack;
 		_broadsword.IsInAttackAnimation = true;
+		
+		_audioStreamPlayer.Playing = true;
 	}
 	
 	public override void Exit()

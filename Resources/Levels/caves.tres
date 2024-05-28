@@ -16,13 +16,13 @@ script = ExtResource("2_r4dia")
 Name = "Caves"
 StageNum = 2
 MaxSubstagesNum = 3
-Size = 200
+Size = 250
 RoomChance = 0.5
 RoomSize = PackedInt32Array(2, 2)
 TurnChance = PackedFloat32Array(0.25, 0.5, 0.25, 0)
 WalkerMax = 3
 WalkerChance = 0.12
-MaxEnemies = 7
+MaxEnemies = 11
 Enemies = {
 ExtResource("1_35ky2"): 0.25,
 ExtResource("2_ego2k"): 0.5,

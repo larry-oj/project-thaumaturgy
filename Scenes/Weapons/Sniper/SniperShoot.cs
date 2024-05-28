@@ -10,6 +10,7 @@ public partial class SniperShoot  : State
 	[Export] private SniperIdle _rifleIdle;
 	[Export] private Timer _timer;
 	[Export] private Marker2D _projectileSpawner;
+	[Export] private AudioStreamPlayer2D _audioStreamPlayer;
     
 	private Sniper _rifle;
     
@@ -31,6 +32,8 @@ public partial class SniperShoot  : State
 		var bullet = _rifle.BulletResource.Instantiate(_projectileSpawner, attack);
 		bullet.GetNode<VelocityComponent>("VelocityComponent").MaxSpeed = 700;
 		GetNode(Options.PathOptions.Level).AddChild(bullet);
+		
+		_audioStreamPlayer.Playing = true;
 	}
 
 	public override void Exit()

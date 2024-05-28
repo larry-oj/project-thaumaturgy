@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bjnmhf061v7li"]
+[gd_scene load_steps=14 format=3 uid="uid://bjnmhf061v7li"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Autorifle/Autorifle.cs" id="1_xlfoe"]
 [ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_q8o1y"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="7_rsqgd"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Autorifle/AutorifleIdle.cs" id="8_o2vo7"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Autorifle/AutorifleShoot.cs" id="9_xqu24"]
+[ext_resource type="AudioStream" uid="uid://dw5kt54wy75fq" path="res://Audio/pew_mid.wav" id="10_s8fil"]
 
 [sub_resource type="Animation" id="Animation_2n06w"]
 length = 0.001
@@ -92,10 +93,15 @@ _initialState = NodePath("AutorifleIdle")
 script = ExtResource("8_o2vo7")
 _pistolShoot = NodePath("../AutorifleShoot")
 
-[node name="AutorifleShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_autorifleIdle", "_timer", "_projectileSpawner")]
+[node name="AutorifleShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_autorifleIdle", "_timer", "_projectileSpawner", "_audioStreamPlayer")]
 script = ExtResource("9_xqu24")
 _autorifleIdle = NodePath("../AutorifleIdle")
 _timer = NodePath("Timer")
 _projectileSpawner = NodePath("../../ProjectileSpawner")
+_audioStreamPlayer = NodePath("../../Pew")
 
 [node name="Timer" type="Timer" parent="StateMachine/AutorifleShoot"]
+
+[node name="Pew" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_s8fil")
+bus = &"SFX"

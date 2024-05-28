@@ -12,6 +12,7 @@ public partial class PistolShoot : State
     [Export] private PistolIdle _pistolIdle;
     [Export] private Timer _timer;
     [Export] private Marker2D _projectileSpawner;
+    [Export] private AudioStreamPlayer2D _audioStreamPlayer;
     
     private Pistol _pistol;
 
@@ -32,6 +33,8 @@ public partial class PistolShoot : State
         var attack = _pistol.StatsComponent.CreateAttack(_pistol.Character, rotation);
         var bullet = _pistol.BulletResource.Instantiate(_projectileSpawner, attack);
         GetNode(Options.PathOptions.Level).AddChild(bullet);
+        
+        _audioStreamPlayer.Playing = true;
     }
     
     public override void Exit()
