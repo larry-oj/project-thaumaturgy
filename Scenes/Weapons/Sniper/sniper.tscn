@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://hqqhhcwnvx0y"]
+[gd_scene load_steps=15 format=3 uid="uid://hqqhhcwnvx0y"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Sniper/Sniper.cs" id="1_rqapu"]
 [ext_resource type="Resource" uid="uid://cwlwhyobbjvh4" path="res://Resources/Weapons/CreatedObjects/round_bullet.tres" id="2_h0u1c"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scenes/Weapons/Sniper/SniperIdle.cs" id="7_didns"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="7_n3r5v"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Sniper/SniperShoot.cs" id="8_eqd3h"]
+[ext_resource type="AudioStream" uid="uid://sfeahihe7aqa" path="res://Audio/pew_high.wav" id="9_fng1h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lfxbb"]
 atlas = ExtResource("5_2cgg2")
@@ -107,12 +108,17 @@ _initialState = NodePath("SniperIdle")
 script = ExtResource("7_didns")
 _pistolShoot = NodePath("../SniperShoot")
 
-[node name="SniperShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rifleIdle", "_timer", "_projectileSpawner")]
+[node name="SniperShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_rifleIdle", "_timer", "_projectileSpawner", "_audioStreamPlayer")]
 script = ExtResource("8_eqd3h")
 _rifleIdle = NodePath("../SniperIdle")
 _timer = NodePath("Timer")
 _projectileSpawner = NodePath("../../ProjectileSpawner")
+_audioStreamPlayer = NodePath("../../PEW")
 
 [node name="Timer" type="Timer" parent="StateMachine/SniperShoot"]
 wait_time = 0.7
 one_shot = true
+
+[node name="PEW" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_fng1h")
+bus = &"SFX"

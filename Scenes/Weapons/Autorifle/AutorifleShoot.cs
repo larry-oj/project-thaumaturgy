@@ -9,6 +9,7 @@ public partial class AutorifleShoot  : State
 	[Export] private AutorifleIdle _autorifleIdle;
 	[Export] private Timer _timer;
 	[Export] private Marker2D _projectileSpawner;
+	[Export] private AudioStreamPlayer2D _audioStreamPlayer;
     
 	private Autorifle _autorifle;
 
@@ -33,6 +34,8 @@ public partial class AutorifleShoot  : State
 		var attack = _autorifle.StatsComponent.CreateAttack(_autorifle.Character, Vector2.Right.Rotated(rotation));
 		var bullet = _autorifle.BulletResource.Instantiate(_projectileSpawner, attack, rotation);
 		GetNode(Options.PathOptions.Level).AddChild(bullet);
+		
+		_audioStreamPlayer.Playing = true;
 	}
     
 	public override void Exit()

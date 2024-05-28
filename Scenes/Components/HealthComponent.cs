@@ -11,6 +11,9 @@ public partial class HealthComponent : Node2D
     [Export] public float ResistanceMultiplier = 1.0f;
     [Export] public Attack.AttackElement Weakness = Attack.AttackElement.Absolute;
     [Export] public float WeaknessMultiplier = 1.0f;
+    
+    [Export] private AudioStreamPlayer2D _hurtAudio;
+    [Export] private AudioStreamPlayer2D _deadAudio;
 
     [Export] public bool IsImmune { get; set; }
     public bool IsDead => Health <= 0;
@@ -31,6 +34,8 @@ public partial class HealthComponent : Node2D
             {
                 healthChange.Free();
                 EmitSignal(nameof(HealthDepleted));
+                if (_deadAudio != null)
+                    _deadAudio.Playing = true;
                 return;
             }
             EmitSignal(nameof(HealthChanged), healthChange);
@@ -65,6 +70,8 @@ public partial class HealthComponent : Node2D
         }
         
         attack?.Free(); // memory leak prevention
+        if (_hurtAudio != null)
+            _hurtAudio.Playing = true;
     }
 
     public void TakeDamage(float flat)

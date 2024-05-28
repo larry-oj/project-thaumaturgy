@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b48byjhqn7tcm"]
+[gd_scene load_steps=9 format=3 uid="uid://b48byjhqn7tcm"]
 
 [ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/WeaponContainer.cs" id="1_01lo4"]
 [ext_resource type="Texture2D" uid="uid://voxrdwof5j64" path="res://Graphics/Sprites/ph_guns.png" id="2_haa7m"]
 [ext_resource type="PackedScene" uid="uid://8u3q4m0etgvm" path="res://Scenes/UI/WeaponContainer/ElementPickerButton.tscn" id="3_e7acy"]
 [ext_resource type="PackedScene" uid="uid://dkxqps31i0j2i" path="res://Scenes/UI/WeaponContainer/stat_change_container.tscn" id="4_x4fl1"]
 [ext_resource type="Script" path="res://Scenes/UI/WeaponContainer/EffectPickerButton.cs" id="5_1amqu"]
+[ext_resource type="AudioStream" uid="uid://6ti12ld38mu" path="res://Audio/menu_button.wav" id="6_yr01o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xuc0c"]
 atlas = ExtResource("2_haa7m")
@@ -14,7 +15,7 @@ region = Rect2(0, 0, 13, 4)
 atlas = ExtResource("2_haa7m")
 region = Rect2(13, 0, 13, 4)
 
-[node name="WeaponContainer" type="MarginContainer" node_paths=PackedStringArray("_weaponSprite", "_elementPicker", "_effectPicker", "_damageStatContainer", "_speedStatContainer")]
+[node name="WeaponContainer" type="MarginContainer" node_paths=PackedStringArray("_weaponSprite", "_elementPicker", "_effectPicker", "_damageStatContainer", "_speedStatContainer", "_audioStreamPlayer")]
 process_mode = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
@@ -26,6 +27,7 @@ _elementPicker = NodePath("VBoxContainer/VBoxContainer/ElementPicker")
 _effectPicker = NodePath("VBoxContainer/VBoxContainer2/EffectPicker")
 _damageStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer")
 _speedStatContainer = NodePath("VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer")
+_audioStreamPlayer = NodePath("Sound")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -177,6 +179,9 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "0"
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_yr01o")
 
 [editable path="VBoxContainer/CenterContainer/GridContainer/DamageChangeContainer"]
 [editable path="VBoxContainer/CenterContainer/GridContainer/SpeedChangeContainer"]

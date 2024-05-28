@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://wqo4xw7rquif"]
+[gd_scene load_steps=14 format=3 uid="uid://wqo4xw7rquif"]
 
 [ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="1_rv1ei"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Shotgun/Shotgun.cs" id="1_tym62"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://clk7kb6p34ege" path="res://Graphics/Weapons/shotgun_color.tres" id="4_us00u"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Shotgun/ShotgunIdle.cs" id="7_ywlrd"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Shotgun/ShotgunShoot.cs" id="8_ya85w"]
+[ext_resource type="AudioStream" uid="uid://doma6uocg8bko" path="res://Audio/pew_mult.wav" id="10_snrob"]
 
 [sub_resource type="Animation" id="Animation_2n06w"]
 length = 0.001
@@ -91,10 +92,15 @@ _initialState = NodePath("ShotgunIdle")
 script = ExtResource("7_ywlrd")
 _shotgunShoot = NodePath("../ShotgunShoot")
 
-[node name="ShotgunShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_shotgunIdle", "_timer", "_projectileSpawner")]
+[node name="ShotgunShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_shotgunIdle", "_timer", "_projectileSpawner", "_audioStreamPlayer")]
 script = ExtResource("8_ya85w")
 _shotgunIdle = NodePath("../ShotgunIdle")
 _timer = NodePath("Timer")
 _projectileSpawner = NodePath("../../ProjectileSpawner")
+_audioStreamPlayer = NodePath("../../Pew")
 
 [node name="Timer" type="Timer" parent="StateMachine/ShotgunShoot"]
+
+[node name="Pew" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_snrob")
+bus = &"SFX"

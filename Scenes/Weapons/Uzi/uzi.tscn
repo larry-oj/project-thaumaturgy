@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccqoq2qgn4rh7"]
+[gd_scene load_steps=14 format=3 uid="uid://ccqoq2qgn4rh7"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Uzi/Uzi.cs" id="1_egltx"]
 [ext_resource type="Resource" uid="uid://bchvl8hm4qc66" path="res://Resources/Weapons/CreatedObjects/bullet.tres" id="2_xqcof"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="7_bm3cv"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Uzi/UziIdle.cs" id="8_br6qs"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Uzi/UziShoot.cs" id="9_diyga"]
+[ext_resource type="AudioStream" uid="uid://dw5kt54wy75fq" path="res://Audio/pew_mid.wav" id="10_k0n3s"]
 
 [sub_resource type="Animation" id="Animation_2n06w"]
 length = 0.001
@@ -92,10 +93,15 @@ _initialState = NodePath("UziIdle")
 script = ExtResource("8_br6qs")
 _shoot = NodePath("../UziShoot")
 
-[node name="UziShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idle", "_timer", "_projectileSpawner")]
+[node name="UziShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_idle", "_timer", "_projectileSpawner", "_audioStreamPlayer")]
 script = ExtResource("9_diyga")
 _idle = NodePath("../UziIdle")
 _timer = NodePath("Timer")
 _projectileSpawner = NodePath("../../ProjectileSpawner")
+_audioStreamPlayer = NodePath("../../Pew")
 
 [node name="Timer" type="Timer" parent="StateMachine/UziShoot"]
+
+[node name="Pew" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_k0n3s")
+bus = &"SFX"

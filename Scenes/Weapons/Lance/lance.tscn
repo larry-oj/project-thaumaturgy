@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b163c0m3k3uyt"]
+[gd_scene load_steps=23 format=3 uid="uid://b163c0m3k3uyt"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Lance/Lance.cs" id="1_lkq0d"]
 [ext_resource type="Resource" uid="uid://s802u6xanskc" path="res://Resources/Weapons/CreatedObjects/sword_slash.tres" id="2_jheug"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scenes/Weapons/Lance/LanceIdle.cs" id="8_y4om1"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Lance/LanceAttack.cs" id="9_ayjm0"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="9_qw7ql"]
+[ext_resource type="AudioStream" uid="uid://b0mv5fyxncn0y" path="res://Audio/swing.wav" id="12_284lb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dih1c"]
 atlas = ExtResource("7_jxkpj")
@@ -288,13 +289,14 @@ _initialState = NodePath("LanceIdle")
 script = ExtResource("8_y4om1")
 _lanceAttack = NodePath("../LanceAttack")
 
-[node name="LanceAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("_lanceIdle", "_timer", "_hurtboxComponent", "_lance", "_projectileSpawner")]
+[node name="LanceAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("_lanceIdle", "_timer", "_hurtboxComponent", "_lance", "_projectileSpawner", "_audioStreamPlayer")]
 script = ExtResource("9_ayjm0")
 _lanceIdle = NodePath("../LanceIdle")
 _timer = NodePath("Timer")
 _hurtboxComponent = NodePath("../../HurtboxComponent")
 _lance = NodePath("../..")
 _projectileSpawner = NodePath("../../BulletSpawner")
+_audioStreamPlayer = NodePath("../../Swiish")
 
 [node name="Timer" type="Timer" parent="StateMachine/LanceAttack"]
 one_shot = true
@@ -302,3 +304,7 @@ one_shot = true
 [node name="BulletSpawner" type="Marker2D" parent="."]
 position = Vector2(34, 0)
 gizmo_extents = 5.0
+
+[node name="Swiish" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_284lb")
+bus = &"SFX"

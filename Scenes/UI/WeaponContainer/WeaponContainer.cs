@@ -24,6 +24,7 @@ public partial class WeaponContainer : MarginContainer
 
 	[Export] private StatChangeContainer _damageStatContainer;
 	[Export] private StatChangeContainer _speedStatContainer;
+	[Export] private AudioStreamPlayer _audioStreamPlayer;
 
 	public CurrencyComponent CurrencyComponent { get; set; }
 	private Weapon _weapon;
@@ -131,7 +132,6 @@ public partial class WeaponContainer : MarginContainer
 
 	private void OnElementButtonPressed(Attack.AttackElement element)
 	{
-
 		if (_weaponStats.Element != Attack.AttackElement.None) return;
 
 		var success = CurrencyComponent.TryChangeCurrency(-Options.Balance.ElementUpgradeCost);
@@ -149,11 +149,12 @@ public partial class WeaponContainer : MarginContainer
 			
 			button.ElementPicked -= OnElementButtonPressed;
 		}
+		
+		_audioStreamPlayer.Playing = true;
 	}
 	
 	private void OnEffectButtonPressed(Attack.AttackInfusion infusion)
 	{
-
 		if (_weaponStats.Infusion != Attack.AttackInfusion.None) return;
 
 		var success = CurrencyComponent.TryChangeCurrency(-Options.Balance.InfusionUpgradeCost);
@@ -170,6 +171,8 @@ public partial class WeaponContainer : MarginContainer
 			
 			button.EffectPicked -= OnEffectButtonPressed;
 		}
+		
+		_audioStreamPlayer.Playing = true;
 	}
 
 	private void OnDamageStatChanged()
@@ -180,6 +183,8 @@ public partial class WeaponContainer : MarginContainer
 		_weaponStats.IncrementDamage(_weaponStats.DamageStep);
 		_damageStatContainer.StatLabel.Text = _weaponStats.Damage.ToString("0.00");
 		_damageStatContainer.CostLabel.Text = _weaponStats.DamageUpgradeCost.ToString(CultureInfo.InvariantCulture);
+		
+		_audioStreamPlayer.Playing = true;
 	}
 
 	private void OnSpeedStatChanged()
@@ -190,5 +195,7 @@ public partial class WeaponContainer : MarginContainer
 		_weaponStats.IncrementFireRate(_weaponStats.FireRateStep);
 		_speedStatContainer.StatLabel.Text = _weaponStats.FireRate.ToString("0.00");
 		_speedStatContainer.CostLabel.Text = _weaponStats.FireRateUpgradeCost.ToString(CultureInfo.InvariantCulture);
+		
+		_audioStreamPlayer.Playing = true;
 	}
 }

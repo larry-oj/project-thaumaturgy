@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://di0576ye1qco8"]
+[gd_scene load_steps=24 format=3 uid="uid://di0576ye1qco8"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/Broadsword.cs" id="1_8ojm5"]
 [ext_resource type="PackedScene" uid="uid://b7uswjk1pt4xa" path="res://Scenes/Components/weapon_stats_component.tscn" id="2_3reb6"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bf5de843scp1a" path="res://Graphics/Weapons/broadsword_outline.tres" id="4_yajj2"]
 [ext_resource type="Texture2D" uid="uid://bi8y6vp73qmn6" path="res://Graphics/Weapons/broadsword_color.tres" id="5_48sit"]
 [ext_resource type="Script" path="res://Scenes/Weapons/Broadsword/BroadswordAttack.cs" id="5_fkbcf"]
+[ext_resource type="AudioStream" uid="uid://b0mv5fyxncn0y" path="res://Audio/swing.wav" id="12_6hvm5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dih1c"]
 atlas = ExtResource("3_65wcw")
@@ -306,13 +307,14 @@ _initialState = NodePath("BroadswordIdle")
 script = ExtResource("4_7kpib")
 _broadswordAttack = NodePath("../BroadswordAttack")
 
-[node name="BroadswordAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("_broadswordIdle", "_timer", "_hurtboxComponent", "_broadsword", "_projectileSpawner")]
+[node name="BroadswordAttack" type="Node" parent="StateMachine" node_paths=PackedStringArray("_broadswordIdle", "_timer", "_hurtboxComponent", "_broadsword", "_projectileSpawner", "_audioStreamPlayer")]
 script = ExtResource("5_fkbcf")
 _broadswordIdle = NodePath("../BroadswordIdle")
 _timer = NodePath("Timer")
 _hurtboxComponent = NodePath("../../HurtboxComponent")
 _broadsword = NodePath("../..")
 _projectileSpawner = NodePath("../../BulletSpawner")
+_audioStreamPlayer = NodePath("../../Swoosh")
 
 [node name="Timer" type="Timer" parent="StateMachine/BroadswordAttack"]
 one_shot = true
@@ -320,3 +322,7 @@ one_shot = true
 [node name="BulletSpawner" type="Marker2D" parent="."]
 position = Vector2(18, 0)
 gizmo_extents = 5.0
+
+[node name="Swoosh" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_6hvm5")
+bus = &"SFX"

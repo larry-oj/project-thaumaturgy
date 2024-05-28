@@ -83,4 +83,10 @@ public static class Options
         public static Color UiActivePanel => new Color(0.5f, 0.5f, 0.5f, 1);
         public static Color UiInactivePanel => new Color(0.25f, 0.25f, 0.25f, 1);
     }
+
+    public static class Audio
+    {
+        public static string MasterBus => "Master";
+        public static string SoundEffectsBus => "SFX";
+    }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=28 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Animations/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="11_k30gl"]
 [ext_resource type="PackedScene" uid="uid://crbm3jad6wkmc" path="res://Scenes/Components/status_component.tscn" id="13_sr35u"]
 [ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_nww7q"]
+[ext_resource type="AudioStream" uid="uid://deja4nyv58ujs" path="res://Audio/hurt.wav" id="18_toswb"]
+[ext_resource type="AudioStream" uid="uid://cp51t62daa20y" path="res://Audio/pickup.wav" id="19_wsmfh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 5.5
@@ -346,18 +348,20 @@ _body = NodePath("..")
 _sprites = NodePath("../SpritesComponent")
 _weaponPivot = NodePath("../Pivot")
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_rav62")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("_hurtAudio") instance=ExtResource("3_rav62")]
 Max = 40.0
 Resistance = 5
 Weakness = 5
+_hurtAudio = NodePath("../Hurt")
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent", "_manaComponent", "_currencyComponent") instance=ExtResource("4_crpsg")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("_healthComponent", "_statusComponent", "_manaComponent", "_currencyComponent", "_pickupSound") instance=ExtResource("4_crpsg")]
 collision_layer = 8
 collision_mask = 416
 _healthComponent = NodePath("../HealthComponent")
 _statusComponent = NodePath("../StatusComponent")
 _manaComponent = NodePath("../ManaComponent")
 _currencyComponent = NodePath("../CurrencyComponent")
+_pickupSound = NodePath("../Pickup")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 0.5)
@@ -390,6 +394,17 @@ script = ExtResource("5_7lo8p")
 _idleState = NodePath("../PlayerIdle")
 _velocityComponent = NodePath("../../VelocityComponent")
 _inputComponent = NodePath("../../InputComponent")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_toswb")
+bus = &"SFX"
+
+[node name="Pickup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_wsmfh")
+bus = &"SFX"
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)

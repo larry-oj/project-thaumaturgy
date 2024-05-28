@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://057rmsbyqtqh"]
+[gd_scene load_steps=14 format=3 uid="uid://057rmsbyqtqh"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/Pistol.cs" id="1_jerm7"]
 [ext_resource type="PackedScene" uid="uid://dhcqqm0o0rf10" path="res://Scenes/Components/StateMachine/state_machine.tscn" id="2_ecuxd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Weapons/Pistol/PistolShoot.cs" id="4_b6krq"]
 [ext_resource type="Texture2D" uid="uid://by8uafner8xt5" path="res://Graphics/Weapons/pistol_outline.tres" id="5_yqkmu"]
 [ext_resource type="Texture2D" uid="uid://bewxogmug7m48" path="res://Graphics/Weapons/pistol_color.tres" id="6_nphre"]
+[ext_resource type="AudioStream" uid="uid://dw5kt54wy75fq" path="res://Audio/pew_mid.wav" id="10_yrp0r"]
 
 [sub_resource type="Animation" id="Animation_joev8"]
 length = 0.001
@@ -55,9 +56,9 @@ BulletResource = ExtResource("2_fc2c6")
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dlku4")]
 Damage = 3.0
 ManaCost = 0.75
-StatusChance = 1.0
+StatusChance = 0.25
 Type = 1
-DamageStep = 0.25
+DamageStep = 0.2
 DamageCostIncrease = 5
 DamageBaseCost = 2
 FireRateStep = 0.1
@@ -92,11 +93,16 @@ _initialState = NodePath("PistolIdle")
 script = ExtResource("3_mj6hb")
 _pistolShoot = NodePath("../PistolShoot")
 
-[node name="PistolShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_pistolIdle", "_timer", "_projectileSpawner")]
+[node name="PistolShoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("_pistolIdle", "_timer", "_projectileSpawner", "_audioStreamPlayer")]
 script = ExtResource("4_b6krq")
 _pistolIdle = NodePath("../PistolIdle")
 _timer = NodePath("Timer")
 _projectileSpawner = NodePath("../../ProjectileSpawner")
+_audioStreamPlayer = NodePath("../../Pew")
 
 [node name="Timer" type="Timer" parent="StateMachine/PistolShoot"]
 one_shot = true
+
+[node name="Pew" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_yrp0r")
+bus = &"SFX"

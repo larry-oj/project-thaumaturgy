@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://blb8ir4affwuf"]
+[gd_scene load_steps=50 format=3 uid="uid://blb8ir4affwuf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/Gunner.cs" id="1_7ejue"]
 [ext_resource type="Texture2D" uid="uid://cxgqv3lactqgj" path="res://Graphics/Sprites/ph_gunner.png" id="1_dpilp"]
@@ -23,6 +23,8 @@
 [ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="13_wsgy1"]
 [ext_resource type="PackedScene" uid="uid://cccc8v6w6ig1j" path="res://Scenes/Components/mana_component.tscn" id="14_trg3d"]
 [ext_resource type="Script" path="res://Scenes/Characters/Gunner/GunnerStunned.cs" id="18_nkyr3"]
+[ext_resource type="AudioStream" uid="uid://deja4nyv58ujs" path="res://Audio/hurt.wav" id="24_1mcj3"]
+[ext_resource type="AudioStream" uid="uid://dkmfjnnmup5fo" path="res://Audio/dead.wav" id="24_dx20c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h47tr"]
 atlas = ExtResource("1_dpilp")
@@ -802,10 +804,12 @@ position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_ughsc")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_re2n2")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("_hurtAudio", "_deadAudio") instance=ExtResource("3_re2n2")]
 Max = 10.0
 Resistance = 5
 Weakness = 5
+_hurtAudio = NodePath("../Hurt")
+_deadAudio = NodePath("../Dead")
 
 [node name="NavigationComponent" parent="." instance=ExtResource("6_pvd51")]
 path_desired_distance = 5.0
@@ -897,6 +901,14 @@ HitboxComponent = NodePath("../../HitboxComponent")
 NavigationComponent = NodePath("../../NavigationComponent")
 DetectorComponent = NodePath("../../DetectorComonent")
 StatusComponent = NodePath("../../StatusComponent")
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("24_1mcj3")
+bus = &"SFX"
+
+[node name="Dead" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("24_dx20c")
+bus = &"SFX"
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)

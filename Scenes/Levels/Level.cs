@@ -187,6 +187,7 @@ public partial class Level : Node
             var enemy = winner.Instantiate() as Enemy;
             enemy!.SetDeferred(Node2D.PropertyName.Position, (tile.Position * Options.Sizes.TilesetSize) + new Vector2(Options.Sizes.TilesetHalfsize, Options.Sizes.TilesetHalfsize));
             enemy.BodyToDetect = Player as CharacterBody2D;
+            enemy.GetNode<HealthComponent>("HealthComponent").Max += (Stage - 1 + Substage) * 2;
             this.CallDeferred(Node.MethodName.AddChild, enemy);
             enemy.Died += OnEnemyKilled;
             enemy.Ready += () => enemy.CurrentWeapon.StatsComponent.SetElement((Attack.AttackElement)GD.RandRange(0, 3));

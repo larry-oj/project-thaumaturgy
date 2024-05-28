@@ -58,7 +58,7 @@ public partial class UI : CanvasLayer
 	private Label _stageLabel;
 	private Label _substageLabel;
 	
-	// private bool _isWeaponTabsOpen;
+	[Export] private AudioStreamPlayer _audioStreamPlayer;
 	
 	[Signal] public delegate void StartRequestedEventHandler();
 	[Signal] public delegate void EndRequestedEventHandler();
@@ -86,16 +86,23 @@ public partial class UI : CanvasLayer
 		_substageLabel = GetNode<Label>("%SubstageLabel");
 		
 		
-		GetNode<Button>("%StartButton").Pressed += () => EmitSignal(SignalName.StartRequested);
-		GetNode<Button>("%PauseExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
-		GetNode<Button>("%OverExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
+		GetNode<Button>("%StartButton").Pressed += () => Emit(SignalName.StartRequested);
+		GetNode<Button>("%PauseExitButton").Pressed += () => Emit(SignalName.EndRequested);
+		GetNode<Button>("%OverExitButton").Pressed += () => Emit(SignalName.EndRequested);
 		GetNode<Button>("%MainExitButton").Pressed += () => GetTree().Quit();
-		GetNode<Button>("%SettingsButton").Pressed += () => { SetMainMenu(false); SetSettingsMenu(true); };
-		GetNode<Button>("%BackButton").Pressed += () => { SetSettingsMenu(false); SetMainMenu(true); };
-		GetNode<Button>("%OverRetryButton").Pressed += () => EmitSignal(SignalName.RetryRequested);
-		GetNode<Button>("%WonRetryButton").Pressed += () => EmitSignal(SignalName.RetryRequested);
-		GetNode<Button>("%WonExitButton").Pressed += () => EmitSignal(SignalName.EndRequested);
-		GetNode<Button>("%ContinueButton").Pressed += () => EmitSignal(SignalName.WeaponsModified);
+		GetNode<Button>("%SettingsButton").Pressed += () => { Emit(null); SetMainMenu(false); SetSettingsMenu(true); };
+		GetNode<Button>("%BackButton").Pressed += () => { Emit(null); SetSettingsMenu(false); SetMainMenu(true); };
+		GetNode<Button>("%OverRetryButton").Pressed += () => Emit(SignalName.RetryRequested);
+		GetNode<Button>("%WonRetryButton").Pressed += () => Emit(SignalName.RetryRequested);
+		GetNode<Button>("%WonExitButton").Pressed += () => Emit(SignalName.EndRequested);
+		GetNode<Button>("%ContinueButton").Pressed += () => Emit(SignalName.WeaponsModified);
+	}
+	
+	private void Emit(StringName signalName)
+	{
+		_audioStreamPlayer.Playing = true;
+		if (signalName != null)
+			EmitSignal(signalName);
 	}
 
 	public override void _UnhandledInput(InputEvent @event)

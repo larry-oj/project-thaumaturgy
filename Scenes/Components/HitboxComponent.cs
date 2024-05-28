@@ -13,6 +13,7 @@ public partial class HitboxComponent : Area2D
     [Export] private StatusComponent _statusComponent;
     [Export] private ManaComponent _manaComponent;
     [Export] private CurrencyComponent _currencyComponent;
+    [Export] private AudioStreamPlayer2D _pickupSound;
 
     public void Damage(Attack attack)
     {
@@ -49,6 +50,8 @@ public partial class HitboxComponent : Area2D
                 _currencyComponent.TryChangeCurrency(@pickup.Value);
                 break;
         }
+        if (_pickupSound != null)
+            _pickupSound.Playing = true;
     }
 
     public Weapon TakeWeapon(Weapon weapon)

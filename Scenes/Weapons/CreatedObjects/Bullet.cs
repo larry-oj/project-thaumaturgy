@@ -33,7 +33,7 @@ public partial class Bullet : Projectile
 		var direction = Transform.X;
 		if (_nearbyEnemies.Count > 0)
 		{
-			// _magnetize += Options.Balance.InfusionGhastGrowth * (float)delta;
+			_magnetize += Options.Balance.InfusionGhastGrowth * (float)delta;
 			var closest = Vector2.Zero;
 			foreach (var hb in _nearbyEnemies)
 			{

@@ -11,6 +11,7 @@ public partial class ShotgunShoot  : State
 	[Export] private ShotgunIdle _shotgunIdle;
 	[Export] private Timer _timer;
 	[Export] private Marker2D _projectileSpawner;
+	[Export] private AudioStreamPlayer2D _audioStreamPlayer;
     
 	private Shotgun _autorifle;
 
@@ -41,6 +42,9 @@ public partial class ShotgunShoot  : State
             vc.MaxSpeed += GD.RandRange((int)(-vc.MaxSpeed * 0.2f), 0);
             GetNode(Options.PathOptions.Level).AddChild(bullet);
 		}
+
+
+		_audioStreamPlayer.Playing = true;
 	}
     
 	public override void Exit()

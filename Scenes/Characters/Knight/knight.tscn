@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cyxhg1dmkafdn"]
+[gd_scene load_steps=52 format=3 uid="uid://cyxhg1dmkafdn"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Knight/Knight.cs" id="1_ph7f0"]
 [ext_resource type="PackedScene" uid="uid://bka3j72lj3n57" path="res://Scenes/Components/sprites_component.tscn" id="3_m7ljp"]
@@ -20,7 +20,9 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Knight/KnightAlert.cs" id="16_qcnso"]
 [ext_resource type="Script" path="res://Scenes/Characters/Knight/KnightStunned.cs" id="17_uw0f5"]
 [ext_resource type="Script" path="res://Scenes/Characters/Knight/KnightDead.cs" id="18_1tchm"]
+[ext_resource type="AudioStream" uid="uid://deja4nyv58ujs" path="res://Audio/hurt.wav" id="21_bk60g"]
 [ext_resource type="PackedScene" uid="uid://5oacsdw888e8" path="res://Scenes/Pickups/pickup.tscn" id="21_twg1h"]
+[ext_resource type="AudioStream" uid="uid://dkmfjnnmup5fo" path="res://Audio/dead.wav" id="22_ntk1u"]
 [ext_resource type="PackedScene" uid="uid://c7fm4xq6qmdbh" path="res://Scenes/Components/UI/mini_health_bar_component.tscn" id="23_16314"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wt20h"]
@@ -818,10 +820,12 @@ position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_ughsc")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="HealthComponent" parent="." instance=ExtResource("9_k8lnf")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("_hurtAudio", "_deadAudio") instance=ExtResource("9_k8lnf")]
 Max = 10.0
 Resistance = 5
 Weakness = 5
+_hurtAudio = NodePath("../Hurt")
+_deadAudio = NodePath("../Dead")
 
 [node name="NavigationComponent" parent="." instance=ExtResource("10_7o3eo")]
 path_desired_distance = 5.0
@@ -920,6 +924,14 @@ HitboxComponent = NodePath("../../HitboxComponent")
 NavigationComponent = NodePath("../../NavigationComponent")
 DetectorComponent = NodePath("../../DetectorComonent")
 StatusComponent = NodePath("../../StatusComponent")
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_bk60g")
+bus = &"SFX"
+
+[node name="Dead" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("22_ntk1u")
+bus = &"SFX"
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(0, 3)
