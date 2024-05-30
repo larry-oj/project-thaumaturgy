@@ -44,6 +44,7 @@ public partial class WeaponPickup : CanvasGroup
 				Weapon = old;
                 return;
 			}
+			_playerHitbox.Owner.GetNode<AudioStreamPlayer2D>("Take").Playing = true;
 			QueueFree();
 		}
 	}

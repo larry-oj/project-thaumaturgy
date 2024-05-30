@@ -102,3 +102,4 @@ one_shot = true
 
 [node name="Pew" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_ifd1c")
+bus = &"SFX"

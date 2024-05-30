@@ -79,6 +79,8 @@ public partial class HealthComponent : Node2D
         if (IsImmune) return;
 
         Health -= flat;
+        if (_hurtAudio != null)
+            _hurtAudio.Playing = true;
     }
     
     public void TakeStatusDamage(float damage)
@@ -86,6 +88,8 @@ public partial class HealthComponent : Node2D
         if (IsImmune) return;
 
         Health -= damage;
+        if (_hurtAudio != null)
+            _hurtAudio.Playing = true;
     }
 
     public void Heal(float amount)

@@ -39,6 +39,7 @@ size_flags_vertical = 3
 [node name="WeaponSprite" type="CenterContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Outline" type="TextureRect" parent="VBoxContainer/WeaponSprite"]
 custom_minimum_size = Vector2(0, 90)
@@ -67,19 +68,23 @@ theme_override_constants/separation = 15
 
 [node name="Fire" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
+tooltip_text = "Sets enemies on fire!"
 
 [node name="Water" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
+tooltip_text = "Freezez enemies!"
 text = "Ice"
 Element = 1
 
 [node name="Earth" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
+tooltip_text = "Stuns enemies!"
 text = "Earth"
 Element = 2
 
 [node name="Air" parent="VBoxContainer/VBoxContainer/ElementPicker" instance=ExtResource("3_e7acy")]
 layout_mode = 2
+tooltip_text = "Knocks enemies back!"
 text = "Air
 "
 Element = 3
@@ -147,6 +152,7 @@ theme_override_constants/separation = 15
 [node name="Saturated" parent="VBoxContainer/VBoxContainer2/EffectPicker" instance=ExtResource("3_e7acy")]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+tooltip_text = "Spreads elemental effects!"
 text = "Saturated"
 script = ExtResource("5_1amqu")
 Infusion = 1
@@ -154,6 +160,7 @@ Infusion = 1
 [node name="Bold" parent="VBoxContainer/VBoxContainer2/EffectPicker" instance=ExtResource("3_e7acy")]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+tooltip_text = "Spreads damage!"
 text = "Bold"
 script = ExtResource("5_1amqu")
 Infusion = 2
@@ -161,6 +168,8 @@ Infusion = 2
 [node name="Ghastly" parent="VBoxContainer/VBoxContainer2/EffectPicker" instance=ExtResource("3_e7acy")]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+tooltip_text = "Ranged: magnetizes bullets to enemies!
+Melee: adds a projectile to each swing!"
 text = "Ghastly"
 script = ExtResource("5_1amqu")
 Infusion = 3
