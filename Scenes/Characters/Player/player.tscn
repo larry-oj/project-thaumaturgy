@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cabn78p4558rd"]
+[gd_scene load_steps=29 format=3 uid="uid://cabn78p4558rd"]
 
 [ext_resource type="SpriteFrames" uid="uid://c0b62g66c1beo" path="res://Graphics/Animations/player_sprite_frames.tres" id="1_jxsqx"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_tdxyb"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://057rmsbyqtqh" path="res://Scenes/Weapons/Pistol/pistol.tscn" id="18_nww7q"]
 [ext_resource type="AudioStream" uid="uid://deja4nyv58ujs" path="res://Audio/hurt.wav" id="18_toswb"]
 [ext_resource type="AudioStream" uid="uid://cp51t62daa20y" path="res://Audio/pickup.wav" id="19_wsmfh"]
+[ext_resource type="AudioStream" uid="uid://dhejoujfvi2pa" path="res://Audio/take.wav" id="20_rh7ux"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d3126"]
 radius = 5.5
@@ -404,6 +405,10 @@ bus = &"SFX"
 
 [node name="Pickup" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("19_wsmfh")
+bus = &"SFX"
+
+[node name="Take" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_rh7ux")
 bus = &"SFX"
 
 [node name="Pivot" type="Node2D" parent="."]
