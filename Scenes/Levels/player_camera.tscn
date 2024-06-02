@@ -6,5 +6,7 @@
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("1_3s1ub")
-AttackShakeStrength = 0.0
-ShakeDecay = 7.5
+AttackShakeStrength = 1.0
+AttackShakeDecay = 8.0
+AttackShakeSpeed = 2.0
+HurtShakeDecay = 7.5

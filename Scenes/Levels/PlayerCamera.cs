@@ -9,14 +9,21 @@ public partial class PlayerCamera : Camera2D
 {
 	[Export] public int targetWidth = 352;
 	
+	[ExportCategory("Attack Screenshake")]
 	[Export] private float AttackShakeStrength = 5f;
+	[Export] private float AttackShakeDecay = 0.9f;
+	[Export] private float AttackShakeSpeed = 60f;
+	
+	[ExportCategory("Hurt Screenshake")]
 	[Export] private float HurtShakeStrength = 5f;
-	[Export] private float ShakeDecay = 0.9f;
-	[Export] private float ShakeSpeed = 60f;
+	[Export] private float HurtShakeDecay = 0.9f;
+	[Export] private float HurtShakeSpeed = 60f;
 
 	private RandomNumberGenerator _rng;
 	private FastNoiseLite _noise;
 	private float _shakeStrength = 0f;
+	private float _shakeDecay = 0f;
+	private float _shakeSpeed = 0f;
 	private float _noiseI = 0f;
 	
 	public override void _Ready()
@@ -34,15 +41,26 @@ public partial class PlayerCamera : Camera2D
 	
 	public void Shake(bool isAttack)
 	{
-		_shakeStrength = isAttack ? AttackShakeStrength : HurtShakeStrength;
+		if (isAttack)
+		{
+			_shakeStrength = AttackShakeStrength;
+			_shakeSpeed = AttackShakeSpeed;
+			_shakeDecay = AttackShakeDecay;
+		}
+		else
+		{
+			_shakeStrength = HurtShakeStrength;
+			_shakeSpeed = HurtShakeSpeed;
+			_shakeDecay = HurtShakeDecay;
+		}
 	}
 
 	public override void _Process(double delta)
 	{
 		if (_shakeStrength == 0) return;
-		_shakeStrength = Mathf.Lerp(_shakeStrength, 0, ShakeDecay * (float)delta);
+		_shakeStrength = Mathf.Lerp(_shakeStrength, 0, _shakeDecay * (float)delta);
 		
-		_noiseI += (float)delta * ShakeSpeed;
+		_noiseI += (float)delta * _shakeSpeed;
 		Offset = new Vector2
 		(
 			_noise.GetNoise2D(1, _noiseI) * _shakeStrength,
