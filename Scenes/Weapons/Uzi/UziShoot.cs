@@ -1,4 +1,5 @@
 using Godot;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons.Autorifle;
 using projectthaumaturgy.Scripts;
@@ -37,6 +38,9 @@ public partial class UziShoot  : State
 		GetNode(Options.PathOptions.Level).AddChild(bullet);
 		
 		_audioStreamPlayer.Playing = true;
+		
+		if (_uzi.Character is Player p)
+			p.EmitSignal(Player.SignalName.Attacked);
 	}
     
 	public override void Exit()

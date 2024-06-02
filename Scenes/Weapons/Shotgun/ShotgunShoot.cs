@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scripts;
@@ -43,8 +44,10 @@ public partial class ShotgunShoot  : State
             GetNode(Options.PathOptions.Level).AddChild(bullet);
 		}
 
-
 		_audioStreamPlayer.Playing = true;
+		
+		if (_autorifle.Character is Player p)
+			p.EmitSignal(Player.SignalName.Attacked);
 	}
     
 	public override void Exit()

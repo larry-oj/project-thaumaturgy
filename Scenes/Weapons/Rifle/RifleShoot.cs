@@ -1,6 +1,7 @@
 ﻿using Godot;
 using projectthaumaturgy.Resources.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Characters;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons.CreatedObjects;
 using projectthaumaturgy.Scenes.Weapons.Pistol;
@@ -36,6 +37,9 @@ public partial class RifleShoot : State
         GetNode(Options.PathOptions.Level).AddChild(bullet);
         
         _audioStreamPlayer.Playing = true;
+        
+        if (_rifle.Character is Player p)
+            p.EmitSignal(Player.SignalName.Attacked);
     }
 
     public override void Exit()
