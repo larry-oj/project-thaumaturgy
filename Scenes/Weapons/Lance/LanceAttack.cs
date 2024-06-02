@@ -22,7 +22,7 @@ public partial class LanceAttack  : State
 	public override void Enter()
 	{
 		const string animationName = "attacking";
-		_timer.Start(1 / _lance.StatsComponent.FireRate);
+		_timer.Start(0.5 / _lance.StatsComponent.FireRate);
 
 		_animationPlayer.Play(animationName);
 		

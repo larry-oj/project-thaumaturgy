@@ -34,7 +34,6 @@ movie_writer/movie_file="C:/Users/Asus/Desktop/movie.avi"
 [gui]
 
 theme/custom_font="res://Fonts/Retro Gaming.ttf"
-timers/tooltip_delay_sec=0.05
 
 [input]
 
@@ -104,3 +103,5 @@ player_pause={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

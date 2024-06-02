@@ -237,12 +237,12 @@ BulletResource = ExtResource("2_jheug")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_5ngx2")]
 Damage = 4.0
-FireRate = 2.0
 ManaCost = 0.0
-StatusChance = 1.0
-DamageCostIncrease = 2
-FireRateStep = 0.5
-FireRateCostIncrease = 2
+StatusChance = 0.35
+DamageStep = 0.75
+DamageCostIncrease = 5
+FireRateCostIncrease = 10
+FireRateBaseCost = 10
 
 [node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_uot0v")]
 Outline = NodePath("Outline")

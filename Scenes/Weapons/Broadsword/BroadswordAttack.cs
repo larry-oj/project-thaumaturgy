@@ -23,7 +23,7 @@ public partial class BroadswordAttack : State
 	public override void Enter()
 	{
 		const string animationName = "attacking";
-		_timer.Start(1 / _broadsword.StatsComponent.FireRate);
+		_timer.Start(0.7f / _broadsword.StatsComponent.FireRate);
 		
 		if (_isFirstAttack)
 		{
