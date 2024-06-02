@@ -11,6 +11,7 @@ public partial class Player : Character
 	[Signal] public delegate void WeaponsSwappedEventHandler(Weapon weapon);
 	[Signal] public delegate void WeaponPickedUpEventHandler(Weapon weapon);
 	[Signal] public delegate void WeaponRemovedEventHandler(Weapon weapon);
+	[Signal] public delegate void AttackedEventHandler();
 	
 	public override void _Ready()
 	{

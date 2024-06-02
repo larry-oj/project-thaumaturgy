@@ -12,7 +12,7 @@ public partial class Shotgun : Weapon
 	public override void _Ready()
 	{
 		base._Ready();
-        
+		
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_stateMachine = GetNode<StateMachine>("StateMachine");
 	}
@@ -21,7 +21,7 @@ public partial class Shotgun : Weapon
 	{
 		_stateMachine.Process(delta);
 	}
-    
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		_stateMachine.PhysicsProcess(delta);
@@ -39,7 +39,7 @@ public partial class Shotgun : Weapon
 		base.OnCharacterSetup();
 		_stateMachine.Init(this, _animationPlayer);
 	}
-    
+	
 	internal override void OnCharacterClear()
 	{
 		base.OnCharacterClear();

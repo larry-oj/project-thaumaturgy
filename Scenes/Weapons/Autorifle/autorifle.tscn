@@ -54,16 +54,16 @@ script = ExtResource("1_xlfoe")
 BulletResource = ExtResource("2_q8o1y")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_dvamb")]
-Damage = 1.5
-ManaCost = 0.5
+Damage = 1.8
+ManaCost = 0.35
 StatusChance = 0.35
 Type = 1
 DamageStep = 0.2
-DamageCostIncrease = 3
+DamageCostIncrease = 10
 DamageBaseCost = 10
 FireRateStep = 0.1
 FireRateCostIncrease = 5
-FireRateBaseCost = 15
+FireRateBaseCost = 10
 
 [node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_6uvoj")]
 Outline = NodePath("Outline")

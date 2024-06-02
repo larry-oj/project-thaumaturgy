@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://oa08ku0vccif" path="res://Scenes/Interactables/flask.tscn" id="6_i1m3g"]
 [ext_resource type="Resource" uid="uid://dwlenn81mi3rl" path="res://Resources/Weapons/shotgun_resource.tres" id="7_w17x6"]
 [ext_resource type="Resource" uid="uid://eikr4462mluy" path="res://Resources/Weapons/autorifle_resource.tres" id="8_xpg2b"]
-[ext_resource type="Resource" uid="uid://u1ij2gjgmbdo" path="res://Resources/Weapons/rifle_resource.tres" id="9_5sxaa"]
+[ext_resource type="Resource" uid="uid://c4o31nnii8pa1" path="res://Resources/Weapons/broadsword_resource.tres" id="9_it55b"]
 [ext_resource type="Script" path="res://Resources/Levels/LevelResource.cs" id="10_1orjj"]
 
 [resource]
@@ -37,5 +37,5 @@ MaxInteractables = 1
 Weapons = {
 ExtResource("7_w17x6"): 0.34,
 ExtResource("8_xpg2b"): 0.67,
-ExtResource("9_5sxaa"): 1.0
+ExtResource("9_it55b"): 1.0
 }

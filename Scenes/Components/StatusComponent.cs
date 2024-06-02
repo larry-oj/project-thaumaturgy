@@ -120,7 +120,7 @@ public partial class StatusComponent : Node2D
 	
 	private void OnSpreaderEntered(Area2D area)
 	{
-		if (area.Owner is Enemy enemy)
+		if (area.Owner is Enemy enemy && enemy != Owner)
 		{
 			_nearbyEnemies.Add(enemy);
 		}

@@ -21,7 +21,7 @@ public partial class Knight : Enemy
 	{
 		_stateMachine.PhysicsProcess(delta);
 	}
-    
+	
 	private void OnHealthDepleted()
 	{
 		EmitSignal(nameof(Died));

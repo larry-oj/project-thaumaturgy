@@ -1,4 +1,5 @@
 using Godot;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scripts;
 
@@ -23,7 +24,7 @@ public partial class BroadswordAttack : State
 	public override void Enter()
 	{
 		const string animationName = "attacking";
-		_timer.Start(1 / _broadsword.StatsComponent.FireRate);
+		_timer.Start(0.7f / _broadsword.StatsComponent.FireRate);
 		
 		if (_isFirstAttack)
 		{
@@ -38,6 +39,9 @@ public partial class BroadswordAttack : State
 		_broadsword.IsInAttackAnimation = true;
 		
 		_audioStreamPlayer.Playing = true;
+		
+		if (_broadsword.Character is Player p)
+			p.EmitSignal(Player.SignalName.Attacked);
 	}
 	
 	public override void Exit()

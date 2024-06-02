@@ -55,7 +55,7 @@ public static class Options
         {
             public static float BurningTickPeriod => 1.0f;
             public static int BurningTicksAmount => 4;
-            public static float BurningDamage => 1.0f;
+            public static float BurningDamage => 2.0f;
             public static float FreezingTickPeriod => 4.0f;
             public static int FreezingTicksAmount => 1;
             public static float FreezingDamage => 0f;

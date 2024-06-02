@@ -821,7 +821,7 @@ shape = SubResource("CapsuleShape2D_ughsc")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("_hurtAudio", "_deadAudio") instance=ExtResource("9_k8lnf")]
-Max = 10.0
+Max = 12.5
 Resistance = 5
 Weakness = 5
 _hurtAudio = NodePath("../Hurt")

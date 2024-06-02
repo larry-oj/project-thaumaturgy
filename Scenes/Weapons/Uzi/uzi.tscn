@@ -28,7 +28,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_hlv4s"]
 resource_name = "shooting"
-length = 0.15
+length = 0.2
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -54,15 +54,15 @@ script = ExtResource("1_egltx")
 BulletResource = ExtResource("2_xqcof")
 
 [node name="WeaponStatsComponent" parent="." instance=ExtResource("3_o1vw5")]
-Damage = 1.6
+Damage = 2.0
 ManaCost = 0.6
 StatusChance = 0.25
 Type = 1
-DamageStep = 0.2
-DamageCostIncrease = 3
+DamageStep = 0.15
+DamageCostIncrease = 10
 DamageBaseCost = 10
-FireRateStep = 0.1
-FireRateCostIncrease = 5
+FireRateStep = 0.2
+FireRateCostIncrease = 3
 FireRateBaseCost = 15
 
 [node name="SpritesComponent" parent="." node_paths=PackedStringArray("Outline", "Color") instance=ExtResource("4_3n8ax")]

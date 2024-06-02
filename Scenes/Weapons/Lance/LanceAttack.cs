@@ -1,4 +1,5 @@
 using Godot;
+using projectthaumaturgy.Scenes.Characters.Player;
 using projectthaumaturgy.Scenes.Components.StateMachine;
 using projectthaumaturgy.Scenes.Weapons.Broadsword;
 using projectthaumaturgy.Scripts;
@@ -22,12 +23,15 @@ public partial class LanceAttack  : State
 	public override void Enter()
 	{
 		const string animationName = "attacking";
-		_timer.Start(1 / _lance.StatsComponent.FireRate);
+		_timer.Start(0.5 / _lance.StatsComponent.FireRate);
 
 		_animationPlayer.Play(animationName);
 		
 		_lance.IsInAttackAnimation = true;
 		_audioStreamPlayer.Playing = true;
+		
+		if (_lance.Character is Player p)
+			p.EmitSignal(Player.SignalName.Attacked);
 	}
 	
 	public override void Exit()

@@ -9,7 +9,7 @@ namespace projectthaumaturgy.Scenes.Characters.Sniper;
 public partial class Sniper : Enemy
 {
 	[Export] private BulletResource _bulletResource;
-    
+	
 	public override void _Ready()
 	{
 		_stateMachine.Init(this, _animationPlayer);
@@ -29,7 +29,7 @@ public partial class Sniper : Enemy
 	{
 		_stateMachine.PhysicsProcess(delta);
 	}
-    
+	
 	private void OnHealthDepleted()
 	{
 		EmitSignal(nameof(Died));

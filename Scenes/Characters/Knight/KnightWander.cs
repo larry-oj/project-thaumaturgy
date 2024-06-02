@@ -31,14 +31,14 @@ public partial class KnightWander  : State
 		_statusComponent.StatusChanged += OnStatusChanged;
 		_animationPlayer.AnimationFinished += OnAnimationFinished;
 		
-		do
-		{
-			var x = (float)GD.RandRange(-1 * _wanderRadius, _wanderRadius) + _character.GlobalPosition.X;
-			var y = (float)GD.RandRange(-1 * _wanderRadius, _wanderRadius) + _character.GlobalPosition.Y;
-            
-			_navigationComponent.TargetPosition = new Vector2(x, y);
-		} while (!_navigationComponent.IsTargetReachable());
-		_animationPlayer.Play(Options.AnimationNames.Run);
+		// do
+		// {
+		// 	var x = (float)GD.RandRange(-1 * _wanderRadius, _wanderRadius) + _character.GlobalPosition.X;
+		// 	var y = (float)GD.RandRange(-1 * _wanderRadius, _wanderRadius) + _character.GlobalPosition.Y;
+  //           
+		// 	_navigationComponent.TargetPosition = new Vector2(x, y);
+		// } while (!_navigationComponent.IsTargetReachable());
+		// _animationPlayer.Play(Options.AnimationNames.Run);
 	}
 	
 	public override void Exit()

@@ -42,7 +42,7 @@ public partial class Rifle : Weapon
 		base.OnCharacterSetup();
 		_stateMachine.Init(this, _animationPlayer);
 	}
-    
+	
 	internal override void OnCharacterClear()
 	{
 		base.OnCharacterClear();

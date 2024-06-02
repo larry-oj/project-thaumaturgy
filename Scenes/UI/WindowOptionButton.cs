@@ -12,7 +12,7 @@ public partial class WindowOptionButton : OptionButton
 		{1, DisplayServer.WindowMode.Fullscreen}
 	};
 	
-	[Export] private OptionButton _resolutionOptionButton;
+	[Export] private ResolutionOptionButton _resolutionOptionButton;
 	
 	public override void _Ready()
 	{
@@ -24,8 +24,18 @@ public partial class WindowOptionButton : OptionButton
 		this.ItemSelected += (item) =>
 		{
 			if (item == 1)
+			{
 				_resolutionOptionButton.Select(1);
-			DisplayServer.WindowSetMode(_type[item]);
+				_resolutionOptionButton.Disabled = true;
+				DisplayServer.WindowSetMode(_type[item]);
+			}
+			else
+			{
+				DisplayServer.WindowSetMode(_type[item]);
+				_resolutionOptionButton.Disabled = false;
+				_resolutionOptionButton.Select(0);
+				_resolutionOptionButton.EmitSignal(OptionButton.SignalName.ItemSelected, 0);
+			}
 		};
 	}
 }
